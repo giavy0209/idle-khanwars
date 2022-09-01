@@ -1,0 +1,65 @@
+.actions {
+  margin-top: 1rem;
+  .sign-out {
+    font-size: 1rem;
+  }
+  nav {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    a {
+      display: block;
+      width: 25%;
+      @media only screen and (max-width: 600px) {
+        width: 50%;
+      }
+    }
+    .action {
+      margin: 0 auto;
+      width: 50%;
+      border: var(--border-dark);
+      background-color: var(--bg-dark);
+      text-align: center;
+      cursor: pointer;
+      border-radius: 5px;
+      .icon {
+        margin: 0 auto;
+        background-image: url("../../../assets/images/icon/menu.webp");
+        display: block;
+        width: 120px;
+        height: 130px;
+      }
+      &.army {
+        .icon {
+          background-position-x: 7px;
+          background-position-y: 10px;
+        }
+      }
+      &.building {
+        .icon {
+          background-image: url("../../../assets/images/icon/castle.webp");
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+      }
+      &.world {
+        .icon {
+          background-position-x: 305px;
+          background-position-y: 10px;
+        }
+      }
+      &.clan {
+        .icon {
+          background-position-x: 417px;
+          background-position-y: 10px;
+        }
+      }
+      &.message {
+        .icon {
+          background-position-x: 186px;
+          background-position-y: 35px;
+        }
+      }
+    }
+  }
+}

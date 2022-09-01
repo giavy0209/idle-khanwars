@@ -1,0 +1,73 @@
+<app-modal (close)="onClose()" [isShow]="!!unit">
+  <div *ngIf="unit" class="unit-detail">
+    <div class="name">{{ unit.default.name }}</div>
+    <div class="description">{{ unit.default.description }}</div>
+    <div class="title">General</div>
+    <div class="info">
+      <span>Life:</span>
+      <span>{{ unit.default.life }}</span>
+    </div>
+    <div class="info">
+      <span>Population:</span>
+      <span>{{ unit.default.population }}</span>
+    </div>
+    <div class="info">
+      <span>Range:</span>
+      <span>{{ unit.default.range }}</span>
+    </div>
+    <div class="info">
+      <span>Speed:</span>
+      <span>{{ unit.default.speed }}</span>
+    </div>
+    <div class="info">
+      <span>Cargo:</span>
+      <span>{{ unit.default.cargo }}</span>
+    </div>
+    <div class="info">
+      <span>Training Time:</span>
+      <span>{{ unit.default.time }}seconds</span>
+    </div>
+
+    <div class="title">Strength</div>
+    <div class="info" *ngFor="let strength of unit.default.strength">
+      <span>{{ strength.type.name }}</span>
+      <span>{{ strength.value }}</span>
+    </div>
+    <div class="title">Cost Per 1</div>
+    <app-resource-cost [resourcesCost]="unit.default.resources" />
+
+    <div class="title">Cost Per {{ total }}</div>
+    <app-resource-cost
+      [resourcesCost]="unit.default.resources"
+      [multiple]="total"
+      (changeMax)="changeMax($event)"
+    />
+
+    <div class="title">Training</div>
+    <div class="info">
+      <span>Time:</span>
+      <span>{{ unit.default.time * total | secondsToTime }}</span>
+    </div>
+
+    <div class="input">
+      <app-input-number
+        [min]="1"
+        [max]="max"
+        (changeValue)="onChangeTotal($event)"
+        [value]="total"
+      />
+      <span (click)="setMax()">Max : {{ max }}</span>
+    </div>
+
+    <app-button [disabled]="disableTraining" (click)="train()">
+      {{
+        disableTraining
+          ? total === 0
+            ? "Please select total"
+            : "Please upgrade " + unit.building.default.name
+          : "Training"
+      }}
+    </app-button>
+    <app-button> Go to {{ unit.building.default.name }} </app-button>
+  </div>
+</app-modal>

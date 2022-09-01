@@ -1,0 +1,13 @@
+.resources-cost {
+  display: flex;
+  justify-content: space-around;
+  .resource {
+    width: 25%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    .item {
+      width: 50%;
+    }
+  }
+}

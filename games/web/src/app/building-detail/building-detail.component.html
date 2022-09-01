@@ -1,0 +1,42 @@
+<app-modal
+  (close)="onClose()"
+  [isShow]="!!(buildingService.selectedBuilding$ | async)"
+>
+  <div
+    *ngIf="buildingService.selectedBuilding$ | async as selectedBuilding"
+    class="building-detail"
+  >
+    <div class="name">{{ selectedBuilding.default.name }}</div>
+    <div class="description">{{ selectedBuilding.default.description }}</div>
+
+    <div class="title">Cost</div>
+    <app-resource-cost
+      [resourcesCost]="selectedBuilding.upgrade.next.resources"
+      (changeMax)="onChangeMax($event)"
+    />
+
+    <div class="title">Upgrade</div>
+    <div class="info">
+      <span>Time: </span>
+      <span>{{ selectedBuilding.upgrade.next.time | secondsToTime }}</span>
+    </div>
+    <div class="info">
+      <span>{{ selectedBuilding.default.generate }}: </span>
+      <span
+        >{{ selectedBuilding.upgrade.current.generate }} ➡️
+        {{ selectedBuilding.upgrade.next.generate }}
+        {{ selectedBuilding.default.unit }}</span
+      >
+    </div>
+    <div class="info">
+      <span>Level: </span>
+      <span
+        >{{ selectedBuilding.upgrade.current.level }} ➡️
+        {{ selectedBuilding.upgrade.next.level }}</span
+      >
+    </div>
+    <app-button [disabled]="disableUpgrade" (click)="upgrade()">
+      Upgrade
+    </app-button>
+  </div>
+</app-modal>

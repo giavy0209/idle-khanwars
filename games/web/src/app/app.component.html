@@ -1,0 +1,13 @@
+<app-unit-detail></app-unit-detail>
+<app-building-detail></app-building-detail>
+<app-alert></app-alert>
+
+<div id="app">
+  <router-outlet
+    *ngIf="
+      (userService.user && castleService.currentCastle) ||
+      !storageService.getToken() ||
+      !userService.user?.isPlaceCastle
+    "
+  ></router-outlet>
+</div>

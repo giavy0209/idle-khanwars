@@ -1,0 +1,122 @@
+<app-layout
+  *ngIf="userService.user as user"
+  [title]="user.clan?.name || 'Join Or Create Clan'"
+>
+  <div class="clan">
+    <div *ngIf="!user.clan">
+      <app-button (click)="isCreatingClan = true">Create Clan</app-button>
+
+      <app-modal [isShow]="isCreatingClan" (close)="isCreatingClan = false">
+        <div class="title">Create Clan</div>
+        <input
+          type="text"
+          placeholder="Clan Name"
+          [formControl]="clanService.form.controls.name"
+        />
+        <div class="error" *ngIf="clanService.form.controls.name.errors">
+          Name is required
+        </div>
+        <textarea
+          placeholder="Clan description"
+          [formControl]="clanService.form.controls.description"
+        ></textarea>
+        <app-button (click)="createClan()">Create</app-button>
+      </app-modal>
+
+      <div class="title">Join Clan</div>
+      <div class="list">
+        <div class="item" *ngFor="let clan of clanService.clans">
+          <div class="info">
+            <div class="name">{{ clan.name }}</div>
+            <div class="description">{{ clan.description }}</div>
+          </div>
+          <div class="join">
+            <app-button (click)="joinOrCancel(clan)">
+              {{ clan.isRequest ? "Cancel Request" : "Join" }}
+            </app-button>
+          </div>
+        </div>
+      </div>
+      <app-pagination
+        [total]="clanService.totalClan"
+        (onPagination)="clanService.pagination = $event"
+      ></app-pagination>
+    </div>
+
+    <div *ngIf="user.clan">
+      <app-button
+        [disabled]="clanService.totalRequest === 0"
+        (click)="isShowClanRequest = true"
+      >
+        ({{ clanService.totalRequest }}) Pending request
+      </app-button>
+      <app-modal
+        [isShow]="isShowClanRequest"
+        (close)="isShowClanRequest = false"
+      >
+        <div class="title">Clan Request</div>
+        <div class="requests">
+          <div class="item" *ngFor="let request of clanService.requests">
+            <div class="info">
+              <span>Player</span>
+              <span>{{ request.user.username }}</span>
+            </div>
+            <div class="info">
+              <span>Number of castle:</span>
+              <span> {{ request.user.castles.length }} castle(s)</span>
+            </div>
+            <div class="info" *ngIf="request.user.castles | capital as castle">
+              <span> Capital: </span>
+              <span>{{ castle.coordinate.x }} : {{ castle.coordinate.y }}</span>
+            </div>
+            <div class="button">
+              <app-button (click)="approvalRequest(request._id, 'APPROVED')">
+                Approve
+              </app-button>
+              <app-button (click)="approvalRequest(request._id, 'REJECTED')">
+                Reject
+              </app-button>
+            </div>
+          </div>
+          <app-pagination
+            [total]="clanService.totalRequest"
+            (onPagination)="clanService.requestPagination = $event"
+          ></app-pagination>
+        </div>
+      </app-modal>
+      <div class="members">
+        <div class="info">Member: {{ clanService.totalMember }}</div>
+        <div class="leave">
+          <app-button (click)="leave()">
+            {{ isOwner ? "Dismiss clan" : "Leave" }}
+          </app-button>
+        </div>
+        <div *ngFor="let member of clanService.members" class="item">
+          <div class="info">
+            <span>Player:</span>
+            <span>{{ member.username }}</span>
+          </div>
+          <div class="info">
+            <span>Number of castle:</span>
+            <span> {{ member.castles.length }} castle(s)</span>
+          </div>
+          <div class="info" *ngIf="member.castles | capital as castle">
+            <span> Capital: </span>
+            <span>{{ castle.coordinate.x }} : {{ castle.coordinate.y }}</span>
+          </div>
+          <app-button
+            (click)="kick(member._id)"
+            *ngIf="isOwner && member._id !== userService.user._id"
+          >
+            Ask for leave
+          </app-button>
+        </div>
+
+        <app-pagination
+          [total]="clanService.totalMember"
+          (onPagination)="clanService.memberPagination = $event"
+        ></app-pagination>
+      </div>
+    </div>
+  </div>
+</app-layout>

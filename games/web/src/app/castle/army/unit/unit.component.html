@@ -1,0 +1,38 @@
+<div class="army-list">
+  <div [class]="'trainings' + (isShowTraining ? ' show' : '')">
+    <div class="toggle" (click)="toggleTraining()">
+      <div class="total">{{ totalUnit }}</div>
+    </div>
+    <div class="title">Training</div>
+    <div class="training" *ngFor="let training of trainings$ | async">
+      <div class="item">
+        <div class="cancel"></div>
+        <div class="img">
+          <img [src]="training.unit.default.path | imageUrl" alt="" />
+        </div>
+        <div class="info">
+          <div class="name">{{ training.unit.default.name }}</div>
+          <div class="detail">
+            <span>Total:</span>
+            <span>
+              {{ training.total - training.left }}/ {{ training.total }}
+            </span>
+          </div>
+          <div class="detail">
+            <span>Time:</span>
+            <span> {{ training.next }} / {{ training.end }} </span>
+          </div>
+          <app-button>
+            Go to {{ training.unit.building.default.name }}
+          </app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-item-list
+  (clickedItemEvent)="unitService.selectUnit($event)"
+  [title]="'Army of ' + building"
+  [data]="units$ | async"
+>
+</app-item-list>

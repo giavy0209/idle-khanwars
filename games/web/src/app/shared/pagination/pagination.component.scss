@@ -1,0 +1,19 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  .item {
+    width: 4.5rem;
+    height: 4.5rem;
+    border: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &.active {
+      background-color: var(--bg-dark);
+      cursor: not-allowed;
+      color: var(--text-color);
+    }
+  }
+}

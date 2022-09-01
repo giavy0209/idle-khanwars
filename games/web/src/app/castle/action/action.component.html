@@ -1,0 +1,37 @@
+<div class="actions">
+  <div class="sign-out">
+    <app-button (click)="userService.signOut()">Sign Out</app-button>
+  </div>
+  <nav>
+    <a routerLink="/castle/army">
+      <div class="action army">
+        <div class="icon"></div>
+        Army
+      </div>
+    </a>
+    <a routerLink="/castle/building">
+      <div class="action building">
+        <div class="icon"></div>
+        Building
+      </div>
+    </a>
+    <a routerLink="/map">
+      <div class="action world">
+        <div class="icon"></div>
+        World
+      </div>
+    </a>
+    <a routerLink="/clan">
+      <div class="action clan">
+        <div class="icon"></div>
+        Clan
+      </div>
+    </a>
+    <!-- <a href="">
+      <div class="action message">
+        <div class="icon"></div>
+        Message
+      </div>
+    </a> -->
+  </nav>
+</div>

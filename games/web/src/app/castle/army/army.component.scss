@@ -1,0 +1,61 @@
+.army-building {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 30px;
+  .item {
+    width: 25%;
+    padding: 0 2rem;
+    align-items: stretch;
+    display: flex;
+    .navigation {
+      display: flex;
+      align-self: stretch;
+      position: relative;
+      width: 100%;
+      justify-self: center;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      border: var(--border-dark);
+      border-radius: 5px;
+      &::before {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        right: 2rem;
+        bottom: 2rem;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      &:hover {
+        &::before {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 1;
+        }
+      }
+      .img {
+        width: 100%;
+      }
+
+      .name {
+        width: 100%;
+        width: 100%;
+        font-weight: 600;
+        font-size: 22px;
+        text-align: center;
+        background-color: var(--bg-dark);
+        padding: 10px;
+        border: var(--border-dark);
+        color: var(--text-color);
+      }
+    }
+  }
+}

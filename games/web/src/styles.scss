@@ -1,0 +1,102 @@
+:root {
+  --bg-input: rgb(192, 201, 155);
+
+  --text-button: #fff;
+
+  --bg-transparent: rgba(0, 0, 0, 0.3);
+  --bg-dark: rgba(34, 34, 34, 0.8);
+  --bg-light: rgba(209, 209, 209, 0.2);
+  --bg-hl: rgba(240, 253, 122, 0.5);
+  --text-color: #ccc;
+  --text-color-hover: rgb(240, 253, 122);
+  --text-color-dark: rgb(43, 43, 43);
+
+  --border-color: #ccc;
+  --border-color-dark: var(--bg-dark);
+
+  --border: 0.2rem solid var(--border-color);
+  --border-dark: 0.2rem solid var(--border-color-dark);
+
+  --bg-odd: #dab07e;
+}
+
+html {
+  font-size: 16px;
+  @media only screen and (max-width: 1000px) {
+    font-size: 14px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a,
+span {
+  text-decoration: none;
+  display: inline-block;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  &:hover {
+    color: var(--text-color-hover);
+  }
+}
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+}
+input,
+select,
+textarea {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: var(--bg-input);
+  width: 100%;
+  font-size: 1rem;
+  + input,
+  + select,
+  + textarea {
+    margin-top: 5px;
+  }
+  + .error {
+    color: rgb(232, 98, 98);
+    background-color: rgba($color: #000000, $alpha: 0.6);
+  }
+}
+
+button {
+  border: none;
+  font-size: 2rem;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./assets/images/bg/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  color: var(--text-color);
+  font-size: 1rem;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+  }
+}

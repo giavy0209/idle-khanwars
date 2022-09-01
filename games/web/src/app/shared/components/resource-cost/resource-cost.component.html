@@ -1,0 +1,10 @@
+<div class="resources-cost">
+  <div class="resource" *ngFor="let resource of resources">
+    <div class="item">
+      <img [src]="resource.type.path | imageUrl" />
+      <div class="value">
+        {{ resource.value * multiple }} / {{ resource.current }}
+      </div>
+    </div>
+  </div>
+</div>

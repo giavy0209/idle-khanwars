@@ -1,0 +1,12 @@
+<div [class]="'modal' + (isShow ? ' show' : '')">
+  <div (click)="onClose()" class="mask"></div>
+  <div class="content">
+    <div class="top">
+      <app-button class="button" (click)="onClose()">Close</app-button>
+    </div>
+    <div class="mid">
+      <div class="text"><ng-content></ng-content></div>
+    </div>
+    <div class="bottom"></div>
+  </div>
+</div>

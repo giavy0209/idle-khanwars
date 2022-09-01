@@ -1,0 +1,18 @@
+<div class="resources">
+  <div
+    class="resource"
+    *ngFor="let resource of resourceService.resources$.value"
+  >
+    <div class="info">
+      <div class="img">
+        <img [src]="resource.default.path | imageUrl" alt="" />
+      </div>
+      <div class="current">
+        {{ resource.value }}/{{ buildingStorage?.upgrade?.current?.generate }}
+      </div>
+      <div class="generate">
+        {{ resource.building.upgrade.current.generate }}/h
+      </div>
+    </div>
+  </div>
+</div>

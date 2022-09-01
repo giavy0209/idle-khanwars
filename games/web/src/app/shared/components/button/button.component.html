@@ -1,0 +1,6 @@
+<button
+  [class]="'button' + (disabled ? ' disable' : '')"
+  [disabled]="disabled ? 1 : 0"
+>
+  <ng-content></ng-content>
+</button>

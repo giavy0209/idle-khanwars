@@ -1,0 +1,65 @@
+<div class="pagination">
+  <!-- <ng-template [ngIf]="totalPage <= 7" [ngIfElse]="elseBlock"> -->
+  <div
+    [class]="'item' + (currentPage === item ? ' active' : '')"
+    *ngFor="
+      let item of [
+        currentPage - 3 > 0 ? currentPage - 3 : 1,
+        currentPage + 3 < totalPage ? currentPage + 3 : totalPage
+      ] | createArray
+    "
+    (click)="onChangePage(item)"
+  >
+    {{ item }}
+  </div>
+  <!-- </ng-template> -->
+  <!-- <ng-template #elseBlock>
+    <div *ngIf="currentPage - 4 > 0" class="item" (click)="onChangePage(1)">
+      {{ 1 }}
+    </div>
+    <div *ngIf="currentPage - 4 > 0" class="item">...</div>
+
+    <div
+      *ngIf="currentPage - 2 > 0"
+      class="item"
+      (click)="onChangePage(currentPage - 2)"
+    >
+      {{ currentPage - 2 }}
+    </div>
+    <div
+      (click)="onChangePage(currentPage - 1)"
+      *ngIf="currentPage - 1 > 0"
+      class="item"
+    >
+      {{ currentPage - 1 }}
+    </div>
+
+    <div class="item active">
+      {{ currentPage }}
+    </div>
+
+    <div
+      (click)="onChangePage(currentPage + 1)"
+      *ngIf="currentPage + 1 < totalPage"
+      class="item"
+    >
+      {{ currentPage + 1 }}
+    </div>
+    <div
+      (click)="onChangePage(currentPage + 2)"
+      *ngIf="currentPage + 2 < totalPage"
+      class="item"
+    >
+      {{ currentPage + 2 }}
+    </div>
+
+    <div *ngIf="currentPage + 3 < totalPage" class="item">...</div>
+    <div
+      (click)="onChangePage(totalPage)"
+      *ngIf="currentPage !== totalPage"
+      class="item"
+    >
+      {{ totalPage }}
+    </div>
+  </ng-template> -->
+</div>

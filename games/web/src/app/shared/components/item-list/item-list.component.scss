@@ -1,0 +1,108 @@
+.item-list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  row-gap: 30px;
+  width: 100%;
+  flex-wrap: wrap;
+  .back {
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    left: 10px;
+    padding: 20px;
+    border: var(--border-dark);
+    border-radius: 50%;
+    background-color: var(--bg-hl);
+    &::before {
+      content: "";
+      padding: 6px;
+      border: var(--border-dark);
+      border-right: none;
+      border-bottom: none;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  .title {
+    font-size: 3rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .item {
+    width: 25%;
+    padding: 0 2rem;
+    align-items: stretch;
+    display: flex;
+    .navigation {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      width: 100%;
+      border: var(--border-dark);
+      border-radius: 5px;
+      &::before {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        right: 2rem;
+        bottom: 2rem;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      &:hover {
+        &::before {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          opacity: 1;
+        }
+        .name {
+          color: var(--text-color-hover);
+          font-size: 1rem;
+        }
+      }
+      .img {
+        width: 100%;
+      }
+
+      .name {
+        width: 100%;
+        font-weight: 600;
+        text-align: center;
+        background-color: var(--bg-dark);
+        padding: 10px;
+        border: var(--border-dark);
+        color: var(--text-color);
+        transition: 0.3s;
+        font-size: 1rem;
+      }
+      .info {
+        width: 100%;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        font-size: 1rem;
+        .item-info {
+          width: 100%;
+          padding: 5px;
+          span {
+            width: 70%;
+            + span {
+              width: 30%;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+.layout {
+  position: relative;
+  width: 100%;
+  .back {
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    left: 10px;
+    padding: 20px;
+    border: var(--border-dark);
+    border-radius: 50%;
+    background-color: var(--bg-hl);
+    &::before {
+      content: "";
+      padding: 6px;
+      border: var(--border-dark);
+      border-right: none;
+      border-bottom: none;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  .title {
+    font-size: 2rem;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
+  }
+
+  .ng-content {
+    width: 100%;
+  }
+}

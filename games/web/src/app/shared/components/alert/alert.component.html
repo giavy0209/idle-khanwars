@@ -1,0 +1,13 @@
+<div class="alert">
+  <app-modal
+    (close)="alertService.type = 'HIDDEN'"
+    [isShow]="alertService.type === 'CONFIRM'"
+  >
+    <div class="title">{{ alertService.title }}</div>
+    <div class="body">{{ alertService.body }}</div>
+    <div class="button">
+      <button (click)="alertService.handleCancel()">Cancel</button>
+      <app-button (click)="alertService.handleOk()">Confirm</app-button>
+    </div>
+  </app-modal>
+</div>

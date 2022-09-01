@@ -1,0 +1,5 @@
+<div class="layout">
+  <div (click)="back()" class="back"></div>
+  <div *ngIf="title" class="title">{{ title }}</div>
+  <ng-content class="ng-content"></ng-content>
+</div>

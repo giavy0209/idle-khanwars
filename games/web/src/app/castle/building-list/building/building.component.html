@@ -1,0 +1,30 @@
+<div class="buildings">
+  <div [class]="'upgrades' + (isShowUpgrading ? ' show' : '')">
+    <div class="toggle" (click)="toggleTraining()">
+      <div class="total">{{ (upgrades$ | async)?.length }}</div>
+    </div>
+    <div class="title">Upgrading</div>
+    <div class="upgrade" *ngFor="let upgrade of upgrades$ | async">
+      <div class="item">
+        <div (click)="cancel(upgrade._id)" class="cancel"></div>
+        <div class="img">
+          <img [src]="upgrade.building.default.path | imageUrl" alt="" />
+        </div>
+        <div class="info">
+          <div class="name">{{ upgrade.building.default.name }}</div>
+
+          <div class="detail">
+            <span>Time:</span>
+            <span> {{ upgrade.end | secondsToTime }} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-item-list
+  [data]="buildings$ | async"
+  title="Building"
+  (clickedItemEvent)="buildingService.selectBuilding($event)"
+>
+</app-item-list>

@@ -1,0 +1,22 @@
+<app-layout [title]="title">
+  <div class="item-list">
+    <div class="item" *ngFor="let _data of data">
+      <a
+        [routerLink]="_data.router || './'"
+        (click)="onClickItem(_data._id)"
+        class="navigation"
+      >
+        <div *ngIf="_data.path" class="img">
+          <img [src]="_data.path | imageUrl" alt="" />
+        </div>
+        <div class="name">{{ _data.name }}</div>
+        <div class="info" *ngIf="_data.info">
+          <div class="item-info" *ngFor="let info of _data.info">
+            <span>{{ info.name }}:</span>
+            <span>{{ info.value }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</app-layout>

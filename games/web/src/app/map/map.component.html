@@ -1,0 +1,50 @@
+<div class="map">
+  <div (click)="back()" class="back"></div>
+  <div *ngIf="selectedGrid$ | async as selectedGrid" class="selected">
+    <div class="coordinate">
+      <span>X: {{ selectedGrid.x }} </span>
+      <span>Y: {{ selectedGrid.y }} </span>
+    </div>
+    <app-button
+      (click)="placeCastle()"
+      class="button"
+      *ngIf="!userService.user?.isPlaceCastle"
+    >
+      Place Castle
+    </app-button>
+  </div>
+  <div class="canvas" [style]="'--size:' + (size$ | async)">
+    <div class="x-number">
+      <div class="item" *ngFor="let num of arrayX$ | async">{{ num }}</div>
+    </div>
+    <div class="y-number">
+      <div class="item" *ngFor="let num of arrayY$ | async">{{ num }}</div>
+    </div>
+    <canvas
+      (click)="onClickMap($event)"
+      #canvas
+      width="1000"
+      height="1000"
+    ></canvas>
+  </div>
+  <div class="control">
+    <div (click)="changeX(-1)" class="icon left">
+      <ng-icon name="faSolidCircleChevronLeft"></ng-icon>
+    </div>
+    <div (click)="changeX(1)" class="icon right">
+      <ng-icon name="faSolidCircleChevronRight"></ng-icon>
+    </div>
+    <div (click)="changeY(-1)" class="icon up">
+      <ng-icon name="faSolidCircleChevronUp"></ng-icon>
+    </div>
+    <div (click)="changeY(1)" class="icon down">
+      <ng-icon name="faSolidCircleChevronDown"></ng-icon>
+    </div>
+    <div (click)="changeSize(-1)" class="icon plus">
+      <ng-icon name="faSolidCirclePlus"></ng-icon>
+    </div>
+    <div (click)="changeSize(1)" class="icon minus">
+      <ng-icon name="faSolidCircleMinus"></ng-icon>
+    </div>
+  </div>
+</div>

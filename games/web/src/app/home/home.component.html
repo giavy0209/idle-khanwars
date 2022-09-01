@@ -1,0 +1,23 @@
+<div class="main">
+  <form [formGroup]="homeService.form">
+    <input type="text" placeholder="User name" [formControl]="homeService.form.controls.username" />
+    <div class="error" *ngIf="homeService.form.controls.username.errors">
+      {{ "User name is required" }}
+    </div>
+
+    <input type="password" placeholder="Password" [formControl]="homeService.form.controls.password" />
+    <div class="error" *ngIf="homeService.form.controls.password.errors">
+      {{ "Password is required, min length 6, max length 12" }}
+    </div>
+    <select *ngIf="worldService.getWorld$ | async as worlds" formControlName="world">
+      <option *ngFor="let world of worlds.data" [value]="world._id">
+        {{ world.name }}
+      </option>
+    </select>
+    <div class="error" *ngIf="homeService.form.controls.world.errors">
+      {{ "Please select the world" }}
+    </div>
+    <app-button (click)="homeService.signIn()">Sign In</app-button>
+    <app-button (click)="homeService.signUp()">Sign Up</app-button>
+  </form>
+</div>
