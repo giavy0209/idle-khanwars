@@ -1,0 +1,15 @@
+import { AbstractModel } from "abstracts";
+import { InterfaceName } from "interfaces";
+import { Schema } from "mongoose";
+
+class ModelName extends AbstractModel<InterfaceName> {
+  constructor() {
+    super({name : 'models'})
+    this.schema = new Schema<InterfaceName>({
+    }, {
+      timestamps : true
+    })
+  }
+}
+
+export default ModelName

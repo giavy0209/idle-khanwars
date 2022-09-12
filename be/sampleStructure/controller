@@ -1,0 +1,10 @@
+import { AbstractController } from "abstracts";
+import { InterfaceName } from "interfaces";
+import { ServiceName } from "services";
+
+export default class ControllerName extends AbstractController<InterfaceName, ServiceName> {
+  constructor() {
+    super(ServiceName)
+  }
+}
+
