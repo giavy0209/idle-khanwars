@@ -21,16 +21,13 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
       limit,
       sort,
       lean,
-      populate
     }: {
       skip?: number,
       limit?: number,
       sort?: any,
       lean?: boolean,
     } & PopulateOption) {
-    const options: QueryOptions = {
-      populate: populate || this.populate
-    }
+    const options: QueryOptions = { }
     if (skip) {
       options.skip = skip
     }
@@ -43,8 +40,9 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     if (typeof lean === 'boolean' && lean) {
       options.lean = lean
     }
+
     const [data, total] = await Promise.all([
-      this.model.find(query, null, options),
+      this.model.find(query, null, options).populate<PullPopulate>(this.populate),
       this.model.countDocuments(query)
     ])
     return { data, total }
