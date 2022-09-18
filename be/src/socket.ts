@@ -22,6 +22,4 @@ io.use((socket, next) => {
   }
   next()
 })
-// io.on('connection', socket => {
-// })
 export default io
