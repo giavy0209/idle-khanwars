@@ -49,10 +49,6 @@ function addToIndex(currentIndex: string, name: string, type: 'controller' | 'se
   }
 
   if (type === 'router') {
-    const importPos = currentIndex.indexOf('//import abow')
-    currentIndex = currentIndex.substring(0, importPos) + `import ${name}Router from './${name}Router'\n  ` + currentIndex.substring(importPos)
-    const addPos = currentIndex.indexOf('//add abow')
-    currentIndex = currentIndex.substring(0, addPos) + `${name}Router,\n  ` + currentIndex.substring(addPos)
   }
   return currentIndex
 }
