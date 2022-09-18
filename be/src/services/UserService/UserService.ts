@@ -4,7 +4,8 @@ import { signup } from "./interfaces"
 import { compareSync, hashSync } from 'bcrypt'
 import { AdvancedError } from "utils"
 import {sign} from 'jsonwebtoken'
-export default class UserService extends AbstractService<IUser>  {
+import { Users } from "models"
+export default class UserService extends AbstractService<IUser, Users>  {
   async signup({ username, password }: signup) {
     const isExist = await this.model.exists({ username })
     if (isExist) {

@@ -11,22 +11,25 @@
       "resolveJsonModule": true,
       "sourceMap": true,
       "outDir": "dist",
-      "baseUrl": ".",
+      "baseUrl": "./src",
       "paths": {
         "@": [""],
-        "controllers" : ["src/controllers"],
-        "routes" : ["src/routes"],
-        "models" : ["src/models"],
-        "interfaces" : ["src/interfaces"],
-        "abstracts" : ["src/abstracts"],
-        "services" : ["src/services"],
-        "config" : ["src/config"],
-        "utils" : ["src/utils"],
-        "constant" : ["src/constant"],
+        "controllers" : ["./controllers"],
+        "routers" : ["./routers"],
+        "models" : ["./models"],
+        "interfaces" : ["./interfaces"],
+        "abstracts" : ["./abstracts"],
+        "services" : ["./services"],
+        "config" : ["./config"],
+        "utils" : ["./utils"],
+        "constant" : ["./constant"],
       },
       "noUnusedParameters": true,
       "noUnusedLocals": true,
       "watch": false
-    }
+    },
+    "include": [
+      "src/**/*"
+    ],
   }
   

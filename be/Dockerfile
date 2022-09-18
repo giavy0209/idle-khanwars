@@ -9,6 +9,8 @@ ADD . /app
 # Install any needed packages 
 RUN npm install -f
 
+RUN npm run build
+
 EXPOSE 80
 
 CMD ["npm", "start"]

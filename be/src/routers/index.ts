@@ -1,8 +1,6 @@
 import { Router } from 'express'
-import UserRouter from './UserRouter'
   //import abow
-const Routers = [
-  UserRouter,
+const Routers : any[] = [
   //add abow
 ]
 const router = Router()

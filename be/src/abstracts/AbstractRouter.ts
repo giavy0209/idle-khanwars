@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction, Router } from "express";
-import { IUser } from "interfaces";
+import { IUser, IWorld } from "interfaces";
 import { checkSchema, Schema, validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 import { AbstractController } from "abstracts";
 import { AdvancedError } from "utils";
 import PromiseRouter from "express-promise-router";
 
-export default abstract class AbstractRouter<C extends AbstractController<any, any, any>> {
+export default abstract class AbstractRouter<C extends AbstractController<any, any>> {
   router: Router = PromiseRouter()
   routes: {
     param?: string,
@@ -74,7 +74,7 @@ export default abstract class AbstractRouter<C extends AbstractController<any, a
       )
     }
     let token = req.headers.authorization.split(' ')[1]
-    const payload = jwt.verify(token, global.Config.JWT_SECRET) as IUser
+    const payload = jwt.verify(token, global.Config.JWT_SECRET) as IUser & {world : IWorld}
     req.user = payload
     return next()
   }
