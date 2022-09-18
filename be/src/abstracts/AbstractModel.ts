@@ -4,17 +4,24 @@ export default abstract class AbtractModel<I> {
   tenantId?: string
   name: string
   schema: Schema
-  collectionName : string
-  isTenant : boolean = true
-  constructor({tenantId , name}: {tenantId? : string, name : string}) {
+  collectionName: string
+  isTenant: boolean = true
+  constructor({ tenantId, name }: { tenantId?: string, name: string }) {
     this.name = name
     this.tenantId = tenantId
   }
-  generateCollectionName () {
-    if(this.isTenant) {
+  generateCollectionName() {
+    if (this.isTenant) {
       this.collectionName = `${this.tenantId}_${this.name}`
-    }else {
+    } else {
       this.collectionName = this.name
+    }
+  }
+  getCollectionName(name?: string) {
+    if (name) {
+      return `${this.tenantId}_${name}`
+    }else {
+      return this.collectionName
     }
   }
   getInstance() {

@@ -5,16 +5,24 @@ import { AdvancedError } from "utils"
 
 export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
-  Model : AbstractModel<I>
+  Model: AbstractModel<I>
   user: IUser & { world: IWorld }
   tenant: string
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
-  constructor(Model: new (tenantId?: string) => AbstractModel<I>, user: IUser & { world: IWorld }) {
+  isTenant : boolean;
+  constructor(modelName: string, user: IUser & { world: IWorld }, isTenant?: boolean) {
     this.user = user
     this.tenant = this.user.world.tenant
-    this.Model = new Model(this.tenant)
-    this.model = model<I>(this.Model.collectionName)
+    this.isTenant = !!isTenant
+    this.model = model<I>(this.getCollectionName(modelName))
+  }
+  getCollectionName (name : string) {
+    if(this.isTenant) {
+      return `${this.tenant}_${name}`
+    }else {
+      return name
+    }
   }
   async find(
     query: FilterQuery<I>,
@@ -29,7 +37,7 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
       sort?: any,
       lean?: boolean,
     } & PopulateOption) {
-    const options: QueryOptions = { }
+    const options: QueryOptions = {}
     if (skip) {
       options.skip = skip
     }

@@ -10,7 +10,6 @@ class Users extends AbstractModel<IUser> {
     }, {
       timestamps : true
     })
-    this.isTenant = false
   }
 }
 

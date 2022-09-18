@@ -10,7 +10,6 @@ class Worlds extends AbstractModel<IWorld> {
     }, {
       timestamps : true
     })
-    this.isTenant = false
   }
 }
 

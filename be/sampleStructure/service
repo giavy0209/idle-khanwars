@@ -1,7 +1,8 @@
 import { AbstractService } from "abstracts"
 import { InterfaceName, IUser, IWorld } from "interfaces"
+import { MODEL } from "constant"
 export default class ServiceName extends AbstractService<InterfaceName>  {
   constructor(user: IUser & { world: IWorld }) {
-    super(ModelName, user)
+    super(MODEL.modelName, user)
   }
 }
