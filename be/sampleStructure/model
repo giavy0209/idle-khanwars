@@ -4,7 +4,7 @@ import { Schema } from "mongoose";
 
 class ModelName extends AbstractModel<InterfaceName> {
   constructor() {
-    super({name : 'models'})
+    super({name : MODEL.modelsName})
     this.schema = new Schema<InterfaceName>({
     }, {
       timestamps : true

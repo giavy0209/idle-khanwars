@@ -47,3 +47,8 @@ export const DATA_UPDATED = 'Update data successfully'
 export const DATA_DELETED = 'Delete data successfully'
 export const NOT_FOUND = 'Data not found'
 export const VALIDATE_ERROR = 'ValidationError'
+
+export const MODEL = {
+  users : 'users',
+  worlds : 'worlds',
+}

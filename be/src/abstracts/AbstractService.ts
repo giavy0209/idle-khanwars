@@ -1,10 +1,11 @@
 import { AbstractModel } from "abstracts"
 import { IUser, IWorld } from "interfaces"
-import { FilterQuery, HydratedDocument, Model, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
+import { FilterQuery, HydratedDocument, model, Model, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
 export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
+  Model : AbstractModel<I>
   user: IUser & { world: IWorld }
   tenant: string
   populate: PopulateOptions | PopulateOptions[] | string[]
@@ -12,7 +13,8 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
   constructor(Model: new (tenantId?: string) => AbstractModel<I>, user: IUser & { world: IWorld }) {
     this.user = user
     this.tenant = this.user.world.tenant
-    this.model = new Model(this.tenant).getInstance()
+    this.Model = new Model(this.tenant)
+    this.model = model<I>(this.Model.collectionName)
   }
   async find(
     query: FilterQuery<I>,
