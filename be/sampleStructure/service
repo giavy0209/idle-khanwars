@@ -1,7 +1,6 @@
 import { AbstractService } from "abstracts"
 import { InterfaceName, IUser, IWorld } from "interfaces"
-import { ModelName } from "models"
-export default class ServiceName extends AbstractService<InterfaceName, ModelName>  {
+export default class ServiceName extends AbstractService<InterfaceName>  {
   constructor(user: IUser & { world: IWorld }) {
     super(ModelName, user)
   }

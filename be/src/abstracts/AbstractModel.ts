@@ -1,4 +1,4 @@
-import { model, Model, models, Schema } from "mongoose"
+import { model, Model, models, Schema, SchemaDefinition } from "mongoose"
 
 export default abstract class AbtractModel<I> {
   tenantId?: string
@@ -9,7 +9,7 @@ export default abstract class AbtractModel<I> {
   constructor({tenantId , name}: {tenantId? : string, name : string}) {
     this.name = name
     this.tenantId = tenantId
-    this.collectionName = `${this.tenantId || ''}${this.name}`
+    this.generateCollectionName()
   }
   generateCollectionName () {
     if(this.isTenant) {

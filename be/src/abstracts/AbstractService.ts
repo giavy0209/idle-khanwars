@@ -3,46 +3,45 @@ import { IUser, IWorld } from "interfaces"
 import { FilterQuery, HydratedDocument, Model, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
-export default abstract class AbstractService<I, M extends AbstractModel<I>, PullPopulate = {}> {
+export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
   user: IUser & { world: IWorld }
   tenant: string
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
-  constructor(Model: new (tenantId?: string) => M, user: IUser & { world: IWorld }) {
+  constructor(Model: new (tenantId?: string) => AbstractModel<I>, user: IUser & { world: IWorld }) {
     this.user = user
     this.tenant = this.user.world.tenant
     this.model = new Model(this.tenant).getInstance()
   }
-  async find({
-    query,
-    skip,
-    limit,
-    sort,
-    lean,
-    populate
-  }: {
+  async find(
     query: FilterQuery<I>,
-    skip?: number,
-    limit?: number,
-    sort?: any,
-    lean?: boolean,
-  } & PopulateOption) {
-    const options: QueryOptions = {}
+    {
+      skip,
+      limit,
+      sort,
+      lean,
+      populate
+    }: {
+      skip?: number,
+      limit?: number,
+      sort?: any,
+      lean?: boolean,
+    } & PopulateOption) {
+    const options: QueryOptions = {
+      populate: populate || this.populate
+    }
     if (skip) {
       options.skip = skip
     }
     if (limit) {
       options.limit = limit
     }
-    if (sort || this.sort) {
-      options.sort = sort || this.sort
+    if (sort) {
+      options.sort = sort
     }
     if (typeof lean === 'boolean' && lean) {
       options.lean = lean
-    }
-    if (populate) {
-      options.populate = populate
     }
     const [data, total] = await Promise.all([
       this.model.find(query, null, options),

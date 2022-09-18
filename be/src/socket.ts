@@ -15,7 +15,7 @@ io.use((socket, next) => {
     const payload: any = verify(token, global.Config.JWT_SECRET)
     const _id = payload._id
     socket.data = { _id }
-    socket.join(_id + '')
+    socket.join(_id)
   } catch (error) {
     socket.disconnect()
     return
