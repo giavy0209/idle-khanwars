@@ -15,7 +15,6 @@ export default class ResponseResult {
     message,
     data,
     total,
-    sum,
   }: {
     status?: string
     statusCode?: number
@@ -29,6 +28,5 @@ export default class ResponseResult {
     this.message = message
     this.data = data
     this.total = total
-    this.sum = sum
   }
 }
