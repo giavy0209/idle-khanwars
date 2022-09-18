@@ -7,7 +7,7 @@ function replaceAll(string: string, name: string) {
     .replace(/ServiceName/g, `${name}Service`)
     .replace(/ModelName/g, `${name}s`)
     .replace(/RouterName/g, `${name}Router`)
-    .replace(/models/g, `${name.toLowerCase()}s`)
+    .replace(/modelsName/g, `${name.toLowerCase()}s`)
 }
 
 const structure = {
@@ -85,7 +85,11 @@ fs.writeFileSync(
 )
 
 //router
-fs.writeFileSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router.ts`), structure.router)
+if (!fs.existSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`))) {
+  fs.mkdirSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`))
+}
+fs.writeFileSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`, `${structure.name}Router.ts`), structure.router)
+fs.writeFileSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`, "index.ts"), `import ${`${structure.name}Router`} from "./${`${structure.name}Router`}";\nexport default ${`${structure.name}Router`}`)
 fs.writeFileSync(
   path.join(__dirname, 'src', 'routers', `index.ts`),
   addToIndex(
@@ -96,12 +100,14 @@ fs.writeFileSync(
 )
 
 //service
-fs.mkdirSync(path.join(__dirname, 'src', 'services',`${structure.name}Service` ))
-fs.writeFileSync(path.join(__dirname, 'src', 'services',`${structure.name}Service` ,"index.ts" ), `import ${`${structure.name}Service`} from "./${`${structure.name}Service`}";\nexport default ${`${structure.name}Service`}`)
+if (!fs.existSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`))) {
+  fs.mkdirSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`)
+}
+fs.writeFileSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`, "index.ts"), `import ${`${structure.name}Service`} from "./${`${structure.name}Service`}";\nexport default ${`${structure.name}Service`}`)
 
-fs.writeFileSync(path.join(__dirname, 'src', 'services',`${structure.name}Service`, `I${structure.name}Service.ts`), '')
+fs.writeFileSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`, `I${structure.name}Service.ts`), '')
 
-fs.writeFileSync(path.join(__dirname, 'src', 'services',`${structure.name}Service`, `${structure.name}Service.ts`), structure.service)
+fs.writeFileSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`, `${structure.name}Service.ts`), structure.service)
 fs.writeFileSync(
   path.join(__dirname, 'src', 'services', `index.ts`),
   addToIndex(
