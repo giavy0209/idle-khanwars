@@ -11,25 +11,26 @@
       "resolveJsonModule": true,
       "sourceMap": true,
       "outDir": "dist",
-      "baseUrl": "./src",
+      "baseUrl": ".",
       "paths": {
         "@": [""],
-        "controllers" : ["./controllers"],
-        "routers" : ["./routers"],
-        "models" : ["./models"],
-        "interfaces" : ["./interfaces"],
-        "abstracts" : ["./abstracts"],
-        "services" : ["./services"],
-        "config" : ["./config"],
-        "utils" : ["./utils"],
-        "constant" : ["./constant"],
+        "controllers" : ["./src/controllers"],
+        "routers" : ["./src/routers"],
+        "models" : ["./src/models"],
+        "interfaces" : ["./src/interfaces"],
+        "abstracts" : ["./src/abstracts"],
+        "services" : ["./src/services"],
+        "config" : ["./src/config"],
+        "utils" : ["./src/utils"],
+        "constant" : ["./src/constant"],
       },
       "noUnusedParameters": true,
       "noUnusedLocals": true,
       "watch": false
     },
     "include": [
-      "src/**/*"
+      "src/**/*",
+      "initStucture.ts"
     ],
   }
   

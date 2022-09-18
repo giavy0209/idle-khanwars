@@ -15,6 +15,7 @@ const structure = {
   interface: fs.readFileSync(path.join(__dirname, 'sampleStructure', 'interface'), { encoding: 'utf-8' }),
   model: fs.readFileSync(path.join(__dirname, 'sampleStructure', 'model'), { encoding: 'utf-8' }),
   router: fs.readFileSync(path.join(__dirname, 'sampleStructure', 'router'), { encoding: 'utf-8' }),
+  routerIndex: fs.readFileSync(path.join(__dirname, 'sampleStructure', 'routerIndex'), { encoding: 'utf-8' }),
   service: fs.readFileSync(path.join(__dirname, 'sampleStructure', 'service'), { encoding: 'utf-8' }),
   name: ''
 }
@@ -26,7 +27,6 @@ process.argv.forEach(o => {
 
 structure.controller = replaceAll(structure.controller, structure.name)
 structure.interface = replaceAll(structure.interface, structure.name)
-structure.model = replaceAll(structure.model, structure.name)
 structure.model = replaceAll(structure.model, structure.name)
 structure.router = replaceAll(structure.router, structure.name)
 structure.service = replaceAll(structure.service, structure.name)
@@ -98,6 +98,8 @@ fs.writeFileSync(
     'router'
   )
 )
+
+fs.writeFileSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`, `index.ts`), structure.routerIndex)
 
 //service
 if (!fs.existsSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`))) {
