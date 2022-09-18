@@ -28,7 +28,7 @@ export default class RouterName extends AbstractRouter<ControllerName> {
       {
         param: ':id',
         method: 'PATCH',
-        ref: this.controller.delete
+        ref: this.controller.patch
       },
       {
         param: ':id',
