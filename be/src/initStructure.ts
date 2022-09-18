@@ -85,7 +85,7 @@ fs.writeFileSync(
 )
 
 //router
-if (!fs.existSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`))) {
+if (!fs.existsSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`))) {
   fs.mkdirSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`))
 }
 fs.writeFileSync(path.join(__dirname, 'src', 'routers', `${structure.name}Router`, `${structure.name}Router.ts`), structure.router)
@@ -100,8 +100,8 @@ fs.writeFileSync(
 )
 
 //service
-if (!fs.existSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`))) {
-  fs.mkdirSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`)
+if (!fs.existsSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`))) {
+  fs.mkdirSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`))
 }
 fs.writeFileSync(path.join(__dirname, 'src', 'services', `${structure.name}Service`, "index.ts"), `import ${`${structure.name}Service`} from "./${`${structure.name}Service`}";\nexport default ${`${structure.name}Service`}`)
 
