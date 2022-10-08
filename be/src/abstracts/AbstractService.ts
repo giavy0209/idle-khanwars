@@ -1,6 +1,6 @@
 import { AbstractModel } from "abstracts"
 import { IUser, IWorld } from "interfaces"
-import { FilterQuery, HydratedDocument, model, Model, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
+import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
 export default abstract class AbstractService<I, PullPopulate = {}> {
@@ -15,7 +15,7 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     this.user = user
     this.tenant = this.user.world.tenant
     this.isTenant = !!isTenant
-    this.model = model<I>(this.getCollectionName(modelName))
+    this.model = models[this.getCollectionName(modelName)]
   }
   getCollectionName (name : string) {
     if(this.isTenant) {

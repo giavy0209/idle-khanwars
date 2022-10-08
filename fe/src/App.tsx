@@ -1,9 +1,13 @@
-
+import { Routes, Route } from 'react-router-dom'
+import Routers from 'router';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
+    <div id="App">
+      <Routes>
+        {
+          Routers.map(o => <Route path={o.path} element={<o.element />} />)
+        }
+      </Routes>
     </div>
   );
 }

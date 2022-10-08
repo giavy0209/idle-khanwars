@@ -53,15 +53,15 @@
     "typescript": "^4.7.4"
   },
   "_moduleAliases": {
-    "controllers": "./dist/src/controllers",
-    "middleware": "./dist/src/middleware",
-    "models": "./dist/src/models",
-    "routers": "./dist/src/routers",
-    "abstracts": "./dist/src/abstracts",
-    "interfaces": "./dist/src/interfaces",
-    "services": "./dist/src/services",
-    "config": "./dist/src/config",
-    "utils": "./dist/src/utils",
-    "constant": "./dist/src/constant"
+    "controllers": "./dist/controllers",
+    "middleware": "./dist/middleware",
+    "models": "./dist/models",
+    "routers": "./dist/routers",
+    "abstracts": "./dist/abstracts",
+    "interfaces": "./dist/interfaces",
+    "services": "./dist/services",
+    "config": "./dist/config",
+    "utils": "./dist/utils",
+    "constant": "./dist/constant"
   }
 }

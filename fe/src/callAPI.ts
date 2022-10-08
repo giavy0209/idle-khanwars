@@ -5,7 +5,6 @@ import { storage } from 'utils'
 import { DOMAIN } from 'const'
 import axiosRetry from 'axios-retry';
 import { toast } from 'react-toastify';
-import { URLSearchParams } from 'url';
 
 const create = () => {
   try {
