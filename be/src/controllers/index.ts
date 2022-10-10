@@ -1,2 +1,5 @@
 export {default as UserController} from './UserController' 
 export {default as WorldController} from './WorldController' 
+export {default as UnitController} from './UnitController' 
+export {default as ResourceController} from './ResourceController' 
+export {default as BuildingController} from './BuildingController' 

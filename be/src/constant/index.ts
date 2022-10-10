@@ -51,6 +51,10 @@ export const VALIDATE_ERROR = 'ValidationError'
 export const MODEL = {
   users : 'users',
   worlds : 'worlds',
+  resources : 'resources',
+  units : 'units',
+  buildings : 'buildings',
+
   default_buildings : 'default_buildings',
   default_upgrades : 'default_upgrades',
   default_resources : 'default_resources',

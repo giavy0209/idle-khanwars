@@ -5,8 +5,8 @@ import { IUser } from "interfaces";
 import { Schema } from "mongoose";
 
 class Users extends AbstractModel<IUser> {
-  constructor(tenant : string) {
-    super({name : MODEL.users,tenantId : tenant})
+  constructor(tenantId : string) {
+    super({name : MODEL.users,tenantId })
     this.schema = new Schema<IUser>({
       username : {type : String , required : true, unique : true},
       password : {type : String, required : true},

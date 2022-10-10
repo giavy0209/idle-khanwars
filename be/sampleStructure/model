@@ -1,10 +1,11 @@
 import { AbstractModel } from "abstracts";
 import { InterfaceName } from "interfaces";
 import { Schema } from "mongoose";
+import { MODEL } from "constant";
 
 class ModelName extends AbstractModel<InterfaceName> {
-  constructor() {
-    super({name : MODEL.modelsName})
+  constructor(tenantId : string) {
+    super({name : MODEL.modelsName, tenantId})
     this.schema = new Schema<InterfaceName>({
     }, {
       timestamps : true

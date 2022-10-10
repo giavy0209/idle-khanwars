@@ -1,8 +1,14 @@
 import { AbstractService } from "abstracts"
-import { InterfaceName, IUser, IWorld } from "interfaces"
+import { InterfaceName } from "interfaces"
 import { MODEL } from "constant"
+import { IUserFullyPopulate } from "interfaces/IUser"
+const populatePath = [
+  
+]
 export default class ServiceName extends AbstractService<InterfaceName>  {
-  constructor(user: IUser & { world: IWorld }) {
-    super(MODEL.modelName, user)
+  static populatePath = populatePath
+  constructor(user: IUserFullyPopulate) {
+    super(MODEL.modelsName, user)
+    this.populate = populatePath
   }
 }

@@ -1,2 +1,5 @@
 export {default as UserService} from './UserService' 
 export {default as WorldService} from './WorldService' 
+export {default as UnitService} from './UnitService' 
+export {default as ResourceService} from './ResourceService' 
+export {default as BuildingService} from './BuildingService' 

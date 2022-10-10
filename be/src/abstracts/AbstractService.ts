@@ -1,5 +1,6 @@
 import { HTTPSTATUS } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
+import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes, DefaultUpgrades } from "models"
 import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
@@ -10,6 +11,11 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
   name: string
+  DefaultBuildings = new DefaultBuildings().getInstance()
+  DefaultUnits = new DefaultUnits().getInstance()
+  DefaultResources = new DefaultResources().getInstance()
+  DefaultUnitTypes = new DefaultUnitTypes().getInstance()
+  DefaultUpgrade = new DefaultUpgrades().getInstance()
   constructor(modelName: string, user?: IUserFullyPopulate) {
     this.user = user
     this.tenant = this.user ? this.user.world.tenant : undefined
