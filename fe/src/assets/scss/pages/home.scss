@@ -1,0 +1,21 @@
+.home {
+  .resources {
+    background-color: $bg-transparent;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .resource {
+      width: 25%;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+  .buttons {
+    margin-top: 10px;
+    display: flex;
+    > * {
+      width: 33.333%;
+    }
+  }
+}

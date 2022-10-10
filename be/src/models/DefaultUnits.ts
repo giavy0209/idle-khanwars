@@ -9,6 +9,8 @@ class DefaultUnits extends AbstractModel<IDefaultUnits> {
     this.schema = new Schema<IDefaultUnits>({
       name : {type:String},
       description : {type:String},
+      path : {type:String},
+      type: { type: Schema.Types.ObjectId, ref: MODEL.default_unit_types },
       building: { type: Schema.Types.ObjectId, ref: MODEL.default_buildings },
       time: { type: Number, default: 1 },
       speed : {type : Number},

@@ -1,17 +1,26 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { user, world } from './slices';
+import { building, castle, resource, user, world } from './slices';
+import { fetchBuilding } from './slices/building';
+import { fetchCastle } from './slices/castle';
+import { fetchResource } from './slices/resource';
 import { fetchCurrent } from './slices/user';
 
 const store = configureStore({
   reducer: {
-    worldState : world,
-    userState : user
+    worldState: world,
+    userState: user,
+    castleState: castle,
+    buildingState: building,
+    resourceState: resource,
   },
 });
 
-export const initDefault = () => async (dispatch : AppDispatch) => {
-  dispatch(fetchCurrent())
-} 
+export const initDefault = () => async (dispatch: AppDispatch) => {
+  await dispatch(fetchCurrent())
+  await dispatch(fetchCastle())
+  dispatch(fetchBuilding())
+  dispatch(fetchResource())
+}
 
 export default store
 

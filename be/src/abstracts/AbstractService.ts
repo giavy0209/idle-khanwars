@@ -6,7 +6,7 @@ import { AdvancedError } from "utils"
 
 export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
-  user: IUserFullyPopulate | undefined
+  user: IUserFullyPopulate
   tenant: string | undefined
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
@@ -17,8 +17,10 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
   DefaultUnitTypes = new DefaultUnitTypes().getInstance()
   DefaultUpgrade = new DefaultUpgrades().getInstance()
   constructor(modelName: string, user?: IUserFullyPopulate) {
-    this.user = user
-    this.tenant = this.user ? this.user.world.tenant : undefined
+    if (user) {
+      this.user = user
+      this.tenant = this.user.world.tenant
+    }
     this.name = modelName
     this.model = models[this.getCollectionName(modelName)]
   }
@@ -86,17 +88,17 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     return data
   }
 
-  async exists(query: FilterQuery<I>, throwCase: 'IF_EXISTS' | 'IF_NOT_EXISTS') {
+  async exists(query: FilterQuery<I>, throwCase: 'IF_EXISTS' | 'IF_NOT_EXISTS', message?: string) {
     const isExists = await this.model.exists(query)
     switch (throwCase) {
       case 'IF_EXISTS':
         if (isExists) {
-          throw new AdvancedError({ message: `${this.name} already exists` })
+          throw new AdvancedError({ message: message || `${this.name} already exists` })
         }
         break;
       case 'IF_NOT_EXISTS':
         if (!isExists) {
-          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.name} not found`, })
+          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: message || `${this.name} not found`, })
         }
       default:
         break;

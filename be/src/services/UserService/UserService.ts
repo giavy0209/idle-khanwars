@@ -7,6 +7,10 @@ import { IUserFullyPopulate, IUserPullPopulate } from "interfaces/IUser"
 import { AdvancedError } from "utils"
 import { IPostInput } from "./IUserService"
 import { STATUS } from "constant/enums"
+import BuildingService from "services/BuildingService"
+import ResourceService from "services/ResourceService"
+import CastleService from "services/CastleService"
+import UnitService from "services/UnitService"
 
 const populatePath = [
   {
@@ -21,11 +25,27 @@ export default class UserService extends AbstractService<IUser, IUserPullPopulat
   }
   async post({ username, password, world }: IPostInput) {
     await this.exists({ username }, 'IF_EXISTS')
-    return await this.model.create({
+    const user = await this.model.create({
       world,
       username,
       password: hashSync(password, 10)
-    })
+    }) as unknown as IUserFullyPopulate
+    await user.populate('world')
+    console.log(user);
+    
+    const castleService = new CastleService(user)
+    const castle = await castleService.create()
+ 
+    const buildingService = new BuildingService(user)
+    await buildingService.create(castle._id)
+
+    const resourceService = new ResourceService(user)
+    await resourceService.create(castle._id) 
+
+    const unitService = new UnitService(user)
+    await unitService.create(castle._id) 
+
+    return user
   }
 
   async login({ username, password, world }: IPostInput) {

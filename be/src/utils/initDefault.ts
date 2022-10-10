@@ -9,18 +9,22 @@ const resources = [
   {
     name: 'Gold',
     key: 'gold',
+    path : '/resources/gold.webp'
   },
   {
     name: 'Iron',
     key: 'iron',
+    path : '/resources/iron.webp'
   },
   {
     name: 'Wood',
     key: 'wood',
+    path : '/resources/wood.webp'
   },
   {
     name: 'Food',
     key: 'food',
+    path : '/resources/food.webp'
   }
 ]
 const unitTypes = [
@@ -187,9 +191,11 @@ const initUnits = async () => {
   for (const unit of units) {
     const building = await DefaultBuildingsModel.findOne({ name: unit.building })
     const isExist = await DefaultUnitsModel.exists({ name: unit.name })
+    const unitType =await DefaultUnitTypesModel.findOne({key : unit.type})
     if (isExist) {
       await DefaultUnitsModel.findByIdAndUpdate(isExist._id, {
         description: unit.description,
+        type : unitType?._id,
         building: building?._id,
         time: unit.time,
         speed: unit.speed,
@@ -197,6 +203,7 @@ const initUnits = async () => {
         life: unit.life,
         range: unit.range,
         population: unit.population,
+        path : unit.path,
         resources: {
           asArray: [
             { type: gold?._id, value: unit.resource.gold },
@@ -232,6 +239,7 @@ const initUnits = async () => {
       await DefaultUnitsModel.create({
         name: unit.name,
         description: unit.description,
+        type : unitType?._id,
         building: building?._id,
         time: unit.time,
         speed: unit.speed,
@@ -239,6 +247,7 @@ const initUnits = async () => {
         life: unit.life,
         range: unit.range,
         population: unit.population,
+        path : unit.path,
         resources: {
           asArray: [
             { type: gold?._id, value: unit.resource.gold },

@@ -1,39 +1,27 @@
 import { AbstractRouter } from 'abstracts'
 import { BuildingController } from 'controllers'
-import path from 'path'
-const filename = path.basename(__filename)
-const ext = path.extname(filename)
-const param = filename.replace(ext, '')
-
+import { query } from 'express-validator'
 
 export default class BuildingRouter extends AbstractRouter<BuildingController> {
   constructor() {
-    super(param, BuildingController)
+    super('buildings', BuildingController)
     this.routes = [
       {
-        param: ':id?',
+        param: '',
         method: 'GET',
+        middlewares: [query(['castle']).isString()],
         ref: this.controller.get
       },
       {
-        param: '',
+        param: 'upgrade',
+        method: 'GET',
+        middlewares: [query(['building']).isString()],
+        ref: this.controller.getUpgrade
+      },
+      {
+        param: 'upgrade/:id',
         method: 'POST',
-        ref: this.controller.post
-      },
-      {
-        param: ':id?',
-        method: 'PUT',
-        ref: this.controller.put
-      },
-      {
-        param: ':id',
-        method: 'PATCH',
-        ref: this.controller.patch
-      },
-      {
-        param: ':id',
-        method: 'DELETE',
-        ref: this.controller.delete
+        ref: this.controller.postUpgrade
       },
     ]
     this.regisRouter()

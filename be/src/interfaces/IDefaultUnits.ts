@@ -3,7 +3,9 @@ import { Document, Types } from "mongoose";
 export default interface IDefaultUnits extends Document {
   name: string
   description: string
+  path : string
   building: Types.ObjectId
+  type: Types.ObjectId
   time: number
   speed: number
   cargo: number

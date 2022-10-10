@@ -9,6 +9,7 @@ class DefaultResources extends AbstractModel<IDefaultResources> {
     this.schema = new Schema<IDefaultResources>({
       name: { type: String },
       key: { type: String },
+      path: { type: String },
     })
   }
 }

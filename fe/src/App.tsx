@@ -1,5 +1,5 @@
-import { useEffect ,useCallback} from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { useEffect, useCallback } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import Routers from 'router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,35 +7,33 @@ import { storage } from 'utils';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { initDefault } from 'store';
 import { userSlice } from 'store/slices/user';
-import { selecToken } from 'store/selectors';
-import { Button } from 'components';
+import { selectToken } from 'store/selectors';
+import { Upgrade } from 'components';
 function App() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const token = useAppSelector(selecToken)
+  const location = useLocation()
+  const token = useAppSelector(selectToken)
   useEffect(() => {
     const storeToken = storage.getToken()
     if (storeToken) {
       dispatch(userSlice.actions.token(storeToken))
     }
-  }, [])
+  }, [dispatch])
   useEffect(() => {
-    if(token) {
+    if (token && location.pathname !== '/') {
       dispatch(initDefault())
-    }else {
-      navigate('/')
+    } else {
+      if (location.pathname !== '/') {
+        navigate('/')
+      }
     }
-  },[token])
-  const handleLogout = useCallback(() => {
-    storage.clearToken()
-    dispatch(userSlice.actions.token(''))
-  },[dispatch])
+  }, [token, dispatch, location,navigate])
+
   return (
     <div id="App">
-      {
-        token && <Button onClick={handleLogout} >Logout</Button>
-      }
       <ToastContainer />
+      <Upgrade />
       <Routes>
         {
           Routers.map(o => <Route key={o.path} path={o.path} element={<o.element />} />)

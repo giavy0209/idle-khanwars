@@ -1,26 +1,26 @@
-import callAPI from "callAPI";
 import { Button, FAQ } from "components";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { FC, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { selecToken, selectWorlds } from "store/selectors";
+import { selectToken, selectWorlds } from "store/selectors";
 import { login, LoginPayload, signup } from "store/slices/user";
 import { fetchWorlds } from "store/slices/world";
 
 const Signup: FC = () => {
   const form = useRef<HTMLFormElement>(null)
   const navigate = useNavigate()
+
   const dispatch = useAppDispatch()
 
   const worlds = useAppSelector(selectWorlds)
-  const token = useAppSelector(selecToken)
+  const token = useAppSelector(selectToken)
   useEffect(() => {
-    if(token) {
+    if (token) {
       navigate('/home')
     }
     dispatch(fetchWorlds())
-  }, [dispatch, token])
+  }, [dispatch, token, navigate])
   const handleSubmit = useCallback(() => {
     const patten = /^[A-Za-z0-9]{6,}$/
     const formData = new FormData(form.current as HTMLFormElement)
@@ -36,12 +36,13 @@ const Signup: FC = () => {
     }
     if (isError) return null
     return submitData
-  }, [dispatch])
+  }, [])
+
   const handleSignup = useCallback(async (type: 'LOGIN' | 'SIGNUP') => {
     const submitData = handleSubmit() as unknown as LoginPayload
     if (!submitData) return
     type === 'LOGIN' ? dispatch(login(submitData)) : dispatch(signup(submitData))
-  }, [handleSubmit])
+  }, [handleSubmit, dispatch])
   return (
     <>
       <div className="signup">

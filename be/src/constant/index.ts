@@ -54,6 +54,7 @@ export const MODEL = {
   resources : 'resources',
   units : 'units',
   buildings : 'buildings',
+  castles : 'castles',
 
   default_buildings : 'default_buildings',
   default_upgrades : 'default_upgrades',

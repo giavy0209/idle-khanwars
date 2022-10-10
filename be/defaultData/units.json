@@ -1,6 +1,7 @@
 [
   {
     "name": "Pikeman",
+    "type": "infantry",
     "time": 180,
     "speed": 10,
     "cargo": 25,
@@ -26,6 +27,7 @@
   },
   {
     "name": "Swordsman",
+    "type": "infantry",
     "time": 240,
     "speed": 15,
     "cargo": 15,
@@ -51,6 +53,7 @@
   },
   {
     "name": "Axeman",
+    "type": "infantry",
     "time": 180,
     "speed": 10,
     "cargo": 10,
@@ -76,6 +79,7 @@
   },
   {
     "name": "Maceman",
+    "type": "infantry",
     "time": 180,
     "speed": 12,
     "cargo": 20,
@@ -101,6 +105,7 @@
   },
   {
     "name": "Shortbow archer",
+    "type": "archers",
     "time": 144,
     "speed": 12,
     "cargo": 25,
@@ -126,6 +131,7 @@
   },
   {
     "name": "Longbow archer",
+    "type": "archers",
     "time": 210,
     "speed": 12,
     "cargo": 15,
@@ -151,6 +157,7 @@
   },
   {
     "name": "Crossbow archer",
+    "type": "archers",
     "time": 180,
     "speed": 14,
     "cargo": 20,
@@ -176,6 +183,7 @@
   },
   {
     "name": "Quickwalker",
+    "type": "cavalry",
     "time": 240,
     "speed": 5,
     "cargo": 2,
@@ -201,6 +209,7 @@
   },
   {
     "name": "Light Cavalry",
+    "type": "cavalry",
     "time": 360,
     "speed": 6,
     "cargo": 90,
@@ -226,6 +235,7 @@
   },
   {
     "name": "Heavy Cavalry",
+    "type": "cavalry",
     "time": 540,
     "speed": 7,
     "cargo": 45,
@@ -251,6 +261,7 @@
   },
   {
     "name": "Archer Cavalry",
+    "type": "archers",
     "time": 480,
     "speed": 6,
     "cargo": 30,
@@ -276,6 +287,7 @@
   },
   {
     "name": "Ram",
+    "type": "siege",
     "time": 630,
     "speed": 25,
     "cargo": 30,
@@ -301,6 +313,7 @@
   },
   {
     "name": "Ballistician",
+    "type": "siege",
     "time": 810,
     "speed": 25,
     "cargo": 15,
@@ -326,6 +339,7 @@
   },
   {
     "name": "Catapult",
+    "type": "siege",
     "time": 900,
     "speed": 30,
     "cargo": 15,
@@ -351,6 +365,7 @@
   },
   {
     "name": "Trebuchet",
+    "type": "siege",
     "time": 1008,
     "speed": 30,
     "cargo": 8,
@@ -376,6 +391,7 @@
   },
   {
     "name": "Nobleman",
+    "type": "infantry",
     "time": 25920,
     "speed": 120,
     "cargo": 100,

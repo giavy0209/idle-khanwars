@@ -11,7 +11,7 @@ class DefaultBuildings extends AbstractModel<IDefaultBuilding> {
       description : {type : String},
       type : {type : String},
       path : {type : String},
-      resource : {type : Schema.Types.ObjectId}
+      resource : {type : Schema.Types.ObjectId, ref : MODEL.resources}
     })
   }
 }

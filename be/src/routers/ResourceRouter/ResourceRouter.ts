@@ -1,39 +1,13 @@
 import { AbstractRouter } from 'abstracts'
 import { ResourceController } from 'controllers'
-import path from 'path'
-const filename = path.basename(__filename)
-const ext = path.extname(filename)
-const param = filename.replace(ext, '')
-
-
 export default class ResourceRouter extends AbstractRouter<ResourceController> {
   constructor() {
-    super(param, ResourceController)
+    super('resources', ResourceController)
     this.routes = [
       {
-        param: ':id?',
+        param: '',
         method: 'GET',
         ref: this.controller.get
-      },
-      {
-        param: '',
-        method: 'POST',
-        ref: this.controller.post
-      },
-      {
-        param: ':id?',
-        method: 'PUT',
-        ref: this.controller.put
-      },
-      {
-        param: ':id',
-        method: 'PATCH',
-        ref: this.controller.patch
-      },
-      {
-        param: ':id',
-        method: 'DELETE',
-        ref: this.controller.delete
       },
     ]
     this.regisRouter()
