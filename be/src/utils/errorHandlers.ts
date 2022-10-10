@@ -4,46 +4,16 @@ class ErrorHandler {
     error: any,
     _: Request,
     res: Response,
-    __: NextFunction,
+    __:NextFunction
   ) {
-    let { errors: data, message } = error
-    const { statusCode = 500 } = error
-    const listMessage: string[] = []
-    if(data) {
-      data = Object.keys(data).map(key => {
-        const errorField: {
-          kind: string
-          message: string
-          properties: any
-          path: string
-        } = data[key]
-        const { message: defaultMessage, properties: values } = errorField
-        let { path = key, kind = 'invalid' } = errorField
-        if (statusCode === 500) {
-          const castError = [
-            'Number',
-            'String',
-            'Boolean',
-            'ObjectID',
-            'Date',
-          ]
-          if (castError.includes(kind)) kind = `is${kind}`
-        }
-        kind = kind.replace(/length$/i, '')
-        path = path.replace(/\.\d+$/, '')
-        let id = [kind, path]
-        listMessage.push(defaultMessage)
-        return { id: id.join('.'), defaultMessage, values }
-      })
-    }
-    if (!message) message = listMessage.join('. ')
+
+    let { name, statusCode = 400 } = error
+    
     const resData = {
-      status: error.name as string,
-      statusCode: 400,
-      data,
-      message,
+      code: statusCode,
+      message: name,
     }
-    res.status(resData.statusCode).send(resData)
+    res.status(statusCode).send(resData)
   }
   public PageNotFound(req: Request, res: Response, _err: ErrorRequestHandler) {
     res

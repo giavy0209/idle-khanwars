@@ -1,26 +1,25 @@
-import { AbstractModel } from "abstracts"
-import { IUser, IWorld } from "interfaces"
+import { HTTPSTATUS } from "constant"
+import { IUserFullyPopulate } from "interfaces/IUser"
 import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
 export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
-  Model: AbstractModel<I>
-  user: IUser & { world: IWorld }
-  tenant: string
+  user: IUserFullyPopulate | undefined
+  tenant: string | undefined
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
-  isTenant : boolean;
-  constructor(modelName: string, user: IUser & { world: IWorld }, isTenant?: boolean) {
+  name: string
+  constructor(modelName: string, user?: IUserFullyPopulate) {
     this.user = user
-    this.tenant = this.user.world.tenant
-    this.isTenant = !!isTenant
+    this.tenant = this.user ? this.user.world.tenant : undefined
+    this.name = modelName
     this.model = models[this.getCollectionName(modelName)]
   }
-  getCollectionName (name : string) {
-    if(this.isTenant) {
+  getCollectionName(name: string) {
+    if (this.tenant) {
       return `${this.tenant}_${name}`
-    }else {
+    } else {
       return name
     }
   }
@@ -63,14 +62,38 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     const data = await this.model.findById(id).populate<PullPopulate>(this.populate).exec()
     if (typeof isThrow === 'boolean' && isThrow) {
       if (!data) {
-        throw new AdvancedError({
-          [this.model.name]: {
-            kind: 'not.found',
-            message: `${this.model.name} not found`
-          }
-        })
+        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.name} not found`, })
       }
     }
     return data
+  }
+
+  findOne(query: FilterQuery<I>, isThrow: boolean): Promise<UnpackedIntersection<HydratedDocument<I, {}, {}>, PullPopulate>>;
+  findOne(query: FilterQuery<I>): Promise<UnpackedIntersection<HydratedDocument<I, {}, {}>, PullPopulate> | null>;
+  async findOne(query: FilterQuery<I>, isThrow?: boolean) {
+    const data = await this.model.findOne(query).populate<PullPopulate>(this.populate).exec()
+    if (typeof isThrow === 'boolean' && isThrow) {
+      if (!data) {
+        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.name} not found`, })
+      }
+    }
+    return data
+  }
+
+  async exists(query: FilterQuery<I>, throwCase: 'IF_EXISTS' | 'IF_NOT_EXISTS') {
+    const isExists = await this.model.exists(query)
+    switch (throwCase) {
+      case 'IF_EXISTS':
+        if (isExists) {
+          throw new AdvancedError({ message: `${this.name} already exists` })
+        }
+        break;
+      case 'IF_NOT_EXISTS':
+        if (!isExists) {
+          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.name} not found`, })
+        }
+      default:
+        break;
+    }
   }
 }

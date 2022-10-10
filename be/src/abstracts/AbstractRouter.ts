@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction, Router } from "express";
-import { IUser, IWorld } from "interfaces";
 import { checkSchema, Schema, validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 import { AbstractController } from "abstracts";
 import { AdvancedError } from "utils";
 import PromiseRouter from "express-promise-router";
+import { IUserFullyPopulate } from "interfaces/IUser";
 
 export default abstract class AbstractRouter<C extends AbstractController<any, any>> {
   router: Router = PromiseRouter()
@@ -12,7 +12,7 @@ export default abstract class AbstractRouter<C extends AbstractController<any, a
     param?: string,
     method: string,
     authorized?: boolean
-    ref?: (req: Request, res: Response) => void,
+    ref?: (req: Request, res: Response , next? : NextFunction) => void,
     validate?: Schema ,
     middlewares?: any[]
   }[] = [
@@ -57,24 +57,16 @@ export default abstract class AbstractRouter<C extends AbstractController<any, a
       ags.push(ref.bind(this.controller))
 
       const routePath = `/${this.prefix}/${param}`
-
+      
       this.router[methodName](routePath, ...ags)
     })
   }
   isAuthorized(req: Request, _: Response, next: NextFunction) {
     if (req?.headers?.authorization?.split(' ')[0] !== 'Bearer') {
-      throw new AdvancedError(
-        {
-          jwt: {
-            kind: 'missing',
-            message: 'JWT is missing'
-          },
-        },
-        { statusCode: 400 }
-      )
+      throw new AdvancedError(  { statusCode: 401,message: 'JWT is missing' }  )
     }
     let token = req.headers.authorization.split(' ')[1]
-    const payload = jwt.verify(token, global.Config.JWT_SECRET) as IUser & {world : IWorld}
+    const payload = jwt.verify(token, global.Config.JWT_SECRET) as IUserFullyPopulate
     req.user = payload
     return next()
   }

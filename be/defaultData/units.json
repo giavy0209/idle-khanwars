@@ -1,0 +1,402 @@
+[
+  {
+    "name": "Pikeman",
+    "time": 180,
+    "speed": 10,
+    "cargo": 25,
+    "life": 40,
+    "range": 2,
+    "description": "The Pikeman is most efficient against Archers and Cavalry and has the highest carrying capacity of all Infantry units. The Pikemen's range is 2, that's why they are so useful in the battles.",
+    "building": "Barracks",
+    "population": 1,
+    "path" : "/units/pikeman.webp",
+    "resource": {
+      "gold": 30,
+      "iron": 30,
+      "wood": 50,
+      "food": 15
+    },
+    "strength": {
+      "infantry": 20,
+      "archers": 40,
+      "cavalry": 60,
+      "siege": 20,
+      "wall" : 10
+    }
+  },
+  {
+    "name": "Swordsman",
+    "time": 240,
+    "speed": 15,
+    "cargo": 15,
+    "life": 80,
+    "range": 1,
+    "description": "The Swordsman is equally strong against all unit types, but it costs a lot of Iron. It has average carrying capacity and a lot of health.",
+    "building": "Barracks",
+    "population": 1,
+    "path" : "/units/swordman.webp",
+    "resource": {
+      "gold": 30,
+      "iron": 65,
+      "wood": 30,
+      "food": 15
+    },
+    "strength": {
+      "infantry": 35,
+      "archers": 35,
+      "cavalry": 35,
+      "siege": 35,
+      "wall" : 10
+    }
+  },
+  {
+    "name": "Axeman",
+    "time": 180,
+    "speed": 10,
+    "cargo": 10,
+    "life": 70,
+    "range": 1,
+    "description": "The Axeman is very powerful against Infantry and Archers, but has a small carrying capacity. The resources it requires the most are Food and Iron.",
+    "building": "Barracks",
+    "population": 1,
+    "path" : "/units/axeman.webp",
+    "resource": {
+      "gold": 10,
+      "iron": 45,
+      "wood": 35,
+      "food": 50
+    },
+    "strength": {
+      "infantry": 70,
+      "archers": 70,
+      "cavalry": 20,
+      "siege": 20,
+      "wall" : 10
+    }
+  },
+  {
+    "name": "Maceman",
+    "time": 180,
+    "speed": 12,
+    "cargo": 20,
+    "life": 60,
+    "range": 1,
+    "description": "The Maceman is strong versus Cavalry and Siege machines and has good Carrying capacity. It requires more Food and Gold than other resources to train.",
+    "building": "Barracks",
+    "population": 1,
+    "path" : "/units/macman.webp",
+    "resource": {
+      "gold": 45,
+      "iron": 10,
+      "wood": 30,
+      "food": 50
+    },
+    "strength": {
+      "infantry": 20,
+      "archers": 20,
+      "cavalry": 60,
+      "siege": 70,
+      "wall" : 10
+    }
+  },
+  {
+    "name": "Shortbow archer",
+    "time": 144,
+    "speed": 12,
+    "cargo": 25,
+    "life": 40,
+    "range": 3,
+    "description": "This is the basic Archer unit. It is cheap, can be trained quickly, and is most powerful against enemy Infantry.",
+    "building": "Archery Range",
+    "population": 1,
+    "path" : "/units/shortbow_archer.webp",
+    "resource": {
+      "gold": 25,
+      "iron": 35,
+      "wood": 35,
+      "food": 20
+    },
+    "strength": {
+      "infantry": 60,
+      "archers": 10,
+      "cavalry": 20,
+      "siege": 40,
+      "wall" : 20
+    }
+  },
+  {
+    "name": "Longbow archer",
+    "time": 210,
+    "speed": 12,
+    "cargo": 15,
+    "life": 40,
+    "range": 4,
+    "description": "The Longbow archer is vital for every strong army. It takes only 1 population, it is strong against Cavalry and Siege machines, and it takes more Wood and Gold than other resources to build.",
+    "building": "Archery Range",
+    "population": 1,
+    "path" : "/units/longbow_archer.webp",
+    "resource": {
+      "gold": 50,
+      "iron": 10,
+      "wood": 70,
+      "food": 20
+    },
+    "strength": {
+      "infantry": 20,
+      "archers": 25,
+      "cavalry": 35,
+      "siege": 40,
+      "wall" : 20
+    }
+  },
+  {
+    "name": "Crossbow archer",
+    "time": 180,
+    "speed": 14,
+    "cargo": 20,
+    "life": 40,
+    "range": 4,
+    "description": "Another must have in every army unit - it does most damage to Infantry and Archers, it's range is a big advantage, but requires a lot of Gold and Wood.",
+    "building": "Archery Range",
+    "population": 1,
+    "path" : "/units/cross_archer.webp",
+    "resource": {
+      "gold": 50,
+      "iron": 25,
+      "wood": 40,
+      "food": 20
+    },
+    "strength": {
+      "infantry": 40,
+      "archers": 35,
+      "cavalry": 25,
+      "siege": 20,
+      "wall" : 20
+    }
+  },
+  {
+    "name": "Quickwalker",
+    "time": 240,
+    "speed": 5,
+    "cargo": 2,
+    "life": 80,
+    "range": 1,
+    "description": "The Quickwalkers are really fast, but only light armored. They are not very powerful in a battle, as their main use is to Spy on enemies and get information about their castles.",
+    "building": "Stables",
+    "population": 2,
+    "path" : "/units/quickwalker.webp",
+    "resource": {
+      "gold": 10,
+      "iron": 40,
+      "wood": 45,
+      "food": 50
+    },
+    "strength": {
+      "infantry": 20,
+      "archers": 20,
+      "cavalry": 20,
+      "siege": 5,
+      "wall" : 0
+    }
+  },
+  {
+    "name": "Light Cavalry",
+    "time": 360,
+    "speed": 6,
+    "cargo": 90,
+    "life": 320,
+    "range": 1,
+    "description": "The Light Cavalry is a very fast unit with a high carrying capacity, making it perfect for attacks with the purpose of stealing a lot of resources. They are strong against all unit types, but are the most powerful against Archers and Infantry. They require a lot of Food to be trained.",
+    "building": "Stables",
+    "population": 4,
+    "path" : "/units/light_cavalry.webp",
+    "resource": {
+      "gold": 120,
+      "iron": 120,
+      "wood": 50,
+      "food": 250
+    },
+    "strength": {
+      "infantry": 180,
+      "archers": 200,
+      "cavalry": 100,
+      "siege": 150,
+      "wall" : 0
+    }
+  },
+  {
+    "name": "Heavy Cavalry",
+    "time": 540,
+    "speed": 7,
+    "cargo": 45,
+    "life": 500,
+    "range": 1,
+    "description": "The Heavy Cavalry is an exceptionally tough and powerful unit. It is very strong against Infantry, Archers and Siege machines. Unfortunately it is expensive to train and takes up a lot of population.",
+    "building": "Stables",
+    "population": 6,
+    "path" : "/units/heavy_cavalry.webp",
+    "resource": {
+      "gold": 300,
+      "iron": 250,
+      "wood": 100,
+      "food": 100
+    },
+    "strength": {
+      "infantry": 250,
+      "archers": 250,
+      "cavalry": 150,
+      "siege": 250,
+      "wall" : 0
+    }
+  },
+  {
+    "name": "Archer Cavalry",
+    "time": 480,
+    "speed": 6,
+    "cargo": 30,
+    "life": 180,
+    "range": 4,
+    "description": "Combines the benefits of the cavalry units for its speed and the archers for bonuses - it is considered an archer unit towards bonuses it can receive. It is most powerful against Siege machines and Archers. It takes up 5 population and requires a lot of Iron to train.",
+    "building": "Stables",
+    "population": 5,
+    "path" : "/units/archer_cavalry.webp",
+    "resource": {
+      "gold": 200,
+      "iron": 300,
+      "wood": 250,
+      "food": 150
+    },
+    "strength": {
+      "infantry": 100,
+      "archers": 180,
+      "cavalry": 130,
+      "siege": 210,
+      "wall" : 70
+    }
+  },
+  {
+    "name": "Ram",
+    "time": 630,
+    "speed": 25,
+    "cargo": 30,
+    "life": 200,
+    "range": 1,
+    "description": "The Ram can't attack battle units but has a very important function - destroying castle walls. It needs a lot of Wood and Iron to be constructed and occupies 5 population.",
+    "building": "Workshop",
+    "population": 5,
+    "path" : "/units/ram.webp",
+    "resource": {
+      "gold": 188,
+      "iron": 375,
+      "wood": 563,
+      "food": 188
+    },
+    "strength": {
+      "infantry": 0,
+      "archers": 0,
+      "cavalry": 0,
+      "siege": 0,
+      "wall" : 180
+    }
+  },
+  {
+    "name": "Ballistician",
+    "time": 810,
+    "speed": 25,
+    "cargo": 15,
+    "life": 300,
+    "range": 5,
+    "description": "The Ballistician has a long range of 5 and is most powerful against Cavalry, Infantry and Archers. It is very useful to have a bunch of those in your army, but unfortunately it takes-up a lot of population (6) and costs a lot of Wood and Food to train.",
+    "building": "Workshop",
+    "population": 6,
+    "path" : "/units/ballistician.webp",
+    "resource": {
+      "gold": 94,
+      "iron": 188,
+      "wood": 469,
+      "food": 375
+    },
+    "strength": {
+      "infantry": 150,
+      "archers": 150,
+      "cavalry": 150,
+      "siege": 70,
+      "wall" : 120
+    }
+  },
+  {
+    "name": "Catapult",
+    "time": 900,
+    "speed": 30,
+    "cargo": 15,
+    "life": 400,
+    "range": 5,
+    "description": "The Catapult also has a long range of 5. It does the most damage to Infantry and Archers. It is quite expensive, especially Gold and Iron, but it's worth it.",
+    "building": "Workshop",
+    "population": 8,
+    "path" : "/units/catapult.webp",
+    "resource": {
+      "gold": 647,
+      "iron": 563,
+      "wood": 375,
+      "food": 188
+    },
+    "strength": {
+      "infantry": 180,
+      "archers": 180,
+      "cavalry": 150,
+      "siege": 150,
+      "wall" : 100
+    }
+  },
+  {
+    "name": "Trebuchet",
+    "time": 1008,
+    "speed": 30,
+    "cargo": 8,
+    "life": 500,
+    "range": 5,
+    "description": "The Trebuchet is a very powerful siege engine. It is equally strong against all unit types. Its drawback is that it takes up 10 population and costs an enormous amount of Wood.",
+    "building": "Workshop",
+    "population": 10,
+    "path" : "/units/trebuchet.webp",
+    "resource": {
+      "gold": 375,
+      "iron": 563,
+      "wood": 1500,
+      "food": 188
+    },
+    "strength": {
+      "infantry": 200,
+      "archers": 200,
+      "cavalry": 200,
+      "siege": 200,
+      "wall" : 150
+    }
+  },
+  {
+    "name": "Nobleman",
+    "time": 25920,
+    "speed": 120,
+    "cargo": 100,
+    "life": 2000,
+    "range": 1,
+    "description": "The Nobleman is not meant to fight, even if he can his main purpose is to conquer the enemy’s castle by reducing its loyalty. When the Attacker is the winner of the battle, each of his survived Noblemen reduces the castle’s loyalty between 300 and 600, but not more than 2000 loyalty per battle. The Nobleman is extremely expensive and takes-up a huge amount of population, but without them you can’t conquer a castle. Make sure to place your Noblemen behind other units, so they have the best chance to survive.",
+    "building": "Order",
+    "population": 100,
+    "path" : "/units/nobleman.webp",
+    "resource": {
+      "gold": 25000,
+      "iron": 25000,
+      "wood": 25000,
+      "food": 25000
+    },
+    "strength": {
+      "infantry": 2000,
+      "archers": 2000,
+      "cavalry": 2000,
+      "siege": 2000,
+      "wall" : 200
+    }
+  }
+]

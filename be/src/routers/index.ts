@@ -8,7 +8,7 @@ fs.readdirSync(__dirname)
   .filter(o => (!o.includes('index') && !o.includes('map')))
   .forEach(o => {
     const routes = require(path.join(__dirname, o)).default
-    router.use(`/${o.toLowerCase()}`, routes)
+    router.use(routes)
   })
 
 export default router

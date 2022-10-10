@@ -5,13 +5,12 @@ export default abstract class AbtractModel<I> {
   name: string
   schema: Schema
   collectionName: string
-  isTenant: boolean = true
-  constructor({ tenantId, name }: { tenantId?: string, name: string }) {
+  constructor({ tenantId, name}: { tenantId?: string, name: string}) {
     this.name = name
     this.tenantId = tenantId
   }
   generateCollectionName() {
-    if (this.isTenant) {
+    if (this.tenantId) {
       this.collectionName = `${this.tenantId}_${this.name}`
     } else {
       this.collectionName = this.name

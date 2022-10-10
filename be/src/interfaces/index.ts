@@ -1,2 +1,7 @@
 export {default as IUser} from './IUser' 
 export {default as IWorld} from './IWorld' 
+export {default as IDefaultBuilding} from './IDefaultBuilding' 
+export {default as IDefaultUpgrade} from './IDefaultUpgrade' 
+export {default as IDefaultResources} from './IDefaultResources' 
+export {default as IDefaultUnits} from './IDefaultUnits' 
+export {default as IDefaultUnitType} from './IDefaultUnitType' 

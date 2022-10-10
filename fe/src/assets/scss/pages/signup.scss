@@ -9,11 +9,18 @@
     transform: translate(-50% ,-50%);
     max-width: 300px;
     width: 100%;
-    input {
+    input,select {
       padding: 5px;
       border-radius: 5px;
       background-color: $bg-input;
-      +input {
+      width: 100%;
+      +input,+select {
+        margin-top: 5px;
+      }
+    }
+    .group-button {
+      margin-bottom: 5px;
+      .button {
         margin-top: 5px;
       }
     }

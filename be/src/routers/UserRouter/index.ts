@@ -7,7 +7,6 @@ fs.readdirSync(path.join(__dirname))
   .filter(o => (!o.includes('index') && !o.includes('map')))
   .forEach(o => {
     const ClassRouter = require(path.join(__dirname, o)).default
-    
     const route = new ClassRouter().router
     router.use(`/`, route)
   })

@@ -1,39 +1,33 @@
 import { AbstractRouter } from 'abstracts'
 import { UserController } from 'controllers'
-import path from 'path'
-const filename = path.basename(__filename)
-const ext = path.extname(filename)
-const param = filename.replace(ext, '')
-
-
+import { body } from 'express-validator'
 export default class UserRouter extends AbstractRouter<UserController> {
   constructor() {
-    super(param, UserController)
+    super('users', UserController)
     this.routes = [
       {
-        param: ':id?',
+        param: ':id',
         method: 'GET',
         ref: this.controller.get
       },
       {
+        param: 'my',
+        method: 'GET',
+        ref: this.controller.getMy
+      },
+      {
         param: '',
         method: 'POST',
-        ref: this.controller.post
+        middlewares: [body(['username', 'password']).isString()],
+        authorized : false,
+        ref: this.controller.post,
       },
       {
-        param: ':id?',
-        method: 'PUT',
-        ref: this.controller.put
-      },
-      {
-        param: ':id',
-        method: 'PATCH',
-        ref: this.controller.patch
-      },
-      {
-        param: ':id',
-        method: 'DELETE',
-        ref: this.controller.delete
+        param: 'login',
+        method: 'POST',
+        middlewares: [body(['username', 'password']).isString()],
+        authorized : false,
+        ref: this.controller.login,
       },
     ]
     this.regisRouter()

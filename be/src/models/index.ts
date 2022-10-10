@@ -1,2 +1,7 @@
 export {default as Users} from './Users' 
 export {default as Worlds} from './Worlds' 
+export {default as DefaultBuildings} from './DefaultBuildings' 
+export {default as DefaultUpgrades} from './DefaultUpgrades' 
+export {default as DefaultResources} from './DefaultResources' 
+export {default as DefaultUnits} from './DefaultUnits' 
+export {default as DefaultUnitTypes} from './DefaultUnitTypes' 

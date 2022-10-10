@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import { IUser, IWorld } from 'interfaces';
+import { IUserFullyPopulate } from 'interfaces/IUser';
 dotenv.config({ path: '.env.dev' })
 declare global {
   var Config: {
@@ -19,7 +19,7 @@ declare global {
         skip: number,
         limit: number
       },
-      user: IUser & {world : IWorld}
+      user: IUserFullyPopulate
     }
   }
 }

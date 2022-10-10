@@ -10,7 +10,7 @@ const create = () => {
   try {
     const jwt = storage.getToken()
     return axios.create({
-      baseURL: `${DOMAIN}`,
+      baseURL: `${DOMAIN}/api`,
       headers: {
         Authorization: `Bearer ${jwt}`,
       }
@@ -18,19 +18,29 @@ const create = () => {
 
   } catch (error) {
     return axios.create({
-      baseURL: `${DOMAIN}`,
+      baseURL: `${DOMAIN}/api`,
     })
   }
 }
 
 const checkError = (error: any) => {
-  if (error?.response?.data) {
-    toast(error.response.data.message)
+  if (error?.response?.data?.code) {
+    if(error?.response?.data?.code === 401) {
+      toast('Session timeout, please login again')
+    }else {
+      toast(error.response.data.message)
+    }
   }
 }
 
+interface Option {
+  toastError?: boolean
+  toastSuccess?: boolean
+}
+
 const callAPI = {
-  get: async (route: string) => {
+  get: async (route: string, options?: Option) => {
+    const { toastError = true,toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -38,12 +48,19 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.get(route)
+      if(toastSuccess) {
+        toast(data.message)
+      }
       return data
     } catch (error: any) {
-      checkError(error)
+      if (toastError) {
+        return checkError(error)
+      }
+      return error?.response?.data
     }
   },
-  post: async (route: string, body: {}) => {
+  post: async (route: string, body: {}, options?: Option) => {
+    const { toastError = true,toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -51,13 +68,19 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.post(route, body)
+      if(toastSuccess) {
+        toast(data.message)
+      }
       return data
     } catch (error: any) {
-      checkError(error)
-
+      if (toastError) {
+        return checkError(error)
+      }
+      return error?.response?.data
     }
   },
-  put: async (route: string, body: {}) => {
+  put: async (route: string, body: {}, options?: Option) => {
+    const { toastError = true,toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -65,12 +88,19 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.put(route, body)
+      if(toastSuccess) {
+        toast(data.message)
+      }
       return data
     } catch (error: any) {
-      checkError(error)
+      if (toastError) {
+        return checkError(error)
+      }
+      return error?.response?.data
     }
   },
-  patch: async (route: string, body: {}) => {
+  patch: async (route: string, body: {}, options?: Option) => {
+    const { toastError = true,toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -78,12 +108,19 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.patch(route, body)
+      if(toastSuccess) {
+        toast(data.message)
+      }
       return data
     } catch (error: any) {
-      checkError(error)
+      if (toastError) {
+        return checkError(error)
+      }
+      return error?.response?.data
     }
   },
-  delete: async (route: string) => {
+  delete: async (route: string, options?: Option) => {
+    const { toastError = true,toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -91,9 +128,15 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.delete(route)
+      if(toastSuccess) {
+        toast(data.message)
+      }
       return data
     } catch (error: any) {
-      checkError(error)
+      if (toastError) {
+        return checkError(error)
+      }
+      return error?.response?.data
     }
   }
 }

@@ -1,32 +1,40 @@
 import { AbstractService } from "abstracts"
 import { DATA_CREATED, DATA_DELETED, DATA_FOUND, DATA_UPDATED } from "constant";
-import { Request, Response } from "express";
-import { IUser, IWorld } from "interfaces"
+import { NextFunction, Request, Response } from "express";
+import { IUserFullyPopulate } from "interfaces/IUser";
 import { FilterQuery, isValidObjectId } from "mongoose";
 import { ResponseResult } from "utils";
 
 export default class AbtractController<I, S extends AbstractService<I, any>> {
-  Service: new (user: IUser & { world: IWorld }) => S;
-  [k: string]: any;
-  constructor(Service: new (user: IUser & { world: IWorld }) => S) {
+  Service: new (user?: IUserFullyPopulate) => S;
+  constructor(Service: new (user?: IUserFullyPopulate) => S) {
     this.Service = Service
   }
-  createService(user: IUser & { world: IWorld }) {
+  createService(user?: IUserFullyPopulate) {
     return new this.Service(user)
   }
-  async get(req: Request, res: Response) {
+  async get(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params
     const query = req.query as FilterQuery<I>
     const service = this.createService(req.user)
     const { skip, limit } = req.pagin
-    if (id && isValidObjectId(id)) {
-      const data = await service.findById(id, true)
-      res.send(new ResponseResult({
-        data,
-        message: DATA_FOUND
-      }))
+    
+    if (id ) {
+      if (isValidObjectId(id)){
+        const data = await service.findById(id, true)
+        if (data) {
+          res.send(new ResponseResult({
+            data,
+            message: DATA_FOUND
+          }))
+        } else {
+          return next()
+        }
+      }else {
+        return next()
+      }
     }
-    const { data, total } = await service.find(query,{ skip, limit })
+    const { data, total } = await service.find(query, { skip, limit })
     res.send(new ResponseResult({
       data,
       total,

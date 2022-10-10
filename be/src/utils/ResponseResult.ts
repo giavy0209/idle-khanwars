@@ -1,7 +1,7 @@
 import { HTTPSTATUS, SUCCESS } from "constant"
 
 export default class ResponseResult {
-  public statusCode: number = HTTPSTATUS.OK
+  public code: number = HTTPSTATUS.OK
   public message?: string
   public status: string = SUCCESS
   public data?: any[] | any
@@ -11,20 +11,20 @@ export default class ResponseResult {
 
   constructor({
     status,
-    statusCode,
+    code,
     message,
     data,
     total,
   }: {
     status?: string
-    statusCode?: number
+    code?: number
     message?: string
     data?: any
     total?: number
     sum?: number
   } = {}) {
     this.status = status || this.status
-    this.statusCode = statusCode || this.statusCode
+    this.code = code || this.code
     this.message = message
     this.data = data
     this.total = total

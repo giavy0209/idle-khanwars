@@ -1,0 +1,31 @@
+button.button {
+  position: relative;
+  background-image: url('../../images/bg/button-mid.png');
+  padding: 10px;
+  background-size: contain;
+  background-repeat: repeat-x;
+  text-align: center;
+  color: $text-button;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 10px;
+  background-color: transparent;
+  &::before , &::after{
+    position: absolute;
+    top: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    aspect-ratio: 1/1.2083;
+    height: 100%;
+    content: "";
+  }
+  &::before {
+    background-image: url('../../images/bg/button-left.webp');
+    left: 0;
+  }
+  &::after{
+    background-image: url('../../images/bg/button-right.webp');
+    right: 0;
+  }
+}
