@@ -1,6 +1,7 @@
 import 'config'
 import 'utils/connectDB'
 import init from 'utils/initDefault'
+import workers from 'workers'
 import './socket'
 import server from './server'
 import fs from 'fs'
@@ -14,10 +15,12 @@ new Worlds().getInstance().find().lean()
   .then(async worlds => {
     worlds.forEach((world) => {
       models.forEach(model => {
-        const ModelClass = require(path.join(__dirname, 'models', model)).default as new (tenant : string) => AbstractModel<any>
+        const ModelClass = require(path.join(__dirname, 'models', model)).default as new (tenant: string) => AbstractModel<any>
         new ModelClass(world.tenant).getInstance()
       })
     })
   })
+
+workers()
 
 export default server

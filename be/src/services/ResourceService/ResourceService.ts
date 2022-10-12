@@ -6,6 +6,7 @@ import { Types } from "mongoose"
 import BuildingService from "services/BuildingService"
 import { IGetInput, IisEnoughResourceInput } from "./IResourceService"
 import { AdvancedError } from "utils"
+import { ChangeResource } from "eventEmitter"
 
 const populatePath = [
   {
@@ -53,7 +54,13 @@ export default class ResourceService extends AbstractService<IResource>  {
     }
     for (const resourceFound of resourcesFound) {
       if (!resourceFound) continue
+      const needValue = need.find(o => o.type.toString() === resourceFound.default.toString())
+      if (!needValue) continue
       
+      ChangeResource(this.tenant as string, {
+        value: -needValue.value,
+        _id: resourceFound._id
+      })
     }
   }
 

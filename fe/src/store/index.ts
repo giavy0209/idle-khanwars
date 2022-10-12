@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { building, castle, resource, user, world } from './slices';
+import { building, castle, global, resource, user, world, } from './slices';
 import { fetchBuilding } from './slices/building';
 import { fetchCastle } from './slices/castle';
 import { fetchResource } from './slices/resource';
@@ -7,6 +7,7 @@ import { fetchCurrent } from './slices/user';
 
 const store = configureStore({
   reducer: {
+    globalState: global,
     worldState: world,
     userState: user,
     castleState: castle,

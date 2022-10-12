@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
-import store, { RootState } from "store"
+import { RootState } from "store"
 
 export interface IBuilding {
   _id: string
@@ -14,6 +14,7 @@ export interface IBuilding {
   value: number
   level: number
   startAt: string
+  endAt: string
 }
 
 export interface IUpgrade {
@@ -86,6 +87,12 @@ export const buildingSlice = createSlice({
   reducers: {
     setUpgrade: (state, action: PayloadAction<IBuilding | undefined>) => {
       state.upgrade = action.payload
+    },
+    setBuilding: (state, action: PayloadAction<IBuilding>) => {
+      const buildings = [...state.buildings]
+      const index = buildings.findIndex(o => o._id === action.payload._id)
+      buildings.splice(index, 1, action.payload)
+      state.buildings = [...buildings]
     }
   },
   extraReducers(builder) {

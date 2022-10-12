@@ -9,6 +9,9 @@
       width: 25%;
       text-align: center;
       cursor: pointer;
+      img{
+        width: 50px;
+      }
     }
   }
   .buttons {
@@ -16,6 +19,25 @@
     display: flex;
     > * {
       width: 33.333%;
+    }
+  }
+  .navigation {
+    margin-top: 20px;
+    a {
+      width: 100%;
+      .link {
+        width: 100%;
+        font-weight: 600;
+        font-size: 22px;
+        text-align: center;
+        background-color: $bg-dark;
+        padding: 10px;
+        border: 5px solid $border-color ;
+        color: $text-color;
+      }
+      + a {
+        margin-top: 20px;
+      }
     }
   }
 }

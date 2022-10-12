@@ -1,8 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
+import socket from "socket"
+import { storage } from "utils"
 
 export interface ICastle {
-  _id : string
+  _id: string
   loyal: number
   population: number
   name: string
@@ -23,7 +25,7 @@ interface InitialState {
 const initialState: InitialState = {
   castles: [],
   current: {
-    _id : '',
+    _id: '',
     loyal: 0,
     population: 0,
     name: '',
@@ -31,11 +33,18 @@ const initialState: InitialState = {
   }
 }
 
+
+
 const castleSlice = createSlice({
   name: 'castle',
   initialState,
   reducers: {
-
+    changeCastle: (state, action: PayloadAction<ICastle>) => {
+      state.current = action.payload
+      storage.setItem('castle', action.payload._id)
+      socket.disconnect()
+      socket.connect()
+    }
   },
   extraReducers(builder) {
     builder
@@ -43,7 +52,7 @@ const castleSlice = createSlice({
         state.castles = action.payload
         const capital = action.payload.find(o => o.isCapital)
         if (capital) {
-          state.current = capital
+          castleSlice.caseReducers.changeCastle(state, { payload: capital, type: '' })
         }
       })
   },

@@ -1,13 +1,18 @@
-import { Home, Signup } from "pages"
+import { ROUTERS } from "const"
+import { Building, Home, Signup } from "pages"
 
 const Routers = [
   {
-    path: '/',
+    path: ROUTERS.LOGIN,
     element: Signup
   },
   {
-    path: '/home',
+    path: ROUTERS.HOME,
     element: Home
-  }
+  },
+  {
+    path: ROUTERS.BUILDING,
+    element : Building
+  },
 ]
 export default Routers

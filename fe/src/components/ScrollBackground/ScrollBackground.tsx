@@ -1,4 +1,4 @@
-import { Dispatch, FC, ReactNode, useCallback, useEffect, useState } from "react";
+import { Dispatch, FC, ReactNode, useCallback} from "react";
 import { Button } from "components";
 
 interface IFAQ {

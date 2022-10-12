@@ -7,6 +7,8 @@ import { IBuildingPullPopulate } from "interfaces/IBuilding"
 import { IGetInput, IUpgradeInput } from "./IBuildingService"
 import { AdvancedError } from "utils"
 import ResourceService from "services/ResourceService"
+import socketHandler from "socket"
+import { EVENT_SOCKET } from "constant/enums"
 const populatePath = [
   {
     path: 'castle default'
@@ -72,5 +74,12 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
 
     const resourceService = new ResourceService(this.user)
     await resourceService.isEnoughResource(upgradeCost.resources.asArray, findBuilding.castle._id)
+
+    findBuilding.startAt = new Date()
+    findBuilding.endAt = new Date(Date.now() + upgradeCost.time * 1000)
+    findBuilding.isUpgrading = true
+    await findBuilding.save()
+    socketHandler(findBuilding.castle._id , EVENT_SOCKET.BUILDING, findBuilding)
+    return findBuilding
   }
 }

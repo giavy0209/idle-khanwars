@@ -37,11 +37,12 @@ const Upgrade: FC = memo(() => {
         </div>
       </div>
     })
-  }, [upgradeCost])
+  }, [upgradeCost,resource])
 
   const handleUpgrade = useCallback(() => {
     if(building) {
       dispatch(postUpgrade(building._id))
+      dispatch(buildingSlice.actions.setUpgrade(undefined))
     }
   }, [dispatch, building])
   return (

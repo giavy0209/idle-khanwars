@@ -4,16 +4,25 @@ import Routers from 'router';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { storage } from 'utils';
-import { useAppDispatch, useAppSelector } from 'hooks';
+import { useAppDispatch, useAppSelector, useSocketHandler } from 'hooks';
 import { initDefault } from 'store';
 import { userSlice } from 'store/slices/user';
-import { selectToken } from 'store/selectors';
-import { Upgrade } from 'components';
+import { selectCastle, selectToken } from 'store/selectors';
+import { Queue, Upgrade } from 'components';
+import { EVENT_SOCKET, ROUTERS } from 'const';
+import { resourceSlice } from 'store/slices/resource';
+import { buildingSlice } from 'store/slices/building';
+import { globalSlice } from 'store/slices/global';
 function App() {
+  useSocketHandler({ action: resourceSlice.actions.setResource, event: EVENT_SOCKET.RESOURCE })
+  useSocketHandler({ action: buildingSlice.actions.setBuilding, event: EVENT_SOCKET.BUILDING })
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
   const token = useAppSelector(selectToken)
+  const castle = useAppSelector(selectCastle)
+
   useEffect(() => {
     const storeToken = storage.getToken()
     if (storeToken) {
@@ -21,14 +30,19 @@ function App() {
     }
   }, [dispatch])
   useEffect(() => {
-    if (token && location.pathname !== '/') {
-      dispatch(initDefault())
+    if (location.pathname !== ROUTERS.LOGIN && !token) {
+      dispatch(globalSlice.actions.setState({ memoLocation: location.pathname }))
+    }
+    if (token && location.pathname !== ROUTERS.LOGIN) {
+      if (!castle._id) {
+        dispatch(initDefault())
+      }
     } else {
-      if (location.pathname !== '/') {
-        navigate('/')
+      if (location.pathname !== ROUTERS.LOGIN) {
+        navigate(ROUTERS.LOGIN)
       }
     }
-  }, [token, dispatch, location,navigate])
+  }, [token, dispatch, location, navigate, castle])
 
   return (
     <div id="App">
@@ -39,6 +53,7 @@ function App() {
           Routers.map(o => <Route key={o.path} path={o.path} element={<o.element />} />)
         }
       </Routes>
+      <Queue />
     </div>
   );
 }

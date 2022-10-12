@@ -8,7 +8,7 @@ export interface IResource {
   castle: string
   default: {
     name: string
-    key: string
+    key: 'gold' | 'iron' | 'wood' | 'food'
     path: string
   }
   building: IBuilding
@@ -46,22 +46,35 @@ const initialState: InitialState = {
   }
 }
 
-const setResource = (state: InitialState, action: PayloadAction<IResource[]>) => {
+const setResources = (state: InitialState, action: PayloadAction<IResource[]>) => {
   state.resources = action.payload.map(o => ({ ...o, value: Math.floor(o.value) }))
   action.payload.forEach(o => {
     state.resource[o.default.key as keyof typeof initialState.resource] = Math.floor(o.value)
   })
 }
 
-const resourceSlice = createSlice({
+export const resourceSlice = createSlice({
   name: 'resource',
   initialState,
   reducers: {
-    setResource: setResource
+    setResources: setResources,
+    setResource: (state, action: PayloadAction<IResource>) => {
+      const resources = [...state.resources]
+      const index = resources.findIndex(o => o._id === action.payload._id)
+      resources.splice(index, 1 , {
+        ...action.payload,
+        value : Math.floor(action.payload.value)
+      })
+      state.resources = [...resources]
+      state.resource = {
+        ...state.resource,
+        [action.payload.default.key] : Math.floor(action.payload.value)
+      }
+    }
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchResource.fulfilled, setResource)
+      .addCase(fetchResource.fulfilled, setResources)
   },
 })
 
