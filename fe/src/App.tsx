@@ -29,6 +29,7 @@ function App() {
       dispatch(userSlice.actions.token(storeToken))
     }
   }, [dispatch])
+
   useEffect(() => {
     if (location.pathname !== ROUTERS.LOGIN && !token) {
       dispatch(globalSlice.actions.setState({ memoLocation: location.pathname }))
@@ -44,13 +45,21 @@ function App() {
     }
   }, [token, dispatch, location, navigate, castle])
 
+  const handleRouter = useCallback((routers: typeof Routers) => {
+    return routers.map(o => {
+      return <Route key={o.path} path={o.path} element={<o.element />} >
+        {o.children ? handleRouter(o.children) : null}
+      </Route>
+    })
+  }, [])
+
   return (
     <div id="App">
       <ToastContainer />
       <Upgrade />
       <Routes>
         {
-          Routers.map(o => <Route key={o.path} path={o.path} element={<o.element />} />)
+          handleRouter(Routers)
         }
       </Routes>
       <Queue />

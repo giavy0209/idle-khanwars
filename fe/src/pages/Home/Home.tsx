@@ -1,5 +1,5 @@
 import { Button } from "components";
-import { DOMAIN } from "const";
+import { DOMAIN, ROUTERS } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { Main } from "layers";
 import { FC, useCallback } from "react";
@@ -26,14 +26,9 @@ const Home: FC = () => {
             <div className="logout"><Button onClick={handleLogout} >Logout</Button></div>
           </div>
           <div className="navigation">
-            <Link to="/building/army">
+            <Link to={ROUTERS.BUILDING}>
               <div className="link">
-                Army Building
-              </div>
-            </Link>
-            <Link to="/building/other">
-              <div className="link">
-                Other Building
+                Buildings
               </div>
             </Link>
           </div>

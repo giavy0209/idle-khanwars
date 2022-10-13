@@ -6,7 +6,17 @@ export enum EVENT_SOCKET {
 }
 
 export enum ROUTERS {
-  HOME = '/',
-  LOGIN = '/login',
-  BUILDING = '/building'
-} 
+  HOME = '',
+  LOGIN = 'login',
+  BUILDING = 'building',
+  BUILDING_TYPE = ':buildingType',
+  RESOURCE = 'resources',
+  ARMY = 'army',
+  OTHER = 'other',
+}
+
+export enum BUILDING_TYPE {
+  resources = "RESOURCE",
+  army = 'BUILDING_ARMY',
+  other = 'BUILDING'
+}

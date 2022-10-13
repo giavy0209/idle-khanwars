@@ -4,7 +4,7 @@
     "resource": "gold",
     "description": "Gold is one of the four primary resources in the game. Like in the real world your leaders will need gold to construct buildings and to train an army. By constructing a higher level of the gold mine, your income of gold per hour will rise",
     "type" : "RESOURCE",
-    "path" : "/resources/gold.webp",
+    "path" : "/buildings/gold-mine.webp",
     "upgrade": [
       {
         "level": 1,
@@ -283,7 +283,7 @@
     "resource": "iron",
     "description": "Iron is a very important resource, imagine building without using iron or an army without iron swords and armour. You gain iron from your iron mine.",
     "type" : "RESOURCE",
-    "path" : "/resources/iron.webp",
+    "path" :  "/buildings/iron-mine.webp",
     "upgrade": [
       {
         "level": 1,
@@ -562,7 +562,7 @@
     "resource": "wood",
     "description": "Just like iron, you will also need wood for your construction works. Make sure you develop the Lumberjacks, so that you can gain more wood per hour.",
     "type" : "RESOURCE",
-    "path" : "/resources/wood.webp",
+    "path" :  "/buildings/lumberjack.webp",
     "upgrade": [
       {
         "level": 1,
@@ -841,7 +841,7 @@
     "resource": "food",
     "description": "Your Farms will make sure that your population will not starve to death. You will need lots of food if you are going to train a big and powerful army. Construct more Farms so your food income increases.",
     "type" : "RESOURCE",
-    "path" : "/resources/food.webp",
+    "path" :  "/buildings/farm.webp",
     "upgrade": [
       {
         "level": 1,

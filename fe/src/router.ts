@@ -12,7 +12,13 @@ const Routers = [
   },
   {
     path: ROUTERS.BUILDING,
-    element : Building
+    element: Building,
+    children: [
+      {
+        path : ROUTERS.BUILDING_TYPE,
+        element : Building
+      }
+    ]
   },
 ]
 export default Routers

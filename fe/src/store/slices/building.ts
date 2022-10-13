@@ -64,7 +64,7 @@ export const fetchUpgrade = createAsyncThunk<IUpgrade, string>(
 export const postUpgrade = createAsyncThunk<IUpgrade, string>(
   'building/postUpgrade',
   async (building: string) => {
-    const res = await callAPI.post(`/buildings/upgrade/${building}`, {})
+    const res = await callAPI.post(`/buildings/upgrade/${building}`, {}, {toastSuccess : true})
     return res.data
   }
 )
