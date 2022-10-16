@@ -5,7 +5,7 @@ import socket from "socket";
 
 
 
-export default function useSocketHandler<I>({
+export default function useSocketHandler<I = any>({
   action,
   event
 }: {

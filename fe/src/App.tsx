@@ -31,15 +31,15 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    if (location.pathname !== ROUTERS.LOGIN && !token) {
+    if (location.pathname !== `/${ROUTERS.LOGIN}` && !token) {
       dispatch(globalSlice.actions.setState({ memoLocation: location.pathname }))
     }
-    if (token && location.pathname !== ROUTERS.LOGIN) {
+    if (token && location.pathname !== `/${ROUTERS.LOGIN}`) {
       if (!castle._id) {
         dispatch(initDefault())
       }
     } else {
-      if (location.pathname !== ROUTERS.LOGIN) {
+      if (location.pathname !== `/${ROUTERS.LOGIN}`) {
         navigate(ROUTERS.LOGIN)
       }
     }
@@ -62,7 +62,7 @@ function App() {
           handleRouter(Routers)
         }
       </Routes>
-      <Queue />
+      {token && <Queue />}
     </div>
   );
 }

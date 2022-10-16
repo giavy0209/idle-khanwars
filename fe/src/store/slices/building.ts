@@ -2,24 +2,10 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
 import { RootState } from "store"
 
-export interface IBuilding {
-  _id: string
-  default: {
-    name: string
-    description: string
-    type: string
-    path: string
-  }
-  isUpgrading: boolean
-  value: number
-  level: number
-  startAt: string
-  endAt: string
-}
-
 export interface IUpgrade {
   building: {
     type: string
+    key : string
   }
   level: number
   generate: number
@@ -42,6 +28,25 @@ export interface IUpgrade {
     }
   }
 }
+export interface IBuilding {
+  _id: string
+  default: {
+    name: string
+    key: string
+    description: string
+    type: string
+    path: string
+  }
+  upgrade : {
+    current : IUpgrade,
+    next : IUpgrade
+  }
+  isUpgrading: boolean
+  startAt: string
+  endAt: string
+}
+
+
 
 export const fetchBuilding = createAsyncThunk<IBuilding[]>(
   'building/fetchBuilding',
@@ -87,6 +92,9 @@ export const buildingSlice = createSlice({
   reducers: {
     setUpgrade: (state, action: PayloadAction<IBuilding | undefined>) => {
       state.upgrade = action.payload
+    },
+    setUpgradeCost: (state, action: PayloadAction<IUpgrade | undefined>) => {
+      state.upgradeCost = action.payload
     },
     setBuilding: (state, action: PayloadAction<IBuilding>) => {
       const buildings = [...state.buildings]

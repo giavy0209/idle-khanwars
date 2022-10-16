@@ -48,6 +48,31 @@ export const DATA_DELETED = 'Delete data successfully'
 export const NOT_FOUND = 'Data not found'
 export const VALIDATE_ERROR = 'ValidationError'
 
+export const POPULATE_DEFAULT_UPGRADE = [
+  {
+    path : 'resources.asArray.type building'
+  }
+]
+
+export const POPULATE_BUILDING = [
+  {
+    path: 'castle default'
+  },
+  {
+    path : 'upgrade.current upgrade.next',
+    populate : POPULATE_DEFAULT_UPGRADE
+  }
+]
+
+export const POPULATE_RESOURCE = [
+  {
+    path: 'default'
+  },
+  {
+    path: 'building',
+    populate : POPULATE_BUILDING
+  },
+]
 export const MODEL = {
   users : 'users',
   worlds : 'worlds',

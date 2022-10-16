@@ -13,9 +13,12 @@ interface IList {
 const List: FC<IList> = ({ type }) => {
   const dispatch = useDispatch()
   const buildings = useAppSelector(selectBuildingByType(BUILDING_TYPE[type]))
-  const handleUpgrade = useCallback((building : IBuilding) => {
+  const handleUpgrade = useCallback((building: IBuilding) => {
     dispatch(buildingSlice.actions.setUpgrade(building))
   }, [dispatch])
+
+
+
   return (
     <>
       <Sub>
@@ -27,7 +30,7 @@ const List: FC<IList> = ({ type }) => {
                   <img src={`${DOMAIN}${o.default.path}`} alt="" />
                   <p>{o.default.name}</p>
                 </div>
-              </div> )
+              </div>)
             }
           </div>
         </div>

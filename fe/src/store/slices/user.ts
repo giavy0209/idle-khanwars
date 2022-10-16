@@ -13,7 +13,7 @@ export interface User {
 }
 
 export interface UserState {
-  user: User | {}
+  user: Partial<User>
   token: string
 }
 const initialState: UserState = {

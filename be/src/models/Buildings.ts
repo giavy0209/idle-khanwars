@@ -8,10 +8,12 @@ class Buildings extends AbstractModel<IBuilding> {
     super({ name: MODEL.buildings, tenantId })
     this.schema = new Schema<IBuilding>({
       castle: {type : Schema.Types.ObjectId, ref : this.getCollectionName(MODEL.castles)},
-      default: {type : Schema.Types.ObjectId, ref : MODEL.default_buildings},
+      default: {type : Schema.Types.ObjectId, ref : this.getCollectionName(MODEL.default_buildings)},
       isUpgrading: {type : Boolean, default : false},
-      value: {type : Number, default : 100},
-      level: {type : Number, default : 0},
+      upgrade : {
+        current : {type : Schema.Types.ObjectId , ref : this.getCollectionName(MODEL.default_upgrades)},
+        next : {type : Schema.Types.ObjectId , ref : this.getCollectionName(MODEL.default_upgrades)},
+      },
       startAt : {type : Date},
       endAt : {type : Date},
     }, {

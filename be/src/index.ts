@@ -8,7 +8,6 @@ import fs from 'fs'
 import path from 'path'
 import { Worlds } from "models";
 import { AbstractModel } from 'abstracts'
-init()
 const models = fs.readdirSync(path.join(__dirname, 'models')).filter(o => (!o.includes('index') && !o.includes('map')))
 
 new Worlds().getInstance().find().lean()
@@ -19,8 +18,9 @@ new Worlds().getInstance().find().lean()
         new ModelClass(world.tenant).getInstance()
       })
     })
+    await init()
+    workers()
   })
 
-workers()
 
 export default server

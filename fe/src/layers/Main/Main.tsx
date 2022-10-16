@@ -1,15 +1,16 @@
-import { DOMAIN } from "const";
+import { BUILDING, DOMAIN } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { FC, ReactNode, useCallback } from "react";
-import { selectResources } from "store/selectors";
+import { FC, ReactNode, useCallback, memo } from "react";
+import { selectBuildingByKey, selectResources } from "store/selectors";
 import { buildingSlice } from "store/slices/building";
 import { IResource } from "store/slices/resource";
 interface IMain {
   children: ReactNode
 }
-const Main: FC<IMain> = ({ children }) => {
+const Main: FC<IMain> = memo(({ children }) => {
   const dispatch = useAppDispatch()
   const resources = useAppSelector(selectResources)
+  const storage = useAppSelector(selectBuildingByKey(BUILDING.STORAGE))
   const handleUpgradeResource = useCallback((resource: IResource) => {
     dispatch(buildingSlice.actions.setUpgrade(resource.building))
   }, [dispatch])
@@ -20,14 +21,14 @@ const Main: FC<IMain> = ({ children }) => {
           resources.map(o => <div onClick={() => handleUpgradeResource(o)} className="resource" key={o._id}>
             <img src={`${DOMAIN}${o.default.path}`} alt="" />
             <div className="name">{o.default.name}</div>
-            <div className="value">{o.value}</div>
+            <div className="value">{o.value} / {storage?.upgrade.current.generate}</div>
+            <div className="value">{o.building.upgrade.current.generate}/h</div>
           </div>)
         }
       </div>
       {children}
-
     </>
   )
-}
+})
 
 export default Main

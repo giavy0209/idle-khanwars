@@ -4,11 +4,12 @@ import { IDefaultUnitType } from "interfaces";
 import { Schema } from "mongoose";
 
 class DefaultUnitTypes extends AbstractModel<IDefaultUnitType> {
-  constructor() {
-    super({name : MODEL.default_unit_types})
+  constructor(tenant : string) {
+    super({name : MODEL.default_unit_types, tenantId : tenant})
     this.schema = new Schema<IDefaultUnitType>({
       name : {type : String},
       key : {type : String},
+      order : {type : Number}
     })
   }
 }

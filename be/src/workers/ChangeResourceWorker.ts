@@ -1,7 +1,8 @@
 import { AbstractWorker } from "abstracts";
-import { MODEL } from "constant";
+import { MODEL, POPULATE_RESOURCE } from "constant";
 import { EVENT_SOCKET } from "constant/enums";
 import { IResource, IWorld } from "interfaces";
+import { IResourceFullyPopulate } from "interfaces/IResource";
 import { Types } from "mongoose";
 import socketHandler from "socket";
 export interface IChangeResourceWorker {
@@ -16,7 +17,8 @@ export default class ChangeResourceWorker extends AbstractWorker<IResource, ICha
   }
   startWorker() {
     this.start(async ({ _id, value, updateAt }) => {
-      const resource = await this.model.findById(_id).populate('building default')
+      const resource = await this.model.findById(_id)
+      .populate<IResourceFullyPopulate>(POPULATE_RESOURCE)
       if (!resource) return
       resource.value = resource.value + value
       resource.lastUpdate = updateAt ? new Date(updateAt) : resource.lastUpdate

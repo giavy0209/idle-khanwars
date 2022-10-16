@@ -1,5 +1,6 @@
 import fs from 'fs'
-import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes } from 'models'
+import { IWorld } from 'interfaces'
+import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes, Worlds } from 'models'
 import DefaultUpgrade from 'models/DefaultUpgrades'
 import path from 'path'
 const buildings = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'defaultData', 'building.json')) as unknown as string)
@@ -9,48 +10,53 @@ const resources = [
   {
     name: 'Gold',
     key: 'gold',
-    path : '/resources/gold.webp'
+    path: '/resources/gold.webp'
   },
   {
     name: 'Iron',
     key: 'iron',
-    path : '/resources/iron.webp'
+    path: '/resources/iron.webp'
   },
   {
     name: 'Wood',
     key: 'wood',
-    path : '/resources/wood.webp'
+    path: '/resources/wood.webp'
   },
   {
     name: 'Food',
     key: 'food',
-    path : '/resources/food.webp'
+    path: '/resources/food.webp'
   }
 ]
 const unitTypes = [
   {
     name: 'Infantry',
-    key: 'infantry'
+    key: 'infantry',
+    order: 5,
   },
   {
     name: 'Archers',
-    key: 'archers'
+    key: 'archers',
+    order: 3
   },
   {
     name: 'Cavalry',
-    key: 'cavalry'
+    key: 'cavalry',
+    order: 4
   },
   {
     name: 'Siege',
-    key: 'siege'
+    key: 'siege',
+    order: 1,
   },
   {
     name: 'Wall',
-    key: 'wall'
+    key: 'wall',
+    order: 2
   },
 ]
-const initUnitType = async () => {
-  const DefaultUnitTypesModel = new DefaultUnitTypes().getInstance()
+const initUnitType = async (world: IWorld) => {
+  const DefaultUnitTypesModel = new DefaultUnitTypes(world.tenant).getInstance()
   for (const unitType of unitTypes) {
     const isExist = await DefaultUnitTypesModel.findOne({ key: unitType.key })
     if (isExist) {
@@ -61,8 +67,8 @@ const initUnitType = async () => {
   }
 }
 
-const initResource = async () => {
-  const DefaultResourceModel = new DefaultResources().getInstance()
+const initResource = async (world: IWorld) => {
+  const DefaultResourceModel = new DefaultResources(world.tenant).getInstance()
   for (const resource of resources) {
     const isExist = await DefaultResourceModel.findOne({ key: resource.key })
     if (isExist) {
@@ -72,10 +78,10 @@ const initResource = async () => {
     }
   }
 }
-const initBuilding = async () => {
-  const DefaultBuildingsModel = new DefaultBuildings().getInstance()
-  const DefaultResourceModel = new DefaultResources().getInstance()
-  const DefaultUpgradeModel = new DefaultUpgrade().getInstance()
+const initBuilding = async (world: IWorld) => {
+  const DefaultBuildingsModel = new DefaultBuildings(world.tenant).getInstance()
+  const DefaultResourceModel = new DefaultResources(world.tenant).getInstance()
+  const DefaultUpgradeModel = new DefaultUpgrade(world.tenant).getInstance()
   const gold = await DefaultResourceModel.findOne({ key: 'gold' })
   const iron = await DefaultResourceModel.findOne({ key: 'iron' })
   const wood = await DefaultResourceModel.findOne({ key: 'wood' })
@@ -89,6 +95,7 @@ const initBuilding = async () => {
     if (isExist) {
       await DefaultBuildingsModel.findByIdAndUpdate(isExist._id, {
         name: building.name,
+        key: building.key,
         description: building.description,
         type: building.type,
         path: building.path,
@@ -97,10 +104,11 @@ const initBuilding = async () => {
       for (const upgrade of building.upgrade) {
         const isExistUpgrade = await DefaultUpgradeModel.findOne({ building: isExist._id, level: upgrade.level })
         if (isExistUpgrade) {
+          const generate = resource ? Math.round(upgrade.generate / 5) : upgrade.generate
           await DefaultUpgradeModel.findByIdAndUpdate(isExistUpgrade._id, {
             building: isExist._id,
-            generate: upgrade.generate,
-            time: upgrade.time,
+            generate: generate,
+            time: upgrade.time * 5 / world.speed,
             resources: {
               asArray: [
                 { type: gold?._id, value: upgrade.gold },
@@ -121,7 +129,7 @@ const initBuilding = async () => {
             building: isExist._id,
             level: upgrade.level,
             generate: upgrade.generate,
-            time: upgrade.time,
+            time: upgrade.time * 5 / world.speed,
             resources: {
               asArray: [
                 { type: gold?._id, value: upgrade.gold },
@@ -142,6 +150,7 @@ const initBuilding = async () => {
     } else {
       const createBuilding = await DefaultBuildingsModel.create({
         name: building.name,
+        key: building.key,
         description: building.description,
         type: building.type,
         path: building.path,
@@ -152,7 +161,7 @@ const initBuilding = async () => {
           building: createBuilding._id,
           level: upgrade.level,
           generate: upgrade.generate,
-          time: upgrade.time,
+          time: upgrade.time * 5 / world.speed,
           resources: {
             asArray: [
               { type: gold?._id, value: upgrade.gold },
@@ -173,11 +182,11 @@ const initBuilding = async () => {
   }
 }
 
-const initUnits = async () => {
-  const DefaultUnitsModel = new DefaultUnits().getInstance()
-  const DefaultBuildingsModel = new DefaultBuildings().getInstance()
-  const DefaultResourceModel = new DefaultResources().getInstance()
-  const DefaultUnitTypesModel = new DefaultUnitTypes().getInstance()
+const initUnits = async (world: IWorld) => {
+  const DefaultUnitsModel = new DefaultUnits(world.tenant).getInstance()
+  const DefaultBuildingsModel = new DefaultBuildings(world.tenant).getInstance()
+  const DefaultResourceModel = new DefaultResources(world.tenant).getInstance()
+  const DefaultUnitTypesModel = new DefaultUnitTypes(world.tenant).getInstance()
   const gold = await DefaultResourceModel.findOne({ key: 'gold' })
   const iron = await DefaultResourceModel.findOne({ key: 'iron' })
   const wood = await DefaultResourceModel.findOne({ key: 'wood' })
@@ -190,20 +199,22 @@ const initUnits = async () => {
   const wall = await DefaultUnitTypesModel.findOne({ key: 'wall' })
   for (const unit of units) {
     const building = await DefaultBuildingsModel.findOne({ name: unit.building })
-    const isExist = await DefaultUnitsModel.exists({ name: unit.name })
-    const unitType =await DefaultUnitTypesModel.findOne({key : unit.type})
+    const isExist = await DefaultUnitsModel.findOne({ key: unit.key })
+    const unitType = await DefaultUnitTypesModel.findOne({ key: unit.type })
     if (isExist) {
       await DefaultUnitsModel.findByIdAndUpdate(isExist._id, {
+        name: unit.name,
+        order: unitType?.order,
         description: unit.description,
-        type : unitType?._id,
+        type: unitType?._id,
         building: building?._id,
-        time: unit.time,
+        time: unit.time * 5 / world.speed,
         speed: unit.speed,
         cargo: unit.cargo,
         life: unit.life,
         range: unit.range,
         population: unit.population,
-        path : unit.path,
+        path: unit.path,
         resources: {
           asArray: [
             { type: gold?._id, value: unit.resource.gold },
@@ -238,16 +249,18 @@ const initUnits = async () => {
     } else {
       await DefaultUnitsModel.create({
         name: unit.name,
+        key: unit.key,
+        order: unitType?.order,
         description: unit.description,
-        type : unitType?._id,
+        type: unitType?._id,
         building: building?._id,
-        time: unit.time,
+        time: unit.time * 5 / world.speed,
         speed: unit.speed,
         cargo: unit.cargo,
         life: unit.life,
         range: unit.range,
         population: unit.population,
-        path : unit.path,
+        path: unit.path,
         resources: {
           asArray: [
             { type: gold?._id, value: unit.resource.gold },
@@ -262,7 +275,7 @@ const initUnits = async () => {
             food: unit.resource.food,
           }
         },
-        strength: { 
+        strength: {
           asArray: [
             { type: infantry?._id, value: unit.strength.infantry },
             { type: archers?._id, value: unit.strength.archers },
@@ -284,13 +297,17 @@ const initUnits = async () => {
 }
 
 export default async function init() {
-  console.log('Start init');
-  await initResource()
-  console.log('Init Resource');
-  await initUnitType()
-  console.log('Init Unit Type');
-  await initBuilding()
-  console.log('Init Building');
-  await initUnits()
-  console.log('Init Units');
+  const worlds = await new Worlds().getInstance().find({})
+  for (const world of worlds) {
+    console.log('Start init world ' + world.name);
+    await initResource(world)
+    console.log('Init Resource');
+    await initUnitType(world)
+    console.log('Init Unit Type');
+    await initBuilding(world)
+    console.log('Init Building');
+    await initUnits(world)
+    console.log('Init Units');
+    console.log('DONE INIT WORLD ' + world.name);
+  }
 }

@@ -1,4 +1,5 @@
 import { HTTPSTATUS } from "constant"
+import { IDefaultBuilding, IDefaultResources, IDefaultUnits, IDefaultUnitType, IDefaultUpgrade } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes, DefaultUpgrades } from "models"
 import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
@@ -11,11 +12,11 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
   name: string
-  DefaultBuildings = new DefaultBuildings().getInstance()
-  DefaultUnits = new DefaultUnits().getInstance()
-  DefaultResources = new DefaultResources().getInstance()
-  DefaultUnitTypes = new DefaultUnitTypes().getInstance()
-  DefaultUpgrade = new DefaultUpgrades().getInstance()
+  DefaultBuildings: Model<IDefaultBuilding>
+  DefaultUnits: Model<IDefaultUnits>
+  DefaultResources: Model<IDefaultResources>
+  DefaultUnitTypes: Model<IDefaultUnitType>
+  DefaultUpgrade: Model<IDefaultUpgrade>
   constructor(modelName: string, user?: IUserFullyPopulate) {
     if (user) {
       this.user = user
@@ -23,6 +24,12 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     }
     this.name = modelName
     this.model = models[this.getCollectionName(modelName)]
+
+    this.DefaultBuildings = new DefaultBuildings(this.tenant || '').getInstance()
+    this.DefaultUnits = new DefaultUnits(this.tenant || '').getInstance()
+    this.DefaultResources = new DefaultResources(this.tenant || '').getInstance()
+    this.DefaultUnitTypes = new DefaultUnitTypes(this.tenant || '').getInstance()
+    this.DefaultUpgrade = new DefaultUpgrades(this.tenant || '').getInstance()
   }
   getCollectionName(name: string) {
     if (this.tenant) {

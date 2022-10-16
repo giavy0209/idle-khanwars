@@ -13,12 +13,6 @@ export default class BuildingRouter extends AbstractRouter<BuildingController> {
         ref: this.controller.get
       },
       {
-        param: 'upgrade',
-        method: 'GET',
-        middlewares: [query(['building']).isString()],
-        ref: this.controller.getUpgrade
-      },
-      {
         param: 'upgrade/:id',
         method: 'POST',
         ref: this.controller.postUpgrade

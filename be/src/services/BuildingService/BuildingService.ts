@@ -1,24 +1,17 @@
 import { AbstractService } from "abstracts"
 import { IBuilding } from "interfaces"
-import { HTTPSTATUS, MODEL } from "constant"
+import { MODEL, POPULATE_BUILDING } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
 import { IBuildingPullPopulate } from "interfaces/IBuilding"
 import { IGetInput, IUpgradeInput } from "./IBuildingService"
-import { AdvancedError } from "utils"
 import ResourceService from "services/ResourceService"
 import socketHandler from "socket"
-import { EVENT_SOCKET } from "constant/enums"
-const populatePath = [
-  {
-    path: 'castle default'
-  }
-]
+import { BUILDING, EVENT_SOCKET } from "constant/enums"
 export default class BuildingService extends AbstractService<IBuilding, IBuildingPullPopulate>  {
-  static populatePath = populatePath
   constructor(user: IUserFullyPopulate) {
     super(MODEL.buildings, user)
-    this.populate = populatePath
+    this.populate = POPULATE_BUILDING
   }
   async get({ castle }: IGetInput) {
     return await this.find(
@@ -33,53 +26,43 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
   async create(castle: Types.ObjectId) {
     const defaultBuildings = await this.DefaultBuildings.find({})
     for (const defaultBuilding of defaultBuildings) {
+      const upgrade0 = await this.DefaultUpgrade.findOne({ building: defaultBuilding._id, level: 0 })
+      const upgrade = await this.DefaultUpgrade.findOne({ building: defaultBuilding._id, level: 1 })
+      let value = 0
+      if (defaultBuilding.resource) {
+        value = 20 * this.user.world.speed
+      } else if (defaultBuilding.key === BUILDING.STORAGE) {
+        value = 500
+      } else {
+        value = 0
+      }
       await this.model.create({
         castle,
-        default: defaultBuilding._id
+        default: defaultBuilding._id,
+        value,
+        upgrade: {
+          current: upgrade0?._id,
+          next: upgrade?._id
+        }
       })
     }
   }
-
-  async getUpgrade({ building }: IUpgradeInput) {
-    const findBuilding = await this.findById(building, true)
-    const upgradeCost = await this.DefaultUpgrade.findOne({
-      building: findBuilding.default._id,
-      level: findBuilding.level + 1
-    }).populate('resources.asArray.type building')
-    if (!upgradeCost) {
-      throw new AdvancedError({
-        message: 'Unknown error',
-        statusCode: HTTPSTATUS.INTERNAL_SERVER_ERROR
-      })
-    }
-    return upgradeCost
-  }
-
   async postUpgrade(building: string) {
     const findBuilding = await this.findById(building, true)
-    const upgradeCost = await this.DefaultUpgrade.findOne({
-      building: findBuilding.default._id,
-      level: findBuilding.level + 1
-    }).populate('resources.asArray.type building')
-    if (!upgradeCost) {
-      throw new AdvancedError({
-        message: 'Unknown error',
-        statusCode: HTTPSTATUS.INTERNAL_SERVER_ERROR
-      })
-    }
     await this.exists({
       castle: findBuilding.castle,
       isUpgrading: true,
     }, 'IF_EXISTS', 'There is a building upgrading')
 
     const resourceService = new ResourceService(this.user)
-    await resourceService.isEnoughResource(upgradeCost.resources.asArray, findBuilding.castle._id)
+    await resourceService.isEnoughResource(findBuilding.upgrade.next.resources.asArray, findBuilding.castle._id)
 
     findBuilding.startAt = new Date()
-    findBuilding.endAt = new Date(Date.now() + upgradeCost.time * 1000)
+    findBuilding.endAt = new Date(Date.now() + findBuilding.upgrade.next.time * 1000)
     findBuilding.isUpgrading = true
     await findBuilding.save()
-    socketHandler(findBuilding.castle._id , EVENT_SOCKET.BUILDING, findBuilding)
+    socketHandler(findBuilding.castle._id, EVENT_SOCKET.BUILDING, findBuilding)
     return findBuilding
   }
 }
+

@@ -19,16 +19,6 @@ export default class BuildingController extends AbstractController<IBuilding, Bu
     }))
   }
 
-  async getUpgrade(req: Request, res: Response) {
-    const { building } = req.query
-    const service = this.createService(req.user)
-    const data = await service.getUpgrade({ building: building as string })
-    res.send(new ResponseResult({
-      data,
-      message: 'Found upgrade cost'
-    }))
-  }
-
   async postUpgrade(req: Request, res: Response) {
     const { id } = req.params
     const service = this.createService(req.user)

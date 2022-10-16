@@ -19,6 +19,9 @@ const Building: FC = memo(() => {
             <Link to={ROUTERS.ARMY}>
               <div className="link">ARMY</div>
             </Link>
+            <Link to={ROUTERS.BUILDING_ARMY}>
+              <div className="link">CASTLE</div>
+            </Link>
             <Link to={ROUTERS.OTHER}>
               <div className="link">OTHER</div>
             </Link>

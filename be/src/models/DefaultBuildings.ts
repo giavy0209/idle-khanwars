@@ -4,10 +4,11 @@ import { IDefaultBuilding } from "interfaces";
 import { Schema } from "mongoose";
 
 class DefaultBuildings extends AbstractModel<IDefaultBuilding> {
-  constructor() {
-    super({name : MODEL.default_buildings})
+  constructor(tenant : string) {
+    super({name : MODEL.default_buildings, tenantId : tenant})
     this.schema = new Schema<IDefaultBuilding>({
       name : {type : String},
+      key : {type : String},
       description : {type : String},
       type : {type : String},
       path : {type : String},

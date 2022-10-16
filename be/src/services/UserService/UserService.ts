@@ -31,8 +31,6 @@ export default class UserService extends AbstractService<IUser, IUserPullPopulat
       password: hashSync(password, 10)
     }) as unknown as IUserFullyPopulate
     await user.populate('world')
-    console.log(user);
-    
     const castleService = new CastleService(user)
     const castle = await castleService.create()
  

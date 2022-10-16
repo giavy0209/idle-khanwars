@@ -1,9 +1,9 @@
 import { ScrollBackground, Button } from "components";
-import { BUILDING_TYPE, DOMAIN } from "const";
+import { BUILDING, DOMAIN } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, memo, useCallback, useEffect, useMemo } from "react";
 import { selectBuildingUpgrade, selectResource, selectUpgradeCost } from "store/selectors";
-import { buildingSlice, fetchUpgrade, postUpgrade } from "store/slices/building";
+import { buildingSlice, postUpgrade } from "store/slices/building";
 import { secondToTime } from "utils";
 
 const Upgrade: FC = memo(() => {
@@ -13,7 +13,7 @@ const Upgrade: FC = memo(() => {
   const resource = useAppSelector(selectResource)
   useEffect(() => {
     if (building) {
-      dispatch(fetchUpgrade(building._id))
+      dispatch(buildingSlice.actions.setUpgradeCost(building.upgrade.next))
     }
   }, [building])
   const onClose = useCallback(() => {
@@ -34,10 +34,47 @@ const Upgrade: FC = memo(() => {
     return false
   }, [upgradeCost])
 
-  const isResource = useMemo(() => {
+  const text = useMemo(() => {
+    if (!upgradeCost) return {}
+    let stat = ''
+    let value = ''
+    switch (upgradeCost.building.key) {
+      case BUILDING.GOLD_MIME:
+      case BUILDING.IRON_MINE:
+      case BUILDING.FARMS:
+      case BUILDING.LUMBERJACKS:
+        stat = 'Generate per hour'
+        value = `${upgradeCost.generate}/h`
+        break;
+      case BUILDING.BARRACKS:
+      case BUILDING.ARCHERY_RANGE:
+      case BUILDING.STABLES:
+      case BUILDING.WORKSHOP:
+      case BUILDING.ORDER:
+        stat = 'Reduce training time'
+        value = `${upgradeCost.generate}%`
+        break;
+      case BUILDING.STORAGE:
+      case BUILDING.SHELTER:
+      case BUILDING.TOWER:
+      case BUILDING.MARKET:
+      case BUILDING.DWELLINGS:
+      case BUILDING.INFIRMARY:
+        stat = 'Increase storage'
+        value = `${upgradeCost.generate}`
+        break;
+      case BUILDING.BLACKSMITH:
+        stat = 'Reduce upgrade time'
+        value = `${upgradeCost.generate}%`
+        break;
+      default:
+        break;
+    }
+    return {
+      stat, value
+    }
 
-    return (upgradeCost?.building.type === BUILDING_TYPE.resources ? true : false)
-  }, [])
+  }, [upgradeCost])
 
   const handleCosts = useCallback(() => {
     return upgradeCost?.resources.asArray.map(o => {
@@ -62,6 +99,20 @@ const Upgrade: FC = memo(() => {
       dispatch(buildingSlice.actions.setUpgrade(undefined))
     }
   }, [dispatch, building])
+
+  const handleEnterBuilding = useCallback(() => {
+    console.log(building);
+    if (!building) return
+    switch (building?.default.key) {
+      case value:
+
+        break;
+
+      default:
+        break;
+    }
+
+  }, [building])
   return (
     <>
       <div className="upgrade">
@@ -84,18 +135,14 @@ const Upgrade: FC = memo(() => {
               <span>{upgradeCost?.level}</span>
             </div>
             <div className="stat">
-              <span>{isResource ? 'Generate per hour' : 'Reduce training time'}:</span>
-              <span>
-                {upgradeCost?.generate}
-                {isResource ? '%' : ''}
-              </span>
+              <span>{text.stat}</span>
+              <span>{text.value}</span>
             </div>
           </div>
           {
-            isEnoughResource ?
-              <Button onClick={handleUpgrade}>Upgrade</Button> :
-              <div className="title">Not enough resource</div>
+            isEnoughResource ? <Button onClick={handleUpgrade}>Upgrade</Button> : <div className="title">Not enough resource</div>
           }
+          <Button type="button" onClick={handleEnterBuilding}>Enter building</Button>
         </ScrollBackground>
       </div>
     </>

@@ -1,12 +1,9 @@
 import { Button } from "components";
-import { DOMAIN, ROUTERS } from "const";
-import { useAppDispatch, useAppSelector } from "hooks";
+import { ROUTERS } from "const";
+import { useAppDispatch } from "hooks";
 import { Main } from "layers";
 import { FC, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { selectResources } from "store/selectors";
-import { buildingSlice } from "store/slices/building";
-import { IResource } from "store/slices/resource";
 import { userSlice } from "store/slices/user";
 import { storage } from "utils";
 const Home: FC = () => {

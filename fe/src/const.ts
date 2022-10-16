@@ -12,11 +12,35 @@ export enum ROUTERS {
   BUILDING_TYPE = ':buildingType',
   RESOURCE = 'resources',
   ARMY = 'army',
+  BUILDING_ARMY = 'building_army',
   OTHER = 'other',
 }
 
 export enum BUILDING_TYPE {
   resources = "RESOURCE",
   army = 'BUILDING_ARMY',
+  building_army = 'ACCESSABLE_BUILDING',
   other = 'BUILDING'
+}
+
+export enum BUILDING {
+  GOLD_MIME = "GOLD_MIME",
+  IRON_MINE = "IRON_MINE",
+  LUMBERJACKS = "LUMBERJACKS",
+  FARMS = "FARMS",
+  BARRACKS = "BARRACKS",
+  ARCHERY_RANGE = "ARCHERY_RANGE",
+  STABLES = "STABLES",
+  WORKSHOP = "WORKSHOP",
+  ORDER = "ORDER",
+  MARKET = "MARKET",
+  DWELLINGS = "DWELLINGS",
+  SHELTER = "SHELTER",
+  TOWER = "TOWER",
+  BLACKSMITH = "BLACKSMITH",
+  INFIRMARY = "INFIRMARY",
+  STORAGE = "STORAGE",
+}
+
+export enum BUILDING_DIRECT {
 }

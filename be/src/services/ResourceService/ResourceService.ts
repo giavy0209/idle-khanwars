@@ -1,28 +1,17 @@
 import { AbstractService } from "abstracts"
-import { IResource } from "interfaces"
-import { HTTPSTATUS, MODEL } from "constant"
+import IResource, {IResourcePullPopulate} from 'interfaces/IResource'
+import { HTTPSTATUS, MODEL, POPULATE_RESOURCE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
-import BuildingService from "services/BuildingService"
 import { IGetInput, IisEnoughResourceInput } from "./IResourceService"
 import { AdvancedError } from "utils"
 import { ChangeResource } from "eventEmitter"
+import { BuildingService } from "services"
 
-const populatePath = [
-  {
-    path: 'default'
-  },
-  {
-    path: 'building',
-    populate: {
-      path: 'castle default'
-    }
-  }
-]
-export default class ResourceService extends AbstractService<IResource>  {
+export default class ResourceService extends AbstractService<IResource, IResourcePullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.resources, user)
-    this.populate = populatePath
+    this.populate = POPULATE_RESOURCE
   }
   async get({ castle }: IGetInput) {
     return await this.find(
@@ -56,7 +45,7 @@ export default class ResourceService extends AbstractService<IResource>  {
       if (!resourceFound) continue
       const needValue = need.find(o => o.type.toString() === resourceFound.default.toString())
       if (!needValue) continue
-      
+
       ChangeResource(this.tenant as string, {
         value: -needValue.value,
         _id: resourceFound._id
