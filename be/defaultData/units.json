@@ -92,7 +92,7 @@
     "description": "The Maceman is strong versus Cavalry and Siege machines and has good Carrying capacity. It requires more Food and Gold than other resources to train.",
     "building": "Barracks",
     "population": 1,
-    "path": "/units/macman.webp",
+    "path": "/units/maceman.webp",
     "resource": {
       "gold": 45,
       "iron": 10,
@@ -173,7 +173,7 @@
     "description": "Another must have in every army unit - it does most damage to Infantry and Archers, it's range is a big advantage, but requires a lot of Gold and Wood.",
     "building": "Archery Range",
     "population": 1,
-    "path": "/units/cross_archer.webp",
+    "path": "/units/crossbow_archer.webp",
     "resource": {
       "gold": 50,
       "iron": 25,

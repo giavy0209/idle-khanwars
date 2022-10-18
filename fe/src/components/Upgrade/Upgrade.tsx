@@ -103,14 +103,6 @@ const Upgrade: FC = memo(() => {
   const handleEnterBuilding = useCallback(() => {
     console.log(building);
     if (!building) return
-    switch (building?.default.key) {
-      case value:
-
-        break;
-
-      default:
-        break;
-    }
 
   }, [building])
   return (

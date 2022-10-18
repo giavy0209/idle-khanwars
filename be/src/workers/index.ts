@@ -1,6 +1,7 @@
 import { Worlds } from "models";
 import ChangeResourceWorker from "./ChangeResourceWorker";
 import GenerateResourceWorker from "./GenerateResourceWorker";
+import HandleTrainingWorker from "./HandleTrainingWorker";
 import HandleUpgradeWorker from "./HandleUpgradeWorker";
 
 export default async function workers() {
@@ -9,7 +10,8 @@ export default async function workers() {
     new ChangeResourceWorker(world).startWorker()
 
     new GenerateResourceWorker(world).startWorker()
-    
+
     new HandleUpgradeWorker(world).startWorker()
+    new HandleTrainingWorker(world).startWorker()
   })
 }

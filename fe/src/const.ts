@@ -8,8 +8,10 @@ export enum EVENT_SOCKET {
 export enum ROUTERS {
   HOME = '',
   LOGIN = 'login',
-  BUILDING = 'building',
+  BUILDING = '/building',
   BUILDING_TYPE = ':buildingType',
+  UNIT = '/unit',
+  UNIT_TYPE = ':unitType',
   RESOURCE = 'resources',
   ARMY = 'army',
   BUILDING_ARMY = 'building_army',
@@ -21,6 +23,14 @@ export enum BUILDING_TYPE {
   army = 'BUILDING_ARMY',
   building_army = 'ACCESSABLE_BUILDING',
   other = 'BUILDING'
+}
+
+export enum TRAINING_TYPE {
+  BARRACKS = "BARRACKS",
+  ARCHERY_RANGE = "ARCHERY_RANGE",
+  STABLES = "STABLES",
+  WORKSHOP = "WORKSHOP",
+  ORDER = "ORDER",
 }
 
 export enum BUILDING {

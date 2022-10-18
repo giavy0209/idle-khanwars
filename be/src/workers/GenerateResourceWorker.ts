@@ -9,7 +9,7 @@ import { Types } from "mongoose";
 export default class GenerateResourceWorker extends AbstractWorker<any, any> {
   DefaultStorage: Types.ObjectId
   constructor(world: IWorld) {
-    super(world, { sleep: 10000 })
+    super(world, { sleep: 5000 })
   }
   async startWorker() {
     this.DefaultStorage = (await new DefaultBuildings(this.world.tenant).getInstance().findOne({ key: BUILDING.STORAGE }))?._id
@@ -39,12 +39,12 @@ export default class GenerateResourceWorker extends AbstractWorker<any, any> {
         const percentDiffTimePerHour = diffTime / 3600
         const generate = resource.building.upgrade.current.generate * this.world.speed
         const value = generate * percentDiffTimePerHour
+        ChangeResource(this.world.tenant, {
+          _id: resource._id,
+          value,
+          updateAt: now
+        })
         if (storage.upgrade.current.generate > resource.value + value) {
-          ChangeResource(this.world.tenant, {
-            _id: resource._id,
-            value,
-            updateAt: now
-          })
         }
       }
     })

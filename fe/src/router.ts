@@ -1,5 +1,5 @@
 import { ROUTERS } from "const"
-import { Building, Home, Signup } from "pages"
+import { Building, Home, Signup, Units } from "pages"
 
 const Routers = [
   {
@@ -15,8 +15,18 @@ const Routers = [
     element: Building,
     children: [
       {
-        path : ROUTERS.BUILDING_TYPE,
-        element : Building
+        path: ROUTERS.BUILDING_TYPE,
+        element: Building
+      }
+    ]
+  },
+  {
+    path: ROUTERS.UNIT,
+    element: Units,
+    children: [
+      {
+        path: ROUTERS.UNIT_TYPE,
+        element: Units
       }
     ]
   },

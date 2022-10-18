@@ -50,7 +50,7 @@ export const VALIDATE_ERROR = 'ValidationError'
 
 export const POPULATE_DEFAULT_UPGRADE = [
   {
-    path : 'resources.asArray.type building'
+    path: 'resources.asArray.type building'
   }
 ]
 
@@ -59,8 +59,8 @@ export const POPULATE_BUILDING = [
     path: 'castle default'
   },
   {
-    path : 'upgrade.current upgrade.next',
-    populate : POPULATE_DEFAULT_UPGRADE
+    path: 'upgrade.current upgrade.next',
+    populate: POPULATE_DEFAULT_UPGRADE
   }
 ]
 
@@ -70,20 +70,45 @@ export const POPULATE_RESOURCE = [
   },
   {
     path: 'building',
-    populate : POPULATE_BUILDING
+    populate: POPULATE_BUILDING
+  },
+]
+
+export const POPULATE_DEFAULT_UNIT = [
+  {
+    path: 'type building resources.asArray.type strength.asArray.type'
+  }
+]
+
+export const POPULATE_UNIT = [
+  {
+    path: 'building',
+    populate: POPULATE_BUILDING
+  },
+  {
+    path: 'default',
+    populate: POPULATE_DEFAULT_UNIT
+  }
+]
+
+export const POPULATE_TRAINING = [
+  {
+    path: 'unit',
+    populate: POPULATE_UNIT
   },
 ]
 export const MODEL = {
-  users : 'users',
-  worlds : 'worlds',
-  resources : 'resources',
-  units : 'units',
-  buildings : 'buildings',
-  castles : 'castles',
+  users: 'users',
+  worlds: 'worlds',
+  resources: 'resources',
+  trainings: 'trainings',
+  units: 'units',
+  buildings: 'buildings',
+  castles: 'castles',
 
-  default_buildings : 'default_buildings',
-  default_upgrades : 'default_upgrades',
-  default_resources : 'default_resources',
-  default_units : 'default_units',
-  default_unit_types : 'default_unit_types',
+  default_buildings: 'default_buildings',
+  default_upgrades: 'default_upgrades',
+  default_resources: 'default_resources',
+  default_units: 'default_units',
+  default_unit_types: 'default_unit_types',
 }

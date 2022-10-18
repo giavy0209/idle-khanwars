@@ -20,7 +20,6 @@ class DefaultUnits extends AbstractModel<IDefaultUnits> {
       life: { type: Number },
       range: { type: Number },
       population: { type: Number },
-
       resources: {
         asArray: [{
           type: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_resources) },

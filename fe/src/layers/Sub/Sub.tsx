@@ -11,11 +11,11 @@ const Sub: FC<ISub> = memo(({ children }) => {
   const goBack = useCallback(() => {
     let currentPath = location.pathname
     const index = currentPath.lastIndexOf('/')
-    
-    if (index + 1 === currentPath.length ) {
+
+    if (index + 1 === currentPath.length) {
       currentPath = currentPath.substring(0, index)
       const nextIndex = currentPath.lastIndexOf('/')
-      navigate(currentPath.substring(0,nextIndex + 1))
+      navigate(currentPath.substring(0, nextIndex + 1))
     } else {
       navigate(currentPath.substring(0, index + 1))
     }
@@ -25,7 +25,9 @@ const Sub: FC<ISub> = memo(({ children }) => {
       <div onClick={goBack} className="pre">
         <FontAwesomeIcon icon={faChevronLeft} />
       </div>
-      {children}
+      <div className="sub-layout">
+        {children}
+      </div>
     </>
   )
 })

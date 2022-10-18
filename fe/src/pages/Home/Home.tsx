@@ -28,6 +28,11 @@ const Home: FC = () => {
                 Buildings
               </div>
             </Link>
+            <Link to={ROUTERS.UNIT}>
+              <div className="link">
+                Training
+              </div>
+            </Link>
           </div>
         </Main>
       </div>

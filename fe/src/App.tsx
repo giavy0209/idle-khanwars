@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector, useSocketHandler } from 'hooks';
 import { initDefault } from 'store';
 import { userSlice } from 'store/slices/user';
 import { selectCastle, selectToken } from 'store/selectors';
-import { Queue, Upgrade } from 'components';
+import { Queue, Training, Upgrade } from 'components';
 import { EVENT_SOCKET, ROUTERS } from 'const';
 import { resourceSlice } from 'store/slices/resource';
 import { buildingSlice } from 'store/slices/building';
@@ -57,6 +57,7 @@ function App() {
     <div id="App">
       <ToastContainer />
       <Upgrade />
+      <Training />
       <Routes>
         {
           handleRouter(Routers)

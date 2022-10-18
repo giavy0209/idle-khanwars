@@ -1,8 +1,7 @@
 import { BUILDING_TYPE, DOMAIN } from "const";
-import { useAppSelector } from "hooks";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { Sub } from "layers";
 import { FC, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import { selectBuildingByType } from "store/selectors";
 import { buildingSlice, IBuilding } from "store/slices/building";
 
@@ -11,7 +10,7 @@ interface IList {
 }
 
 const List: FC<IList> = ({ type }) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const buildings = useAppSelector(selectBuildingByType(BUILDING_TYPE[type]))
   const handleUpgrade = useCallback((building: IBuilding) => {
     dispatch(buildingSlice.actions.setUpgrade(building))
@@ -29,6 +28,7 @@ const List: FC<IList> = ({ type }) => {
                 <div className="contain">
                   <img src={`${DOMAIN}${o.default.path}`} alt="" />
                   <p>{o.default.name}</p>
+                  <p>Level: {o.upgrade.current.level}</p>
                 </div>
               </div>)
             }

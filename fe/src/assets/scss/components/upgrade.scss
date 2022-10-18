@@ -1,4 +1,5 @@
-.upgrade {
+.upgrade,
+.training {
   .costs {
     display: flex;
     flex-wrap: wrap;
@@ -6,6 +7,9 @@
       width: 100%;
       display: flex;
       align-items: center;
+      &.training {
+        width: 50%;
+      }
       .image {
         width: 60px;
       }
@@ -30,6 +34,20 @@
       }
     }
   }
+  .strength {
+    .stat {
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      > * {
+        width: 50%;
+        display: inline-block;
+      }
+      &:nth-child(odd) {
+        background-color: $bg-odd;
+      }
+    }
+  }
   .statistics {
     margin: 10px 0;
     .stat {
@@ -39,6 +57,25 @@
         width: 50%;
         font-weight: 600;
       }
+    }
+  }
+  .total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    input {
+      border-radius: 5px;
+      background-color: $bg-input;
+      padding: 5px;
+      width: 70%;
+    }
+    .max {
+      cursor: pointer;
+      text-decoration: underline;
+      width: 30%;
+      font-size: 18px;
+      font-weight: 600;
+      margin-left: 5px;
     }
   }
 }

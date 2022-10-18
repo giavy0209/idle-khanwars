@@ -1,11 +1,14 @@
-import { Document, Types } from "mongoose";
+import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
+import IDefaultBuilding from "./IDefaultBuilding";
+import IDefaultResources from "./IDefaultResources";
+import IDefaultUnitType from "./IDefaultUnitType";
 
 export default interface IDefaultUnits extends Document {
   name: string
   key: string
   order: number
   description: string
-  path : string
+  path: string
   building: Types.ObjectId
   type: Types.ObjectId
   time: number
@@ -27,11 +30,11 @@ export default interface IDefaultUnits extends Document {
     }
   }
   strength: {
-    asArray : {
+    asArray: {
       type: Types.ObjectId
-      value:number
+      value: number
     }[]
-    asObject : {
+    asObject: {
       infantry: number,
       archers: number,
       cavalry: number,
@@ -40,3 +43,24 @@ export default interface IDefaultUnits extends Document {
     }
   },
 }
+
+export interface IDefaultUnitsPullPopulate {
+  type: IDefaultUnitType,
+  building: IDefaultBuilding,
+  resources: {
+    asArray: {
+      type: IDefaultResources
+      value: number
+    }[],
+    asObject: IDefaultUnits['resources']['asObject']
+  }
+  strength: {
+    asArray: {
+      type: IDefaultUnitType
+      value: number
+    }[]
+    asObject: IDefaultUnits['strength']['asObject']
+  },
+}
+
+export type IDefaultUnitFullyPopulate = UnpackedIntersection<HydratedDocument<IDefaultUnits, {}, {}>, IDefaultUnitsPullPopulate>

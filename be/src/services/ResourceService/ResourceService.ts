@@ -1,5 +1,5 @@
 import { AbstractService } from "abstracts"
-import IResource, {IResourcePullPopulate} from 'interfaces/IResource'
+import IResource, { IResourcePullPopulate } from 'interfaces/IResource'
 import { HTTPSTATUS, MODEL, POPULATE_RESOURCE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
@@ -43,7 +43,7 @@ export default class ResourceService extends AbstractService<IResource, IResourc
     }
     for (const resourceFound of resourcesFound) {
       if (!resourceFound) continue
-      const needValue = need.find(o => o.type.toString() === resourceFound.default.toString())
+      const needValue = need.find(o => o.type.toString() === resourceFound.default._id.toString())
       if (!needValue) continue
 
       ChangeResource(this.tenant as string, {
