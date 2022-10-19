@@ -7,5 +7,15 @@ export default class WorldController extends AbstractController<IWorld, WorldSer
   constructor() {
     super(WorldService)
   }
+  async post (req:Request,res:Response){
+    const {tenant, name, speed}=req.body
+    const service = await this.createService()
+    const world = await service.create({
+      name, 
+      speed,
+      tenant
+    })
+    
+  }
 }
 

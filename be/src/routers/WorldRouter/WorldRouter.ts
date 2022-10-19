@@ -12,6 +12,12 @@ export default class WorldRouter extends AbstractRouter<WorldController> {
         ref: this.controller.get,
         authorized : false
       },
+      {
+        param: '',
+        method: 'POST',
+        ref: this.controller.post,
+        authorized : false
+      },
     ]
     this.regisRouter()
   }

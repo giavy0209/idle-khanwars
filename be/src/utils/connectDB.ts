@@ -8,7 +8,7 @@ if (Config.MONGO_USER && Config.MONGO_PASSWORD) {
   connectString += '?authSource=admin'
 }
 uri += `${authString}${connectString}`
-console.log(uri);
+console.log(uri)
 
 mongoose.connect(uri)
   .then(() => {
