@@ -4,6 +4,7 @@ export enum STATUS {
 }
 
 export enum EVENT_SOCKET {
+  UNIT = 'UNIT',
   RESOURCE = 'RESOURCE',
   BUILDING = 'BUILDING',
   TRAINING = 'TRAINING',

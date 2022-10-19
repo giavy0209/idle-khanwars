@@ -18,9 +18,9 @@ export default class AbtractController<I, S extends AbstractService<I, any>> {
     const query = req.query as FilterQuery<I>
     const service = this.createService(req.user)
     const { skip, limit } = req.pagin
-    
-    if (id ) {
-      if (isValidObjectId(id)){
+
+    if (id) {
+      if (isValidObjectId(id)) {
         const data = await service.findById(id, true)
         if (data) {
           res.send(new ResponseResult({
@@ -30,7 +30,7 @@ export default class AbtractController<I, S extends AbstractService<I, any>> {
         } else {
           return next()
         }
-      }else {
+      } else {
         return next()
       }
     }

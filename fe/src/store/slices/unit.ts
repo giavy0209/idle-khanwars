@@ -98,6 +98,10 @@ export const unitSlice = createSlice({
   reducers: {
     training: (state, action: PayloadAction<IUnit | undefined>) => {
       state.training = action.payload
+    },
+    changeUnit: (state, action: PayloadAction<IUnit>) => {
+      const index = state.units.findIndex(o => o._id === action.payload._id)
+
     }
   },
   extraReducers(builder) {

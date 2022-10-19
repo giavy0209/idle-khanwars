@@ -1,4 +1,4 @@
-import { BUILDING_TYPE, ROUTERS, TRAINING_TYPE } from "const";
+import { BUILDING_TYPE, TRAINING_TYPE } from "const";
 import { useAppSelector } from "hooks";
 import { Sub } from 'layers'
 import { FC } from 'react'

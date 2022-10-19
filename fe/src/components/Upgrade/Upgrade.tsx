@@ -15,7 +15,7 @@ const Upgrade: FC = memo(() => {
     if (building) {
       dispatch(buildingSlice.actions.setUpgradeCost(building.upgrade.next))
     }
-  }, [building])
+  }, [building,dispatch])
   const onClose = useCallback(() => {
     dispatch(buildingSlice.actions.setUpgrade(undefined))
   }, [dispatch])
@@ -32,7 +32,7 @@ const Upgrade: FC = memo(() => {
       return true
     }
     return false
-  }, [upgradeCost])
+  }, [upgradeCost,resource])
 
   const text = useMemo(() => {
     if (!upgradeCost) return {}

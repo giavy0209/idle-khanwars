@@ -1,17 +1,16 @@
-import { Worlds } from "models";
+import { IWorld } from "interfaces";
 import ChangeResourceWorker from "./ChangeResourceWorker";
 import GenerateResourceWorker from "./GenerateResourceWorker";
 import HandleTrainingWorker from "./HandleTrainingWorker";
 import HandleUpgradeWorker from "./HandleUpgradeWorker";
 
-export default async function workers() {
-  const worlds = await new Worlds().getInstance().find({})
-  worlds.forEach(world => {
-    new ChangeResourceWorker(world).startWorker()
+export default async function workers(world: IWorld) {
+  console.log(`Init worker for world ${world.tenant}`);
 
-    new GenerateResourceWorker(world).startWorker()
+  new ChangeResourceWorker(world).startWorker()
 
-    new HandleUpgradeWorker(world).startWorker()
-    new HandleTrainingWorker(world).startWorker()
-  })
+  new GenerateResourceWorker(world).startWorker()
+
+  new HandleUpgradeWorker(world).startWorker()
+  new HandleTrainingWorker(world).startWorker()
 }

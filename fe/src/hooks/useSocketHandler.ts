@@ -23,6 +23,6 @@ export default function useSocketHandler<I = any>({
     return () => {
       socket.removeListener(event, handler)
     }
-  }, [dispatch])
+  }, [dispatch, action, event])
   return data
 }

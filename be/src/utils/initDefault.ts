@@ -1,6 +1,6 @@
 import fs from 'fs'
 import { IWorld } from 'interfaces'
-import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes, Worlds } from 'models'
+import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes } from 'models'
 import DefaultUpgrade from 'models/DefaultUpgrades'
 import path from 'path'
 const buildings = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', 'defaultData', 'building.json')) as unknown as string)
@@ -296,18 +296,15 @@ const initUnits = async (world: IWorld) => {
   }
 }
 
-export default async function init() {
-  const worlds = await new Worlds().getInstance().find({})
-  for (const world of worlds) {
-    console.log('Start init world ' + world.name);
-    await initResource(world)
-    console.log('Init Resource');
-    await initUnitType(world)
-    console.log('Init Unit Type');
-    await initBuilding(world)
-    console.log('Init Building');
-    await initUnits(world)
-    console.log('Init Units');
-    console.log('DONE INIT WORLD ' + world.name);
-  }
+export default async function initDefault(world: IWorld) {
+  console.log('Start init world ' + world.name);
+  await initResource(world)
+  console.log('Init Resource');
+  await initUnitType(world)
+  console.log('Init Unit Type');
+  await initBuilding(world)
+  console.log('Init Building');
+  await initUnits(world)
+  console.log('Init Units');
+  console.log('DONE INIT WORLD ' + world.name);
 }
