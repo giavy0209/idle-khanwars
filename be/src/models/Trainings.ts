@@ -7,6 +7,7 @@ class Trainings extends AbstractModel<ITraining> {
   constructor(tenantId: string) {
     super({ name: MODEL.trainings, tenantId })
     this.schema = new Schema<ITraining>({
+      castle: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.castles) },
       unit: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.units) },
       total: { type: Number },
       left: { type: Number },

@@ -12,11 +12,12 @@ import { Queue, Training, Upgrade } from 'components';
 import { EVENT_SOCKET, ROUTERS } from 'const';
 import { resourceSlice } from 'store/slices/resource';
 import { buildingSlice } from 'store/slices/building';
+import { unitSlice } from 'store/slices/unit';
 import { globalSlice } from 'store/slices/global';
 function App() {
   useSocketHandler({ action: resourceSlice.actions.setResource, event: EVENT_SOCKET.RESOURCE })
   useSocketHandler({ action: buildingSlice.actions.setBuilding, event: EVENT_SOCKET.BUILDING })
-  useSocketHandler({ action: buildingSlice.actions.setBuilding, event: EVENT_SOCKET.UNIT })
+  useSocketHandler({ action: unitSlice.actions.setUnit, event: EVENT_SOCKET.UNIT })
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()

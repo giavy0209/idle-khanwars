@@ -2,6 +2,7 @@ import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoos
 import { IUnitFullyPopulate } from "./IUnit";
 
 export default interface ITraining extends Document {
+  castle:Types.ObjectId
   unit: Types.ObjectId
   total: number
   left: number

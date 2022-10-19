@@ -17,4 +17,8 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
       total: trainingOne * total
     }
   }
+  
+  async get({castle}:{castle : string}){
+    return await this.find({castle})
+  }
 }
