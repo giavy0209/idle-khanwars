@@ -5,6 +5,7 @@ import { ITraining, IWorld } from "interfaces";
 import { ITrainingPullPopulate } from "interfaces/ITraining";
 import { IUserFullyPopulate } from "interfaces/IUser";
 import { TrainingService } from "services";
+import { ChangeUnit } from "eventEmitter";
 import socketHandler from "socket";
 
 export default class HandleTrainingWorker extends AbstractWorker<ITraining> {
@@ -23,7 +24,7 @@ export default class HandleTrainingWorker extends AbstractWorker<ITraining> {
         training.nextAt = new Date(Date.now() + one)
         training.endAt = new Date(Date.now() + total)
         await training.save()
-
+        ChangeUnit(this.world.tenant,{_id : training.unit._id, value: 1})
         socketHandler(training.unit.castle._id, EVENT_SOCKET.TRAINING, training)
       }
     })
