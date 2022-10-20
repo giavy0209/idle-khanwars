@@ -7,19 +7,29 @@ export default class TraningController extends AbstractController<ITraining, Tra
   constructor() {
     super(TrainingService)
   }
-  async get(req :Request , res:Response){
+  async get(req: Request, res: Response) {
     const {
       user,
-      query :{
+      query: {
         castle
       }
     } = req
     const service = this.createService(user)
-    const data = await service.get({castle :castle as string})
+    const { data } = await service.get({ castle: castle as string })
     res.send(new ResponseResult({
       data,
-      message:"Get training queue successfully"
-    })
+      message: "Get training queue successfully"
+    }))
+  }
+
+  async post(req: Request, res: Response) {
+    const { total, unit } = req.body
+    const service = this.createService(req.user)
+    const data = await service.post({ total, unit })
+    res.send(new ResponseResult({
+      data,
+      message: 'Traning successfully'
+    }))
   }
 }
 

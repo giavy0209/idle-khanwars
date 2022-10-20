@@ -61,14 +61,14 @@ export const resourceSlice = createSlice({
     setResource: (state, action: PayloadAction<IResource>) => {
       const resources = [...state.resources]
       const index = resources.findIndex(o => o._id === action.payload._id)
-      resources.splice(index, 1 , {
+      resources.splice(index, 1, {
         ...action.payload,
-        value : Math.floor(action.payload.value)
+        value: Math.floor(action.payload.value)
       })
       state.resources = [...resources]
       state.resource = {
         ...state.resource,
-        [action.payload.default.key] : Math.floor(action.payload.value)
+        [action.payload.default.key]: Math.floor(action.payload.value)
       }
     }
   },

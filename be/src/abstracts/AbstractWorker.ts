@@ -48,7 +48,7 @@ export default abstract class AbstractWorker<I, Q = {}> {
     while (true) {
       this.startAt = Date.now()
       await job()
-      if(this.sleep) {
+      if (this.sleep) {
         await this.sleeping()
       }
     }

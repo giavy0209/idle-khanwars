@@ -14,10 +14,13 @@ import { resourceSlice } from 'store/slices/resource';
 import { buildingSlice } from 'store/slices/building';
 import { unitSlice } from 'store/slices/unit';
 import { globalSlice } from 'store/slices/global';
+import { trainingSlice } from 'store/slices/training';
 function App() {
-  useSocketHandler({ action: resourceSlice.actions.setResource, event: EVENT_SOCKET.RESOURCE })
-  useSocketHandler({ action: buildingSlice.actions.setBuilding, event: EVENT_SOCKET.BUILDING })
-  useSocketHandler({ action: unitSlice.actions.setUnit, event: EVENT_SOCKET.UNIT })
+  useSocketHandler({ action: [resourceSlice.actions.setResource], event: EVENT_SOCKET.RESOURCE })
+  useSocketHandler({ action: [buildingSlice.actions.setBuilding, unitSlice.actions.setUnitByBuilding], event: EVENT_SOCKET.BUILDING })
+  useSocketHandler({ action: [unitSlice.actions.setUnit], event: EVENT_SOCKET.UNIT })
+  useSocketHandler({ action: [trainingSlice.actions.setTraining], event: EVENT_SOCKET.TRAINING })
+  useSocketHandler({ action: [trainingSlice.actions.removeTraining], event: EVENT_SOCKET.TRAINING_DONE })
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()

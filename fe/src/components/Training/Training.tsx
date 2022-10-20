@@ -3,12 +3,18 @@ import { DOMAIN } from 'const'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { FC, useCallback, useState, useMemo, ChangeEvent } from 'react'
 import { selectResource, selectUnitTraining } from 'store/selectors'
-import { trainUnit, unitSlice } from 'store/slices/unit'
+import { postTraining } from 'store/slices/training'
+import { unitSlice } from 'store/slices/unit'
 import { secondToTime } from 'utils'
 
 const Training: FC = () => {
   const [total, setTotal] = useState('0')
   const unit = useAppSelector(selectUnitTraining)
+  console.log(unit, unit?.default.time ?
+    Math.round(unit.default.time * (1 - unit.building.upgrade.current.generate / 100))
+    :
+    0);
+
   const resource = useAppSelector(selectResource)
   const dispatch = useAppDispatch()
   const onClose = useCallback(() => {
@@ -58,7 +64,7 @@ const Training: FC = () => {
 
   const handleTraining = useCallback(() => {
     if (!unit) return
-    dispatch(trainUnit({ total: Number(total), unit: unit._id }))
+    dispatch(postTraining({ total: Number(total), unit: unit._id }))
   }, [total, unit, dispatch])
   return <>
     <div className="training">
@@ -112,7 +118,12 @@ const Training: FC = () => {
         <div className="statistics">
           <div className="stat">
             <span>Time :</span>
-            <span>{secondToTime(unit?.default.time ? unit.default.time * Number(total) : 0)}</span>
+            <span>{secondToTime(
+              unit?.default.time ?
+                (unit.default.time * (1 - unit.building.upgrade.current.generate / 100)) * Number(total)
+                :
+                0
+            )}</span>
           </div>
         </div>
         <div className="title">Total</div>

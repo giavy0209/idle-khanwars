@@ -9,6 +9,7 @@ class Trainings extends AbstractModel<ITraining> {
     this.schema = new Schema<ITraining>({
       castle: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.castles) },
       unit: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.units) },
+      building: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.buildings) },
       total: { type: Number },
       left: { type: Number },
       trained: { type: Number, default: 0 },

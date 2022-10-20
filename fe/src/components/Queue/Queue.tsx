@@ -3,14 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DOMAIN } from "const";
 import { useAppSelector } from "hooks";
 import useCountDown from "hooks/useCountDown";
-import { FC, memo, useState} from "react";
-import { selectBuildingUpgradiing } from "store/selectors";
+import { FC, memo, useState } from "react";
+import { selectBuildingUpgradiing, selectTrainings } from "store/selectors";
 import renderDate from "utils/renderDate";
+import Training from "./Training";
 
 const Queue: FC = memo(() => {
   const [isClose, setIsClose] = useState(true)
   const buildingUpgrading = useAppSelector(selectBuildingUpgradiing)
+  const unitTrainings = useAppSelector(selectTrainings)
   const cownDown = useCountDown(buildingUpgrading?.endAt || null)
+
   return (
     <>
       <div className={`queue ${isClose ? 'close' : ''}`}>
@@ -50,7 +53,12 @@ const Queue: FC = memo(() => {
                   <p>No building on upgrade</p>
               }
             </div>
-
+            <div className="trainings">
+              <div className="title">Trainings</div>
+              {
+                unitTrainings.map(o => <Training key={o._id} training={o} />)
+              }
+            </div>
           </div>
         </div>
       </div>

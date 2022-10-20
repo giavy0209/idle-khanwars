@@ -18,13 +18,5 @@ export default class UnitController extends AbstractController<IUnit, UnitServic
       message: 'Get unit successfully'
     }))
   }
-  async post(req: Request, res: Response) {
-    const { total, unit } = req.body
-    const service = this.createService(req.user)
-    await service.post({ total, unit })
-    res.send(new ResponseResult({
-      message: 'Traning successfully'
-    }))
-  }
 }
 

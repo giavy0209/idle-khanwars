@@ -54,24 +54,25 @@
       display: none;
     }
     .content {
-      .upgrading {
-        .info {
+      .title {
+        margin-top: 10px;
+      }
+      .info {
+        display: flex;
+        margin-top: 20px;
+        .left {
+          width: 20%;
           display: flex;
-          margin-top: 20px;
-          .left {
-            width: 20%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+          flex-direction: column;
+          align-items: center;
+        }
+        .right {
+          p {
+            font-weight: 500;
+            font-size: 18px;
           }
-          .right {
-            p {
-              font-weight: 500;
-              font-size: 18px;
-            }
-            width: 80%;
-            padding-left: 20px;
-          }
+          width: 80%;
+          padding-left: 20px;
         }
       }
     }

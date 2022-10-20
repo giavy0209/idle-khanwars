@@ -13,7 +13,7 @@ export interface IChangeResourceWorker {
 
 export default class ChangeResourceWorker extends AbstractWorker<IResource, IChangeResourceWorker> {
   constructor(world: IWorld) {
-    super(world, { modelName: MODEL.resources })
+    super(world, { modelName: MODEL.resources, sleep: 10 })
   }
   startWorker() {
     this.start(async ({ _id, value, updateAt }) => {

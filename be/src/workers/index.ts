@@ -1,5 +1,6 @@
 import { IWorld } from "interfaces";
 import ChangeResourceWorker from "./ChangeResourceWorker";
+import ChangeUnitWorker from "./ChangeUnitWorker";
 import GenerateResourceWorker from "./GenerateResourceWorker";
 import HandleTrainingWorker from "./HandleTrainingWorker";
 import HandleUpgradeWorker from "./HandleUpgradeWorker";
@@ -13,4 +14,5 @@ export default async function workers(world: IWorld) {
 
   new HandleUpgradeWorker(world).startWorker()
   new HandleTrainingWorker(world).startWorker()
+  new ChangeUnitWorker(world).startWorker()
 }

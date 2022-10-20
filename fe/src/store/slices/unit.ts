@@ -73,15 +73,6 @@ export const fetchUnit = createAsyncThunk<IUnit[]>(
   }
 )
 
-export const trainUnit = createAsyncThunk<any, { total: number, unit: string }>(
-  'unit/trainUnit',
-  async ({ total, unit }, { getState }) => {
-    const state = getState() as RootState
-    const castle = state.castleState.current._id
-    await callAPI.post(`/units`, { total, castle, unit })
-  }
-)
-
 interface InitialState {
   units: IUnit[]
   training?: IUnit
@@ -102,8 +93,17 @@ export const unitSlice = createSlice({
     setUnit: (state, action: PayloadAction<IUnit>) => {
       const index = state.units.findIndex(o => o._id === action.payload._id)
       const units = [...state.units]
-      units.splice(index,1,action.payload)
-      state.units=units
+      units.splice(index, 1, action.payload)
+      state.units = units
+    },
+    setUnitByBuilding(state, action: PayloadAction<IBuilding>) {
+      const units = [...state.units]
+      units.forEach(unit => {
+        if (unit.building._id === action.payload._id) {
+          unit.building = action.payload
+        }
+      })
+      state.units = units
     }
   },
   extraReducers(builder) {
