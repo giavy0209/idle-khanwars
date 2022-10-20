@@ -40,7 +40,7 @@ const setResources = (state: InitialState, action: PayloadAction<IResource[]>) =
   })
 }
 
-export const resourceSlice = createSlice({
+const resourceSlice = createSlice({
   name: 'resource',
   initialState,
   reducers: {
@@ -64,5 +64,5 @@ export const resourceSlice = createSlice({
       .addCase(fetchResource.fulfilled, setResources)
   },
 })
-
-export default resourceSlice.reducer
+export const resourceAction = resourceSlice.actions
+export const resourceReducer = resourceSlice.reducer

@@ -3,22 +3,18 @@ import { DOMAIN } from 'const'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { FC, useCallback, useState, useMemo, ChangeEvent } from 'react'
 import { selectResource, selectUnitTraining } from 'store/selectors'
-import { postTraining } from 'store/slices/training'
-import { unitSlice } from 'store/slices/unit'
+import { postTraining } from 'store/slices/trainingSlice'
+import { unitAction } from 'store/slices'
 import { secondToTime } from 'utils'
 
 const Training: FC = () => {
   const [total, setTotal] = useState('0')
   const unit = useAppSelector(selectUnitTraining)
-  console.log(unit, unit?.default.time ?
-    Math.round(unit.default.time * (1 - unit.building.upgrade.current.generate / 100))
-    :
-    0);
 
   const resource = useAppSelector(selectResource)
   const dispatch = useAppDispatch()
   const onClose = useCallback(() => {
-    dispatch(unitSlice.actions.training(undefined))
+    dispatch(unitAction.training(undefined))
   }, [dispatch])
 
   const handleCosts = useCallback((total: number, showLeft: boolean) => {

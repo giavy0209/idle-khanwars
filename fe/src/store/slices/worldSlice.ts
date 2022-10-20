@@ -1,19 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import callAPI from 'callAPI';
-export interface World {
-  _id: string,
-  name: string
-  speed: number
-  tenant: string
+import { IWorld } from 'interfaces';
+
+export interface InitialState {
+  worlds: IWorld[]
 }
-export interface WorldState {
-  worlds: World[]
-}
-const initialState: WorldState = {
+const initialState: InitialState = {
   worlds: []
 };
 
-export const fetchWorlds = createAsyncThunk<World[]>(
+export const fetchWorlds = createAsyncThunk<IWorld[]>(
   'world/fetchWorlds',
   async () => {
     const res = await callAPI.get('/worlds')
@@ -21,7 +17,7 @@ export const fetchWorlds = createAsyncThunk<World[]>(
   }
 );
 
-export const worldSlice = createSlice({
+const worldSlice = createSlice({
   name: 'world',
   initialState,
   reducers: {
@@ -34,5 +30,5 @@ export const worldSlice = createSlice({
   }
 })
 
-
-export default worldSlice.reducer
+export const worldAction = worldSlice.actions
+export const worldReducer = worldSlice.reducer

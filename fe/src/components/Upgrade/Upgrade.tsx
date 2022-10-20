@@ -3,7 +3,7 @@ import { BUILDING, DOMAIN } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { FC, memo, useCallback, useEffect, useMemo } from "react";
 import { selectBuildingUpgrade, selectResource, selectUpgradeCost } from "store/selectors";
-import { buildingSlice, postUpgrade } from "store/slices/building";
+import { buildingAction, postUpgrade } from "store/slices";
 import { secondToTime } from "utils";
 
 const Upgrade: FC = memo(() => {
@@ -13,11 +13,11 @@ const Upgrade: FC = memo(() => {
   const resource = useAppSelector(selectResource)
   useEffect(() => {
     if (building) {
-      dispatch(buildingSlice.actions.setUpgradeCost(building.upgrade.next))
+      dispatch(buildingAction.setUpgradeCost(building.upgrade.next))
     }
-  }, [building,dispatch])
+  }, [building, dispatch])
   const onClose = useCallback(() => {
-    dispatch(buildingSlice.actions.setUpgrade(undefined))
+    dispatch(buildingAction.setUpgrade(undefined))
   }, [dispatch])
 
   const isEnoughResource = useMemo(() => {
@@ -32,7 +32,7 @@ const Upgrade: FC = memo(() => {
       return true
     }
     return false
-  }, [upgradeCost,resource])
+  }, [upgradeCost, resource])
 
   const text = useMemo(() => {
     if (!upgradeCost) return {}
@@ -96,7 +96,7 @@ const Upgrade: FC = memo(() => {
   const handleUpgrade = useCallback(() => {
     if (building) {
       dispatch(postUpgrade(building._id))
-      dispatch(buildingSlice.actions.setUpgrade(undefined))
+      dispatch(buildingAction.setUpgrade(undefined))
     }
   }, [dispatch, building])
 

@@ -13,21 +13,7 @@ export const fetchBuilding = createAsyncThunk<IBuilding[]>(
   }
 )
 
-export const fetchUpgrade = createAsyncThunk<IDefaultUpgrade, string>(
-  'building/fetchUpgrade',
-  async (building: string) => {
-    const res = await callAPI.get(`/buildings/upgrade?building=${building}`)
-    return res.data
-  }
-)
 
-export const postUpgrade = createAsyncThunk<IDefaultUpgrade, string>(
-  'building/postUpgrade',
-  async (building: string) => {
-    const res = await callAPI.post(`/buildings/upgrade/${building}`, {}, { toastSuccess: true })
-    return res.data
-  }
-)
 
 interface InitialState {
   buildings: IBuilding[]
@@ -41,7 +27,7 @@ const initialState: InitialState = {
   upgradeCost: undefined
 }
 
-export const buildingSlice = createSlice({
+const buildingSlice = createSlice({
   name: 'building',
   initialState,
   reducers: {
@@ -63,10 +49,8 @@ export const buildingSlice = createSlice({
       .addCase(fetchBuilding.fulfilled, (state, action) => {
         state.buildings = action.payload
       })
-      .addCase(fetchUpgrade.fulfilled, (state, action) => {
-        state.upgradeCost = action.payload
-      })
   },
 })
 
-export default buildingSlice.reducer
+export const buildingAction = buildingSlice.actions
+export const buildingReducer = buildingSlice.reducer

@@ -1,19 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
+import { IUser } from "interfaces"
 import { storage } from "utils"
-import { World } from "./world"
-
-export interface User {
-  _id: string
-  username: string
-  world: World
-  status: string
-  lastLogin: Date
-  createdAt: Date
-}
 
 export interface UserState {
-  user: Partial<User>
+  user: Partial<IUser>
   token: string
 }
 const initialState: UserState = {
@@ -22,7 +13,7 @@ const initialState: UserState = {
 }
 
 export interface LoginReturn {
-  user: User,
+  user: IUser,
   token: string
 }
 export interface LoginPayload {
@@ -44,14 +35,14 @@ export const signup = createAsyncThunk<LoginReturn, LoginPayload>(
     return res.data
   }
 )
-export const fetchCurrent = createAsyncThunk<User>(
+export const fetchCurrent = createAsyncThunk<IUser>(
   'user/Current',
   async () => {
     const res = await callAPI.get('/users/my')
     return res.data
   }
 )
-export const userSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -74,5 +65,5 @@ export const userSlice = createSlice({
       })
   },
 })
-
-export default userSlice.reducer
+export const userAction = userSlice.actions
+export const userReducer = userSlice.reducer

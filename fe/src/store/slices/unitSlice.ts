@@ -3,8 +3,6 @@ import callAPI from "callAPI"
 import { IBuilding, IUnit } from "interfaces"
 import { RootState } from "store"
 
-
-
 export const fetchUnit = createAsyncThunk<IUnit[]>(
   'unit/fetchUnit',
   async (_, { getState }) => {
@@ -25,7 +23,7 @@ const initialState: InitialState = {
   training: undefined
 }
 
-export const unitSlice = createSlice({
+const unitSlice = createSlice({
   name: 'unit',
   initialState,
   reducers: {
@@ -54,5 +52,5 @@ export const unitSlice = createSlice({
     })
   },
 })
-
-export default unitSlice.reducer
+export const unitAction = unitSlice.actions
+export const unitReducer = unitSlice.reducer

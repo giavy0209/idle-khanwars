@@ -3,8 +3,6 @@ import callAPI from "callAPI"
 import { ITraining } from "interfaces"
 import { RootState } from "store"
 
-
-
 interface InitialState {
   trainings: ITraining[]
 }
@@ -30,7 +28,7 @@ export const postTraining = createAsyncThunk<ITraining, { total: number, unit: s
   }
 )
 
-export const trainingSlice = createSlice({
+const trainingSlice = createSlice({
   name: 'training',
   initialState,
   reducers: {
@@ -58,4 +56,5 @@ export const trainingSlice = createSlice({
   },
 })
 
-export default trainingSlice.reducer
+export const trainingAction = trainingSlice.actions
+export const trainingReducer = trainingSlice.reducer

@@ -1,22 +1,16 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { building, castle, global, resource, training, unit, user, world, } from './slices';
-import { fetchBuilding, } from './slices/building';
-import { fetchCastle } from './slices/castle';
-import { fetchResource } from './slices/resource';
-import { fetchTraining } from './slices/training';
-import { fetchUnit } from './slices/unit';
-import { fetchCurrent } from './slices/user';
+import { resourceReducer, trainingReducer, unitReducer, userReducer, worldReducer, buildingReducer, fetchBuilding, castleReducer, fetchCurrent, fetchCastle, fetchResource, fetchUnit, fetchTraining, globalReducer } from './slices';
 
 const store = configureStore({
   reducer: {
-    globalState: global,
-    unitState: unit,
-    trainingState: training,
-    worldState: world,
-    userState: user,
-    castleState: castle,
-    buildingState: building,
-    resourceState: resource,
+    globalState: globalReducer,
+    unitState: unitReducer,
+    trainingState: trainingReducer,
+    worldState: worldReducer,
+    userState: userReducer,
+    castleState: castleReducer,
+    buildingState: buildingReducer,
+    resourceState: resourceReducer,
   },
 });
 

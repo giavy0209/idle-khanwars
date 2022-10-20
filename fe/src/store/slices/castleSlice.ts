@@ -1,15 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
+import { ICastle } from "interfaces"
 import socket from "socket"
 import { storage } from "utils"
-
-export interface ICastle {
-  _id: string
-  loyal: number
-  population: number
-  name: string
-  isCapital: boolean
-}
 
 export const fetchCastle = createAsyncThunk<ICastle[]>(
   'castle/fetchCastle',
@@ -33,8 +26,6 @@ const initialState: InitialState = {
   }
 }
 
-
-
 const castleSlice = createSlice({
   name: 'castle',
   initialState,
@@ -57,5 +48,5 @@ const castleSlice = createSlice({
       })
   },
 })
-
-export default castleSlice.reducer
+export const castleAction = castleSlice.actions
+export const castleReducer = castleSlice.reducer
