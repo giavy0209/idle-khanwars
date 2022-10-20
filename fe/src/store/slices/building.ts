@@ -1,52 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
+import { IBuilding, IDefaultUpgrade } from "interfaces"
 import { RootState } from "store"
-
-export interface IUpgrade {
-  building: {
-    type: string
-    key : string
-  }
-  level: number
-  generate: number
-  time: number
-  resources: {
-    asArray: {
-      type: {
-        name: string
-        key: string
-        path: string
-      }
-      _id: string
-      value: number
-    }[]
-    asObject: {
-      gold: number
-      iron: number
-      wood: number
-      food: number
-    }
-  }
-}
-export interface IBuilding {
-  _id: string
-  default: {
-    name: string
-    key: string
-    description: string
-    type: string
-    path: string
-  }
-  upgrade : {
-    current : IUpgrade,
-    next : IUpgrade
-  }
-  isUpgrading: boolean
-  startAt: string
-  endAt: string
-}
-
-
 
 export const fetchBuilding = createAsyncThunk<IBuilding[]>(
   'building/fetchBuilding',
@@ -58,7 +13,7 @@ export const fetchBuilding = createAsyncThunk<IBuilding[]>(
   }
 )
 
-export const fetchUpgrade = createAsyncThunk<IUpgrade, string>(
+export const fetchUpgrade = createAsyncThunk<IDefaultUpgrade, string>(
   'building/fetchUpgrade',
   async (building: string) => {
     const res = await callAPI.get(`/buildings/upgrade?building=${building}`)
@@ -66,10 +21,10 @@ export const fetchUpgrade = createAsyncThunk<IUpgrade, string>(
   }
 )
 
-export const postUpgrade = createAsyncThunk<IUpgrade, string>(
+export const postUpgrade = createAsyncThunk<IDefaultUpgrade, string>(
   'building/postUpgrade',
   async (building: string) => {
-    const res = await callAPI.post(`/buildings/upgrade/${building}`, {}, {toastSuccess : true})
+    const res = await callAPI.post(`/buildings/upgrade/${building}`, {}, { toastSuccess: true })
     return res.data
   }
 )
@@ -77,7 +32,7 @@ export const postUpgrade = createAsyncThunk<IUpgrade, string>(
 interface InitialState {
   buildings: IBuilding[]
   upgrade?: IBuilding
-  upgradeCost?: IUpgrade
+  upgradeCost?: IDefaultUpgrade
 }
 
 const initialState: InitialState = {
@@ -93,7 +48,7 @@ export const buildingSlice = createSlice({
     setUpgrade: (state, action: PayloadAction<IBuilding | undefined>) => {
       state.upgrade = action.payload
     },
-    setUpgradeCost: (state, action: PayloadAction<IUpgrade | undefined>) => {
+    setUpgradeCost: (state, action: PayloadAction<IDefaultUpgrade | undefined>) => {
       state.upgradeCost = action.payload
     },
     setBuilding: (state, action: PayloadAction<IBuilding>) => {

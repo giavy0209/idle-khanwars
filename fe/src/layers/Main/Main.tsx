@@ -1,9 +1,9 @@
 import { BUILDING, DOMAIN } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
+import { IResource } from "interfaces";
 import { FC, ReactNode, useCallback, memo } from "react";
 import { selectBuildingByKey, selectResources } from "store/selectors";
 import { buildingSlice } from "store/slices/building";
-import { IResource } from "store/slices/resource";
 interface IMain {
   children: ReactNode
 }

@@ -1,9 +1,10 @@
 import { BUILDING_TYPE, DOMAIN } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
+import { IBuilding } from "interfaces";
 import { Sub } from "layers";
 import { FC, useCallback } from "react";
 import { selectBuildingByType } from "store/selectors";
-import { buildingSlice, IBuilding } from "store/slices/building";
+import { buildingSlice } from "store/slices/building";
 
 interface IList {
   type: keyof typeof BUILDING_TYPE

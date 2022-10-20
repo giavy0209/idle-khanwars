@@ -1,10 +1,8 @@
 import { DOMAIN } from "const";
 import useCountDown from "hooks/useCountDown";
-import { FC, memo, useState } from "react";
-import { ITraining } from "store/slices/training";
+import { ITraining } from "interfaces";
+import { FC } from "react";
 import renderDate from "utils/renderDate";
-
-
 
 const Training: FC<{ training: ITraining }> = ({ training }) => {
   const cownDown = useCountDown(training.endAt)

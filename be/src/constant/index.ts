@@ -97,13 +97,21 @@ export const POPULATE_TRAINING = [
     populate: POPULATE_UNIT
   },
 ]
+
+export const POPULATE_UPGRADE = [
+  {
+    path: 'building',
+    populate: POPULATE_BUILDING
+  }
+]
 export const MODEL = {
   users: 'users',
   worlds: 'worlds',
   resources: 'resources',
-  trainings: 'trainings',
   units: 'units',
+  trainings: 'trainings',
   buildings: 'buildings',
+  upgrades: 'upgrades',
   castles: 'castles',
 
   default_buildings: 'default_buildings',

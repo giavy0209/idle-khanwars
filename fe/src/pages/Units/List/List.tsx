@@ -1,9 +1,10 @@
 import { DOMAIN, TRAINING_TYPE } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
+import { IUnit } from "interfaces";
 import { Sub } from "layers";
 import { FC } from "react";
 import { selectUnitByBuilding } from "store/selectors";
-import { IUnit, unitSlice } from "store/slices/unit";
+import { unitSlice } from "store/slices/unit";
 
 interface IList {
   type: keyof typeof TRAINING_TYPE

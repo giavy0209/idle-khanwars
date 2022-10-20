@@ -1,18 +1,13 @@
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DOMAIN } from "const";
 import { useAppSelector } from "hooks";
-import useCountDown from "hooks/useCountDown";
 import { FC, memo, useState } from "react";
-import { selectBuildingUpgradiing, selectTrainings } from "store/selectors";
-import renderDate from "utils/renderDate";
+import { selectTrainings } from "store/selectors";
 import Training from "./Training";
 
 const Queue: FC = memo(() => {
   const [isClose, setIsClose] = useState(true)
-  const buildingUpgrading = useAppSelector(selectBuildingUpgradiing)
   const unitTrainings = useAppSelector(selectTrainings)
-  const cownDown = useCountDown(buildingUpgrading?.endAt || null)
 
   return (
     <>
@@ -27,7 +22,7 @@ const Queue: FC = memo(() => {
           <div className="content">
             <div className="upgrading">
               <div className="title">Building Upgrading</div>
-              {
+              {/* {
                 buildingUpgrading ?
                   <div className="info">
                     <div className="left">
@@ -51,7 +46,7 @@ const Queue: FC = memo(() => {
                   </div>
                   :
                   <p>No building on upgrade</p>
-              }
+              } */}
             </div>
             <div className="trainings">
               <div className="title">Trainings</div>

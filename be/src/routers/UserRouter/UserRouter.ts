@@ -19,14 +19,14 @@ export default class UserRouter extends AbstractRouter<UserController> {
         param: '',
         method: 'POST',
         middlewares: [body(['username', 'password']).isString()],
-        authorized : false,
+        authorized: false,
         ref: this.controller.post,
       },
       {
         param: 'login',
         method: 'POST',
         middlewares: [body(['username', 'password']).isString()],
-        authorized : false,
+        authorized: false,
         ref: this.controller.login,
       },
     ]

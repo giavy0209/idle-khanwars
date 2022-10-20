@@ -12,11 +12,6 @@ export default class BuildingRouter extends AbstractRouter<BuildingController> {
         middlewares: [query(['castle']).isString()],
         ref: this.controller.get
       },
-      {
-        param: 'upgrade/:id',
-        method: 'POST',
-        ref: this.controller.postUpgrade
-      },
     ]
     this.regisRouter()
   }

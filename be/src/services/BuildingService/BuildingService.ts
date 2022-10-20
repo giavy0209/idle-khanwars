@@ -5,9 +5,7 @@ import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
 import { IBuildingPullPopulate } from "interfaces/IBuilding"
 import { IGetInput } from "./IBuildingService"
-import ResourceService from "services/ResourceService"
-import socketHandler from "socket"
-import { BUILDING, EVENT_SOCKET } from "constant/enums"
+import { BUILDING } from "constant/enums"
 export default class BuildingService extends AbstractService<IBuilding, IBuildingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.buildings, user)
@@ -46,23 +44,6 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
         }
       })
     }
-  }
-  async postUpgrade(building: string) {
-    const findBuilding = await this.findById(building, true)
-    await this.exists({
-      castle: findBuilding.castle,
-      isUpgrading: true,
-    }, 'IF_EXISTS', 'There is a building upgrading')
-
-    const resourceService = new ResourceService(this.user)
-    await resourceService.isEnoughResource(findBuilding.upgrade.next.resources.asArray, findBuilding.castle._id)
-
-    findBuilding.startAt = new Date()
-    findBuilding.endAt = new Date(Date.now() + findBuilding.upgrade.next.time * 1000)
-    findBuilding.isUpgrading = true
-    await findBuilding.save()
-    socketHandler(findBuilding.castle._id, EVENT_SOCKET.BUILDING, findBuilding)
-    return findBuilding
   }
 }
 

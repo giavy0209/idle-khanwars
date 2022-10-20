@@ -1,20 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
+import { IResource } from "interfaces"
 import store from "store"
-import { IBuilding } from "./building"
-
-export interface IResource {
-  _id: string
-  castle: string
-  default: {
-    name: string
-    key: 'gold' | 'iron' | 'wood' | 'food'
-    path: string
-  }
-  building: IBuilding
-  value: number
-  lastUpdate: Date
-}
 
 export const fetchResource = createAsyncThunk<IResource[]>(
   'resource/fetchResource',

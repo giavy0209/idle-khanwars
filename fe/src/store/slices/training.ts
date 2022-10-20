@@ -1,18 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
+import { ITraining } from "interfaces"
 import { RootState } from "store"
-import { IUnit } from "./unit"
 
-export interface ITraining {
-  _id: string
-  unit: IUnit
-  total: number
-  left: number
-  trained: number
-  startAt: string
-  endAt: string
-  nextAt: string
-}
+
 
 interface InitialState {
   trainings: ITraining[]

@@ -5,13 +5,10 @@ import { IDefaultUpgradeFullyPopulate } from "./IDefaultUpgrade";
 export default interface IBuilding extends Document {
   castle: Types.ObjectId
   default: Types.ObjectId
-  isUpgrading: boolean
   upgrade: {
     current: Types.ObjectId
     next: Types.ObjectId
   }
-  startAt: Date
-  endAt: Date
 }
 
 export interface IBuildingPullPopulate {
@@ -23,4 +20,4 @@ export interface IBuildingPullPopulate {
   }
 }
 
-export type IBuildingFullyPopulate = UnpackedIntersection<HydratedDocument<IBuilding , {}, {}>,IBuildingPullPopulate>
+export type IBuildingFullyPopulate = UnpackedIntersection<HydratedDocument<IBuilding, {}, {}>, IBuildingPullPopulate>

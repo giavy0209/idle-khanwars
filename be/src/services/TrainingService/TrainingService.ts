@@ -50,9 +50,11 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
         message: `Please upgrade ${buildingOfUnit?.default.name} before training ${findUnit.default.name}`
       })
     }
+
     await this.exists({
       building: findUnit.building._id
     }, 'IF_EXISTS', `You have an unit training in ${findUnit.building.default.name}`)
+
     const castleService = new CastleService(this.user)
     await castleService.isOwner(findUnit.castle)
 
