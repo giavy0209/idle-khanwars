@@ -15,7 +15,3 @@ export const selectBuildingUpgrade = (state: RootState) => state.buildingState.u
 
 export const selectUpgradeCost = (state: RootState) => state.buildingState.upgradeCost;
 
-export const selectUnitTraining = (state: RootState) => state.unitState.training;
-export const selectUnitByBuilding = (building: string) => (state: RootState) => state.unitState.units.filter(o => o.building.default.key === building);
-
-export const selectTrainings = (state: RootState) => state.trainingState.trainings
