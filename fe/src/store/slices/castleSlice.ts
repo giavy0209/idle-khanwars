@@ -48,5 +48,5 @@ const castleSlice = createSlice({
       })
   },
 })
-export const castleAction = castleSlice.actions
-export const castleReducer = castleSlice.reducer
+
+export default castleSlice

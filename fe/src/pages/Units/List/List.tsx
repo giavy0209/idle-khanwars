@@ -4,7 +4,7 @@ import { IUnit } from "interfaces";
 import { Sub } from "layers";
 import { FC } from "react";
 import { selectUnitByBuilding } from "store/selectors";
-import { unitAction } from "store/slices";
+import { unitSlice } from "store/slices";
 
 interface IList {
   type: keyof typeof TRAINING_TYPE
@@ -15,7 +15,7 @@ const List: FC<IList> = ({ type }) => {
 
   const units = useAppSelector(selectUnitByBuilding(type))
   const handleTraining = (unit: IUnit) => {
-    dispatch(unitAction.training(unit))
+    dispatch(unitSlice.actions.training(unit))
   }
   return (
     <>

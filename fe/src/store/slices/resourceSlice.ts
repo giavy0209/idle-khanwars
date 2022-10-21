@@ -64,5 +64,5 @@ const resourceSlice = createSlice({
       .addCase(fetchResource.fulfilled, setResources)
   },
 })
-export const resourceAction = resourceSlice.actions
-export const resourceReducer = resourceSlice.reducer
+
+export default resourceSlice

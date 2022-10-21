@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { IResource } from "interfaces";
 import { FC, ReactNode, useCallback, memo } from "react";
 import { selectBuildingByKey, selectResources } from "store/selectors";
-import { buildingAction } from "store/slices";
+import { buildingSlice } from "store/slices";
 interface IMain {
   children: ReactNode
 }
@@ -12,7 +12,7 @@ const Main: FC<IMain> = memo(({ children }) => {
   const resources = useAppSelector(selectResources)
   const storage = useAppSelector(selectBuildingByKey(BUILDING.STORAGE))
   const handleUpgradeResource = useCallback((resource: IResource) => {
-    dispatch(buildingAction.setUpgrade(resource.building))
+    dispatch(buildingSlice.actions.setUpgrade(resource.building))
   }, [dispatch])
   return (
     <>

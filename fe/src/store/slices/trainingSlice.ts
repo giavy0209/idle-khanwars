@@ -56,5 +56,4 @@ const trainingSlice = createSlice({
   },
 })
 
-export const trainingAction = trainingSlice.actions
-export const trainingReducer = trainingSlice.reducer
+export default trainingSlice

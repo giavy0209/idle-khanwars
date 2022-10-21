@@ -4,7 +4,7 @@ import { IBuilding } from "interfaces";
 import { Sub } from "layers";
 import { FC, useCallback } from "react";
 import { selectBuildingByType } from "store/selectors";
-import { buildingAction } from "store/slices";
+import { buildingSlice } from "store/slices";
 
 interface IList {
   type: keyof typeof BUILDING_TYPE
@@ -14,7 +14,7 @@ const List: FC<IList> = ({ type }) => {
   const dispatch = useAppDispatch()
   const buildings = useAppSelector(selectBuildingByType(BUILDING_TYPE[type]))
   const handleUpgrade = useCallback((building: IBuilding) => {
-    dispatch(buildingAction.setUpgrade(building))
+    dispatch(buildingSlice.actions.setUpgrade(building))
   }, [dispatch])
 
 
