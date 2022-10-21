@@ -53,3 +53,4 @@ const unitSlice = createSlice({
   },
 })
 export const unitAction = unitSlice.actions
+export const unitReducer = unitSlice.reducer

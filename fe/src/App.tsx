@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { storage } from 'utils';
 import { useAppDispatch, useAppSelector, useSocketHandler } from 'hooks';
 import { initDefault } from 'store';
-import { userAction, resourceAction, buildingAction, unitAction, globalAction, } from 'store/slices';
+import { userAction, resourceAction, buildingAction, unitAction, globalAction, trainingAction } from 'store/slices';
 import { selectCastle, selectToken } from 'store/selectors';
 import { Queue, Training, Upgrade } from 'components';
 import { EVENT_SOCKET, ROUTERS } from 'const';
@@ -14,6 +14,8 @@ function App() {
   useSocketHandler({ action: [resourceAction.setResource], event: EVENT_SOCKET.RESOURCE })
   useSocketHandler({ action: [buildingAction.setBuilding, unitAction.setUnitByBuilding], event: EVENT_SOCKET.BUILDING })
   useSocketHandler({ action: [unitAction.setUnit], event: EVENT_SOCKET.UNIT })
+  useSocketHandler({ action: [trainingAction.setTraining], event: EVENT_SOCKET.TRAINING })
+  useSocketHandler({ action: [trainingAction.removeTraining], event: EVENT_SOCKET.TRAINING_DONE })
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()

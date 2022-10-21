@@ -2,10 +2,12 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "hooks";
 import { FC, memo, useState } from "react";
+import { selectTrainings } from "store/selectors";
 import Training from "./Training";
 
 const Queue: FC = memo(() => {
   const [isClose, setIsClose] = useState(true)
+  const unitTrainings = useAppSelector(selectTrainings)
 
   return (
     <>
@@ -48,6 +50,9 @@ const Queue: FC = memo(() => {
             </div>
             <div className="trainings">
               <div className="title">Trainings</div>
+              {
+                unitTrainings.map(o => <Training key={o._id} training={o} />)
+              }
             </div>
           </div>
         </div>
