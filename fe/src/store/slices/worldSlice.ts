@@ -29,4 +29,6 @@ const worldSlice = createSlice({
       })
   }
 })
-export default worldSlice
+
+export const worldAction = worldSlice.actions
+export const worldReducer = worldSlice.reducer

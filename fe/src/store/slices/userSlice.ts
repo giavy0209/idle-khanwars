@@ -65,5 +65,5 @@ const userSlice = createSlice({
       })
   },
 })
-
-export default userSlice
+export const userAction = userSlice.actions
+export const userReducer = userSlice.reducer

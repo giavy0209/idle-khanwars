@@ -1,6 +1,18 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import callAPI from "callAPI"
 import { IBuilding, IDefaultUpgrade } from "interfaces"
-import { fetchBuilding } from "store/thunks"
+import { RootState } from "store"
+
+export const fetchBuilding = createAsyncThunk<IBuilding[]>(
+  'building/fetchBuilding',
+  async (_, { getState }) => {
+    const state = getState() as RootState
+    const currentCastle = state.castleState.current
+    const res = await callAPI.get(`/buildings?castle=${currentCastle._id}`)
+    return res.data
+  }
+)
+
 
 
 interface InitialState {
@@ -39,4 +51,6 @@ const buildingSlice = createSlice({
       })
   },
 })
-export default buildingSlice
+
+export const buildingAction = buildingSlice.actions
+export const buildingReducer = buildingSlice.reducer

@@ -52,5 +52,5 @@ const unitSlice = createSlice({
     })
   },
 })
-
-export default unitSlice
+export const unitAction = unitSlice.actions
+export const unitReducer = unitSlice.reducer

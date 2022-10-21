@@ -4,14 +4,14 @@ import { useAppDispatch } from "hooks";
 import { Main } from "layers";
 import { FC, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { userSlice } from "store/slices";
+import { userAction } from "store/slices";
 import { storage } from "utils";
 const Home: FC = () => {
   const dispatch = useAppDispatch()
 
   const handleLogout = useCallback(() => {
     storage.clearToken()
-    dispatch(userSlice.actions.token(''))
+    dispatch(userAction.token(''))
   }, [dispatch])
 
 

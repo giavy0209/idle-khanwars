@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'hooks'
 import { FC, useCallback, useState, useMemo, ChangeEvent } from 'react'
 import { selectResource, selectUnitTraining } from 'store/selectors'
 import { postTraining } from 'store/slices/trainingSlice'
-import { unitSlice } from 'store/slices'
+import { unitAction } from 'store/slices'
 import { secondToTime } from 'utils'
 
 const Training: FC = () => {
@@ -14,7 +14,7 @@ const Training: FC = () => {
   const resource = useAppSelector(selectResource)
   const dispatch = useAppDispatch()
   const onClose = useCallback(() => {
-    dispatch(unitSlice.actions.training(undefined))
+    dispatch(unitAction.training(undefined))
   }, [dispatch])
 
   const handleCosts = useCallback((total: number, showLeft: boolean) => {

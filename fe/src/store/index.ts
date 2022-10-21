@@ -1,36 +1,26 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import {
-  buildingSlice,
-  castleSlice,
-  globalSlice,
-  resourceSlice,
-  trainingSlice,
-  unitSlice,
-  upgradeSlice,
-  userSlice,
-  worldSlice
-} from 'store/slices'
+import { resourceReducer, trainingReducer, unitReducer, userReducer, worldReducer, buildingReducer, fetchBuilding, castleReducer, fetchCurrent, fetchCastle, fetchResource, fetchUnit, fetchTraining, globalReducer } from './slices';
+
 const store = configureStore({
   reducer: {
-    globalState: globalSlice.reducer,
-    unitState: unitSlice.reducer,
-    trainingState: trainingSlice.reducer,
-    worldState: worldSlice.reducer,
-    userState: userSlice.reducer,
-    castleState: castleSlice.reducer,
-    buildingState: buildingSlice.reducer,
-    resourceState: resourceSlice.reducer,
-    upgradeState: upgradeSlice.reducer,
+    globalState: globalReducer,
+    unitState: unitReducer,
+    trainingState: trainingReducer,
+    worldState: worldReducer,
+    userState: userReducer,
+    castleState: castleReducer,
+    buildingState: buildingReducer,
+    resourceState: resourceReducer,
   },
 });
 
 export const initDefault = () => async (dispatch: AppDispatch) => {
-  // await dispatch(fetchCurrent())
-  // await dispatch(fetchCastle())
-  // dispatch(fetchBuilding())
-  // dispatch(fetchResource())
-  // dispatch(fetchUnit())
-  // dispatch(fetchTraining())
+  await dispatch(fetchCurrent())
+  await dispatch(fetchCastle())
+  dispatch(fetchBuilding())
+  dispatch(fetchResource())
+  dispatch(fetchUnit())
+  dispatch(fetchTraining())
 }
 
 

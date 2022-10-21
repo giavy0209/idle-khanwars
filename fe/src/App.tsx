@@ -6,16 +6,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { storage } from 'utils';
 import { useAppDispatch, useAppSelector, useSocketHandler } from 'hooks';
 import { initDefault } from 'store';
-import { userSlice, resourceSlice, buildingSlice, unitSlice, globalSlice, trainingSlice } from 'store/slices';
+import { userAction, resourceAction, buildingAction, unitAction, globalAction, trainingAction } from 'store/slices';
 import { selectCastle, selectToken } from 'store/selectors';
 import { Queue, Training, Upgrade } from 'components';
 import { EVENT_SOCKET, ROUTERS } from 'const';
 function App() {
-  useSocketHandler({ action: [resourceSlice.actions.setResource], event: EVENT_SOCKET.RESOURCE })
-  useSocketHandler({ action: [buildingSlice.actions.setBuilding, unitSlice.actions.setUnitByBuilding], event: EVENT_SOCKET.BUILDING })
-  useSocketHandler({ action: [unitSlice.actions.setUnit], event: EVENT_SOCKET.UNIT })
-  useSocketHandler({ action: [trainingSlice.actions.setTraining], event: EVENT_SOCKET.TRAINING })
-  useSocketHandler({ action: [trainingSlice.actions.removeTraining], event: EVENT_SOCKET.TRAINING_DONE })
+  useSocketHandler({ action: [resourceAction.setResource], event: EVENT_SOCKET.RESOURCE })
+  useSocketHandler({ action: [buildingAction.setBuilding, unitAction.setUnitByBuilding], event: EVENT_SOCKET.BUILDING })
+  useSocketHandler({ action: [unitAction.setUnit], event: EVENT_SOCKET.UNIT })
+  useSocketHandler({ action: [trainingAction.setTraining], event: EVENT_SOCKET.TRAINING })
+  useSocketHandler({ action: [trainingAction.removeTraining], event: EVENT_SOCKET.TRAINING_DONE })
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -26,13 +26,13 @@ function App() {
   useEffect(() => {
     const storeToken = storage.getToken()
     if (storeToken) {
-      dispatch(userSlice.actions.token(storeToken))
+      dispatch(userAction.token(storeToken))
     }
   }, [dispatch])
 
   useEffect(() => {
     if (location.pathname !== `/${ROUTERS.LOGIN}` && !token) {
-      dispatch(globalSlice.actions.setState({ memoLocation: location.pathname }))
+      dispatch(globalAction.setState({ memoLocation: location.pathname }))
     }
     if (token && location.pathname !== `/${ROUTERS.LOGIN}`) {
       if (!castle._id) {
