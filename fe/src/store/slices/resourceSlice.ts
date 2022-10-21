@@ -1,14 +1,14 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
 import { IResource } from "interfaces"
-import store from "store"
+import { RootState } from "store"
 
 export const fetchResource = createAsyncThunk<IResource[]>(
   'resource/fetchResource',
-  async () => {
-    const currentCastle = store.getState().castleState.current
-
-    const res = await callAPI.get(`/resources?castle=${currentCastle._id}`)
+  async (_, { getState }) => {
+    const state = getState() as RootState
+    const castle = state.castleState.current._id
+    const res = await callAPI.get(`/resources?castle=${castle}`)
     return res.data
   }
 )

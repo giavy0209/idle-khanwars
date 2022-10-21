@@ -21,7 +21,7 @@ export default class UpgradeController extends AbstractController<IUpgrade, Upgr
     const { data } = await service.get({ castle: castle as string })
     res.send(new ResponseResult({
       data,
-      message: "Get training queue successfully"
+      message: "Get upgrade queue successfully"
     }))
   }
 
@@ -31,7 +31,7 @@ export default class UpgradeController extends AbstractController<IUpgrade, Upgr
     const data = await service.post({ building })
     res.send(new ResponseResult({
       data,
-      message: 'Traning successfully'
+      message: 'Upgrade successfully'
     }))
   }
 }

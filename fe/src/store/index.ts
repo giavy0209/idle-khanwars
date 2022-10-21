@@ -1,5 +1,21 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import { resourceReducer, trainingReducer, unitReducer, userReducer, worldReducer, buildingReducer, fetchBuilding, castleReducer, fetchCurrent, fetchCastle, fetchResource, fetchUnit, fetchTraining, globalReducer } from './slices';
+import {
+  resourceReducer,
+  trainingReducer,
+  unitReducer,
+  userReducer,
+  worldReducer,
+  buildingReducer,
+  fetchBuilding,
+  castleReducer,
+  fetchCurrent,
+  fetchCastle,
+  fetchResource,
+  fetchUnit,
+  fetchTraining,
+  globalReducer,
+  fetchUpgrade
+} from './slices';
 
 const store = configureStore({
   reducer: {
@@ -21,6 +37,7 @@ export const initDefault = () => async (dispatch: AppDispatch) => {
   dispatch(fetchResource())
   dispatch(fetchUnit())
   dispatch(fetchTraining())
+  dispatch(fetchUpgrade())
 }
 
 

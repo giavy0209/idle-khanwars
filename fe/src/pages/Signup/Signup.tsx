@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { FC, useCallback, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { selectToken, selectWorlds } from "store/selectors";
+import { selectGlobal, selectToken, selectWorlds } from "store/selectors";
 import { login, LoginPayload, signup } from "store/slices/userSlice";
 import { fetchWorlds } from "store/slices/worldSlice";
 
@@ -16,13 +16,13 @@ const Signup: FC = () => {
 
   const worlds = useAppSelector(selectWorlds)
   const token = useAppSelector(selectToken)
-
+  const globalState = useAppSelector(selectGlobal)
   useEffect(() => {
     if (token) {
-      // navigate((globalState.memoLocation && globalState.memoLocation !== `/${ROUTERS.LOGIN}`) ? globalState.memoLocation : ROUTERS.HOME + '/')
+      navigate((globalState.memoLocation && globalState.memoLocation !== `/${ROUTERS.LOGIN}`) ? globalState.memoLocation : ROUTERS.HOME + '/')
     }
     dispatch(fetchWorlds())
-  }, [dispatch, token, navigate])
+  }, [dispatch, token, navigate, globalState])
   const handleSubmit = useCallback(() => {
     const patten = /^[A-Za-z0-9]{6,}$/
     const formData = new FormData(form.current as HTMLFormElement)

@@ -1,8 +1,10 @@
 import { AbstractService } from "abstracts"
 import { IUpgrade } from "interfaces"
-import { MODEL } from "constant"
+import { MODEL, POPULATE_UPGRADE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { BuildingService, CastleService, ResourceService } from "services"
+import socketHandler from "socket"
+import { EVENT_SOCKET } from "constant/enums"
 export default class UpgradeService extends AbstractService<IUpgrade>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.upgrades, user)
@@ -30,7 +32,8 @@ export default class UpgradeService extends AbstractService<IUpgrade>  {
       endAt: new Date(Date.now() + findBuilding.upgrade.next.time * 1000)
     })
 
-    await upgrade.populate('building')
+    await upgrade.populate(POPULATE_UPGRADE)
+    socketHandler(upgrade.castle, EVENT_SOCKET.UPGRADE, upgrade)
     return upgrade
   }
 }
