@@ -61,6 +61,7 @@ const Training: FC = () => {
   const handleTraining = useCallback(() => {
     if (!unit) return
     dispatch(postTraining({ total: Number(total), unit: unit._id }))
+    dispatch(unitAction.training(undefined))
   }, [total, unit, dispatch])
   return <>
     <div className="training">
@@ -128,7 +129,7 @@ const Training: FC = () => {
           <div onClick={() => setTotal(max.toString())} className="max">Max : {max}</div>
         </div>
         {
-          <Button onClick={handleTraining}>Train</Button>
+          Number(total) > 0 && <Button onClick={handleTraining}>Train</Button>
         }
       </ScrollBackground>
     </div>

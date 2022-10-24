@@ -14,7 +14,8 @@ import {
   fetchUnit,
   fetchTraining,
   globalReducer,
-  fetchUpgrade
+  fetchUpgrade,
+  upgradeReducer
 } from './slices';
 
 const store = configureStore({
@@ -27,6 +28,7 @@ const store = configureStore({
     castleState: castleReducer,
     buildingState: buildingReducer,
     resourceState: resourceReducer,
+    upgradeState: upgradeReducer
   },
 });
 

@@ -6,6 +6,7 @@ import renderDate from "utils/renderDate";
 
 const Training: FC<{ training: ITraining }> = ({ training }) => {
   const cownDown = useCountDown(training.endAt)
+  const nextAt = useCountDown(training.nextAt)
   return (
     <>
       <div key={training._id} className="training">
@@ -22,6 +23,10 @@ const Training: FC<{ training: ITraining }> = ({ training }) => {
             <p>
               <span>Finish at: </span>
               <span>{renderDate({ date: training.endAt })}</span>
+            </p>
+            <p>
+              <span>Next: </span>
+              <span>{nextAt}</span>
             </p>
             <p>
               <span>Timeleft: </span>

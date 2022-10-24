@@ -1,6 +1,6 @@
 button.button {
   position: relative;
-  background-image: url('../../images/bg/button-mid.png');
+  background-image: url("../../images/bg/button-mid.png");
   padding: 10px;
   background-size: contain;
   background-repeat: repeat-x;
@@ -11,7 +11,11 @@ button.button {
   width: 100%;
   border-radius: 10px;
   background-color: transparent;
-  &::before , &::after{
+  * {
+    color: $text-button;
+  }
+  &::before,
+  &::after {
     position: absolute;
     top: 0;
     background-size: cover;
@@ -21,11 +25,11 @@ button.button {
     content: "";
   }
   &::before {
-    background-image: url('../../images/bg/button-left.webp');
+    background-image: url("../../images/bg/button-left.webp");
     left: 0;
   }
-  &::after{
-    background-image: url('../../images/bg/button-right.webp');
+  &::after {
+    background-image: url("../../images/bg/button-right.webp");
     right: 0;
   }
 }

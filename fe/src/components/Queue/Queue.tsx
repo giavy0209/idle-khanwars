@@ -2,13 +2,14 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "hooks";
 import { FC, memo, useState } from "react";
-import { selectTrainings } from "store/selectors";
+import { selectTrainings, selectUpgrading } from "store/selectors";
 import Training from "./Training";
+import Upgrading from "./Upgrading";
 
 const Queue: FC = memo(() => {
   const [isClose, setIsClose] = useState(true)
   const unitTrainings = useAppSelector(selectTrainings)
-
+  const buildingUpgradings = useAppSelector(selectUpgrading)
   return (
     <>
       <div className={`queue ${isClose ? 'close' : ''}`}>
@@ -22,31 +23,9 @@ const Queue: FC = memo(() => {
           <div className="content">
             <div className="upgrading">
               <div className="title">Building Upgrading</div>
-              {/* {
-                buildingUpgrading ?
-                  <div className="info">
-                    <div className="left">
-                      <img src={`${DOMAIN}${buildingUpgrading.default.path}`} alt="" />
-                    </div>
-                    <div className="right">
-                      <p>{buildingUpgrading.default.name}</p>
-                      <p>
-                        <span>Start at: </span>
-                        <span>{renderDate({ date: buildingUpgrading.startAt })}</span>
-                      </p>
-                      <p>
-                        <span>Finish at: </span>
-                        <span>{renderDate({ date: buildingUpgrading.endAt })}</span>
-                      </p>
-                      <p>
-                        <span>Timeleft: </span>
-                        <span>{cownDown}</span>
-                      </p>
-                    </div>
-                  </div>
-                  :
-                  <p>No building on upgrade</p>
-              } */}
+              {
+                buildingUpgradings.map(o => <Upgrading key={o._id} upgrading={o} />)
+              }
             </div>
             <div className="trainings">
               <div className="title">Trainings</div>

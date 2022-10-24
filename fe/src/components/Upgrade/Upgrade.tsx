@@ -1,9 +1,10 @@
 import { ScrollBackground, Button } from "components";
-import { BUILDING, DOMAIN } from "const";
+import { BUILDING, DOMAIN, ROUTERS, TRAINING_TYPE } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { FC, memo, useCallback, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { selectBuildingUpgrade, selectResource, selectUpgradeCost } from "store/selectors";
-import { buildingAction, postUpgrade } from "store/slices";
+import { buildingAction, postUpgrade, upgradeAction } from "store/slices";
 import { secondToTime } from "utils";
 
 const Upgrade: FC = memo(() => {
@@ -13,7 +14,7 @@ const Upgrade: FC = memo(() => {
   const resource = useAppSelector(selectResource)
   useEffect(() => {
     if (building) {
-      dispatch(buildingAction.setUpgradeCost(building.upgrade.next))
+      dispatch(upgradeAction.setUpgradeCost(building.upgrade.next))
     }
   }, [building, dispatch])
   const onClose = useCallback(() => {
@@ -73,6 +74,24 @@ const Upgrade: FC = memo(() => {
     return {
       stat, value
     }
+  }, [upgradeCost])
+
+  const buildingURL = useMemo(() => {
+    if (!upgradeCost) return null
+    switch (upgradeCost.building.key) {
+      case BUILDING.BARRACKS:
+        return `${ROUTERS.UNIT}/${BUILDING.BARRACKS}`
+      case BUILDING.ARCHERY_RANGE:
+        return `${ROUTERS.UNIT}/${BUILDING.ARCHERY_RANGE}`
+      case BUILDING.STABLES:
+        return `${ROUTERS.UNIT}/${BUILDING.STABLES}`
+      case BUILDING.WORKSHOP:
+        return `${ROUTERS.UNIT}/${BUILDING.WORKSHOP}`
+      case BUILDING.ORDER:
+        return `${ROUTERS.UNIT}/${BUILDING.ORDER}`
+      default:
+        return null
+    }
 
   }, [upgradeCost])
 
@@ -101,10 +120,8 @@ const Upgrade: FC = memo(() => {
   }, [dispatch, building])
 
   const handleEnterBuilding = useCallback(() => {
-    console.log(building);
-    if (!building) return
-
-  }, [building])
+    dispatch(buildingAction.setUpgrade(undefined))
+  }, [dispatch])
   return (
     <>
       <div className="upgrade">
@@ -134,7 +151,7 @@ const Upgrade: FC = memo(() => {
           {
             isEnoughResource ? <Button onClick={handleUpgrade}>Upgrade</Button> : <div className="title">Not enough resource</div>
           }
-          <Button type="button" onClick={handleEnterBuilding}>Enter building</Button>
+          {buildingURL && <Button onClick={handleEnterBuilding} type="button"> <Link to={buildingURL}><span>Enter building</span></Link> </Button>}
         </ScrollBackground>
       </div>
     </>

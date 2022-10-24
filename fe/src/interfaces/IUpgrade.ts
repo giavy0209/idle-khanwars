@@ -4,6 +4,6 @@ export interface IUpgrade {
   _id: string
   castle: string
   building: IBuilding
-  startAt: Date
-  endAt: Date
+  startAt: string
+  endAt: string
 }

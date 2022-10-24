@@ -8,6 +8,7 @@ import { EVENT_SOCKET } from "constant/enums"
 export default class UpgradeService extends AbstractService<IUpgrade>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.upgrades, user)
+    this.populate = POPULATE_UPGRADE
   }
   async get({ castle }: { castle: string }) {
     return await this.find({ castle }, {})
@@ -27,7 +28,7 @@ export default class UpgradeService extends AbstractService<IUpgrade>  {
     await resourceService.isEnoughResource(findBuilding.upgrade.next.resources.asArray, findBuilding.castle._id)
 
     const upgrade = await this.model.create({
-      castle: findBuilding.castle,
+      castle: findBuilding.castle._id,
       building: findBuilding,
       endAt: new Date(Date.now() + findBuilding.upgrade.next.time * 1000)
     })

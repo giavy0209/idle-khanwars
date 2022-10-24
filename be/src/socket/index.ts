@@ -9,21 +9,22 @@ const io = new Server(server, {
     methods: ['GET', 'POST']
   }
 })
-io.use((socket, next) => {
+
+io.on('connection', socket => {
   const { token, castle } = socket.handshake.auth
-  if (!token) return socket.disconnect()
+  if (!token || !castle) {
+    socket.disconnect()
+  }
   try {
     const payload = verify(token, global.Config.JWT_SECRET) as IUserFullyPopulate
     socket.data = payload
     socket.join(`${castle}`)
   } catch (error) {
     socket.disconnect()
-    return
   }
-  next()
 })
 
-const socketHandler = (castle: string | Types.ObjectId, event: string, data : any) => {
+const socketHandler = (castle: string | Types.ObjectId, event: string, data: any) => {
   const ishaveRoom = io.sockets.adapter.rooms.has(castle.toString())
   if (ishaveRoom) {
     io.to(castle.toString()).emit(event, data)

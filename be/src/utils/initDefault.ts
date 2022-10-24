@@ -103,8 +103,8 @@ const initBuilding = async (world: IWorld) => {
       })
       for (const upgrade of building.upgrade) {
         const isExistUpgrade = await DefaultUpgradeModel.findOne({ building: isExist._id, level: upgrade.level })
+        const generate = resource ? Math.round(upgrade.generate / 5 * world.speed) : upgrade.generate
         if (isExistUpgrade) {
-          const generate = resource ? Math.round(upgrade.generate / 5) : upgrade.generate
           await DefaultUpgradeModel.findByIdAndUpdate(isExistUpgrade._id, {
             building: isExist._id,
             generate: generate,
@@ -128,7 +128,7 @@ const initBuilding = async (world: IWorld) => {
           await DefaultUpgradeModel.create({
             building: isExist._id,
             level: upgrade.level,
-            generate: upgrade.generate,
+            generate: generate,
             time: upgrade.time * 5 / world.speed,
             resources: {
               asArray: [
@@ -157,10 +157,11 @@ const initBuilding = async (world: IWorld) => {
         resource: resource?._id
       })
       for (const upgrade of building.upgrade) {
+        const generate = resource ? Math.round(upgrade.generate / 5 * world.speed) : upgrade.generate
         await DefaultUpgradeModel.create({
           building: createBuilding._id,
           level: upgrade.level,
-          generate: upgrade.generate,
+          generate: generate,
           time: upgrade.time * 5 / world.speed,
           resources: {
             asArray: [

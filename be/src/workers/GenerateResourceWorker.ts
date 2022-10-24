@@ -37,17 +37,18 @@ export default class GenerateResourceWorker extends AbstractWorker<any, any> {
         const now = Date.now()
         const diffTime = (now - new Date(resource.lastUpdate).getTime()) / 1000
         const percentDiffTimePerHour = diffTime / 3600
-        const generate = resource.building.upgrade.current.generate * this.world.speed
-        const value = generate * percentDiffTimePerHour
+        const generate = resource.building.upgrade.current.generate
+        let value = generate * percentDiffTimePerHour
 
 
-        if (storage.upgrade.current.generate > resource.value + value) {
-          ChangeResource(this.world.tenant, {
-            _id: resource._id,
-            value,
-            updateAt: now
-          })
+        if (storage.upgrade.current.generate < resource.value + value) {
+          value = storage.upgrade.current.generate - resource.value
         }
+        ChangeResource(this.world.tenant, {
+          _id: resource._id,
+          value,
+          updateAt: now
+        })
       }
     })
   }

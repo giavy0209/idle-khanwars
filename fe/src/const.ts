@@ -1,11 +1,14 @@
 export const DOMAIN = process.env.REACT_APP_DOMAIN as string
 
 export enum EVENT_SOCKET {
+  CASTLE = 'CASTLE',
   UNIT = 'UNIT',
   RESOURCE = 'RESOURCE',
   BUILDING = 'BUILDING',
   TRAINING = 'TRAINING',
   TRAINING_DONE = 'TRAINING_DONE',
+  UPGRADE = 'UPGRADE',
+  UPGRADE_DONE = 'UPGRADE_DONE',
 }
 
 export enum ROUTERS {

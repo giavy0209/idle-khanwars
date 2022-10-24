@@ -27,10 +27,10 @@ const unitSlice = createSlice({
   name: 'unit',
   initialState,
   reducers: {
-    training: (state, action: PayloadAction<IUnit | undefined>) => {
+    training(state, action: PayloadAction<IUnit | undefined>) {
       state.training = action.payload
     },
-    setUnit: (state, action: PayloadAction<IUnit>) => {
+    setUnit(state, action: PayloadAction<IUnit>) {
       const index = state.units.findIndex(o => o._id === action.payload._id)
       const units = [...state.units]
       units.splice(index, 1, action.payload)

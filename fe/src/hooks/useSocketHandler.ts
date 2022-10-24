@@ -16,8 +16,6 @@ export default function useSocketHandler<I = any>({
   const dispatch = useAppDispatch()
   useEffect(() => {
     const handler = (data: I) => {
-      console.log(data);
-
       setData(data)
       action.forEach(o => {
         dispatch(o(data))

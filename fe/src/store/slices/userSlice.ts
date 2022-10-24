@@ -23,7 +23,7 @@ export interface LoginPayload {
 }
 export const login = createAsyncThunk<LoginReturn, LoginPayload>(
   'user/Login',
-  async (payload) => {
+  async (payload, { dispatch }) => {
     const res = await callAPI.post('/users/login', payload, { toastSuccess: true })
     return res.data
   }

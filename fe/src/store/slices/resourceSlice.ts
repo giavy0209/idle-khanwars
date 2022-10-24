@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
-import { IResource } from "interfaces"
+import { IBuilding, IResource } from "interfaces"
 import { RootState } from "store"
 
 export const fetchResource = createAsyncThunk<IResource[]>(
@@ -44,8 +44,8 @@ const resourceSlice = createSlice({
   name: 'resource',
   initialState,
   reducers: {
-    setResources: setResources,
-    setResource: (state, action: PayloadAction<IResource>) => {
+    setResources,
+    setResource(state, action: PayloadAction<IResource>) {
       const resources = [...state.resources]
       const index = resources.findIndex(o => o._id === action.payload._id)
       resources.splice(index, 1, {
@@ -57,6 +57,15 @@ const resourceSlice = createSlice({
         ...state.resource,
         [action.payload.default.key]: Math.floor(action.payload.value)
       }
+    },
+    setResourceBuilding(state, action: PayloadAction<IBuilding>) {
+      const resources = [...state.resources]
+      resources.forEach(resource => {
+        if (resource.building._id === action.payload._id) {
+          resource.building = action.payload
+        }
+      })
+      state.resources = resources
     }
   },
   extraReducers(builder) {

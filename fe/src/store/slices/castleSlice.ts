@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
 import { ICastle } from "interfaces"
-import socket from "socket"
+import socket, { reconnect } from "socket"
 import { storage } from "utils"
 
 export const fetchCastle = createAsyncThunk<ICastle[]>(
@@ -30,11 +30,14 @@ const castleSlice = createSlice({
   name: 'castle',
   initialState,
   reducers: {
-    changeCastle: (state, action: PayloadAction<ICastle>) => {
+    reset: () => initialState,
+    updateCastle(state, action: PayloadAction<ICastle>) {
+      state.current = action.payload
+    },
+    changeCastle(state, action: PayloadAction<ICastle>) {
       state.current = action.payload
       storage.setItem('castle', action.payload._id)
-      socket.disconnect()
-      socket.connect()
+      reconnect()
     }
   },
   extraReducers(builder) {
