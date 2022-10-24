@@ -5,24 +5,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     .resource {
       width: 25%;
       text-align: center;
       cursor: pointer;
+
       img {
         width: 50px;
+        height: 50px;
       }
     }
   }
+
   .buttons {
     margin-top: 10px;
     display: flex;
-    > * {
+
+    >* {
       width: 33.333%;
     }
   }
+
   .population {
     margin-top: 10px;
+
     .bar {
       padding: 20px 0;
       width: 100%;
@@ -30,12 +37,14 @@
       width: 100%;
       height: 100%;
       position: relative;
+
       .value {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
       }
+
       .process {
         position: absolute;
         top: 0;
@@ -45,10 +54,13 @@
       }
     }
   }
+
   .navigation {
     margin-top: 20px;
+
     a {
       width: 100%;
+
       .link {
         width: 100%;
         font-weight: 600;
@@ -59,7 +71,8 @@
         border: 5px solid $border-color;
         color: $text-color;
       }
-      + a {
+
+      +a {
         margin-top: 20px;
       }
     }

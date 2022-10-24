@@ -1,5 +1,5 @@
 import { ScrollBackground, Button } from "components";
-import { BUILDING, DOMAIN, ROUTERS, TRAINING_TYPE } from "const";
+import { BUILDING, DOMAIN, ROUTERS } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { FC, memo, useCallback, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";

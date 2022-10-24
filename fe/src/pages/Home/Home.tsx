@@ -2,11 +2,26 @@ import { Button } from "components";
 import { BUILDING, ROUTERS } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { Main } from "layers";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { selectBuildingByKey, selectCastle } from "store/selectors";
 import { castleAction, userAction } from "store/slices";
 import { storage } from "utils";
+import Joyride from 'react-joyride';
+const steps = [
+  {
+    target: '.logout',
+    content: 'Logout here'
+  },
+  {
+    target: '.population',
+    content: 'Logout here'
+  },
+  {
+    target: '.navigation',
+    content: 'Logout here'
+  }
+]
 const Home: FC = () => {
   const dispatch = useAppDispatch()
   const dwelling = useAppSelector(selectBuildingByKey(BUILDING.DWELLINGS))
@@ -18,6 +33,12 @@ const Home: FC = () => {
   }, [dispatch])
   return (
     <>
+      <Joyride
+        steps={steps}
+        run
+        continuous
+        showProgress
+      />
       <div className="home">
         <Main>
           <div className="buttons">

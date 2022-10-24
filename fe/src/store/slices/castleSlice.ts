@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
 import { ICastle } from "interfaces"
-import socket, { reconnect } from "socket"
+import { reconnect } from "socket"
 import { storage } from "utils"
 
 export const fetchCastle = createAsyncThunk<ICastle[]>(

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
-import { IBuilding, IDefaultUpgrade } from "interfaces"
+import { IBuilding } from "interfaces"
 import { RootState } from "store"
 
 export const fetchBuilding = createAsyncThunk<IBuilding[]>(
