@@ -10,6 +10,7 @@ import { Types } from "mongoose"
 import UnitService from "services/UnitService"
 import ResourceService from "services/ResourceService"
 import BuildingService from "services/BuildingService"
+import { BUILDING } from "constant/enums"
 export default class TrainingService extends AbstractService<ITraining, ITrainingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.trainings, user)
@@ -28,6 +29,12 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
 
   async get({ castle }: { castle: string }) {
     return await this.find({ castle }, {})
+  }
+
+  async isEnoughPopulation(castle: string | Types.ObjectId) {
+    const buildingService = new BuildingService(this.user)
+    const dwelling = buildingService.findByKey({ castle, key: BUILDING.DWELLING })
+
   }
 
   async post({ unit, total }: IPostInput) {

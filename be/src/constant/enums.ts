@@ -16,4 +16,5 @@ export enum EVENT_SOCKET {
 
 export enum BUILDING {
   STORAGE = "STORAGE",
+  DWELLING = "DWELLING",
 }

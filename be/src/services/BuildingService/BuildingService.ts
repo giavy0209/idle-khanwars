@@ -6,6 +6,7 @@ import { Types } from "mongoose"
 import { IBuildingPullPopulate } from "interfaces/IBuilding"
 import { IGetInput } from "./IBuildingService"
 import { BUILDING } from "constant/enums"
+import { AdvancedError } from "utils"
 export default class BuildingService extends AbstractService<IBuilding, IBuildingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.buildings, user)
@@ -20,6 +21,15 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
         populate: this.populate
       }
     )
+  }
+  async findByKey({ castle, key }: { castle: string | Types.ObjectId, key: string }) {
+    const defaultBuilding = await this.DefaultBuildings.findOne({ key })
+    if (!defaultBuilding) {
+      throw new AdvancedError({
+        message: `${key} not found`, statusCode: 404
+      })
+    }
+    return await this.findOne({ castle, default: defaultBuilding._id }, true)
   }
   async create(castle: Types.ObjectId) {
     const defaultBuildings = await this.DefaultBuildings.find({})
