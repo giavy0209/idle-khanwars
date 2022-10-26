@@ -32,9 +32,9 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
   }
 
   async isEnoughPopulation(castle: string | Types.ObjectId) {
-    const buildingService = new BuildingService(this.user)
-    const dwelling = buildingService.findByKey({ castle, key: BUILDING.DWELLING })
-
+    // const buildingService = new BuildingService(this.user)
+    // const dwelling = buildingService.findByKey({ castle, key: BUILDING.DWELLING })
+    // const training = await this.find({ castle }, { populate: })
   }
 
   async post({ unit, total }: IPostInput) {

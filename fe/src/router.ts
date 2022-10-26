@@ -1,10 +1,14 @@
 import { ROUTERS } from "const"
-import { Building, Home, Signup, Units } from "pages"
+import { Building, Home, Map, Signup, Units } from "pages"
 
 const Routers = [
   {
     path: ROUTERS.LOGIN,
-    element: Signup
+    element: Map
+  },
+  {
+    path: ROUTERS.MAP,
+    element: Map
   },
   {
     path: ROUTERS.HOME,

@@ -2,7 +2,7 @@ import { Button } from "components";
 import { BUILDING, ROUTERS } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { Main } from "layers";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { selectBuildingByKey, selectCastle } from "store/selectors";
 import { castleAction, userAction } from "store/slices";
@@ -31,6 +31,7 @@ const Home: FC = () => {
     dispatch(userAction.token(''))
     dispatch(castleAction.reset())
   }, [dispatch])
+
   return (
     <>
       <Joyride

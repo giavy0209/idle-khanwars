@@ -28,15 +28,17 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    if (location.pathname !== `/${ROUTERS.LOGIN}` && !token) {
+    console.log(location.pathname);
+
+    if (location.pathname !== `${ROUTERS.LOGIN}` && !token) {
       dispatch(globalAction.setState({ memoLocation: location.pathname }))
     }
-    if (token && location.pathname !== `/${ROUTERS.LOGIN}`) {
+    if (token && location.pathname !== `${ROUTERS.LOGIN}`) {
       if (!castle._id) {
         dispatch(initDefault())
       }
     } else {
-      if (location.pathname !== `/${ROUTERS.LOGIN}`) {
+      if (location.pathname !== `${ROUTERS.LOGIN}`) {
         navigate(ROUTERS.LOGIN)
       }
     }

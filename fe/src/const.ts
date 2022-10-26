@@ -13,15 +13,17 @@ export enum EVENT_SOCKET {
 
 export enum ROUTERS {
   HOME = '',
-  LOGIN = 'login',
+  LOGIN = '/login',
+  MAP = '/map',
   BUILDING = '/building',
   BUILDING_TYPE = ':buildingType',
-  UNIT = '/unit',
-  UNIT_TYPE = ':unitType',
   RESOURCE = 'resources',
   ARMY = 'army',
   BUILDING_ARMY = 'building_army',
   OTHER = 'other',
+
+  UNIT = '/unit',
+  UNIT_TYPE = ':unitType',
 }
 
 export enum BUILDING_TYPE {
