@@ -4,7 +4,7 @@ import { Building, Home, Map, Signup, Units } from "pages"
 const Routers = [
   {
     path: ROUTERS.LOGIN,
-    element: Map
+    element: Signup
   },
   {
     path: ROUTERS.MAP,

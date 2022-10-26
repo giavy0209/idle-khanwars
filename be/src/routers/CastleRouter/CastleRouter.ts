@@ -10,6 +10,11 @@ export default class CastleRouter extends AbstractRouter<CastleController> {
         method: 'GET',
         ref: this.controller.get
       },
+      {
+        param: 'map',
+        method: 'GET',
+        ref: this.controller.getMap
+      },
     ]
     this.regisRouter()
   }

@@ -74,6 +74,12 @@ export const POPULATE_RESOURCE = [
   },
 ]
 
+export const POPULATE_CASTLE = [
+  {
+    path: 'user'
+  }
+]
+
 export const POPULATE_DEFAULT_UNIT = [
   {
     path: 'type building resources.asArray.type strength.asArray.type'

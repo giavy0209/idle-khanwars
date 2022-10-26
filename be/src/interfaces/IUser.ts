@@ -1,17 +1,18 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import {IWorld} from ".";
+import { IWorld } from ".";
 
 export default interface IUser extends Document {
-  username : string
-  password : string
-  world : Types.ObjectId
-  status : string
-  lastLogin : Date
-  createdAt : Date
+  username: string
+  password: string
+  world: Types.ObjectId
+  status: string
+  isSelectStart: boolean
+  lastLogin: Date
+  createdAt: Date
 }
 
 export interface IUserPullPopulate {
-  world : IWorld
-} 
+  world: IWorld
+}
 
-export type IUserFullyPopulate = UnpackedIntersection<HydratedDocument<IUser , {}, {}>,IUserPullPopulate>
+export type IUserFullyPopulate = UnpackedIntersection<HydratedDocument<IUser, {}, {}>, IUserPullPopulate>

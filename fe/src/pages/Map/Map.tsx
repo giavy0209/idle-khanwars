@@ -1,8 +1,12 @@
 import { faArrowCircleDown, faArrowCircleLeft, faArrowCircleRight, faArrowCircleUp, faSearchMinus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FC, useState, useMemo, useCallback, CSSProperties, useEffect } from 'react'
+import { useAppSelector } from 'hooks'
+import { FC, useState, useMemo, useCallback, CSSProperties, useEffect, ChangeEvent } from 'react'
+import { selectUser } from 'store/selectors'
 const Map: FC = () => {
+  const user = useAppSelector(selectUser)
   const [grid, setGrid] = useState(5)
+  const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
   const { x, y } = useMemo(() => {
     const x: number[] = []
@@ -27,7 +31,6 @@ const Map: FC = () => {
     })
   }, [grid])
   const moveTo = useCallback(({ x, y }: { x?: number, y?: number }) => {
-
     if (x?.toString()) {
       setCoordinate({
         start: {
@@ -59,9 +62,40 @@ const Map: FC = () => {
       setGrid(newGrid)
     }
   }, [grid])
+
+  const handleMoveTo = useCallback((e: ChangeEvent<HTMLInputElement>, input: 'x' | 'y') => {
+    let value: number = Number(e.target.value)
+    if (!value && value !== 0) {
+      value = coordinate.start[input]
+      return
+    }
+    setCoordinate({
+      start: {
+        ...coordinate.start,
+        [input]: value
+      },
+      end: {
+        ...coordinate.end,
+        [input]: value + grid - 1
+      }
+    })
+  }, [coordinate, grid])
+  const selectGrid = useCallback((x: number, y: number) => {
+    if (selectedGrid?.x === x && selectedGrid.y === y) {
+      return setSelectedGrid(null)
+    }
+    setSelectedGrid({ x, y })
+  }, [selectedGrid])
   return (
     <>
       <div className="map">
+        {
+          !user.isSelectStart && <div className="title">Please select location to place your castle</div>
+        }
+        <div className={`selected-grid ${selectedGrid ? 'show' : ''}`}>
+          <p>Empty</p>
+          <p>X : {selectedGrid?.x} Y : {selectedGrid?.y}</p>
+        </div>
         <div style={{ "--grid": grid } as CSSProperties} className="view">
           <div className="horizontal-axis">
             {
@@ -75,7 +109,10 @@ const Map: FC = () => {
           </div>
           {
             y.map((_y) => {
-              return x.map((_x) => <div key={`${_x}:${_y}`} className="block">
+              return x.map((_x) => <div
+                onClick={() => selectGrid(_x, _y)}
+                key={`${_x}:${_y}`}
+                className={`block ${selectedGrid?.x === _x && selectedGrid.y === _y ? 'selected' : ''}`}>
                 <span className="coordinate">
                 </span>
               </div>)
@@ -106,8 +143,8 @@ const Map: FC = () => {
           <div className="move-to">
             Move to
             <div className="coordinate">
-              <input value={coordinate.start.x} placeholder='x' type="text" />
-              <input value={coordinate.start.y} placeholder='y' type="text" />
+              <input onChange={e => handleMoveTo(e, 'x')} value={coordinate.start.x} placeholder='x' type="text" />
+              <input onChange={e => handleMoveTo(e, 'y')} value={coordinate.start.y} placeholder='y' type="text" />
             </div>
           </div>
         </div>

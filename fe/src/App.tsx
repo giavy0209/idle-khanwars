@@ -6,7 +6,7 @@ import { storage } from 'utils';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import { initDefault } from 'store';
 import { userAction, globalAction } from 'store/slices';
-import { selectCastle, selectToken } from 'store/selectors';
+import { selectCastle, selectToken, selectUser } from 'store/selectors';
 import { Queue, Training, Upgrade } from 'components';
 import { ROUTERS } from 'const';
 import useSocketHandlers from 'useSocketHandlers';
@@ -18,6 +18,7 @@ function App() {
   const navigate = useNavigate()
   const location = useLocation()
   const token = useAppSelector(selectToken)
+  const user = useAppSelector(selectUser)
   const castle = useAppSelector(selectCastle)
 
   useEffect(() => {
@@ -28,7 +29,6 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-    console.log(location.pathname);
 
     if (location.pathname !== `${ROUTERS.LOGIN}` && !token) {
       dispatch(globalAction.setState({ memoLocation: location.pathname }))
@@ -37,12 +37,16 @@ function App() {
       if (!castle._id) {
         dispatch(initDefault())
       }
+      if (!user.isSelectStart) {
+        navigate(ROUTERS.MAP)
+      }
     } else {
       if (location.pathname !== `${ROUTERS.LOGIN}`) {
         navigate(ROUTERS.LOGIN)
       }
     }
-  }, [token, dispatch, location, navigate, castle])
+  }, [token, dispatch, location, navigate, user, castle])
+
 
   const handleRouter = useCallback((routers: typeof Routers) => {
     return routers.map(o => {
@@ -62,7 +66,7 @@ function App() {
           handleRouter(Routers)
         }
       </Routes>
-      {token && <Queue />}
+      {token && user.isSelectStart && <Queue />}
     </div>
   );
 }

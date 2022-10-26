@@ -5,6 +5,7 @@ export interface IUser {
   username: string
   world: IWorld
   status: string
+  isSelectStart: boolean
   lastLogin: Date
   createdAt: Date
 }

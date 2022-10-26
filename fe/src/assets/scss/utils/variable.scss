@@ -9,5 +9,9 @@ $text-color: #ccc;
 $text-color-dark: rgb(43, 43, 43);
 
 $border-color: #ccc;
+$border-color-dark: $bg-dark;
+
+$border : 1px solid $border-color;
+$border-dark : 1px solid $border-color-dark;
 
 $bg-odd: #dab07e;

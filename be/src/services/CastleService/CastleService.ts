@@ -1,24 +1,30 @@
 import { AbstractService } from "abstracts"
 import { ICastle } from "interfaces"
-import { MODEL } from "constant"
+import { MODEL, POPULATE_CASTLE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
-const populatePath = [
-  {
-    path: 'user',
-  }
-]
+import { IGetMapInput } from "./ICastleService"
 export default class CastleService extends AbstractService<ICastle>  {
-  static populatePath = populatePath
   constructor(user: IUserFullyPopulate) {
     super(MODEL.castles, user)
-    this.populate = populatePath
+    this.populate = POPULATE_CASTLE
   }
 
   async get() {
-    return await this.model.find({ user: this.user._id })
+    return await this.model.find({ user: this.user._id }, {}).populate(this.populate)
   }
-
+  async getMap({ start, end }: IGetMapInput) {
+    return await this.model.find({
+      "coordinate.x": {
+        $gte: start.x,
+        $lte: end.x
+      },
+      "coordinate.y": {
+        $gte: start.y,
+        $lte: end.y
+      },
+    }).populate(this.populate)
+  }
   async isOwner(castle: string | Types.ObjectId) {
     await this.exists({
       user: this.user._id,
