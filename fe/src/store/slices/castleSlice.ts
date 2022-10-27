@@ -11,18 +11,40 @@ export const fetchCastle = createAsyncThunk<ICastle[]>(
     return res.data
   }
 )
+
+
+export const fetchMapCastles = createAsyncThunk<
+  ICastle[],
+  {
+    start: { x: number, y: number }
+    end: { x: number, y: number }
+  }
+>(
+  'castle/fetchMapCastles',
+  async ({ start, end }) => {
+    const res = await callAPI.get(`/castles/map?startX=${start.x}&endX=${end.x}&startY=${start.y}&endY=${end.y}`)
+    return res.data
+  }
+)
+
 interface InitialState {
+  mapCastles: ICastle[]
   castles: ICastle[]
   current: ICastle
 }
 const initialState: InitialState = {
   castles: [],
+  mapCastles: [],
   current: {
     _id: '',
     loyal: 0,
     population: 0,
     name: '',
     isCapital: true,
+    coordinate: {
+      x: 0,
+      y: 0
+    }
   }
 }
 
@@ -48,6 +70,9 @@ const castleSlice = createSlice({
         if (capital) {
           castleSlice.caseReducers.changeCastle(state, { payload: capital, type: '' })
         }
+      })
+      .addCase(fetchMapCastles.fulfilled, (state, action) => {
+        state.mapCastles = action.payload
       })
   },
 })

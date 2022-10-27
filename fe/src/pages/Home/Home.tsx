@@ -2,7 +2,7 @@ import { Button } from "components";
 import { BUILDING, ROUTERS } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { Main } from "layers";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { selectBuildingByKey, selectCastle } from "store/selectors";
 import { castleAction, userAction } from "store/slices";
@@ -10,22 +10,25 @@ import { storage } from "utils";
 import Joyride from 'react-joyride';
 const steps = [
   {
-    target: '.logout',
-    content: 'Logout here'
+    target: '.home .resources',
+    content: 'Here is your resouce, limit and how much your castle generate per hour.'
   },
   {
-    target: '.population',
-    content: 'Logout here'
+    target: '.home .resources .resource',
+    content: 'Click on it to upgrade your mine, increase generate per hour'
   },
   {
     target: '.navigation',
-    content: 'Logout here'
+    content: 'Click here to go to list building and list army'
   }
 ]
 const Home: FC = () => {
   const dispatch = useAppDispatch()
   const dwelling = useAppSelector(selectBuildingByKey(BUILDING.DWELLINGS))
   const castle = useAppSelector(selectCastle)
+
+  const [isShowTutorial, setIsShowTutorial] = useState(false)
+
   const handleLogout = useCallback(() => {
     storage.clearToken()
     dispatch(userAction.token(''))
@@ -36,14 +39,16 @@ const Home: FC = () => {
     <>
       <Joyride
         steps={steps}
-        run
+        run={isShowTutorial}
         continuous
         showProgress
+
       />
       <div className="home">
         <Main>
           <div className="buttons">
             <div className="logout"><Button onClick={handleLogout} >Logout</Button></div>
+            <div className="logout"><Button onClick={() => setIsShowTutorial(true)} >Tutorial</Button></div>
           </div>
           <div className="population">
             <div className="bar">

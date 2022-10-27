@@ -4,6 +4,7 @@ export enum STATUS {
 }
 
 export enum EVENT_SOCKET {
+  USER = 'USER',
   CASTLE = 'CASTLE',
   UNIT = 'UNIT',
   RESOURCE = 'RESOURCE',

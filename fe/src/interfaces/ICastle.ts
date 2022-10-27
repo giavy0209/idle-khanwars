@@ -7,4 +7,8 @@ export interface ICastle {
   name: string
   user?: IUser
   isCapital: boolean
+  coordinate: {
+    x: number
+    y: number
+  }
 }

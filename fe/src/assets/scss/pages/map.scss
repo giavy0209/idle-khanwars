@@ -3,6 +3,17 @@
   width: 100%;
   height: 100%;
 
+  .castle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: $border ;
+    background-image: url('../../images/icon/castle.webp');
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+  }
+
   .selected-grid {
     position: absolute;
     top: 0;
@@ -15,6 +26,10 @@
     background-color: $bg-dark;
     transition: .3s;
     width: 50%;
+
+    .name {
+      text-align: center;
+    }
 
     p {
       text-align: center;
@@ -37,21 +52,24 @@
     background-image: url("../../images/bg/terrain.webp");
     background-size: contain;
     border: 1px solid #000;
+    max-width: 500px;
 
     .block {
       border: 1px solid #000;
       position: relative;
       width: calc(100% / var(--grid));
       cursor: pointer;
+      transition: background-color .3s ease;
 
-      .coordinate {
+      .has-castle {
         position: absolute;
-        bottom: 5px;
-        left: 5px;
-        user-select: none;
+        width: 50%;
+        height: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        background-color: #fff;
       }
-
-      transition: .3s;
 
       &.selected {
         background-color: $bg-transparent;

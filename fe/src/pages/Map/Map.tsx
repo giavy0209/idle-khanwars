@@ -1,13 +1,26 @@
 import { faArrowCircleDown, faArrowCircleLeft, faArrowCircleRight, faArrowCircleUp, faSearchMinus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useAppSelector } from 'hooks'
+import callAPI from 'callAPI'
+import { Button } from 'components'
+import { ROUTERS } from 'const'
+import { useAppDispatch, useAppSelector } from 'hooks'
+import { ICastle } from 'interfaces'
 import { FC, useState, useMemo, useCallback, CSSProperties, useEffect, ChangeEvent } from 'react'
-import { selectUser } from 'store/selectors'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { selectMapCastles, selectUser } from 'store/selectors'
+import { fetchMapCastles } from 'store/slices'
+import Joiride from './Joyride'
+
 const Map: FC = () => {
+  const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
+  const mapCastles = useAppSelector(selectMapCastles)
+  const navigate = useNavigate()
   const [grid, setGrid] = useState(5)
-  const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number } | null>(null)
+  const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number, castle?: ICastle } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
+
   const { x, y } = useMemo(() => {
     const x: number[] = []
     const y: number[] = []
@@ -19,6 +32,11 @@ const Map: FC = () => {
     }
     return { x, y }
   }, [coordinate])
+
+  useEffect(() => {
+    dispatch(fetchMapCastles(coordinate))
+  }, [coordinate, dispatch])
+
   useEffect(() => {
     setCoordinate(coordinate => {
       return {
@@ -30,6 +48,7 @@ const Map: FC = () => {
       }
     })
   }, [grid])
+
   const moveTo = useCallback(({ x, y }: { x?: number, y?: number }) => {
     if (x?.toString()) {
       setCoordinate({
@@ -56,6 +75,7 @@ const Map: FC = () => {
       })
     }
   }, [coordinate])
+
   const changeGrid = useCallback((value: number) => {
     const newGrid = grid + value
     if (newGrid >= 3 && newGrid <= 10) {
@@ -80,42 +100,64 @@ const Map: FC = () => {
       }
     })
   }, [coordinate, grid])
-  const selectGrid = useCallback((x: number, y: number) => {
+  const selectGrid = useCallback((x: number, y: number, castle?: ICastle) => {
     if (selectedGrid?.x === x && selectedGrid.y === y) {
       return setSelectedGrid(null)
     }
-    setSelectedGrid({ x, y })
+    setSelectedGrid({ x, y, castle })
   }, [selectedGrid])
+  const handleBuildCastle = useCallback(async () => {
+    const data = await callAPI.post('/castles/place', { x: selectedGrid?.x, y: selectedGrid?.y }, { toastSuccess: true })
+    if (data.code === 200) {
+      dispatch(fetchMapCastles(coordinate))
+    }
+  }, [selectedGrid, dispatch, coordinate])
+
+  const handleGoToCastle = useCallback(() => {
+    console.log(user.isSelectStart);
+    if (user.isSelectStart) {
+      navigate(ROUTERS.HOME)
+    } else {
+      toast('Please select the place to build your castle')
+    }
+  }, [navigate, user])
   return (
     <>
       <div className="map">
+        <Joiride run={!user.isSelectStart} />
+        <div onClick={handleGoToCastle} className="castle"></div>
         {
           !user.isSelectStart && <div className="title">Please select location to place your castle</div>
         }
         <div className={`selected-grid ${selectedGrid ? 'show' : ''}`}>
           <p>Empty</p>
           <p>X : {selectedGrid?.x} Y : {selectedGrid?.y}</p>
+          {selectedGrid?.castle && <div className="name">{selectedGrid.castle.user?.username}'s castle</div>}
+          {!selectedGrid?.castle && !user.isSelectStart && <Button onClick={handleBuildCastle}>Build castle</Button>}
         </div>
         <div style={{ "--grid": grid } as CSSProperties} className="view">
           <div className="horizontal-axis">
             {
-              x.map(o => <div className="coordinate">{o}</div>)
+              x.map(o => <div key={`x_${o}`} className="coordinate">{o}</div>)
             }
           </div>
           <div className="vertical-axis">
             {
-              y.map(o => <div className="coordinate">{o}</div>)
+              y.map(o => <div key={`y_${o}`} className="coordinate">{o}</div>)
             }
           </div>
           {
             y.map((_y) => {
-              return x.map((_x) => <div
-                onClick={() => selectGrid(_x, _y)}
-                key={`${_x}:${_y}`}
-                className={`block ${selectedGrid?.x === _x && selectedGrid.y === _y ? 'selected' : ''}`}>
-                <span className="coordinate">
-                </span>
-              </div>)
+              return x.map((_x) => {
+                const castle = mapCastles.find(({ coordinate }) => (coordinate.x === _x && coordinate.y === _y))
+                return <div
+                  onClick={() => selectGrid(_x, _y, castle)}
+                  key={`${_x}:${_y}`}
+                  className={`block ${selectedGrid?.x === _x && selectedGrid.y === _y ? 'selected' : ''}`}
+                >
+                  {castle && <div className="has-castle"></div>}
+                </div>
+              })
             })
           }
         </div>

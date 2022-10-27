@@ -19,7 +19,7 @@ const Signup: FC = () => {
   const globalState = useAppSelector(selectGlobal)
   useEffect(() => {
     if (token) {
-      navigate((globalState.memoLocation && globalState.memoLocation !== `/${ROUTERS.LOGIN}`) ? globalState.memoLocation : ROUTERS.HOME + '/')
+      navigate((globalState.memoLocation && globalState.memoLocation !== `${ROUTERS.LOGIN}`) ? globalState.memoLocation : ROUTERS.HOME)
     }
     dispatch(fetchWorlds())
   }, [dispatch, token, navigate, globalState])

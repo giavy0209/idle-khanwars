@@ -1,8 +1,14 @@
 import { EVENT_SOCKET } from "const";
 import { useSocketHandler } from "hooks";
-import { buildingAction, castleAction, resourceAction, trainingAction, unitAction, upgradeAction } from "store/slices";
+import { buildingAction, castleAction, resourceAction, trainingAction, unitAction, upgradeAction, userAction } from "store/slices";
 
 const useSocketHandlers = () => {
+  useSocketHandler({
+    action: [
+      userAction.user
+    ],
+    event: EVENT_SOCKET.USER
+  })
   useSocketHandler({
     action: [
       castleAction.updateCastle

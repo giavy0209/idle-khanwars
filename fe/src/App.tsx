@@ -29,7 +29,6 @@ function App() {
   }, [dispatch])
 
   useEffect(() => {
-
     if (location.pathname !== `${ROUTERS.LOGIN}` && !token) {
       dispatch(globalAction.setState({ memoLocation: location.pathname }))
     }
@@ -37,16 +36,18 @@ function App() {
       if (!castle._id) {
         dispatch(initDefault())
       }
-      if (!user.isSelectStart) {
-        navigate(ROUTERS.MAP)
-      }
     } else {
       if (location.pathname !== `${ROUTERS.LOGIN}`) {
         navigate(ROUTERS.LOGIN)
       }
     }
-  }, [token, dispatch, location, navigate, user, castle])
+  }, [token, dispatch, location, navigate, castle])
 
+  useEffect(() => {
+    if (token && !user.isSelectStart) {
+      navigate(ROUTERS.MAP)
+    }
+  }, [user, token, navigate])
 
   const handleRouter = useCallback((routers: typeof Routers) => {
     return routers.map(o => {

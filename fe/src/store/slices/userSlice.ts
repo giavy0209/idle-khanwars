@@ -8,7 +8,9 @@ export interface UserState {
   token: string
 }
 const initialState: UserState = {
-  user: {},
+  user: {
+    isSelectStart: true
+  },
   token: ''
 }
 

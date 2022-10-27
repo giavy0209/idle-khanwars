@@ -17,10 +17,18 @@ export default class CastleController extends AbstractController<ICastle, Castle
     }))
   }
 
-  async getMap(req: Request, res: Response) {
-    const { start, end } = req.body
+  async place(req: Request, res: Response) {
+    const { x, y } = req.body
     const service = this.createService(req.user)
-    const data = await service.getMap({ start, end })
+    await service.place({ x, y })
+    res.send(new ResponseResult({
+      message: 'Place castle successfully'
+    }))
+  }
+  async getMap(req: Request, res: Response) {
+    const { startX, endX, startY, endY } = req.query
+    const service = this.createService(req.user)
+    const data = await service.getMap({ startX, endX, startY, endY })
     res.send(new ResponseResult({
       data,
       message: 'Get map successfully'

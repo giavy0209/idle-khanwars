@@ -1,10 +1,11 @@
 export interface IGetMapInput {
-  start: {
-    x: number
-    y: number
-  }
-  end: {
-    x: number
-    y: number
-  }
+  startX: number
+  startY: number
+  endX: number
+  endY: number
+}
+
+export interface IPlaceInput {
+  x: number
+  y: number
 }
