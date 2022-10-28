@@ -110,6 +110,21 @@ export const POPULATE_UPGRADE = [
     populate: POPULATE_BUILDING
   }
 ]
+
+export const POPULATE_MARCHING = [
+  {
+    path: 'castle target',
+    populate: POPULATE_CASTLE
+  },
+  {
+    path: 'units.type',
+    populate: POPULATE_UNIT
+  },
+  {
+    path: 'cargo.asArray.type',
+  }
+]
+
 export const MODEL = {
   users: 'users',
   worlds: 'worlds',
@@ -119,6 +134,8 @@ export const MODEL = {
   buildings: 'buildings',
   upgrades: 'upgrades',
   castles: 'castles',
+  marchings: 'marchings',
+  enhances: 'enhances',
 
   default_buildings: 'default_buildings',
   default_upgrades: 'default_upgrades',

@@ -23,7 +23,7 @@ export const fetchTraining = createAsyncThunk<ITraining[]>(
 export const postTraining = createAsyncThunk<ITraining, { total: number, unit: string }>(
   'unit/postTraining',
   async ({ total, unit }) => {
-    const res = await callAPI.post(`/trainings`, { total, unit })
+    const res = await callAPI.post(`/trainings`, { total, unit }, { toastSuccess: true })
     return res.data
   }
 )

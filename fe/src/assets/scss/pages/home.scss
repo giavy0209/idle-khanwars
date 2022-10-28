@@ -21,6 +21,7 @@
   .buttons {
     margin-top: 10px;
     display: flex;
+    justify-content: space-between;
 
     >* {
       width: 33.333%;
@@ -76,5 +77,54 @@
         margin-top: 20px;
       }
     }
+  }
+
+  .menu {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+
+    a>* {
+      background-image: url('../../images/icon/menu.webp');
+      width: 100px;
+      height: 130px;
+      border: 3px solid $border-color-dark;
+      border-radius: 5px;
+      background-color: $bg-dark;
+      cursor: pointer;
+      position: relative;
+
+      &:hover {
+        span {
+          color: $text-color-hover;
+        }
+      }
+
+      span {
+        color: $text-color;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        font-weight: 600;
+        transition: .3s;
+      }
+    }
+
+    .army {
+      background-position-x: 0%;
+      background-position-y: -20px;
+    }
+
+    .world {
+      background-position-x: 295px;
+      background-position-y: 10px;
+    }
+  }
+
+  .chat {
+    background-image: linear-gradient(to top, #000, rgba(0, 0, 0, 0));
+    width: 100%;
+    height: 200px;
   }
 }

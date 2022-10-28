@@ -1,7 +1,7 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IWorld } from ".";
 
-export default interface IUser extends Document {
+export interface IUser extends Document {
   username: string
   password: string
   world: Types.ObjectId

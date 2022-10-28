@@ -1,7 +1,7 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IBuildingFullyPopulate } from "./IBuilding";
 
-export default interface IUpgrade extends Document {
+export interface IUpgrade extends Document {
   castle: Types.ObjectId
   building: Types.ObjectId
   startAt: Date

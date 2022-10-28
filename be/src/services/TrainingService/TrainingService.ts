@@ -1,7 +1,7 @@
 import { AbstractService } from "abstracts"
 import { MODEL, POPULATE_TRAINING } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
-import ITraining, { ITrainingPullPopulate } from "interfaces/ITraining"
+import { ITraining, ITrainingPullPopulate } from "interfaces"
 import { IUnitFullyPopulate } from "interfaces/IUnit"
 import { IPostInput } from "./ITrainingService"
 import { AdvancedError } from "utils"
@@ -10,12 +10,12 @@ import { Types } from "mongoose"
 import UnitService from "services/UnitService"
 import ResourceService from "services/ResourceService"
 import BuildingService from "services/BuildingService"
+import { BUILDING } from "constant/enums"
 export default class TrainingService extends AbstractService<ITraining, ITrainingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(MODEL.trainings, user)
     this.populate = POPULATE_TRAINING
   }
-
 
   calcTrainingTime(unit: IUnitFullyPopulate, total: number) {
     let trainingOne = unit.default.time * 1000
@@ -30,32 +30,36 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
     return await this.find({ castle }, {})
   }
 
-  // async isEnoughPopulation(castle: string | Types.ObjectId) {
-  //   // const buildingService = new BuildingService(this.user)
-  //   // const dwelling = buildingService.findByKey({ castle, key: BUILDING.DWELLING })
-  //   // const training = await this.find({ castle }, { populate: })
-  // }
+  async isEnoughPopulation(castle: string | Types.ObjectId) {
+    const castleService = new CastleService(this.user)
+    const { population } = await castleService.findById(castle, true)
+
+    const buildingService = new BuildingService(this.user)
+    const dwelling = await buildingService.findByKey({ castle, key: BUILDING.DWELLINGS })
+    const trainings = await this.find({ castle }, false)
+    let totalTraining = population
+    trainings.forEach(training => {
+      totalTraining += (training.left * training.unit.default.population)
+    })
+    const dwellingVolume = dwelling.upgrade.current.generate
+    if (dwellingVolume < totalTraining) {
+      throw new AdvancedError({ message: "You don't have enough space in dwelling, upgrade dwelling first", statusCode: 400 })
+    }
+  }
 
   async post({ unit, total }: IPostInput) {
     total = Number(total)
-    if (!total) {
+    if (!total || total < 1) {
       throw new AdvancedError({
         statusCode: 400,
         message: 'Invalid total'
       })
     }
-
     const unitService = new UnitService(this.user)
     const findUnit = await unitService.findById(unit, true)
-    const buildingService = new BuildingService(this.user)
 
-    const buildingOfUnit = await buildingService.findById(findUnit.building._id)
-    const upgradeOfBuilding = await this.DefaultUpgrade.findById(buildingOfUnit?.upgrade.current)
-    if (upgradeOfBuilding?.level === 0) {
-      throw new AdvancedError({
-        message: `Please upgrade ${buildingOfUnit?.default.name} before training ${findUnit.default.name}`
-      })
-    }
+    const buildingService = new BuildingService(this.user)
+    await buildingService.isUpgradeArmyBuilding(findUnit.building._id)
 
     await this.exists({
       building: findUnit.building._id
@@ -63,6 +67,8 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
 
     const castleService = new CastleService(this.user)
     await castleService.isOwner(findUnit.castle)
+
+    await this.isEnoughPopulation(findUnit.castle)
 
     const resourceNeed: {
       type: Types.ObjectId

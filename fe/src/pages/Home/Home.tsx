@@ -42,7 +42,6 @@ const Home: FC = () => {
         run={isShowTutorial}
         continuous
         showProgress
-
       />
       <div className="home">
         <Main>
@@ -57,6 +56,20 @@ const Home: FC = () => {
                 width: castle.population / (dwelling?.upgrade.current.generate || castle.population) * 100 + '%'
               }}></div>
             </div>
+          </div>
+          <div className="menu">
+            <Link to={ROUTERS.MAP}>
+              <div className="world">
+                <span>World</span>
+              </div>
+            </Link>
+            <Link to={ROUTERS.UNIT}>
+              <div className="army">
+                <span>
+                  Army
+                </span>
+              </div>
+            </Link>
           </div>
           <div className="navigation">
             <Link to={ROUTERS.BUILDING}>

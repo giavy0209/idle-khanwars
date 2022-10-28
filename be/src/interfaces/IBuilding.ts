@@ -2,7 +2,7 @@ import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoos
 import { ICastle, IDefaultBuilding } from ".";
 import { IDefaultUpgradeFullyPopulate } from "./IDefaultUpgrade";
 
-export default interface IBuilding extends Document {
+export interface IBuilding extends Document {
   castle: Types.ObjectId
   default: Types.ObjectId
   upgrade: {

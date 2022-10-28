@@ -1,7 +1,7 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IUnitFullyPopulate } from "./IUnit";
 
-export default interface ITraining extends Document {
+export interface ITraining extends Document {
   castle: Types.ObjectId
   unit: Types.ObjectId
   building: Types.ObjectId
@@ -17,4 +17,4 @@ export interface ITrainingPullPopulate {
   unit: IUnitFullyPopulate
 }
 
-export type IResourceFullyPopulate = UnpackedIntersection<HydratedDocument<ITraining, {}, {}>, ITrainingPullPopulate>
+export type ITrainingFullyPopulate = UnpackedIntersection<HydratedDocument<ITraining, {}, {}>, ITrainingPullPopulate>

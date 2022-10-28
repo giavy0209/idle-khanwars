@@ -5,6 +5,13 @@ import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes, Def
 import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
+interface IQueryOptions extends PopulateOption {
+  skip?: number,
+  limit?: number,
+  sort?: any,
+  lean?: boolean,
+  count?: boolean
+}
 export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
   user: IUserFullyPopulate
@@ -38,19 +45,23 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
       return name
     }
   }
+
+
+  find(query: FilterQuery<I>, queryOptions?: IQueryOptions): Promise<{
+    data: (Omit<HydratedDocument<I, {}, {}>, keyof PullPopulate> & PullPopulate)[]
+    total: number
+  }>
+  find(query: FilterQuery<I>, queryOptions: false,): Promise<(Omit<HydratedDocument<I, {}, {}>, keyof PullPopulate> & PullPopulate)[]>
   async find(
     query: FilterQuery<I>,
-    {
+    queryOptions?: IQueryOptions | false,
+  ) {
+    const {
       skip,
       limit,
       sort,
       lean,
-    }: {
-      skip?: number,
-      limit?: number,
-      sort?: any,
-      lean?: boolean,
-    } & PopulateOption) {
+    } = queryOptions || {}
     const options: QueryOptions = {}
     if (skip) {
       options.skip = skip
@@ -64,12 +75,22 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     if (typeof lean === 'boolean' && lean) {
       options.lean = lean
     }
+    const promises: [
+      Promise<(Omit<HydratedDocument<I, {}, {}>, keyof PullPopulate> & PullPopulate)[]>,
+      Promise<number>?
+    ] = [
+        this.model.find(query, null, options).populate<PullPopulate>(this.populate).exec(),
+      ]
 
-    const [data, total] = await Promise.all([
-      this.model.find(query, null, options).populate<PullPopulate>(this.populate),
-      this.model.countDocuments(query)
-    ])
-    return { data, total }
+    const isCount = queryOptions !== false
+    if (isCount) {
+      promises.push(this.model.countDocuments(query).exec())
+    }
+    const [data, total] = await Promise.all(promises)
+    if (isCount) {
+      return { data, total }
+    }
+    return data
   }
   findById(id: string | Types.ObjectId, isThrow: boolean): Promise<UnpackedIntersection<HydratedDocument<I, {}, {}>, PullPopulate>>;
   findById(id: string | Types.ObjectId): Promise<UnpackedIntersection<HydratedDocument<I, {}, {}>, PullPopulate> | null>;

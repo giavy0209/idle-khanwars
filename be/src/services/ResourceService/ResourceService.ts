@@ -1,5 +1,5 @@
 import { AbstractService } from "abstracts"
-import IResource, { IResourcePullPopulate } from 'interfaces/IResource'
+import { IResource, IResourcePullPopulate } from 'interfaces'
 import { HTTPSTATUS, MODEL, POPULATE_RESOURCE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"

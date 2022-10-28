@@ -1,7 +1,7 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import IDefaultBuilding from "./IDefaultBuilding";
+import { IDefaultBuilding } from "./IDefaultBuilding";
 
-export default interface IDefaultUpgrade extends Document {
+export interface IDefaultUpgrade extends Document {
   building: Types.ObjectId
   level: number
   generate: number
@@ -21,7 +21,7 @@ export default interface IDefaultUpgrade extends Document {
 }
 
 export interface IDefaultUpgradePullPopulate {
-  building : IDefaultBuilding
+  building: IDefaultBuilding
 }
 
 export type IDefaultUpgradeFullyPopulate = UnpackedIntersection<HydratedDocument<IDefaultUpgrade, {}, {}>, IDefaultUpgradePullPopulate>

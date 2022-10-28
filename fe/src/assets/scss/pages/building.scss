@@ -1,10 +1,17 @@
 .building,
 .unit {
   width: 100%;
+  height: 100%;
+  display: flex;
+
   .navigation {
     width: 100%;
+    align-self: center;
+    justify-self: center;
+
     a {
       width: 100%;
+
       .link {
         width: 100%;
         font-weight: 600;
@@ -15,25 +22,36 @@
         border: 5px solid $border-color;
         color: $text-color;
       }
-      + a {
+
+      +a {
         margin-top: 20px;
       }
     }
   }
+
   .list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     .item {
       width: 50%;
       padding: 15px;
       cursor: pointer;
+
       .contain {
         img {
           background-color: $bg-light;
           aspect-ratio: 1;
         }
+
         p {
           margin-top: 10px;
           text-align: center;

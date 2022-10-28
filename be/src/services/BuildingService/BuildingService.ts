@@ -31,6 +31,15 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
     }
     return await this.findOne({ castle, default: defaultBuilding._id }, true)
   }
+  async isUpgradeArmyBuilding(building: Types.ObjectId | string) {
+    const buildingOfUnit = await this.findById(building)
+    const upgradeOfBuilding = await this.DefaultUpgrade.findById(buildingOfUnit?.upgrade.current)
+    if (upgradeOfBuilding?.level === 0) {
+      throw new AdvancedError({
+        message: `Please upgrade ${buildingOfUnit?.default.name} before training`
+      })
+    }
+  }
   async create(castle: Types.ObjectId) {
     const defaultBuildings = await this.DefaultBuildings.find({})
     for (const defaultBuilding of defaultBuildings) {

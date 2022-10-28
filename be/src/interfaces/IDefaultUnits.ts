@@ -1,9 +1,8 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import IDefaultBuilding from "./IDefaultBuilding";
-import IDefaultResources from "./IDefaultResources";
-import IDefaultUnitType from "./IDefaultUnitType";
-
-export default interface IDefaultUnits extends Document {
+import { IDefaultBuilding } from "./IDefaultBuilding";
+import { IDefaultResources } from "./IDefaultResources";
+import { IDefaultUnitType } from "./IDefaultUnitType";
+export interface IDefaultUnits extends Document {
   name: string
   key: string
   order: number

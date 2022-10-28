@@ -1,6 +1,7 @@
-import { Document, Types } from "mongoose";
+import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
+import { IUser } from "./IUser";
 
-export default interface ICastle extends Document {
+export interface ICastle extends Document {
   user: Types.ObjectId
   loyal: number
   population: number
@@ -12,3 +13,9 @@ export default interface ICastle extends Document {
   }
   lastUpdate: Date
 }
+
+export interface ICastlePullPopulate {
+  user: IUser
+}
+
+export type ICastleFullyPopulate = UnpackedIntersection<HydratedDocument<ICastle, {}, {}>, ICastlePullPopulate>

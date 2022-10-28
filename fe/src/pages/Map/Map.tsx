@@ -17,7 +17,7 @@ const Map: FC = () => {
   const user = useAppSelector(selectUser)
   const mapCastles = useAppSelector(selectMapCastles)
   const navigate = useNavigate()
-  const [grid, setGrid] = useState(5)
+  const [grid, setGrid] = useState(20)
   const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number, castle?: ICastle } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
 
@@ -78,7 +78,7 @@ const Map: FC = () => {
 
   const changeGrid = useCallback((value: number) => {
     const newGrid = grid + value
-    if (newGrid >= 3 && newGrid <= 10) {
+    if (newGrid >= 3 && newGrid <= 20) {
       setGrid(newGrid)
     }
   }, [grid])
@@ -130,9 +130,9 @@ const Map: FC = () => {
           !user.isSelectStart && <div className="title">Please select location to place your castle</div>
         }
         <div className={`selected-grid ${selectedGrid ? 'show' : ''}`}>
-          <p>Empty</p>
-          <p>X : {selectedGrid?.x} Y : {selectedGrid?.y}</p>
-          {selectedGrid?.castle && <div className="name">{selectedGrid.castle.user?.username}'s castle</div>}
+
+          <p>{selectedGrid?.x} : {selectedGrid?.y}</p>
+          {selectedGrid?.castle ? <div className="name">{selectedGrid.castle.user?.username}'s castle</div> : <p>Empty</p>}
           {!selectedGrid?.castle && !user.isSelectStart && <Button onClick={handleBuildCastle}>Build castle</Button>}
         </div>
         <div style={{ "--grid": grid } as CSSProperties} className="view">

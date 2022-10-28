@@ -3,6 +3,10 @@
   width: 100%;
   height: 100%;
 
+  * {
+    user-select: none;
+  }
+
   .castle {
     width: 80px;
     height: 80px;
@@ -26,6 +30,8 @@
     background-color: $bg-dark;
     transition: .3s;
     width: 50%;
+    font-size: 18px;
+    font-weight: 600;
 
     .name {
       text-align: center;
@@ -89,8 +95,9 @@
       width: 100%;
       display: flex;
       height: 20px;
-      background-color: $bg-transparent;
+      background-color: $bg-dark;
       align-items: center;
+      transform: translate(0, -100%);
 
       >* {
         width: calc(100% / var(--grid));
@@ -103,11 +110,12 @@
       top: 0;
       left: 0;
       height: 100%;
-      background-color: $bg-transparent;
+      background-color: $bg-dark;
       display: flex;
       flex-direction: column;
       align-items: center;
       width: 20px;
+      transform: translate(-100%, 0);
 
       >* {
         height: calc(100% / var(--grid));
@@ -124,6 +132,7 @@
     transform: translate(-50%, 0);
     width: 200px;
     height: 200px;
+    background-color: $bg-dark;
 
     * {
       font-size: 40px;
@@ -132,6 +141,7 @@
     >* {
       position: absolute;
       cursor: pointer;
+
     }
 
     .left,
@@ -165,10 +175,10 @@
     .zoom {
       position: absolute;
       top: 0;
-      transform: translate(0, -100%);
       display: flex;
       width: 100%;
       justify-content: space-between;
+      z-index: -1;
     }
 
     .move-to {
