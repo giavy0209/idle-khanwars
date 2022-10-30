@@ -142,4 +142,5 @@ export const MODEL = {
   default_resources: 'default_resources',
   default_units: 'default_units',
   default_unit_types: 'default_unit_types',
+  default_enhances: 'default_enhances',
 }

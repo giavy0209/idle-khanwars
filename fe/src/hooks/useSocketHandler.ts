@@ -3,8 +3,6 @@ import { useAppDispatch } from "hooks";
 import { useEffect, useState } from "react";
 import socket from "socket";
 
-
-
 export default function useSocketHandler<I = any>({
   action,
   event

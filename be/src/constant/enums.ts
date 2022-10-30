@@ -19,3 +19,9 @@ export enum BUILDING {
   STORAGE = "STORAGE",
   DWELLINGS = "DWELLINGS",
 }
+
+export enum ENHANCE_TYPE {
+  HP = "HP",
+  ATTACK = "ATTACK",
+  CARGO = "CARGO",
+}

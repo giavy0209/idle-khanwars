@@ -7,7 +7,7 @@ class Enhances extends AbstractModel<IEnhance> {
   constructor(tenantId: string) {
     super({ name: MODEL.enhances, tenantId })
     this.schema = new Schema<IEnhance>({
-
+      type: { type: String, enum: ['HP', 'ATTACK'] }
     }, {
       timestamps: true
     })

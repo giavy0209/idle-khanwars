@@ -3,7 +3,7 @@ import { MODEL } from "constant";
 import { IDefaultUpgrade } from "interfaces";
 import { Schema } from "mongoose";
 
-class DefaultUpgrade extends AbstractModel<IDefaultUpgrade> {
+class DefaultUpgrades extends AbstractModel<IDefaultUpgrade> {
   constructor(tenant: string) {
     super({ name: MODEL.default_upgrades, tenantId: tenant })
     this.schema = new Schema<IDefaultUpgrade>({
@@ -26,4 +26,4 @@ class DefaultUpgrade extends AbstractModel<IDefaultUpgrade> {
     })
   }
 }
-export default DefaultUpgrade
+export default DefaultUpgrades
