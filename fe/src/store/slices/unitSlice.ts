@@ -16,11 +16,11 @@ export const fetchUnit = createAsyncThunk<IUnit[]>(
 interface InitialState {
   units: IUnit[]
   training?: IUnit
+  enhance?: IUnit
 }
 
 const initialState: InitialState = {
   units: [],
-  training: undefined
 }
 
 const unitSlice = createSlice({

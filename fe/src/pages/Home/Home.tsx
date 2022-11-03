@@ -82,6 +82,11 @@ const Home: FC = () => {
                 Training
               </div>
             </Link>
+            <Link to={ROUTERS.ENHANCE}>
+              <div className="link">
+                Enhance
+              </div>
+            </Link>
           </div>
         </Main>
       </div>

@@ -12,6 +12,18 @@ class Units extends AbstractModel<IUnit> {
       default: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_units) },
       total: { type: Number, default: 0 },
       inTower: { type: Number, default: 0 },
+      enhance: {
+        current: {
+          hp: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_enhances) },
+          cargo: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_enhances) },
+          attack: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_enhances) },
+        },
+        next: {
+          hp: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_enhances) },
+          cargo: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_enhances) },
+          attack: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_enhances) },
+        }
+      }
     }, {
       timestamps: true
     })

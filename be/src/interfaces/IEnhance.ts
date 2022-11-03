@@ -1,7 +1,13 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
+import { IUnitFullyPopulate } from "./IUnit";
 
 export interface IEnhance extends Document {
-  type: 'HP' | 'ATTACK'
-  level: number
-  percent: number
+  castle: Types.ObjectId
+  unit: Types.ObjectId
+  startAt: Date
+  endAt: Date
+}
+
+export interface IEnhancePullPopulate {
+  unit: IUnitFullyPopulate
 }

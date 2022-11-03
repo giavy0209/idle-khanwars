@@ -1,7 +1,7 @@
 import { HTTPSTATUS } from "constant"
-import { IDefaultBuilding, IDefaultResources, IDefaultUnits, IDefaultUnitType, IDefaultUpgrade } from "interfaces"
+import { IDefaultBuilding, IDefaultEnhance, IDefaultResources, IDefaultUnits, IDefaultUnitType, IDefaultUpgrade } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
-import { DefaultBuildings, DefaultResources, DefaultUnits, DefaultUnitTypes, DefaultUpgrades } from "models"
+import { DefaultBuildings, DefaultEnhances, DefaultResources, DefaultUnits, DefaultUnitTypes, DefaultUpgrades } from "models"
 import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
@@ -23,7 +23,8 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
   DefaultUnits: Model<IDefaultUnits>
   DefaultResources: Model<IDefaultResources>
   DefaultUnitTypes: Model<IDefaultUnitType>
-  DefaultUpgrade: Model<IDefaultUpgrade>
+  DefaultUpgrades: Model<IDefaultUpgrade>
+  DefaultEnhances: Model<IDefaultEnhance>
   constructor(modelName: string, user?: IUserFullyPopulate) {
     if (user) {
       this.user = user
@@ -36,7 +37,8 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     this.DefaultUnits = new DefaultUnits(this.tenant || '').getInstance()
     this.DefaultResources = new DefaultResources(this.tenant || '').getInstance()
     this.DefaultUnitTypes = new DefaultUnitTypes(this.tenant || '').getInstance()
-    this.DefaultUpgrade = new DefaultUpgrades(this.tenant || '').getInstance()
+    this.DefaultUpgrades = new DefaultUpgrades(this.tenant || '').getInstance()
+    this.DefaultEnhances = new DefaultEnhances(this.tenant || '').getInstance()
   }
   getCollectionName(name: string) {
     if (this.tenant) {

@@ -33,7 +33,7 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
   }
   async isUpgradeArmyBuilding(building: Types.ObjectId | string) {
     const buildingOfUnit = await this.findById(building)
-    const upgradeOfBuilding = await this.DefaultUpgrade.findById(buildingOfUnit?.upgrade.current)
+    const upgradeOfBuilding = await this.DefaultUpgrades.findById(buildingOfUnit?.upgrade.current)
     if (upgradeOfBuilding?.level === 0) {
       throw new AdvancedError({
         message: `Please upgrade ${buildingOfUnit?.default.name} before training`
@@ -43,8 +43,8 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
   async create(castle: Types.ObjectId) {
     const defaultBuildings = await this.DefaultBuildings.find({})
     for (const defaultBuilding of defaultBuildings) {
-      const upgrade0 = await this.DefaultUpgrade.findOne({ building: defaultBuilding._id, level: 0 })
-      const upgrade = await this.DefaultUpgrade.findOne({ building: defaultBuilding._id, level: 1 })
+      const upgrade0 = await this.DefaultUpgrades.findOne({ building: defaultBuilding._id, level: 0 })
+      const upgrade = await this.DefaultUpgrades.findOne({ building: defaultBuilding._id, level: 1 })
       let value = 0
       if (defaultBuilding.resource) {
         value = 20 * this.user.world.speed

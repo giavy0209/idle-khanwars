@@ -16,6 +16,7 @@ export enum ROUTERS {
   HOME = '/',
   LOGIN = '/login',
   MAP = '/map',
+
   BUILDING = '/building',
   BUILDING_TYPE = ':buildingType',
   RESOURCE = 'resources',
@@ -25,6 +26,9 @@ export enum ROUTERS {
 
   UNIT = '/unit',
   UNIT_TYPE = ':unitType',
+
+  ENHANCE = '/enhance',
+  ENHANCE_TYPE = ':enhanceType',
 }
 
 export enum BUILDING_TYPE {
@@ -33,6 +37,8 @@ export enum BUILDING_TYPE {
   building_army = 'ACCESSABLE_BUILDING',
   other = 'BUILDING'
 }
+
+
 
 export enum TRAINING_TYPE {
   BARRACKS = "BARRACKS",

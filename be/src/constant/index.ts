@@ -54,6 +54,12 @@ export const POPULATE_DEFAULT_UPGRADE = [
   }
 ]
 
+export const POPULATE_DEFAULT_ENHANCE = [
+  {
+    path: 'resources.asArray.type'
+  }
+]
+
 export const POPULATE_BUILDING = [
   {
     path: 'castle default'
@@ -94,6 +100,13 @@ export const POPULATE_UNIT = [
   {
     path: 'default',
     populate: POPULATE_DEFAULT_UNIT
+  },
+  {
+    path: 'enhance.current enhance.next',
+    populate: {
+      path: "hp attack cargo",
+      populate: POPULATE_DEFAULT_ENHANCE
+    }
   }
 ]
 
