@@ -15,7 +15,7 @@ const List: FC<IList> = ({ type }) => {
 
   const units = useAppSelector(selectUnitByBuilding(type))
   const handleEnhance = (unit: IUnit) => {
-    dispatch(unitAction.training(unit))
+    dispatch(unitAction.enhance(unit))
   }
   return (
     <>

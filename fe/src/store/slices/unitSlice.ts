@@ -30,6 +30,9 @@ const unitSlice = createSlice({
     training(state, action: PayloadAction<IUnit | undefined>) {
       state.training = action.payload
     },
+    enhance(state, action: PayloadAction<IUnit | undefined>) {
+      state.enhance = action.payload
+    },
     setUnit(state, action: PayloadAction<IUnit>) {
       const index = state.units.findIndex(o => o._id === action.payload._id)
       const units = [...state.units]

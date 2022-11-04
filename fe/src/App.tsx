@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { initDefault } from 'store';
 import { userAction, globalAction } from 'store/slices';
 import { selectCastle, selectToken, selectUser } from 'store/selectors';
-import { Queue, Training, Upgrade } from 'components';
+import { Enhance, Queue, Training, Upgrade } from 'components';
 import { ROUTERS } from 'const';
 import useSocketHandlers from 'useSocketHandlers';
 import 'react-toastify/dist/ReactToastify.css';
@@ -62,6 +62,7 @@ function App() {
       <ToastContainer />
       <Upgrade />
       <Training />
+      <Enhance />
       <Routes>
         {
           handleRouter(Routers)

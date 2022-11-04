@@ -1,31 +1,39 @@
 .upgrade,
-.training {
+.training,
+.enhance {
   .costs {
     display: flex;
     flex-wrap: wrap;
+
     .cost {
       width: 100%;
       display: flex;
       align-items: center;
+
       &.training {
         width: 50%;
       }
+
       .image {
         width: 60px;
       }
+
       .value {
         width: calc(100% - 60px);
         padding-left: 5px;
         font-size: 18px;
         font-weight: 500;
         text-align: center;
+
         .left {
           display: block;
           width: 100%;
+
           &.green {
             color: #087908;
             font-weight: 600;
           }
+
           &.red {
             color: #5d0000;
             font-weight: 600;
@@ -34,24 +42,34 @@
       }
     }
   }
+
   .strength {
     .stat {
       padding: 5px;
       border-radius: 5px;
       text-align: center;
-      > * {
+
+      ~button {
+        margin: 10px 0;
+      }
+
+      >* {
         width: 50%;
         display: inline-block;
       }
+
       &:nth-child(odd) {
         background-color: $bg-odd;
       }
     }
   }
+
   .statistics {
     margin: 10px 0;
+
     .stat {
       display: flex;
+
       span {
         display: block;
         width: 50%;
@@ -59,16 +77,19 @@
       }
     }
   }
+
   .total {
     display: flex;
     align-items: center;
     justify-content: center;
+
     input {
       border-radius: 5px;
       background-color: $bg-input;
       padding: 5px;
       width: 70%;
     }
+
     .max {
       cursor: pointer;
       text-decoration: underline;
