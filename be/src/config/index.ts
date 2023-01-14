@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import { IUserFullyPopulate } from 'interfaces/IUser';
+import { Connection } from 'mongoose';
 dotenv.config({ path: '.env.dev' })
 declare global {
   var Config: {
@@ -11,6 +12,10 @@ declare global {
     MONGO_DB: string,
     JWT_SECRET: string,
   };
+  function getDbName(tenant?: string): string
+  var DB: {
+    [k: string]: Connection
+  }
 
   namespace Express {
     export interface Request {
@@ -24,6 +29,8 @@ declare global {
   }
 }
 
+global.DB = {}
+
 global.Config = {
   PORT: process.env.PORT || '',
   MONGO_HOST: process.env.MONGO_HOST || '',
@@ -32,4 +39,8 @@ global.Config = {
   MONGO_PASSWORD: process.env.MONGO_PASSWORD || '',
   MONGO_DB: process.env.MONGO_DB || '',
   JWT_SECRET: process.env.JWT_SECRET || '',
+}
+global.getDbName = (tenant: string) => {
+  if (tenant) return `${tenant}_${Config.MONGO_DB}`
+  return Config.MONGO_DB
 }

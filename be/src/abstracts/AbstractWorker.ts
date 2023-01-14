@@ -1,6 +1,6 @@
 import eventEmitter from "eventEmitter"
 import { IWorld } from "interfaces"
-import { Model, models } from "mongoose"
+import { Connection, Model } from "mongoose"
 import { sleep } from "utils"
 
 export default abstract class AbstractWorker<I, Q = {}> {
@@ -10,12 +10,14 @@ export default abstract class AbstractWorker<I, Q = {}> {
   eventName: string
   queue: Q[] = []
   startAt: number
-
+  DB: Connection
   constructor(world: IWorld, { modelName, sleep }: { modelName?: string, sleep?: number }) {
     this.world = world
+    this.DB = DB[getDbName(world.tenant)]
+
     if (modelName) {
       this.eventName = `${this.world.tenant}_${modelName}`
-      this.model = models[this.eventName]
+      this.model = this.DB.models[modelName]
     }
     this.sleep = sleep || 1000
   }
