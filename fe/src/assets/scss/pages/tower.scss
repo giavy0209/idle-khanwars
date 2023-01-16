@@ -1,0 +1,41 @@
+.tower {
+  .unit {
+    &:nth-child(odd) {
+      background-color: $bg-light;
+    }
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    .top {
+      display: flex;
+      .image {
+        width: 20%;
+      }
+      .info {
+        width: 40%;
+        padding-left: 10px;
+      }
+      .select {
+        width: 40%;
+        .input {
+          width: 100%;
+          p {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            .max {
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+          input {
+            border-radius: 5px;
+            background-color: $bg-input;
+            padding: 5px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

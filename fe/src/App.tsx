@@ -59,7 +59,7 @@ function App() {
   }, [])
 
   return (
-    <div style={{ width: size.width, height: size.height }} id="App">
+    <div id="App">
       <ToastContainer />
       <Upgrade />
       <Training />

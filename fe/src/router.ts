@@ -1,5 +1,5 @@
 import { ROUTERS } from "const"
-import { Building, Enhance, Home, Map, Signup, Units } from "pages"
+import { Building, Enhance, Home, Map, Signup, Tower, Units } from "pages"
 
 const Routers = [
   {
@@ -44,5 +44,9 @@ const Routers = [
       }
     ]
   },
+  {
+    path: ROUTERS.TOWER,
+    element: Tower
+  }
 ]
 export default Routers

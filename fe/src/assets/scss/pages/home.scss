@@ -6,12 +6,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
+    flex-wrap: wrap;
     .resource {
       width: 25%;
       text-align: center;
       cursor: pointer;
-
+      @media only screen and (max-width : 400px) {
+        width: 50%;
+      }
       img {
         width: 50px;
         height: 50px;
@@ -84,8 +86,15 @@
     margin-top: 10px;
     display: flex;
     justify-content: space-around;
-
+    flex-wrap: wrap;
+    a {
+      width: 50%;
+      &:not(:nth-child(-n + 2)) {
+        margin-top: 20px;
+      }
+    }
     a>* {
+      margin: 0 auto;
       background-image: url('../../images/icon/menu.webp');
       width: 100px;
       height: 130px;
@@ -120,6 +129,17 @@
     .world {
       background-position-x: 295px;
       background-position-y: 10px;
+    }
+
+    .building {
+      background-image: url('../../images/icon/castle.webp');
+      background-size: contain;
+      background-position: center;
+    }
+    .tower {
+      background-image: url('../../images/icon/tower.webp');
+      background-size: contain;
+      background-position: center;
     }
   }
 

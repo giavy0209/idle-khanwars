@@ -31,6 +31,8 @@ export enum ROUTERS {
 
   ENHANCE = '/enhance',
   ENHANCE_TYPE = ':enhanceType',
+
+  TOWER = '/tower'
 }
 
 export enum BUILDING_TYPE {

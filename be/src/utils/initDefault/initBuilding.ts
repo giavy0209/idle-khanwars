@@ -1,4 +1,4 @@
-import fs, { writeFileSync } from 'fs'
+import fs from 'fs'
 import path from 'path'
 import { IDefaultBuilding, IDefaultResources, IDefaultUpgrade, IWorld } from "interfaces"
 import { DefaultBuildings, DefaultResources, DefaultUpgrades } from "models"

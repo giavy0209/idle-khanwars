@@ -63,10 +63,17 @@ const Home: FC = () => {
                 <span>World</span>
               </div>
             </Link>
-            <Link to={ROUTERS.UNIT}>
+            <Link to={ROUTERS.BUILDING}>
               <div className="building">
                 <span>
                   Building
+                </span>
+              </div>
+            </Link>
+            <Link to={ROUTERS.TOWER}>
+              <div className="tower">
+                <span>
+                  Tower
                 </span>
               </div>
             </Link>
@@ -79,11 +86,6 @@ const Home: FC = () => {
             </Link>
           </div>
           <div className="navigation">
-            <Link to={ROUTERS.BUILDING}>
-              <div className="link">
-                Buildings
-              </div>
-            </Link>
             <Link to={ROUTERS.ENHANCE}>
               <div className="link">
                 Enhance
