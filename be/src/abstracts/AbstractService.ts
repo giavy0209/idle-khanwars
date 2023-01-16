@@ -1,8 +1,9 @@
+import { AbstractModel } from "abstracts"
 import { HTTPSTATUS } from "constant"
 import { IDefaultBuilding, IDefaultEnhance, IDefaultResources, IDefaultUnits, IDefaultUnitType, IDefaultUpgrade } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { DefaultBuildings, DefaultEnhances, DefaultResources, DefaultUnits, DefaultUnitTypes, DefaultUpgrades } from "models"
-import { FilterQuery, HydratedDocument, Model, models, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
+import { FilterQuery, HydratedDocument, Model, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
 
 interface IQueryOptions extends PopulateOption {
@@ -15,30 +16,27 @@ interface IQueryOptions extends PopulateOption {
 export default abstract class AbstractService<I, PullPopulate = {}> {
   model: Model<I>
   user: IUserFullyPopulate
-  tenant: string | undefined
+  tenant: string = ""
   populate: PopulateOptions | PopulateOptions[] | string[]
   sort?: { [k: string]: any } = undefined
-  name: string
   DefaultBuildings: Model<IDefaultBuilding>
   DefaultUnits: Model<IDefaultUnits>
   DefaultResources: Model<IDefaultResources>
   DefaultUnitTypes: Model<IDefaultUnitType>
   DefaultUpgrades: Model<IDefaultUpgrade>
   DefaultEnhances: Model<IDefaultEnhance>
-  constructor(modelName: string, user?: IUserFullyPopulate) {
+  constructor(Model: new (tenantId: string) => AbstractModel<I>, user?: IUserFullyPopulate) {
     if (user) {
       this.user = user
       this.tenant = this.user.world.tenant
+      this.DefaultBuildings = new DefaultBuildings(this.tenant).getInstance()
+      this.DefaultUnits = new DefaultUnits(this.tenant).getInstance()
+      this.DefaultResources = new DefaultResources(this.tenant).getInstance()
+      this.DefaultUnitTypes = new DefaultUnitTypes(this.tenant).getInstance()
+      this.DefaultUpgrades = new DefaultUpgrades(this.tenant).getInstance()
+      this.DefaultEnhances = new DefaultEnhances(this.tenant).getInstance()
     }
-    this.name = modelName
-    this.model = models[this.getCollectionName(modelName)]
-
-    this.DefaultBuildings = new DefaultBuildings(this.tenant || '').getInstance()
-    this.DefaultUnits = new DefaultUnits(this.tenant || '').getInstance()
-    this.DefaultResources = new DefaultResources(this.tenant || '').getInstance()
-    this.DefaultUnitTypes = new DefaultUnitTypes(this.tenant || '').getInstance()
-    this.DefaultUpgrades = new DefaultUpgrades(this.tenant || '').getInstance()
-    this.DefaultEnhances = new DefaultEnhances(this.tenant || '').getInstance()
+    this.model = new Model(this.tenant).getInstance()
   }
   getCollectionName(name: string) {
     if (this.tenant) {
@@ -100,7 +98,7 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     const data = await this.model.findById(id).populate<PullPopulate>(this.populate).exec()
     if (typeof isThrow === 'boolean' && isThrow) {
       if (!data) {
-        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.name} not found`, })
+        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.model.name} not found`, })
       }
     }
     return data
@@ -112,7 +110,7 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     const data = await this.model.findOne(query).populate<PullPopulate>(this.populate).exec()
     if (typeof isThrow === 'boolean' && isThrow) {
       if (!data) {
-        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.name} not found`, })
+        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.model.name} not found`, })
       }
     }
     return data
@@ -120,15 +118,16 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
 
   async exists(query: FilterQuery<I>, throwCase: 'IF_EXISTS' | 'IF_NOT_EXISTS', message?: string) {
     const isExists = await this.model.exists(query)
+
     switch (throwCase) {
       case 'IF_EXISTS':
         if (isExists) {
-          throw new AdvancedError({ message: message || `${this.name} already exists` })
+          throw new AdvancedError({ message: message || `${this.model.name} already exists` })
         }
         break;
       case 'IF_NOT_EXISTS':
         if (!isExists) {
-          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: message || `${this.name} not found`, })
+          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: message || `${this.model.name} not found`, })
         }
       default:
         break;

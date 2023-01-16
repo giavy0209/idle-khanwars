@@ -1,14 +1,10 @@
 import { AbstractRouter } from 'abstracts'
 import { EnhanceController } from 'controllers'
-import path from 'path'
-const filename = path.basename(__filename)
-const ext = path.extname(filename)
-const param = filename.replace(ext, '')
 
 
 export default class EnhanceRouter extends AbstractRouter<EnhanceController> {
   constructor() {
-    super(param, EnhanceController)
+    super('enhances', EnhanceController)
     this.routes = [
       {
         param: ':id?',

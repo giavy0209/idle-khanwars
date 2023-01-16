@@ -9,13 +9,13 @@ class DefaultEnhances extends AbstractModel<IDefaultEnhance> {
     super({ name: MODEL.default_enhances, tenantId })
     this.schema = new Schema<IDefaultEnhance>({
       level: { type: Number },
-      unit: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_units) },
+      unit: { type: Schema.Types.ObjectId, ref: MODEL.default_units },
       value: { type: Number },
       time: { type: Number },
       type: { type: String, enum: Object.values(ENHANCE_TYPE) },
       resources: {
         asArray: [{
-          type: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_resources) },
+          type: { type: Schema.Types.ObjectId, ref: MODEL.default_resources },
           value: { type: Number }
         }],
         asObject: {

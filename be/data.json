@@ -1,0 +1,146 @@
+[
+  {
+    "level": 0,
+    "gold": 0,
+    "iron": 0,
+    "wood": 0,
+    "food": 0,
+    "generate": 0,
+    "time": 0
+  },
+  {
+    "level": 1,
+    "gold": 155,
+    "iron": 265,
+    "wood": 305,
+    "food": 235,
+    "generate": 9.09,
+    "time": 180
+  },
+  {
+    "level": 2,
+    "gold": 246,
+    "iron": 420,
+    "wood": 484,
+    "food": 373,
+    "generate": 16.67,
+    "time": 286
+  },
+  {
+    "level": 3,
+    "gold": 310,
+    "iron": 530,
+    "wood": 610,
+    "food": 470,
+    "generate": 23.08,
+    "time": 360
+  },
+  {
+    "level": 4,
+    "gold": 390,
+    "iron": 667,
+    "wood": 768,
+    "food": 592,
+    "generate": 28.57,
+    "time": 454
+  },
+  {
+    "level": 5,
+    "gold": 492,
+    "iron": 841,
+    "wood": 968,
+    "food": 746,
+    "generate": 33.33,
+    "time": 572
+  },
+  {
+    "level": 6,
+    "gold": 620,
+    "iron": 1060,
+    "wood": 1220,
+    "food": 940,
+    "generate": 37.5,
+    "time": 720
+  },
+  {
+    "level": 7,
+    "gold": 781,
+    "iron": 1336,
+    "wood": 1537,
+    "food": 1184,
+    "generate": 41.18,
+    "time": 907
+  },
+  {
+    "level": 8,
+    "gold": 984,
+    "iron": 1683,
+    "wood": 1937,
+    "food": 1492,
+    "generate": 44.44,
+    "time": 1143
+  },
+  {
+    "level": 9,
+    "gold": 1240,
+    "iron": 2121,
+    "wood": 2441,
+    "food": 1881,
+    "generate": 47.37,
+    "time": 1441
+  },
+  {
+    "level": 10,
+    "gold": 1563,
+    "iron": 2672,
+    "wood": 3076,
+    "food": 2370,
+    "generate": 50,
+    "time": 1815
+  },
+  {
+    "level": 11,
+    "gold": 1969,
+    "iron": 3367,
+    "wood": 3875,
+    "food": 2986,
+    "generate": 52.38,
+    "time": 2287
+  },
+  {
+    "level": 12,
+    "gold": 2481,
+    "iron": 4243,
+    "wood": 4883,
+    "food": 3762,
+    "generate": 54.55,
+    "time": 2882
+  },
+  {
+    "level": 13,
+    "gold": 3127,
+    "iron": 5346,
+    "wood": 6153,
+    "food": 4741,
+    "generate": 56.52,
+    "time": 3631
+  },
+  {
+    "level": 14,
+    "gold": 3940,
+    "iron": 6736,
+    "wood": 7753,
+    "food": 5973,
+    "generate": 58.33,
+    "time": 4576
+  },
+  {
+    "level": 15,
+    "gold": 4964,
+    "iron": 8487,
+    "wood": 9769,
+    "food": 7527,
+    "generate": 60,
+    "time": 5765
+  }
+]

@@ -1,5 +1,6 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IDefaultBuilding } from "./IDefaultBuilding";
+import { IDefaultResources } from "./IDefaultResources";
 
 export interface IDefaultUpgrade extends Document {
   building: Types.ObjectId
@@ -21,7 +22,19 @@ export interface IDefaultUpgrade extends Document {
 }
 
 export interface IDefaultUpgradePullPopulate {
-  building: IDefaultBuilding
+  building: IDefaultBuilding,
+  resources: {
+    asArray: {
+      type: IDefaultResources
+      value: number
+    }[]
+    asObject: {
+      gold: number
+      iron: number
+      wood: number
+      food: number
+    }
+  }
 }
 
 export type IDefaultUpgradeFullyPopulate = UnpackedIntersection<HydratedDocument<IDefaultUpgrade, {}, {}>, IDefaultUpgradePullPopulate>

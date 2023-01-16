@@ -9,6 +9,7 @@ export interface IDefaultEnhance {
     asArray: {
       type: IDefaultResource
       value: number
+      _id: string
     }[]
     asObject: {
       gold: number

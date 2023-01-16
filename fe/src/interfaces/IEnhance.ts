@@ -1,8 +1,11 @@
+import { ENHANCE } from "const"
 import { IUnit } from "./IUnit"
 
 export interface IEnhance {
+  _id: string
   castle: string
   unit: IUnit
-  startAt: Date
-  endAt: Date
+  type: ENHANCE
+  startAt: string
+  endAt: string
 }

@@ -12,17 +12,18 @@ a {
 img {
   width: 100%;
 }
-
 #App {
   background-image: url("../images/bg/background.jpg");
-  width: 100vw;
-  height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
   color: $text-color;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .title {
@@ -33,9 +34,9 @@ img {
 
 .sub-layout {
   background-color: rgba($color: #000000, $alpha: 0.5);
+  padding: 70px 0;
   width: 100%;
   height: 100%;
-
 }
 
 .pre {

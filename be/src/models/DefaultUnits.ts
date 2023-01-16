@@ -12,8 +12,8 @@ class DefaultUnits extends AbstractModel<IDefaultUnits> {
       order: { type: Number },
       description: { type: String },
       path: { type: String },
-      type: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_unit_types) },
-      building: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_buildings) },
+      type: { type: Schema.Types.ObjectId, ref: MODEL.default_unit_types },
+      building: { type: Schema.Types.ObjectId, ref: MODEL.default_buildings },
       time: { type: Number, default: 1 },
       speed: { type: Number },
       cargo: { type: Number },
@@ -22,7 +22,7 @@ class DefaultUnits extends AbstractModel<IDefaultUnits> {
       population: { type: Number },
       resources: {
         asArray: [{
-          type: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_resources) },
+          type: { type: Schema.Types.ObjectId, ref: MODEL.default_resources },
           value: { type: Number }
         }],
         asObject: {
@@ -35,7 +35,7 @@ class DefaultUnits extends AbstractModel<IDefaultUnits> {
 
       strength: {
         asArray: [{
-          type: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_unit_types) },
+          type: { type: Schema.Types.ObjectId, ref: MODEL.default_unit_types },
           value: { type: Number }
         }],
         asObject: {

@@ -11,6 +11,7 @@ const createDefaultEnhance = async (model: Model<IDefaultEnhance>, defaultUnit: 
   for (let index = 0; index <= 10; index++) {
     for (const type of enhanceType) {
       const isExist = await model.exists({ unit: defaultUnit._id, level: index, type })
+
       const objectData = {
         unit: defaultUnit._id,
         level: index,
@@ -18,7 +19,7 @@ const createDefaultEnhance = async (model: Model<IDefaultEnhance>, defaultUnit: 
         value: index * 10,
         time: defaultUnit.time * 10 * index,
         resources: {
-          asArray: defaultUnit.resources.asArray.map(o => ({ ...o, value: o.value * 10 * index })),
+          asArray: defaultUnit.resources.asArray.map(o => ({ type: o.type._id, value: o.value * 10 * index })),
           asObject: {
             gold: defaultUnit.resources.asObject.gold * 10 * index,
             iron: defaultUnit.resources.asObject.iron * 10 * index,

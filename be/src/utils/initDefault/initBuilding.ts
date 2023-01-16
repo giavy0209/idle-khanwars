@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs, { writeFileSync } from 'fs'
 import path from 'path'
 import { IDefaultBuilding, IDefaultResources, IDefaultUpgrade, IWorld } from "interfaces"
 import { DefaultBuildings, DefaultResources, DefaultUpgrades } from "models"
@@ -46,6 +46,7 @@ const createOrUpdateUpgrade = async (
     }
     if (isExistUpgrade) {
       await model.findByIdAndUpdate(isExistUpgrade._id, objectData)
+      continue
     }
     await model.create(objectData)
   }
@@ -82,7 +83,14 @@ const initBuilding = async (world: IWorld) => {
     } else {
       findBuilding = await DefaultBuildingsModel.create(objectData)
     }
-    await createOrUpdateUpgrade(DefaultUpgradeModel, building.upgrade, findBuilding, world, resource, { gold, iron, wood, food })
+    await createOrUpdateUpgrade(
+      DefaultUpgradeModel,
+      building.upgrade,
+      findBuilding,
+      world,
+      resource,
+      { gold, iron, wood, food }
+    )
   }
 }
 

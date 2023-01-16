@@ -1,7 +1,7 @@
 import { AbstractService } from "abstracts"
 import { sign } from "jsonwebtoken"
 import { compareSync, hashSync } from "bcrypt"
-import { HTTPSTATUS, MODEL } from "constant"
+import { HTTPSTATUS } from "constant"
 import { IUser } from "interfaces"
 import { IUserFullyPopulate, IUserPullPopulate } from "interfaces/IUser"
 import { AdvancedError } from "utils"
@@ -11,6 +11,7 @@ import BuildingService from "services/BuildingService"
 import ResourceService from "services/ResourceService"
 import CastleService from "services/CastleService"
 import UnitService from "services/UnitService"
+import { Users } from "models"
 
 const populatePath = [
   {
@@ -20,28 +21,30 @@ const populatePath = [
 export default class UserService extends AbstractService<IUser, IUserPullPopulate>  {
   static populatePath = populatePath
   constructor(user: IUserFullyPopulate) {
-    super(MODEL.users, user)
+    super(Users, user)
     this.populate = populatePath
   }
   async post({ username, password, world }: IPostInput) {
     await this.exists({ username }, 'IF_EXISTS')
+
     const user = await this.model.create({
       world,
       username,
       password: hashSync(password, 10)
     }) as unknown as IUserFullyPopulate
     await user.populate('world')
+
     const castleService = new CastleService(user)
     const castle = await castleService.create()
- 
+
     const buildingService = new BuildingService(user)
     await buildingService.create(castle._id)
 
     const resourceService = new ResourceService(user)
-    await resourceService.create(castle._id) 
+    await resourceService.create(castle._id)
 
     const unitService = new UnitService(user)
-    await unitService.create(castle._id) 
+    await unitService.create(castle._id)
 
     return user
   }

@@ -1,16 +1,17 @@
 import { AbstractService } from "abstracts"
 import { IResource, IResourcePullPopulate } from 'interfaces'
-import { HTTPSTATUS, MODEL, POPULATE_RESOURCE } from "constant"
+import { HTTPSTATUS, POPULATE_RESOURCE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
 import { IGetInput, IisEnoughResourceInput } from "./IResourceService"
 import { AdvancedError } from "utils"
 import { ChangeResource } from "eventEmitter"
 import { BuildingService } from "services"
+import { Resources } from "models"
 
 export default class ResourceService extends AbstractService<IResource, IResourcePullPopulate>  {
   constructor(user: IUserFullyPopulate) {
-    super(MODEL.resources, user)
+    super(Resources, user)
     this.populate = POPULATE_RESOURCE
   }
   async get({ castle }: IGetInput) {
@@ -28,7 +29,7 @@ export default class ResourceService extends AbstractService<IResource, IResourc
     const resourcesFound = await Promise.all(need.map(async o => {
       const resources = await this.findOne({
         castle: castle,
-        default: o.type,
+        default: o.type._id,
         value: { $gte: o.value }
       })
       return resources
@@ -43,7 +44,7 @@ export default class ResourceService extends AbstractService<IResource, IResourc
     }
     for (const resourceFound of resourcesFound) {
       if (!resourceFound) continue
-      const needValue = need.find(o => o.type.toString() === resourceFound.default._id.toString())
+      const needValue = need.find(o => o.type._id.toString() === resourceFound.default._id.toString())
       if (!needValue) continue
 
       ChangeResource(this.tenant as string, {

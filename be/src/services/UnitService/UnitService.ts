@@ -1,14 +1,15 @@
 import { AbstractService } from "abstracts"
 import { IUnit } from "interfaces"
-import { MODEL, POPULATE_UNIT } from "constant"
+import { POPULATE_UNIT } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
 import BuildingService from "services/BuildingService"
 import { IUnitPullPopulate } from "interfaces/IUnit"
 import { ENHANCE_TYPE } from "constant/enums"
+import { Units } from "models"
 export default class UnitService extends AbstractService<IUnit, IUnitPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
-    super(MODEL.units, user)
+    super(Units, user)
     this.populate = POPULATE_UNIT
   }
   async create(castle: Types.ObjectId) {

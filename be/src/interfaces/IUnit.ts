@@ -1,6 +1,6 @@
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IBuildingFullyPopulate } from "./IBuilding";
-import { IDefaultEnhance } from "./IDefaultEnhance";
+import { IDefaultEnhanceFullyPopulate } from "./IDefaultEnhance";
 import { IDefaultUnitFullyPopulate } from "./IDefaultUnits";
 
 export interface IUnit extends Document {
@@ -26,14 +26,14 @@ export interface IUnit extends Document {
 export interface IUnitPullPopulate {
   enhance: {
     current: {
-      hp: IDefaultEnhance
-      cargo: IDefaultEnhance
-      attack: IDefaultEnhance
+      hp: IDefaultEnhanceFullyPopulate
+      cargo: IDefaultEnhanceFullyPopulate
+      attack: IDefaultEnhanceFullyPopulate
     }
     next: {
-      hp: IDefaultEnhance
-      cargo: IDefaultEnhance
-      attack: IDefaultEnhance
+      hp: IDefaultEnhanceFullyPopulate
+      cargo: IDefaultEnhanceFullyPopulate
+      attack: IDefaultEnhanceFullyPopulate
     }
   }
   building: IBuildingFullyPopulate,

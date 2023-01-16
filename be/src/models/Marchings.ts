@@ -12,9 +12,9 @@ class Marchings extends AbstractModel<IMarching> {
       homeAt: { type: Date },
       speed: { type: Number },
       population: { type: Number },
-      castle: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.castles) },
+      castle: { type: Schema.Types.ObjectId, ref: MODEL.castles },
       target: {
-        castle: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.castles) },
+        castle: { type: Schema.Types.ObjectId, ref: MODEL.castles },
         coordinate: {
           x: { type: Number },
           y: { type: Number },
@@ -22,7 +22,7 @@ class Marchings extends AbstractModel<IMarching> {
       },
       cargo: {
         asArray: [{
-          type: { type: Schema.Types.ObjectId, ref: this.getCollectionName(MODEL.default_resources) },
+          type: { type: Schema.Types.ObjectId, ref: MODEL.default_resources },
           value: { type: Number }
         }],
         asObject: {

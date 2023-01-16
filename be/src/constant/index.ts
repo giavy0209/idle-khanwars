@@ -1,3 +1,4 @@
+
 export const HTTPSTATUS = {
   UNKNOWN: 0,
   SWITCHING_PROTOCOLS: 101,
@@ -138,6 +139,12 @@ export const POPULATE_MARCHING = [
   }
 ]
 
+export const POPULATE_ENHANCE = [
+  {
+    path: 'unit',
+    populate: POPULATE_UNIT
+  }
+]
 export const MODEL = {
   users: 'users',
   worlds: 'worlds',

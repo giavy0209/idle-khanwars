@@ -1,10 +1,10 @@
-import { Types } from "mongoose"
+import { IDefaultResources } from "interfaces"
 
 export interface IGetInput {
-  castle : string
+  castle: string
 }
 
 export interface IisEnoughResourceInput {
-  type: Types.ObjectId
+  type: IDefaultResources
   value: number
 }

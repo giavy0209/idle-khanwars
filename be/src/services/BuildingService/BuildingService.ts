@@ -1,15 +1,16 @@
 import { AbstractService } from "abstracts"
 import { IBuilding } from "interfaces"
-import { MODEL, POPULATE_BUILDING } from "constant"
+import { POPULATE_BUILDING } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
 import { IBuildingPullPopulate } from "interfaces/IBuilding"
 import { IGetInput } from "./IBuildingService"
 import { BUILDING } from "constant/enums"
 import { AdvancedError } from "utils"
+import { Buildings } from "models"
 export default class BuildingService extends AbstractService<IBuilding, IBuildingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
-    super(MODEL.buildings, user)
+    super(Buildings, user)
     this.populate = POPULATE_BUILDING
   }
   async get({ castle }: IGetInput) {

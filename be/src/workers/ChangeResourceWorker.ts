@@ -10,7 +10,6 @@ export interface IChangeResourceWorker {
   value: number
   updateAt?: Date | number
 }
-
 export default class ChangeResourceWorker extends AbstractWorker<IResource, IChangeResourceWorker> {
   constructor(world: IWorld) {
     super(world, { modelName: MODEL.resources, sleep: 10 })

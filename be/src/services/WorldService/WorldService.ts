@@ -1,9 +1,8 @@
 import { AbstractService } from "abstracts"
-import { MODEL } from "constant"
 import { IWorld } from "interfaces"
+import { Worlds } from "models"
 export default class WorldService extends AbstractService<IWorld>  {
   constructor() {
-    super(MODEL.worlds)
+    super(Worlds)
   }
-  
 }

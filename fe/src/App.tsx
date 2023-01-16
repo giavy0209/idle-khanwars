@@ -11,9 +11,10 @@ import { Enhance, Queue, Training, Upgrade } from 'components';
 import { ROUTERS } from 'const';
 import useSocketHandlers from 'useSocketHandlers';
 import 'react-toastify/dist/ReactToastify.css';
+import useWindowSize from 'hooks/useWindowSize';
 function App() {
   useSocketHandlers()
-
+  const size = useWindowSize()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -58,7 +59,7 @@ function App() {
   }, [])
 
   return (
-    <div id="App">
+    <div style={{ width: size.width, height: size.height }} id="App">
       <ToastContainer />
       <Upgrade />
       <Training />

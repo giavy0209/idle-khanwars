@@ -10,6 +10,8 @@ export enum EVENT_SOCKET {
   TRAINING_DONE = 'TRAINING_DONE',
   UPGRADE = 'UPGRADE',
   UPGRADE_DONE = 'UPGRADE_DONE',
+  ENHANCE = 'ENHANCE',
+  ENHANCE_DONE = 'ENHANCE_DONE',
 }
 
 export enum ROUTERS {
@@ -68,4 +70,16 @@ export enum BUILDING {
 }
 
 export enum BUILDING_DIRECT {
+}
+
+export enum ENHANCE_TYPE {
+  cargo = 'cargo',
+  attack = 'attack',
+  hp = 'hp',
+}
+
+export enum ENHANCE {
+  CARGO = 'CARGO',
+  ATTACK = 'ATTACK',
+  HP = 'HP',
 }

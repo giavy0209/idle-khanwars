@@ -1,13 +1,14 @@
 import { AbstractService } from "abstracts"
 import { IUpgrade } from "interfaces"
-import { MODEL, POPULATE_UPGRADE } from "constant"
+import { POPULATE_UPGRADE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { BuildingService, CastleService, ResourceService } from "services"
 import socketHandler from "socket"
 import { EVENT_SOCKET } from "constant/enums"
+import { Upgrades } from "models"
 export default class UpgradeService extends AbstractService<IUpgrade>  {
   constructor(user: IUserFullyPopulate) {
-    super(MODEL.upgrades, user)
+    super(Upgrades, user)
     this.populate = POPULATE_UPGRADE
   }
   async get({ castle }: { castle: string }) {

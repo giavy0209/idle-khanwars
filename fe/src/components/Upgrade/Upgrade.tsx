@@ -89,6 +89,8 @@ const Upgrade: FC = memo(() => {
         return `${ROUTERS.UNIT}/${BUILDING.WORKSHOP}`
       case BUILDING.ORDER:
         return `${ROUTERS.UNIT}/${BUILDING.ORDER}`
+      case BUILDING.BLACKSMITH:
+        return `${ROUTERS.ENHANCE}`
       default:
         return null
     }

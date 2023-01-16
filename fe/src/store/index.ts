@@ -15,7 +15,9 @@ import {
   fetchTraining,
   globalReducer,
   fetchUpgrade,
-  upgradeReducer
+  upgradeReducer,
+  enhanceReducer,
+  fetchEnhance
 } from './slices';
 
 const store = configureStore({
@@ -28,7 +30,8 @@ const store = configureStore({
     castleState: castleReducer,
     buildingState: buildingReducer,
     resourceState: resourceReducer,
-    upgradeState: upgradeReducer
+    upgradeState: upgradeReducer,
+    enhanceState: enhanceReducer
   },
 });
 
@@ -40,6 +43,7 @@ export const initDefault = () => async (dispatch: AppDispatch) => {
   dispatch(fetchUnit())
   dispatch(fetchTraining())
   dispatch(fetchUpgrade())
+  dispatch(fetchEnhance())
 }
 
 

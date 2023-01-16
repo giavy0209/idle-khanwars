@@ -12,13 +12,6 @@ export default abstract class AbtractModel<I> {
     this.tenantId = tenantId
   }
 
-  getCollectionName(name?: string) {
-    if (name) {
-      return name
-    } else {
-      return this.name
-    }
-  }
   getInstance() {
     let modelObject: Model<I> = this.DB.models[this.name]
     if (!modelObject) {
