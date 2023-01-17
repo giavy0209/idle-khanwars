@@ -6,7 +6,7 @@ import { AbstractModel } from "abstracts";
 const models = fs.readdirSync(path.join(__dirname, '..', 'models')).filter(o => (!o.includes('index') && !o.includes('map')))
 
 export default function initModel(world: IWorld) {
-  console.log(`Init model for world ${world.tenant}`);
+  console.log(`\x1b[34m ${world.name} \x1b[0m`, `Init model`);
 
   models.forEach(model => {
     const ModelClass = require(path.join(__dirname, '..', 'models', model)).default as new (tenant: string) => AbstractModel<any>

@@ -1,6 +1,6 @@
 import { AbstractWorker } from "abstracts";
 import { MODEL, POPULATE_DEFAULT_UPGRADE, POPULATE_UPGRADE } from "constant";
-import { EVENT_SOCKET } from "constant/enums";
+import { EVENT_SOCKET, PROGRESS } from "constant/enums";
 import { IUpgrade, IWorld, IUpgradePullPopulate } from "interfaces";
 import { IDefaultUpgradePullPopulate } from "interfaces/IDefaultUpgrade";
 import DefaultUpgrade from "models/DefaultUpgrades";
@@ -23,8 +23,8 @@ export default class HandleUpgradeWorker extends AbstractWorker<IUpgrade> {
         upgrade.building.upgrade.next = upgradeNext || upgrade.building.upgrade.current
         await upgrade.building.save()
         socketHandler(upgrade.castle, EVENT_SOCKET.BUILDING, upgrade.building)
-
-        await upgrade.remove()
+        upgrade.progress = PROGRESS.FINISH
+        await upgrade.save()
         socketHandler(upgrade.castle, EVENT_SOCKET.UPGRADE_DONE, upgrade._id)
       }
     })

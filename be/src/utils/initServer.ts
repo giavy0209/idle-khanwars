@@ -7,6 +7,6 @@ export default async function initServer() {
   const worlds = await new Worlds().getInstance().find()
   for (const world of worlds) {
     DB[getDbName(world.tenant)] = connection.useDb(getDbName(world.tenant))
-    initTenant(world)
+    await initTenant(world)
   }
 }

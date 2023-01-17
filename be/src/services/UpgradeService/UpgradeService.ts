@@ -11,8 +11,8 @@ export default class UpgradeService extends AbstractService<IUpgrade>  {
     super(Upgrades, user)
     this.populate = POPULATE_UPGRADE
   }
-  async get({ castle }: { castle: string }) {
-    return await this.find({ castle }, {})
+  async get({ castle, progress }: { castle: string, progress: string }) {
+    return await this.find({ castle, progress })
   }
   async post({ building }: { building: string }) {
     const buildingService = new BuildingService(this.user)

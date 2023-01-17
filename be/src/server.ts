@@ -3,11 +3,10 @@ import http from 'http'
 import initServer from 'utils/initServer';
 const server = http.createServer(app)
 server.listen(Config.PORT, async () => {
-  console.log(`Server listen on ${Config.PORT}`);
   console.log(`Start init server`);
-
   await initServer()
-  console.log('Inited server');
+  console.log('\x1b[32mInited server');
+  console.log(`Server listen on \x1b[32m ${Config.PORT}`);
 
 })
 export default server

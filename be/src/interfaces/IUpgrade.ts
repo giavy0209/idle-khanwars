@@ -1,9 +1,11 @@
+import { PROGRESS } from "constant/enums";
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IBuildingFullyPopulate } from "./IBuilding";
 
 export interface IUpgrade extends Document {
   castle: Types.ObjectId
   building: Types.ObjectId
+  progress: PROGRESS
   startAt: Date
   endAt: Date
 }

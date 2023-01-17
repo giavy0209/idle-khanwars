@@ -85,3 +85,9 @@ export enum ENHANCE {
   ATTACK = 'ATTACK',
   HP = 'HP',
 }
+
+export enum PROGRESS {
+  PENDING = "PENDING",
+  FINISH = "FINISH",
+  CANCEL = "CANCEL",
+}

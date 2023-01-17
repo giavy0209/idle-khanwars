@@ -27,7 +27,6 @@ export default class HandleTrainingWorker extends AbstractWorker<ITraining> {
           await training.save()
           socketHandler(training.unit.castle._id, EVENT_SOCKET.TRAINING, training)
         } else {
-          await training.remove()
           socketHandler(training.unit.castle._id, EVENT_SOCKET.TRAINING_DONE, training._id)
         }
         ChangeUnit(this.world.tenant, { _id: training.unit._id, value: 1 })

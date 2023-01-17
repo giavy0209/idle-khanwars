@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import callAPI from "callAPI";
+import { PROGRESS } from "const";
 import { IDefaultUpgrade, IUpgrade } from "interfaces";
 import { RootState } from "store";
 
@@ -17,7 +18,7 @@ export const fetchUpgrade = createAsyncThunk<IUpgrade[]>(
   async (_, { getState }) => {
     const state = getState() as RootState
     const castle = state.castleState.current._id
-    const res = await callAPI.get(`/upgrades?castle=${castle}`)
+    const res = await callAPI.get(`/upgrades?castle=${castle}&progress=${PROGRESS.PENDING}`)
     return res.data
   }
 )

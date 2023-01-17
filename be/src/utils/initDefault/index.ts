@@ -5,14 +5,13 @@ import initUnits from "./initUnits";
 import initUnitType from "./initUnitType";
 
 export default async function initDefault(world: IWorld) {
-  console.log('Start init world ' + world.name);
   await initResource(world)
-  console.log('Init Resource');
+  // console.log(`\x1b[34m ${world.name} \x1b[0m`, 'Init Resource');
   await initUnitType(world)
-  console.log('Init Unit Type');
+  // console.log(`\x1b[34m ${world.name} \x1b[0m`, 'Init Unit Type');
   await initBuilding(world)
-  console.log('Init Building');
+  // console.log(`\x1b[34m ${world.name} \x1b[0m`, 'Init Building');
   await initUnits(world)
-  console.log('Init Units');
-  console.log('DONE INIT WORLD ' + world.name);
+  // console.log(`\x1b[34m ${world.name} \x1b[0m`, 'Init Units');
+
 }

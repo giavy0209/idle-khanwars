@@ -28,17 +28,17 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
   }
 
   async get({ castle }: { castle: string }) {
-    return await this.find({ castle }, {})
+    return await this.find({ castle, left: { $gt: 0 } }, {})
   }
 
-  async isEnoughPopulation(castle: string | Types.ObjectId) {
+  async isEnoughPopulation(castle: string | Types.ObjectId, newTotal: number) {
     const castleService = new CastleService(this.user)
     const { population } = await castleService.findById(castle, true)
 
     const buildingService = new BuildingService(this.user)
     const dwelling = await buildingService.findByKey({ castle, key: BUILDING.DWELLINGS })
     const trainings = await this.find({ castle }, false)
-    let totalTraining = population
+    let totalTraining = population + newTotal
     trainings.forEach(training => {
       totalTraining += (training.left * training.unit.default.population)
     })
@@ -46,6 +46,7 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
     if (dwellingVolume < totalTraining) {
       throw new AdvancedError({ message: "You don't have enough space in dwelling, upgrade dwelling first", statusCode: 400 })
     }
+    return totalTraining
   }
 
   async post({ unit, total }: IPostInput) {
@@ -69,7 +70,7 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
     const castleService = new CastleService(this.user)
     await castleService.isOwner(findUnit.castle)
 
-    await this.isEnoughPopulation(findUnit.castle)
+    await this.isEnoughPopulation(findUnit.castle, total * findUnit.default.population)
 
     const resourceNeed: {
       type: IDefaultResources

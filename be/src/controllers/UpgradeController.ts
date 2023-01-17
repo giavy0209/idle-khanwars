@@ -14,11 +14,12 @@ export default class UpgradeController extends AbstractController<IUpgrade, Upgr
     const {
       user,
       query: {
-        castle
+        castle,
+        progress
       }
     } = req
     const service = this.createService(user)
-    const { data } = await service.get({ castle: castle as string })
+    const { data } = await service.get({ castle: castle as string, progress: progress as string })
     res.send(new ResponseResult({
       data,
       message: "Get upgrade queue successfully"

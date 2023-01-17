@@ -7,8 +7,7 @@ import HandleTrainingWorker from "./HandleTrainingWorker";
 import HandleUpgradeWorker from "./HandleUpgradeWorker";
 
 export default async function workers(world: IWorld) {
-  console.log(`Init worker for world ${world.tenant}`);
-
+  console.log(`\x1b[34m ${world.name} \x1b[0m`, `Init worker`);
   new ChangeResourceWorker(world).startWorker()
   new GenerateResourceWorker(world).startWorker()
   new HandleUpgradeWorker(world).startWorker()
