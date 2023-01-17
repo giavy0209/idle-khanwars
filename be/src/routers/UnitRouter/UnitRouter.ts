@@ -16,6 +16,11 @@ export default class UnitRouter extends AbstractRouter<UnitController> {
         method: 'POST',
         ref: this.controller.post
       },
+      {
+        param: 'move',
+        method: 'POST',
+        ref: this.controller.move
+      },
     ]
     this.regisRouter()
   }

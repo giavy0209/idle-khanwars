@@ -4,7 +4,7 @@ import { POPULATE_UPGRADE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { BuildingService, CastleService, ResourceService } from "services"
 import socketHandler from "socket"
-import { EVENT_SOCKET } from "constant/enums"
+import { EVENT_SOCKET, PROGRESS } from "constant/enums"
 import { Upgrades } from "models"
 export default class UpgradeService extends AbstractService<IUpgrade>  {
   constructor(user: IUserFullyPopulate) {
@@ -20,6 +20,7 @@ export default class UpgradeService extends AbstractService<IUpgrade>  {
 
     await this.exists({
       castle: findBuilding.castle,
+      progress: PROGRESS.PENDING
     }, 'IF_EXISTS', 'There is a building upgrading')
 
     const castleService = new CastleService(this.user)

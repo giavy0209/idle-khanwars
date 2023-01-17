@@ -64,7 +64,8 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
     await buildingService.isUpgradeArmyBuilding(findUnit.building._id)
 
     await this.exists({
-      building: findUnit.building._id
+      building: findUnit.building._id,
+      left: { $gt: 0 }
     }, 'IF_EXISTS', `You have an unit training in ${findUnit.building.default.name}`)
 
     const castleService = new CastleService(this.user)

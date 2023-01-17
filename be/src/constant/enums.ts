@@ -27,6 +27,7 @@ export enum BUILDING {
   STORAGE = "STORAGE",
   DWELLINGS = "DWELLINGS",
   BLACKSMITH = "BLACKSMITH",
+  TOWER = "TOWER",
 }
 
 export enum ENHANCE_TYPE {

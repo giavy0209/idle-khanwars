@@ -24,11 +24,11 @@ export default class HandleTrainingWorker extends AbstractWorker<ITraining> {
         training.nextAt = new Date(Date.now() + one)
         training.endAt = new Date(Date.now() + total)
         if (training.left > 0) {
-          await training.save()
           socketHandler(training.unit.castle._id, EVENT_SOCKET.TRAINING, training)
         } else {
           socketHandler(training.unit.castle._id, EVENT_SOCKET.TRAINING_DONE, training._id)
         }
+        await training.save()
         ChangeUnit(this.world.tenant, { _id: training.unit._id, value: 1 })
       }
     })

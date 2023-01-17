@@ -10,6 +10,7 @@ import socketHandler from "socket";
 export interface IChangeUnitWorker {
   _id: Types.ObjectId
   value: number
+  toTower?: number
 }
 
 export default class ChangeUnitWorker extends AbstractWorker<IUnit, IChangeUnitWorker> {
@@ -17,11 +18,13 @@ export default class ChangeUnitWorker extends AbstractWorker<IUnit, IChangeUnitW
     super(world, { modelName: MODEL.units, sleep: 1 })
   }
   startWorker() {
-    this.start(async ({ _id, value }) => {
+    this.start(async ({ _id, value, toTower }) => {
       const unit = await this.model.findById(_id).populate<IUnitPullPopulate>(POPULATE_UNIT)
       if (!unit) return
       unit.total = unit.total + value
-
+      if (toTower) {
+        unit.inTower = unit.inTower + toTower
+      }
       await unit.save()
       socketHandler(unit.castle, EVENT_SOCKET.UNIT, unit)
       const castle = await new Castles(this.world.tenant).getInstance().findById(unit.castle)

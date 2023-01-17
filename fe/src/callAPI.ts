@@ -25,9 +25,9 @@ const create = () => {
 
 const checkError = (error: any) => {
   if (error?.response?.data?.code) {
-    if(error?.response?.data?.code === 401) {
+    if (error?.response?.data?.code === 401) {
       toast('Session timeout, please login again')
-    }else {
+    } else {
       toast(error.response.data.message)
     }
   }
@@ -40,7 +40,7 @@ interface Option {
 
 const callAPI = {
   get: async (route: string, options?: Option) => {
-    const { toastError = true,toastSuccess = false } = options || {}
+    const { toastError = true, toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -48,7 +48,7 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.get(route)
-      if(toastSuccess) {
+      if (toastSuccess) {
         toast(data.message)
       }
       return data
@@ -59,8 +59,8 @@ const callAPI = {
       return error?.response?.data
     }
   },
-  post: async (route: string, body: {}, options?: Option) => {
-    const { toastError = true,toastSuccess = false } = options || {}
+  post: async <T = {}>(route: string, body: T, options?: Option) => {
+    const { toastError = true, toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -68,7 +68,7 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.post(route, body)
-      if(toastSuccess) {
+      if (toastSuccess) {
         toast(data.message)
       }
       return data
@@ -80,7 +80,7 @@ const callAPI = {
     }
   },
   put: async (route: string, body: {}, options?: Option) => {
-    const { toastError = true,toastSuccess = false } = options || {}
+    const { toastError = true, toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -88,7 +88,7 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.put(route, body)
-      if(toastSuccess) {
+      if (toastSuccess) {
         toast(data.message)
       }
       return data
@@ -100,7 +100,7 @@ const callAPI = {
     }
   },
   patch: async (route: string, body: {}, options?: Option) => {
-    const { toastError = true,toastSuccess = false } = options || {}
+    const { toastError = true, toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -108,7 +108,7 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.patch(route, body)
-      if(toastSuccess) {
+      if (toastSuccess) {
         toast(data.message)
       }
       return data
@@ -120,7 +120,7 @@ const callAPI = {
     }
   },
   delete: async (route: string, options?: Option) => {
-    const { toastError = true,toastSuccess = false } = options || {}
+    const { toastError = true, toastSuccess = false } = options || {}
     try {
       const client = create()
       axiosRetry(client, {
@@ -128,7 +128,7 @@ const callAPI = {
         retryDelay: retryCount => retryCount * 1000,
       })
       const { data } = await client.delete(route)
-      if(toastSuccess) {
+      if (toastSuccess) {
         toast(data.message)
       }
       return data

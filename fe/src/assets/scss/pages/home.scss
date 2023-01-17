@@ -11,7 +11,7 @@
       width: 25%;
       text-align: center;
       cursor: pointer;
-      @media only screen and (max-width : 400px) {
+      @media only screen and (max-width: 400px) {
         width: 50%;
       }
       img {
@@ -26,7 +26,7 @@
     display: flex;
     justify-content: space-between;
 
-    >* {
+    > * {
       width: 33.333%;
     }
   }
@@ -47,6 +47,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        z-index: 9;
       }
 
       .process {
@@ -76,7 +77,7 @@
         color: $text-color;
       }
 
-      +a {
+      + a {
         margin-top: 20px;
       }
     }
@@ -93,9 +94,9 @@
         margin-top: 20px;
       }
     }
-    a>* {
+    a > * {
       margin: 0 auto;
-      background-image: url('../../images/icon/menu.webp');
+      background-image: url("../../images/icon/menu.webp");
       width: 100px;
       height: 130px;
       border: 3px solid $border-color-dark;
@@ -117,7 +118,7 @@
         left: 50%;
         transform: translate(-50%, 0);
         font-weight: 600;
-        transition: .3s;
+        transition: 0.3s;
       }
     }
 
@@ -132,12 +133,12 @@
     }
 
     .building {
-      background-image: url('../../images/icon/castle.webp');
+      background-image: url("../../images/icon/castle.webp");
       background-size: contain;
       background-position: center;
     }
     .tower {
-      background-image: url('../../images/icon/tower.webp');
+      background-image: url("../../images/icon/tower.webp");
       background-size: contain;
       background-position: center;
     }

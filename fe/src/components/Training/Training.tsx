@@ -49,8 +49,6 @@ const Training: FC = () => {
     let v = e.target.value
     let value = Number(v)
     if (!value) setTotal('0')
-    if (!value)
-      console.log(value);
     if (value > max) {
       setTotal(max.toString())
     } else {

@@ -12,6 +12,18 @@ export const fetchUnit = createAsyncThunk<IUnit[]>(
     return res.data
   }
 )
+interface Move {
+  type: "TO_DEFENSE" | "TO_TOWER"
+  value: number
+  unit: string
+}
+export const moveUnit = createAsyncThunk<IUnit[], Move>(
+  'unit/moveUnit',
+  async ({ type, unit, value }) => {
+    const res = await callAPI.post<Move>(`/units/move`, { type, unit, value })
+    return res.data
+  }
+)
 
 interface InitialState {
   units: IUnit[]
