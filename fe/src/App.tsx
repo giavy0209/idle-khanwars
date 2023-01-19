@@ -60,7 +60,7 @@ function App() {
 
   return (
     <div id="App">
-      <ToastContainer />
+      <ToastContainer position='bottom-center' autoClose={1000} />
       <Upgrade />
       <Training />
       <Enhance />

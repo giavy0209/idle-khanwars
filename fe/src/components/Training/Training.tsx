@@ -1,8 +1,8 @@
 import { ScrollBackground, Button } from 'components'
-import { DOMAIN } from 'const'
+import { BUILDING, DOMAIN } from 'const'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { FC, useCallback, useState, useMemo, ChangeEvent } from 'react'
-import { selectResource, selectUnitTraining } from 'store/selectors'
+import { selectBuildingGenerateByKey, selectPopulation, selectResource, selectUnitTraining } from 'store/selectors'
 import { postTraining } from 'store/slices/trainingSlice'
 import { unitAction } from 'store/slices'
 import { secondToTime } from 'utils'
@@ -10,9 +10,10 @@ import { secondToTime } from 'utils'
 const Training: FC = () => {
   const [total, setTotal] = useState('0')
   const unit = useAppSelector(selectUnitTraining)
-
   const resource = useAppSelector(selectResource)
   const dispatch = useAppDispatch()
+  const totalPopulation = useAppSelector(selectPopulation)
+  const dwellingValue = useAppSelector(selectBuildingGenerateByKey(BUILDING.DWELLINGS))
   const onClose = useCallback(() => {
     dispatch(unitAction.training(undefined))
   }, [dispatch])
@@ -34,14 +35,14 @@ const Training: FC = () => {
   }, [unit, resource])
 
   const max = useMemo(() => {
-    let max = Infinity
+    if (!unit) return 0
+    let max = Math.floor((dwellingValue - totalPopulation) / unit.default.population)
     if (!unit) return 0
     unit.default.resources.asArray.forEach(({ type, value }) => {
       const resourceType = resource[type.key as keyof typeof resource]
       const total = Math.floor(resourceType / value)
       if (max > total) max = total
     })
-
     return max
   }, [resource, unit])
 

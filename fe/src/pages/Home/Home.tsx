@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "hooks";
 import { Main } from "layers";
 import { FC, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
-import { selectBuildingByKey, selectCastle } from "store/selectors";
+import { selectBuildingByKey, selectCastle, selectPopulation } from "store/selectors";
 import { castleAction, userAction } from "store/slices";
 import { storage } from "utils";
 import Joyride from 'react-joyride';
@@ -26,7 +26,7 @@ const Home: FC = () => {
   const dispatch = useAppDispatch()
   const dwelling = useAppSelector(selectBuildingByKey(BUILDING.DWELLINGS))
   const castle = useAppSelector(selectCastle)
-
+  const totalPopulation = useAppSelector(selectPopulation)
   const [isShowTutorial, setIsShowTutorial] = useState(false)
 
   const handleLogout = useCallback(() => {
@@ -51,9 +51,9 @@ const Home: FC = () => {
           </div>
           <div className="population">
             <div className="bar">
-              <div className="value">Population: {castle.population} / {dwelling?.upgrade.current.generate}</div>
+              <div className="value">Population: {totalPopulation} / {dwelling?.upgrade.current.generate}</div>
               <div className="process" style={{
-                width: castle.population / (dwelling?.upgrade.current.generate || castle.population) * 100 + '%'
+                width: totalPopulation / (dwelling?.upgrade.current.generate || castle.population) * 100 + '%'
               }}></div>
             </div>
           </div>

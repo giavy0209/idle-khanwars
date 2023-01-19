@@ -4,12 +4,15 @@
     height: 30px;
     background-color: #834608;
     position: relative;
+
     .value {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      z-index: 9;
     }
+
     .bar {
       position: absolute;
       top: 0;
@@ -18,32 +21,42 @@
       background-color: #d29827;
     }
   }
+
   .unit {
     margin-top: 20px;
+
     &:nth-child(odd) {
       background-color: $bg-light;
     }
+
     display: flex;
     padding: 10px;
     flex-direction: column;
+
     .top {
       display: flex;
+
       .image {
         width: 20%;
       }
+
       .info {
         width: 40%;
         padding-left: 10px;
       }
+
       .select {
         width: 40%;
+
         .input {
           width: 100%;
+
           p {
             display: flex;
             justify-content: space-between;
             font-size: 20px;
           }
+
           input {
             border-radius: 5px;
             background-color: $bg-input;
@@ -53,6 +66,7 @@
         }
       }
     }
+
     .action {
       display: flex;
       column-gap: 10px;

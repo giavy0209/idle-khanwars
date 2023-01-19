@@ -9,7 +9,7 @@ import { Types } from "mongoose";
 export default class GenerateResourceWorker extends AbstractWorker<any, any> {
   DefaultStorage: Types.ObjectId
   constructor(world: IWorld) {
-    super(world, { sleep: 10000 })
+    super(world, { sleep: 3000 })
   }
   async startWorker() {
     this.DefaultStorage = (await new DefaultBuildings(this.world.tenant).getInstance().findOne({ key: BUILDING.STORAGE }))?._id

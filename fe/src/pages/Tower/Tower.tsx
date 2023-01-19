@@ -9,13 +9,14 @@ import { moveUnit } from "store/slices";
 
 const Tower: FC = () => {
   const units = useAppSelector(selectUnits)
+
   const towerValue = useAppSelector(selectBuildingGenerateByKey(BUILDING.TOWER))
   const dispatch = useAppDispatch()
   const [unitsValue, setUnitsValue] = useState<(IUnit & { in: number, out: number })[]>([])
   const totalInTower = useMemo(() => {
     let total = 0
     units.map(unit => total += unit.inTower * unit.default.population)
-    const barProgress = total / (towerValue || 1) + '%'
+    const barProgress = total / (towerValue || 1) * 100 + '%'
     return { total, barProgress }
   }, [units, towerValue])
 
@@ -23,17 +24,16 @@ const Tower: FC = () => {
     units.forEach(unit => {
       setUnitsValue(unitsValue => {
         let newData = [...unitsValue]
-        let isHave = newData.find(o => o._id === unit._id)
-
-        if (isHave) {
-          isHave = {
-            ...isHave,
+        const index = newData.findIndex(o => o._id === unit._id)
+        if (newData[index]) {
+          newData[index] = {
+            ...newData[index],
             ...unit,
+            total: unit.total,
           }
         } else {
           newData.push({ ...unit, in: 0, out: 0 })
         }
-        console.log(newData);
         return newData
       })
     })

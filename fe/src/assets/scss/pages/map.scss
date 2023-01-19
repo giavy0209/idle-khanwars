@@ -7,6 +7,26 @@
     user-select: none;
   }
 
+  .actions {
+    .action {
+      padding: 5px;
+
+      >* {
+        background-image: url('../../images/icon/map.webp');
+        width: 70px;
+        height: 70px;
+      }
+
+      .attack {
+        background-position-x: -140px;
+      }
+
+      .spy {
+        background-position-x: -420px;
+      }
+    }
+  }
+
   .castle {
     width: 80px;
     height: 80px;
@@ -33,6 +53,7 @@
     font-size: 18px;
     font-weight: 600;
     z-index: 9;
+
     .name {
       text-align: center;
     }
