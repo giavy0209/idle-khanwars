@@ -10,11 +10,25 @@
   .actions {
     .action {
       padding: 5px;
-
-      >* {
-        background-image: url('../../images/icon/map.webp');
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-color: $border-color-dark;
+        color: $text-color-hover;
+      }
+      > * {
+        background-image: url("../../images/icon/map.webp");
         width: 70px;
         height: 70px;
+      }
+      > span {
+        background: none;
+        width: fit-content;
+        height: fit-content;
+        margin-left: 10px;
+        text-transform: capitalize;
       }
 
       .attack {
@@ -24,15 +38,78 @@
       .spy {
         background-position-x: -420px;
       }
+
+      .patrol {
+        background-position-x: -210px;
+      }
+
+      .caravan {
+        background-position-x: 0;
+      }
     }
   }
-
+  .action-handler {
+    .units {
+      .marching-stat {
+        .stat {
+          padding: 5px;
+          &:nth-child(odd) {
+            background-color: $bg-light;
+          }
+          span {
+            width: 50%;
+            display: inline-block;
+          }
+        }
+      }
+      .unit {
+        display: flex;
+        align-items: center;
+        .name {
+          width: 30%;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: center;
+          .img {
+            width: 100%;
+          }
+          span {
+            width: 100%;
+            text-align: center;
+          }
+        }
+        .input {
+          padding-left: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          width: 70%;
+          input {
+            width: 100%;
+            border-radius: 5px;
+            background-color: $bg-input;
+            padding: 5px;
+          }
+          .max {
+            text-decoration: underline;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            width: 50%;
+            display: block;
+            margin-top: 20px;
+          }
+        }
+      }
+    }
+  }
   .castle {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: $border ;
-    background-image: url('../../images/icon/castle.webp');
+    border: $border;
+    background-image: url("../../images/icon/castle.webp");
     background-size: contain;
     background-position: center;
     cursor: pointer;
@@ -48,7 +125,7 @@
     border-bottom-right-radius: 10px;
     border: $border-dark;
     background-color: $bg-dark;
-    transition: .3s;
+    transition: 0.3s;
     width: 50%;
     font-size: 18px;
     font-weight: 600;
@@ -75,7 +152,7 @@
     transform: translate(-50%, 0%);
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
+    width: 80%;
     background-image: url("../../images/bg/terrain.webp");
     background-size: contain;
     border: 1px solid #000;
@@ -86,16 +163,21 @@
       position: relative;
       width: calc(100% / var(--grid));
       cursor: pointer;
-      transition: background-color .3s ease;
+      transition: background-color 0.3s ease;
 
       .has-castle {
         position: absolute;
-        width: 50%;
-        height: 50%;
         transform: translate(-50%, -50%);
         top: 50%;
         left: 50%;
-        background-color: #fff;
+        background-image: url("../../images/icon/map.webp");
+        width: 100%;
+        height: 100%;
+        &.my {
+          background-image: url("../../images/icon/castle.webp");
+          background-size: contain;
+          background-color: $bg-hl;
+        }
       }
 
       &.selected {
@@ -120,7 +202,7 @@
       align-items: center;
       transform: translate(0, -100%);
 
-      >* {
+      > * {
         width: calc(100% / var(--grid));
         text-align: center;
       }
@@ -138,7 +220,7 @@
       width: 20px;
       transform: translate(-100%, 0);
 
-      >* {
+      > * {
         height: calc(100% / var(--grid));
         display: flex;
         align-items: center;
@@ -159,10 +241,9 @@
       font-size: 40px;
     }
 
-    >* {
+    > * {
       position: absolute;
       cursor: pointer;
-
     }
 
     .left,
@@ -224,7 +305,7 @@
           font-size: 16px;
           padding: 10px;
 
-          +input {
+          + input {
             margin-left: 10px;
           }
         }

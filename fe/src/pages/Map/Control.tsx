@@ -1,6 +1,6 @@
 import { faArrowCircleDown, faArrowCircleLeft, faArrowCircleRight, faArrowCircleUp, faSearchMinus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ChangeEvent, Dispatch, FC, SetStateAction, useCallback, } from 'react'
+import { ChangeEvent, Dispatch, FC, memo, SetStateAction, useCallback, } from 'react'
 interface IControl {
   coordinate: {
     start: { x: number, y: number },
@@ -36,14 +36,14 @@ const Control: FC<IControl> = ({ coordinate, grid, setCoordinate, setGrid }) => 
         }
       })
     }
-  }, [coordinate])
+  }, [coordinate, setCoordinate])
 
   const changeGrid = useCallback((value: number) => {
     const newGrid = grid + value
     if (newGrid >= 3 && newGrid <= 20) {
       setGrid(newGrid)
     }
-  }, [grid])
+  }, [grid, setGrid])
 
   const handleMoveTo = useCallback((e: ChangeEvent<HTMLInputElement>, input: 'x' | 'y') => {
     let value: number = Number(e.target.value)
@@ -61,7 +61,7 @@ const Control: FC<IControl> = ({ coordinate, grid, setCoordinate, setGrid }) => 
         [input]: value + grid - 1
       }
     })
-  }, [coordinate, grid])
+  }, [coordinate, grid, setCoordinate])
   return <div className="control">
     <div onClick={() => moveTo({ x: -1 })} className="left">
       <FontAwesomeIcon icon={faArrowCircleLeft} />
@@ -93,4 +93,4 @@ const Control: FC<IControl> = ({ coordinate, grid, setCoordinate, setGrid }) => 
   </div>
 }
 
-export default Control
+export default memo(Control)

@@ -7,6 +7,7 @@ export const selectPopulation = (state: RootState) => {
   units.forEach(unit => total += unit.total * unit.default.population + unit.inTower * unit.default.population)
   return total
 };
+export const selectAvailableUnit = (state: RootState) => state.unitState.units.filter(unit => unit.total > 0);
 export const selectUnitTraining = (state: RootState) => state.unitState.training;
 export const selectUnitEnhance = (state: RootState) => state.unitState.enhance;
 export const selectUnitByBuilding = (building: string) => (state: RootState) => state.unitState.units.filter(o => o.building.default.key === building);

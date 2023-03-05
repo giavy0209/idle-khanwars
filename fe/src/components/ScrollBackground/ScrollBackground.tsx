@@ -1,4 +1,4 @@
-import { Dispatch, FC, ReactNode, useCallback} from "react";
+import { Dispatch, FC, memo, ReactNode, useCallback } from "react";
 import { Button } from "components";
 
 interface IFAQ {
@@ -31,4 +31,4 @@ const ScrollBackground: FC<IFAQ> = ({ children, isShow = false, setIsShow, onClo
   )
 }
 
-export default ScrollBackground
+export default memo(ScrollBackground)

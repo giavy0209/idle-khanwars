@@ -1,27 +1,33 @@
-import { faArrowCircleDown, faArrowCircleLeft, faArrowCircleRight, faArrowCircleUp, faSearchMinus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import callAPI from 'callAPI'
 import { Button, ScrollBackground } from 'components'
 import { ROUTERS } from 'const'
 import { useAppDispatch, useAppSelector } from 'hooks'
 import { ICastle } from 'interfaces'
-import { FC, useState, useMemo, useCallback, CSSProperties, useEffect, ChangeEvent } from 'react'
+import { FC, useState, useCallback, useEffect, memo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { selectMapCastles, selectUser } from 'store/selectors'
+import { selectUser } from 'store/selectors'
 import { fetchMapCastles } from 'store/slices'
+import Actions from './Actions'
 import Control from './Control'
-import Joiride from './Joyride'
+import { ACTION } from './interface'
+// import Joiride from './Joyride'
 import View from './View'
+
+
+
+const actions = Object.values(ACTION).map(o => o.toLowerCase()) as ACTION[]
 
 const Map: FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const [grid, setGrid] = useState(20)
+  const [grid, setGrid] = useState(10)
   const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number, castle?: ICastle } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
   const [isShowAction, setIsShowAction] = useState(false)
+  const [currentAction, setCurrentAction] = useState<ACTION | null>(null)
+
   useEffect(() => {
     dispatch(fetchMapCastles(coordinate))
   }, [coordinate, dispatch])
@@ -59,32 +65,22 @@ const Map: FC = () => {
           setIsShow={setIsShowAction}
           isShow={isShowAction}>
           <div className="actions">
-            <div className="action">
-              <div className="attack"></div>
-            </div>
-            <div className="action">
-              <div className="spy"></div>
-            </div>
-            <div className="action">
-              <div className="support"></div>
-            </div>
-            <div className="action">
-              <div className="patrol"></div>
-            </div>
-            <div className="action">
-              <div className="caravan"></div>
-            </div>
-            <div className="action">
-              <div className="loot"></div>
-            </div>
+            {
+              actions.map(o => <div onClick={() => setCurrentAction(o)} className="action">
+                <div className={o}></div>
+                <span className='title'>{o}</span>
+              </div>)
+            }
           </div>
         </ScrollBackground>
+
+        <Actions selectedGrid={selectedGrid} currentAction={currentAction} setCurrentAction={setCurrentAction} />
+
         <div onClick={handleGoToCastle} className="castle"></div>
         {
           !user.isSelectStart && <div className="title">Please select location to place your castle</div>
         }
         <div className={`selected-grid ${selectedGrid ? 'show' : ''}`}>
-
           <p>{selectedGrid?.x} : {selectedGrid?.y}</p>
           {
             selectedGrid?.castle ?
@@ -116,4 +112,4 @@ const Map: FC = () => {
 }
 
 
-export default Map
+export default memo(Map)

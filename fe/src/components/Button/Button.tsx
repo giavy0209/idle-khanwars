@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, FC, ReactNode } from "react";
+import { ButtonHTMLAttributes, FC, memo, ReactNode } from "react";
 
 interface IButton {
   onClick?(): any
@@ -16,4 +16,4 @@ const Button: FC<IButton> = ({ onClick, type, children }) => {
   )
 }
 
-export default Button
+export default memo(Button)

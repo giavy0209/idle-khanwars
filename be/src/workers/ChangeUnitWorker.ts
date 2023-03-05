@@ -3,7 +3,6 @@ import { MODEL, POPULATE_UNIT } from "constant";
 import { EVENT_SOCKET } from "constant/enums";
 import { IUnit, IWorld } from "interfaces";
 import { IUnitPullPopulate } from "interfaces/IUnit";
-import { Castles } from "models";
 import { Types } from "mongoose";
 import socketHandler from "socket";
 

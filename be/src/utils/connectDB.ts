@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 let uri = `mongodb://`
-let connectString = `${Config.MONGO_HOST}:${Config.MONGO_PORT}`
+let connectString = `${Config.MONGO_HOST}${Config.MONGO_PORT ? `:${Config.MONGO_PORT}` : ''}`
 let authString = ``
 if (Config.MONGO_USER && Config.MONGO_PASSWORD) {
   authString += `${Config.MONGO_USER}:${Config.MONGO_PASSWORD}@`
