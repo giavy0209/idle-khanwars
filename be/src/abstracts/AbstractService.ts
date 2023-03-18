@@ -3,17 +3,19 @@ import { HTTPSTATUS } from "constant"
 import { IDefaultBuilding, IDefaultEnhance, IDefaultResources, IDefaultUnits, IDefaultUnitType, IDefaultUpgrade } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { DefaultBuildings, DefaultEnhances, DefaultResources, DefaultUnits, DefaultUnitTypes, DefaultUpgrades } from "models"
-import { FilterQuery, HydratedDocument, Model, PopulateOption, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
+import { FilterQuery, HydratedDocument, MergeType, Model, PopulateOptions, QueryOptions, Types, UnpackedIntersection } from "mongoose"
 import { AdvancedError } from "utils"
-
-interface IQueryOptions extends PopulateOption {
+type OptionalQueryOption = {
   skip?: number,
   limit?: number,
   sort?: any,
   lean?: boolean,
-  count?: boolean
+  idsOnly?: boolean,
+  count?: boolean,
+  populate?: string[] | PopulateOptions | PopulateOptions[] | false,
 }
 export default abstract class AbstractService<I, PullPopulate = {}> {
+  Model: new (tenantId: string) => AbstractModel<I>
   model: Model<I>
   user: IUserFullyPopulate
   tenant: string = ""
@@ -36,32 +38,28 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
       this.DefaultUpgrades = new DefaultUpgrades(this.tenant).getInstance()
       this.DefaultEnhances = new DefaultEnhances(this.tenant).getInstance()
     }
+    this.Model = Model
     this.model = new Model(this.tenant).getInstance()
   }
-  getCollectionName(name: string) {
-    if (this.tenant) {
-      return `${this.tenant}_${name}`
-    } else {
-      return name
-    }
-  }
 
+  find(input: { query: FilterQuery<I>, idsOnly: true } & OptionalQueryOption): Promise<Types.ObjectId[]>
 
-  find(query: FilterQuery<I>, queryOptions?: IQueryOptions): Promise<{
-    data: (Omit<HydratedDocument<I, {}, {}>, keyof PullPopulate> & PullPopulate)[]
-    total: number
-  }>
-  find(query: FilterQuery<I>, queryOptions: false,): Promise<(Omit<HydratedDocument<I, {}, {}>, keyof PullPopulate> & PullPopulate)[]>
-  async find(
-    query: FilterQuery<I>,
-    queryOptions?: IQueryOptions | false,
-  ) {
-    const {
-      skip,
-      limit,
-      sort,
-      lean,
-    } = queryOptions || {}
+  find(input: { query: FilterQuery<I>, count: false, populate: false } & OptionalQueryOption): Promise<HydratedDocument<I, {}, {}>[]>
+  find(input: { query: FilterQuery<I>, populate: false } & OptionalQueryOption): Promise<{ data: HydratedDocument<I, {}, {}>[], total: number, next: Pagination, pre: Pagination }>
+
+  find<P = PullPopulate>(input: { query: FilterQuery<I>, count: false } & OptionalQueryOption): Promise<(Omit<HydratedDocument<I, {}, {}>, keyof P> & P)[]>
+
+  find<P = PullPopulate>(input: { query: FilterQuery<I> } & OptionalQueryOption): Promise<{ data: (Omit<HydratedDocument<I, {}, {}>, keyof P> & P)[], total: number, next: Pagination, pre: Pagination }>
+  async find<P = PullPopulate>({
+    query,
+    skip,
+    limit,
+    sort,
+    lean,
+    count,
+    populate,
+    idsOnly,
+  }: MergeType<{ query: FilterQuery<I>, }, OptionalQueryOption>) {
     const options: QueryOptions = {}
     if (skip) {
       options.skip = skip
@@ -69,36 +67,59 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     if (limit) {
       options.limit = limit
     }
-    if (sort) {
-      options.sort = sort
+    if (sort || this.sort) {
+      options.sort = sort || this.sort
     }
-    if (typeof lean === 'boolean' && lean) {
+    if (typeof lean === 'boolean') {
       options.lean = lean
     }
-    const promises: [
-      Promise<(Omit<HydratedDocument<I, {}, {}>, keyof PullPopulate> & PullPopulate)[]>,
-      Promise<number>?
-    ] = [
-        this.model.find(query, null, options).populate<PullPopulate>(this.populate).exec(),
-      ]
 
-    const isCount = queryOptions !== false
-    if (isCount) {
-      promises.push(this.model.countDocuments(query).exec())
+    if (idsOnly) {
+      return (await this.model.find(query).select('_id')).map(o => o._id)
     }
+
+    let promiseFind: Promise<(HydratedDocument<I, {}, {}> | (Omit<HydratedDocument<I, {}, {}>, keyof P> & P))[]> = this.model.find(query, null, options).populate<P>(populate || this.populate).exec()
+
+    if (populate === false) {
+      promiseFind = this.model.find(query, null, options).exec()
+    }
+    if (count === false) {
+      return await promiseFind
+    }
+    const promises: [
+      Promise<(HydratedDocument<I, {}, {}> | (Omit<HydratedDocument<I, {}, {}>, keyof P> & P))[]>,
+      Promise<number>,
+    ] = [
+        promiseFind,
+        this.model.countDocuments(query).exec()
+      ]
     const [data, total] = await Promise.all(promises)
-    if (isCount) {
-      return { data, total }
+    const next: Pagination = {
+      page: null,
+      limit: null
     }
-    return data
+    const pre: Pagination = {
+      page: null,
+      limit: null
+    }
+    if (skip !== undefined && limit !== undefined && Number.isInteger(skip) && Number.isInteger(limit)) {
+      next.page = skip + limit >= total ? null : ((skip + limit) / limit) + 1
+      next.limit = limit
+      pre.page = skip - limit >= 0 ? ((skip - limit) / limit) + 1 : null
+      pre.limit = limit
+    }
+    return {
+      data, total, next, pre
+    }
   }
+
   findById(id: string | Types.ObjectId, isThrow: boolean): Promise<UnpackedIntersection<HydratedDocument<I, {}, {}>, PullPopulate>>;
   findById(id: string | Types.ObjectId): Promise<UnpackedIntersection<HydratedDocument<I, {}, {}>, PullPopulate> | null>;
   async findById(id: string | Types.ObjectId, isThrow?: boolean) {
     const data = await this.model.findById(id).populate<PullPopulate>(this.populate).exec()
     if (typeof isThrow === 'boolean' && isThrow) {
       if (!data) {
-        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.model.name} not found`, })
+        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.Model.name} not found`, })
       }
     }
     return data
@@ -110,7 +131,7 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     const data = await this.model.findOne(query).populate<PullPopulate>(this.populate).exec()
     if (typeof isThrow === 'boolean' && isThrow) {
       if (!data) {
-        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.model.name} not found`, })
+        throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: `${this.Model.name} not found`, })
       }
     }
     return data
@@ -122,12 +143,12 @@ export default abstract class AbstractService<I, PullPopulate = {}> {
     switch (throwCase) {
       case 'IF_EXISTS':
         if (isExists) {
-          throw new AdvancedError({ message: message || `${this.model.name} already exists` })
+          throw new AdvancedError({ message: message || `${this.Model.name} already exists` })
         }
         break;
       case 'IF_NOT_EXISTS':
         if (!isExists) {
-          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: message || `${this.model.name} not found`, })
+          throw new AdvancedError({ statusCode: HTTPSTATUS.NOT_FOUND, message: message || `${this.Model.name} not found`, })
         }
       default:
         break;

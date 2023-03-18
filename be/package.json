@@ -8,7 +8,7 @@
     "dev": "ts-node -r tsconfig-paths/register ./src/index.ts",
     "test": "ts-node -r tsconfig-paths/register test/index.spec.ts",
     "build": "rm -rf dist && tsc",
-    "watch-node": "tsc -watch",
+    "watch-ts": "tsc -watch",
     "init-structure": "ts-node ./initStructure.ts ",
     "watch": "npm run build && concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-node\" \"npm start\""
   },

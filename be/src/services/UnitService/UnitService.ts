@@ -4,7 +4,7 @@ import { POPULATE_UNIT } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
 import BuildingService from "services/BuildingService"
-import { IUnitPullPopulate } from "interfaces/IUnit"
+import { IUnitFullyPopulate, IUnitPullPopulate } from "interfaces/IUnit"
 import { BUILDING, ENHANCE_TYPE } from "constant/enums"
 import { Units } from "models"
 import { Move } from "./IUnitService"
@@ -43,15 +43,69 @@ export default class UnitService extends AbstractService<IUnit, IUnitPullPopulat
     }
   }
 
+  isEnoughUnit(units: IUnitFullyPopulate[], selectedUnits: { _id: string | Types.ObjectId, selected: number }[]) {
+    const selectedUnit: {
+      total: number,
+      _id: Types.ObjectId
+    }[] = []
+
+    for (const unit of units) {
+      const totalSelected = selectedUnits.find(o => o._id === unit._id.toString())
+      if (!totalSelected) {
+        throw new AdvancedError({ message: "Unit not found" })
+      }
+      if (totalSelected.selected > unit.total) {
+        throw new AdvancedError({ message: `You don't have enough ${unit.default.name} ${unit.total}(${totalSelected.selected})` })
+      }
+      selectedUnit.push({ _id: unit._id, total: totalSelected.selected })
+    }
+    return selectedUnit
+  }
+
   async get(castle: string) {
     return await this.model.find({ castle }).populate(this.populate)
   }
 
-  async calcPopulationInTower(castle: string | Types.ObjectId) {
-    const units = await this.find({ castle }, false)
+  calcMovingTime(units: IUnitFullyPopulate[], distance: number) {
+    let slowestUnitSpeed = units[0].default.speed
+    units.forEach(unit => {
+      if (slowestUnitSpeed < unit.default.speed) slowestUnitSpeed = unit.default.speed
+    })
+
+    return {
+      movingTime: slowestUnitSpeed * distance * 60 * 1000,
+      speed: slowestUnitSpeed,
+    }
+  }
+
+  calcPopulation(units: IUnitFullyPopulate[]) {
     let total = 0
     units.forEach(unit => total += unit.inTower * unit.default.population)
     return total
+  }
+
+  async calcPopulationInTower(castle: string | Types.ObjectId) {
+    const units = await this.find({
+      query: { castle },
+      count: false,
+    })
+    return this.calcPopulation(units)
+  }
+
+  async isFromOneCastle(unitIds: (string | Types.ObjectId)[]) {
+    const findUnits = await this.find({
+      query: { _id: { $in: unitIds } },
+      count: false,
+    })
+    if (findUnits.length === 0) {
+      throw new AdvancedError({ message: "You are not select any unit" })
+    }
+    const castle = findUnits[0].castle.toString()
+    const isDiffCastle = findUnits.find(unit => unit.castle.toString() !== castle)
+    if (isDiffCastle) {
+      return false
+    }
+    return findUnits
   }
 
   async move({ unit, type, value }: Move) {

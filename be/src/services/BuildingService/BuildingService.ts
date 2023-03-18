@@ -16,10 +16,7 @@ export default class BuildingService extends AbstractService<IBuilding, IBuildin
   async get({ castle }: IGetInput) {
     return await this.find(
       {
-        castle
-      },
-      {
-        populate: this.populate
+        query: { castle }
       }
     )
   }

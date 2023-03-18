@@ -1,14 +1,8 @@
 import { AbstractRouter } from 'abstracts'
 import { MarchingController } from 'controllers'
-import path from 'path'
-const filename = path.basename(__filename)
-const ext = path.extname(filename)
-const param = filename.replace(ext, '')
-
-
 export default class MarchingRouter extends AbstractRouter<MarchingController> {
   constructor() {
-    super(param, MarchingController)
+    super('marchings', MarchingController)
     this.routes = [
       {
         param: '',

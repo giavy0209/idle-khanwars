@@ -1,3 +1,4 @@
+import { MARCHING } from "constant/enums";
 import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { ICastleFullyPopulate } from "./ICastle";
 import { IDefaultResources } from "./IDefaultResources";
@@ -8,17 +9,18 @@ export interface IMarching extends Document {
   arriveAt: Date
   homeAt: Date
   speed: number
-  castle: Types.ObjectId
+  distance: number
   population: number
-  target: {
-    castle: Types.ObjectId
-    coordinate: {
-      x: number
-      y: number
-    }
+  from: Types.ObjectId
+  to: Types.ObjectId
+  coordinates: {
+    x: number
+    y: number
   }
+  status: MARCHING.STATUS
+  action: MARCHING.ACTION
   units: {
-    type: Types.ObjectId
+    unit: Types.ObjectId
     value: number
   }[]
   cargo: {
@@ -37,17 +39,11 @@ export interface IMarching extends Document {
 
 export interface IMarchingPullPopulate {
   units: {
-    type: IUnitFullyPopulate,
+    unit: IUnitFullyPopulate,
     value: number
   }[]
-  castle: ICastleFullyPopulate
-  target: {
-    castle: ICastleFullyPopulate
-    coordinate: {
-      x: number
-      y: number
-    }
-  }
+  from: ICastleFullyPopulate
+  to: ICastleFullyPopulate
   cargo: {
     asArray: {
       type: IDefaultResources

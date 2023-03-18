@@ -12,7 +12,9 @@ export default class EnhanceController extends AbstractController<IEnhance, Enha
   async get(req: Request, res: Response) {
     const { castle } = req.query
     const service = this.createService(req.user)
-    const data = await service.find({ castle, progress: PROGRESS.PENDING })
+    const data = await service.find({
+      query: { castle, progress: PROGRESS.PENDING }
+    })
     res.send(new ResponseResult({ message: "Get Enhance successfully", ...data }))
   }
   async post(req: Request, res: Response) {

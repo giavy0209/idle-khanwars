@@ -28,7 +28,7 @@ const checkError = (error: any) => {
     if (error?.response?.data?.code === 401) {
       toast('Session timeout, please login again')
     } else {
-      toast(error.response.data.message)
+      toast(error?.response?.data?.message || 'Unknown error')
     }
   }
 }

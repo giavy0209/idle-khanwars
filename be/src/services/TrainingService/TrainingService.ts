@@ -28,7 +28,9 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
   }
 
   async get({ castle }: { castle: string }) {
-    return await this.find({ castle, left: { $gt: 0 } }, {})
+    return await this.find({
+      query: { castle, left: { $gt: 0 } }
+    })
   }
 
   async isEnoughPopulation(castle: string | Types.ObjectId, newTotal: number) {
@@ -37,7 +39,10 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
 
     const buildingService = new BuildingService(this.user)
     const dwelling = await buildingService.findByKey({ castle, key: BUILDING.DWELLINGS })
-    const trainings = await this.find({ castle }, false)
+    const trainings = await this.find({
+      query: { castle },
+      count: false
+    })
     let totalTraining = population + newTotal
     trainings.forEach(training => {
       totalTraining += (training.left * training.unit.default.population)

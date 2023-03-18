@@ -17,11 +17,8 @@ export default class ResourceService extends AbstractService<IResource, IResourc
   async get({ castle }: IGetInput) {
     return await this.find(
       {
-        castle
+        query: { castle }
       },
-      {
-        populate: this.populate
-      }
     )
   }
 

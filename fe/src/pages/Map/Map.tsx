@@ -10,13 +10,13 @@ import { selectUser } from 'store/selectors'
 import { fetchMapCastles } from 'store/slices'
 import Actions from './Actions'
 import Control from './Control'
-import { ACTION } from './interface'
+import { ACTION } from 'interfaces'
 // import Joiride from './Joyride'
 import View from './View'
 
 
 
-const actions = Object.values(ACTION).map(o => o.toLowerCase()) as ACTION[]
+const actions = Object.values(ACTION) as ACTION[]
 
 const Map: FC = () => {
   const dispatch = useAppDispatch()

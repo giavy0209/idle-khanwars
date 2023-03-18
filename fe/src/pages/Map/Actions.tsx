@@ -1,11 +1,12 @@
 import { Button, ScrollBackground } from "components";
 import { DOMAIN } from "const";
-import { useAppSelector } from "hooks";
-import { ICastle, IUnit } from "interfaces";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { ACTION, ICastle, IUnit } from "interfaces";
 import { FC, memo, Dispatch, useState, useEffect, useCallback, useMemo } from "react";
+import { toast } from "react-toastify";
 import { selectAvailableUnit, selectCastle } from "store/selectors";
+import { postMarching } from "store/slices";
 import { secondToTime } from "utils";
-import { ACTION } from "./interface";
 
 interface IActions {
   selectedGrid: { x: number, y: number, castle?: ICastle } | null
@@ -14,6 +15,7 @@ interface IActions {
 }
 
 const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }) => {
+  const dispatch = useAppDispatch()
   const units = useAppSelector(selectAvailableUnit)
   const castle = useAppSelector(selectCastle)
   const [selectedUnit, setSelectedUnit] = useState<(IUnit & { selected: number })[]>([])
@@ -63,7 +65,45 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
     const time = minSpeed * distance * 60
     return { minSpeed, population, distance, time }
   }, [selectedUnit, selectedGrid, castle])
+  const handleAction = useCallback(() => {
+    const ishaveUnit = selectedUnit.find(unit => unit.selected > 0)
+    if (!ishaveUnit) {
+      return toast('You have to select atleast 1 unit')
+    }
 
+    switch (currentAction) {
+      case ACTION.ATTACK:
+      case ACTION.SPY:
+        if (!selectedGrid?.castle) {
+          return toast(`Cannot ${currentAction} this target `)
+        }
+        dispatch(postMarching({
+          action: currentAction,
+          to: selectedGrid.castle._id,
+          units: selectedUnit
+        }))
+        break; case ACTION.ATTACK:
+      case ACTION.CARAVAN:
+      case ACTION.PATROL:
+        if (!selectedGrid) {
+          return toast('You are not selected coordinates')
+        }
+        dispatch(postMarching({
+          action: currentAction,
+          coordinates: {
+            x: selectedGrid.x,
+            y: selectedGrid.y,
+          },
+          units: selectedUnit
+        }))
+        break;
+
+      default:
+        break;
+    }
+
+
+  }, [currentAction, selectedUnit, selectedGrid])
   return (
     <>
       <div className="action-handler">
@@ -74,7 +114,7 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
               <div className="stat"><span>Minspeed:</span><span> {stat.minSpeed}</span></div>
               <div className="stat"><span>Distance:</span><span> {stat.distance.toFixed(2)}</span></div>
               <div className="stat"><span>Time:</span><span> {secondToTime(stat.time)}</span></div>
-              <Button>{currentAction}</Button>
+              <Button onClick={handleAction}>{currentAction}</Button>
             </div>
             {
               selectedUnit.map(o => <div key={o._id} className="unit">

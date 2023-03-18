@@ -12,6 +12,10 @@ declare global {
     MONGO_DB: string,
     JWT_SECRET: string,
   };
+  interface Pagination {
+    page: null | number,
+    limit: null | number,
+  }
   function getDbName(tenant?: string): string
   var DB: {
     [k: string]: Connection

@@ -34,7 +34,7 @@ export default class AbtractController<I, S extends AbstractService<I, any>> {
         return next()
       }
     }
-    const { data, total } = await service.find(query, { skip, limit })
+    const { data, total } = await service.find({ query, skip, limit })
     res.send(new ResponseResult({
       data,
       total,

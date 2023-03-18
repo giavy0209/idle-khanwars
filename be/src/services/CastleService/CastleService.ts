@@ -3,7 +3,7 @@ import { ICastle, ICastlePullPopulate } from "interfaces"
 import { POPULATE_CASTLE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
-import { IGetMapInput, IPlaceInput } from "./ICastleService"
+import { ICoordinates, IGetMapInput, IPlaceInput } from "./ICastleService"
 import { Request } from "express"
 import UserService from "services/UserService"
 import { AdvancedError } from "utils"
@@ -51,6 +51,11 @@ export default class CastleService extends AbstractService<ICastle, ICastlePullP
       user: this.user._id,
       name: `${this.user.username}'s Castle ${total + 1}`
     })
+  }
+
+  calcDistance(from: ICoordinates, to: ICoordinates) {
+    const distance = Math.sqrt(Math.pow(from.x - to.x, 2) + Math.pow(from.y - to.y, 2))
+    return distance
   }
 
   async place({ x, y }: IPlaceInput) {

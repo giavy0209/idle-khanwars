@@ -35,3 +35,17 @@ export enum ENHANCE_TYPE {
   ATTACK = "ATTACK",
   CARGO = "CARGO",
 }
+
+export namespace MARCHING {
+  export enum STATUS {
+    TO_TARGET = "TO_TARGET",
+    GO_HOME = "GO_HOME",
+    DONE = "DONE",
+  }
+  export enum ACTION {
+    ATTACK = 'ATTACK',
+    SPY = 'SPY',
+    PATROL = 'PATROL',
+    CARAVAN = 'CARAVAN',
+  }
+}

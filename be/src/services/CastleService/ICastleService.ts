@@ -5,6 +5,11 @@ export interface IGetMapInput {
   endY: number
 }
 
+export interface ICoordinates {
+  x: number,
+  y: number
+}
+
 export interface IPlaceInput {
   x: number
   y: number
