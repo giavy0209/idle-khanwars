@@ -48,9 +48,23 @@ const Queue: FC = memo(() => {
             {
               marchings.length > 0 && <div className="marchings">
                 <div className="title">Marchings</div>
-                {
-                  marchings.map(o => <Marching key={o._id} marching={o} />)
-                }
+                <div className="marching">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Start At</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Arrive At</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        marchings.map(o => <Marching key={o._id} marching={o} />)
+                      }
+                    </tbody>
+                  </table>
+                </div >
               </div>
             }
           </div>

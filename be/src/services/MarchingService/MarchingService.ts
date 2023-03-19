@@ -1,5 +1,6 @@
 import { AbstractService } from "abstracts"
-import { MARCHING } from "constant/enums"
+import { POPULATE_MARCHING } from "constant"
+import { EVENT_SOCKET, MARCHING } from "constant/enums"
 import { ChangeUnit } from "eventEmitter"
 import { IMarching, IMarchingPullPopulate } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
@@ -7,18 +8,23 @@ import { Marchings } from "models"
 import { isValidObjectId } from "mongoose"
 import CastleService from "services/CastleService"
 import UnitService from "services/UnitService"
+import socketHandler from "socket"
 import { AdvancedError } from "utils"
-import { IPostInput } from "./IMarchingService"
+import { ICalcMarchingStats, IPostInput } from "./IMarchingService"
 
 const validAction = Object.values(MARCHING.ACTION)
 export default class MarchingService extends AbstractService<IMarching, IMarchingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Marchings, user)
+    this.populate = POPULATE_MARCHING
   }
 
   async get() {
     const castleService = new CastleService(this.user)
-    const castles = (await castleService.model.find()).map(castle => castle._id)
+    const castles = await castleService.find({
+      query: { user: this.user._id },
+      idsOnly: true
+    })
     const marchings = await this.find({
       query: {
         $or: [
@@ -77,6 +83,25 @@ export default class MarchingService extends AbstractService<IMarching, IMarchin
     }
   }
 
+  calcMarchingStats({
+    from,
+    to,
+    units,
+  }: ICalcMarchingStats) {
+
+    const castleService = new CastleService(this.user)
+    const distance = castleService.calcDistance(from, to)
+
+    const unitService = new UnitService(this.user)
+    const { movingTime, speed } = unitService.calcMovingTime(units, distance)
+
+    return {
+      distance,
+      movingTime,
+      speed
+    }
+  }
+
   async post({
     action,
     units,
@@ -104,47 +129,49 @@ export default class MarchingService extends AbstractService<IMarching, IMarchin
       units: unitWithSelected,
     })
 
-    const marchingStats = {
-      movingTime: 0,
-      distance: 0,
-      speed: 0
-    }
+    let target = { x: 0, y: 0 }
     switch (action) {
       case MARCHING.ACTION.ATTACK:
       case MARCHING.ACTION.SPY:
         const findTarget = await castleService.findById(to || '', true)
+        target = findTarget.coordinate
         createMarching.to = findTarget._id
         break;
       case MARCHING.ACTION.CARAVAN:
       case MARCHING.ACTION.PATROL:
         if (!coordinates) return
-        marchingStats.distance = castleService.calcDistance(fromCastle.coordinate, coordinates)
-        const target = await castleService.model.findOne({ coordinate: coordinates })
-        if (target) {
-          createMarching.to = target._id
+        target = coordinates
+        const findCastleTarget = await castleService.model.findOne({ coordinate: coordinates })
+        if (findCastleTarget) {
+          createMarching.to = findCastleTarget._id
         }
         break;
       default:
         break;
     }
-    const { movingTime, speed } = unitService.calcMovingTime(findUnits, marchingStats.distance)
-    marchingStats.movingTime = movingTime
-    marchingStats.speed = speed
-    createMarching.distance = marchingStats.distance
-    createMarching.speed = marchingStats.speed
-    createMarching.arriveAt = new Date(Date.now() + marchingStats.movingTime)
-    createMarching.homeAt = new Date(Date.now() + marchingStats.movingTime * 2)
+    const { movingTime, speed, distance } = this.calcMarchingStats({
+      from: fromCastle.coordinate,
+      to: target,
+      units: findUnits
+    })
+
+    createMarching.distance = distance
+    createMarching.speed = speed
+    createMarching.arriveAt = new Date(Date.now() + movingTime)
+    createMarching.homeAt = new Date(Date.now() + movingTime * 2)
 
     unitWithSelected.forEach(unit => {
       ChangeUnit(
         this.user.world.tenant,
         {
-          _id: unit._id,
+          _id: unit.unit,
           value: -unit.total,
         }
       )
     })
     await createMarching.save()
+    await createMarching.populate(this.populate)
+    socketHandler(this.user, EVENT_SOCKET.MARCHING, createMarching, true)
     return createMarching
   }
 }

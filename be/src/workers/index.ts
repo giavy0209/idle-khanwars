@@ -3,6 +3,7 @@ import ChangeResourceWorker from "./ChangeResourceWorker";
 import ChangeUnitWorker from "./ChangeUnitWorker";
 import GenerateResourceWorker from "./GenerateResourceWorker";
 import HnadleEnhanceWorker from "./HandleEnhanceWorker";
+import HandleMarchingWorker from "./HandleMarchingWorker";
 import HandleTrainingWorker from "./HandleTrainingWorker";
 import HandleUpgradeWorker from "./HandleUpgradeWorker";
 
@@ -14,4 +15,5 @@ export default async function workers(world: IWorld) {
   new HandleTrainingWorker(world).startWorker()
   new ChangeUnitWorker(world).startWorker()
   new HnadleEnhanceWorker(world).startWorker()
+  new HandleMarchingWorker(world).startWorker()
 }

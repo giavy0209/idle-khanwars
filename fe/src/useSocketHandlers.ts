@@ -1,6 +1,6 @@
 import { EVENT_SOCKET } from "const";
 import { useSocketHandler } from "hooks";
-import { buildingAction, castleAction, enhanceAction, resourceAction, trainingAction, unitAction, upgradeAction, userAction } from "store/slices";
+import { buildingAction, castleAction, enhanceAction, marchingAction, resourceAction, trainingAction, unitAction, upgradeAction, userAction } from "store/slices";
 
 const useSocketHandlers = () => {
   useSocketHandler({
@@ -70,6 +70,12 @@ const useSocketHandlers = () => {
       enhanceAction.removeEnhance
     ],
     event: EVENT_SOCKET.ENHANCE_DONE
+  })
+  useSocketHandler({
+    action: [
+      marchingAction.setMarching
+    ],
+    event: EVENT_SOCKET.MARCHING
   })
 }
 

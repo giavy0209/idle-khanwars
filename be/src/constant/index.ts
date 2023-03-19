@@ -127,11 +127,11 @@ export const POPULATE_UPGRADE = [
 
 export const POPULATE_MARCHING = [
   {
-    path: 'castle target',
+    path: 'from to',
     populate: POPULATE_CASTLE
   },
   {
-    path: 'units.type',
+    path: 'units.unit',
     populate: POPULATE_UNIT
   },
   {
@@ -145,6 +145,8 @@ export const POPULATE_ENHANCE = [
     populate: POPULATE_UNIT
   }
 ]
+
+
 export const MODEL = {
   users: 'users',
   worlds: 'worlds',

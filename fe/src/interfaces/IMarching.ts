@@ -1,17 +1,31 @@
+import { ICastle } from "./ICastle"
+export namespace MARCHING {
+  export enum STATUS {
+    TO_TARGET = "TO_TARGET",
+    GO_HOME = "GO_HOME",
+    DONE = "DONE",
+  }
+  export enum ACTION {
+    ATTACK = 'ATTACK',
+    SPY = 'SPY',
+    PATROL = 'PATROL',
+    CARAVAN = 'CARAVAN',
+  }
+}
 export interface IMarching {
   _id: string,
-  startAt: Date
-  arriveAt: Date
-  homeAt: Date
+  startAt: string
+  arriveAt: string
+  status: MARCHING.STATUS
+  action: MARCHING.ACTION
+  homeAt: string
   speed: number
-  castle: string
   population: number
-  target: {
-    castle: string
-    coordinate: {
-      x: number
-      y: number
-    }
+  from: ICastle
+  to?: ICastle
+  coordinate: {
+    x: number
+    y: number
   }
   units: {
     type: string
@@ -29,11 +43,4 @@ export interface IMarching {
       food: number
     }
   }
-}
-
-export enum ACTION {
-  ATTACK = 'ATTACK',
-  SPY = 'SPY',
-  PATROL = 'PATROL',
-  CARAVAN = 'CARAVAN',
 }

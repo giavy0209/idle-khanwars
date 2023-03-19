@@ -10,13 +10,13 @@ import { selectUser } from 'store/selectors'
 import { fetchMapCastles } from 'store/slices'
 import Actions from './Actions'
 import Control from './Control'
-import { ACTION } from 'interfaces'
+import { MARCHING } from 'interfaces'
 // import Joiride from './Joyride'
 import View from './View'
 
 
 
-const actions = Object.values(ACTION) as ACTION[]
+const actions = Object.values(MARCHING.ACTION) as MARCHING.ACTION[]
 
 const Map: FC = () => {
   const dispatch = useAppDispatch()
@@ -26,7 +26,7 @@ const Map: FC = () => {
   const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number, castle?: ICastle } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
   const [isShowAction, setIsShowAction] = useState(false)
-  const [currentAction, setCurrentAction] = useState<ACTION | null>(null)
+  const [currentAction, setCurrentAction] = useState<MARCHING.ACTION | null>(null)
 
   useEffect(() => {
     dispatch(fetchMapCastles(coordinate))

@@ -1,7 +1,7 @@
 import { Button, ScrollBackground } from "components";
 import { DOMAIN } from "const";
 import { useAppDispatch, useAppSelector } from "hooks";
-import { ACTION, ICastle, IUnit } from "interfaces";
+import { MARCHING, ICastle, IUnit } from "interfaces";
 import { FC, memo, Dispatch, useState, useEffect, useCallback, useMemo } from "react";
 import { toast } from "react-toastify";
 import { selectAvailableUnit, selectCastle } from "store/selectors";
@@ -10,8 +10,8 @@ import { secondToTime } from "utils";
 
 interface IActions {
   selectedGrid: { x: number, y: number, castle?: ICastle } | null
-  currentAction: ACTION | null
-  setCurrentAction: Dispatch<ACTION | null>
+  currentAction: MARCHING.ACTION | null
+  setCurrentAction: Dispatch<MARCHING.ACTION | null>
 }
 
 const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }) => {
@@ -72,8 +72,8 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
     }
 
     switch (currentAction) {
-      case ACTION.ATTACK:
-      case ACTION.SPY:
+      case MARCHING.ACTION.ATTACK:
+      case MARCHING.ACTION.SPY:
         if (!selectedGrid?.castle) {
           return toast(`Cannot ${currentAction} this target `)
         }
@@ -82,9 +82,9 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
           to: selectedGrid.castle._id,
           units: selectedUnit
         }))
-        break; case ACTION.ATTACK:
-      case ACTION.CARAVAN:
-      case ACTION.PATROL:
+        break;
+      case MARCHING.ACTION.CARAVAN:
+      case MARCHING.ACTION.PATROL:
         if (!selectedGrid) {
           return toast('You are not selected coordinates')
         }
@@ -103,7 +103,7 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
     }
 
 
-  }, [currentAction, selectedUnit, selectedGrid])
+  }, [currentAction, selectedUnit, selectedGrid, dispatch])
   return (
     <>
       <div className="action-handler">

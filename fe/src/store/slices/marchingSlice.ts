@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import callAPI from "callAPI"
-import { ACTION, IMarching } from "interfaces"
+import { MARCHING, IMarching } from "interfaces"
 
 export const fetchMarching = createAsyncThunk<IMarching[]>(
   'marching/fetchMarching',
@@ -12,7 +12,7 @@ export const fetchMarching = createAsyncThunk<IMarching[]>(
 
 type PostMarching = {
   to: string
-  action: ACTION
+  action: MARCHING.ACTION
   units: {
     _id: string
     selected: number
@@ -23,7 +23,7 @@ type PostMarching = {
     x: number
     y: number
   }
-  action: ACTION
+  action: MARCHING.ACTION
   units: {
     _id: string
     selected: number
@@ -50,13 +50,19 @@ const marchingSlice = createSlice({
   name: 'marching',
   initialState,
   reducers: {
-
+    setMarching(state, action: PayloadAction<IMarching>) {
+      const marchings = [...state.marchings]
+      marchings.push(action.payload)
+      state.marchings = [...marchings]
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(fetchMarching.fulfilled, (state, action) => {
-
         state.marchings = [...action.payload]
+      })
+      .addCase(postMarching.fulfilled, (state, action) => {
+        state.marchings = [...state.marchings, action.payload]
       })
   },
 })

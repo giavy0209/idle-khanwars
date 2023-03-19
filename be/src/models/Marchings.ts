@@ -8,7 +8,7 @@ class Marchings extends AbstractModel<IMarching> {
   constructor(tenantId: string) {
     super({ name: MODEL.marchings, tenantId })
     this.schema = new Schema<IMarching>({
-      startAt: { type: Date, default: Date.now() },
+      startAt: { type: Date, default: Date.now },
       arriveAt: { type: Date },
       homeAt: { type: Date },
       speed: { type: Number },

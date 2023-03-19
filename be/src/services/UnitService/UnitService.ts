@@ -46,7 +46,7 @@ export default class UnitService extends AbstractService<IUnit, IUnitPullPopulat
   isEnoughUnit(units: IUnitFullyPopulate[], selectedUnits: { _id: string | Types.ObjectId, selected: number }[]) {
     const selectedUnit: {
       total: number,
-      _id: Types.ObjectId
+      unit: Types.ObjectId
     }[] = []
 
     for (const unit of units) {
@@ -57,7 +57,7 @@ export default class UnitService extends AbstractService<IUnit, IUnitPullPopulat
       if (totalSelected.selected > unit.total) {
         throw new AdvancedError({ message: `You don't have enough ${unit.default.name} ${unit.total}(${totalSelected.selected})` })
       }
-      selectedUnit.push({ _id: unit._id, total: totalSelected.selected })
+      selectedUnit.push({ unit: unit._id, total: totalSelected.selected })
     }
     return selectedUnit
   }
@@ -68,9 +68,14 @@ export default class UnitService extends AbstractService<IUnit, IUnitPullPopulat
 
   calcMovingTime(units: IUnitFullyPopulate[], distance: number) {
     let slowestUnitSpeed = units[0].default.speed
+
     units.forEach(unit => {
       if (slowestUnitSpeed < unit.default.speed) slowestUnitSpeed = unit.default.speed
     })
+    console.log({
+      movingTime: slowestUnitSpeed * distance * 60 * 1000,
+      speed: slowestUnitSpeed,
+    });
 
     return {
       movingTime: slowestUnitSpeed * distance * 60 * 1000,

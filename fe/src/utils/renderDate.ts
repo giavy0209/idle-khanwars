@@ -1,8 +1,12 @@
 interface IRenderDate {
   date: string | Date,
   format?: string
+  wrap?: boolean
 }
-export default function renderDate({ date, format = 'dd/MM/yyyy - hh:mm:ss' }: IRenderDate): string {
+export default function renderDate({ date, format = 'dd/MM/yyyy - hh:mm:ss', wrap = false }: IRenderDate): string {
+  if (wrap) {
+    format = `dd/MM/yyyy\nhh:mm:ss`
+  }
   date = new Date(date)
   const d = date.getDate() || 1
   const M = date.getMonth() + 1 || 1

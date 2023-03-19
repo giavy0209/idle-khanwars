@@ -79,7 +79,53 @@
   }
   .marchings {
     table {
-      border-collapse: collapse;
+      width: 100%;
+      td {
+        text-align: center;
+        white-space: pre-line;
+        &.progress-bar {
+          padding: 10px;
+          background: #834608;
+          position: relative;
+          .progress {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: #d29827;
+            width: var(--width);
+          }
+          &.go-home {
+            .progress {
+              right: 0;
+              left: unset;
+            }
+            &::before {
+              left: calc(100% - var(--width));
+              transform: translate(calc(-50% + 5px), -50%) rotate(135deg);
+            }
+          }
+          .time {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: $text-color;
+            font-weight: 600;
+          }
+          &::before {
+            content: "";
+            border: solid #d29827;
+            border-width: 0 7px 7px 0;
+            display: inline-block;
+            padding: 7px;
+            position: absolute;
+            top: 50%;
+            left: var(--width);
+            transform: translate(calc(-50% - 5px), -50%) rotate(-45deg);
+          }
+        }
+      }
     }
   }
 }
