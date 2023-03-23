@@ -77,6 +77,12 @@ const useSocketHandlers = () => {
     ],
     event: EVENT_SOCKET.MARCHING
   })
+  useSocketHandler({
+    action: [
+      marchingAction.removeMarching
+    ],
+    event: EVENT_SOCKET.MARCHING_DONE
+  })
 }
 
 export default useSocketHandlers

@@ -1,11 +1,13 @@
+import { useAppSelector } from 'hooks'
 import useCountDown from 'hooks/useCountDown'
 import { IMarching, MARCHING } from 'interfaces'
 import { FC, useMemo, CSSProperties } from 'react'
 import { secondToTime } from 'utils'
+import { selectUser } from 'store/selectors'
 import renderDate from 'utils/renderDate'
 const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
   const countDown = useCountDown(marching.status === MARCHING.STATUS.TO_TARGET ? marching.arriveAt : marching.homeAt, false)
-
+  const user = useAppSelector(selectUser)
   const toCoordinates = useMemo(() => {
     if (marching.to) {
       return marching.to.coordinate
@@ -34,7 +36,10 @@ const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
         <td>{renderDate({ date: marching.arriveAt, wrap: true })}</td>
       </tr>
       <tr className='progress-bar'>
-        <td style={{ "--width": percent + '%' } as CSSProperties} className={`progress-bar ${marching.status === MARCHING.STATUS.TO_TARGET ? 'to-target' : 'go-home'}`} colSpan={4}>
+        <td
+          style={{ "--width": percent + '%' } as CSSProperties}
+          className={`progress-bar ${marching.status === MARCHING.STATUS.TO_TARGET && marching.from.user?._id === user._id ? 'to-target' : 'go-home'}`}
+          colSpan={4}>
           <span className="progress"></span>
           <span className="time">{secondToTime(countDown)}</span>
         </td>

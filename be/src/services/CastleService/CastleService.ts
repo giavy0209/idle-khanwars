@@ -53,6 +53,16 @@ export default class CastleService extends AbstractService<ICastle, ICastlePullP
     })
   }
 
+  async findCastlesByUsers(users: (Types.ObjectId | string)[]) {
+    return await this.find({
+      query: {
+        user: { $in: users },
+      },
+      idsOnly: true
+    })
+  }
+
+
   calcDistance(from: ICoordinates, to: ICoordinates) {
     const distance = Math.sqrt(Math.pow(from.x - to.x, 2) + Math.pow(from.y - to.y, 2))
     return distance

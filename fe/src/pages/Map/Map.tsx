@@ -66,7 +66,7 @@ const Map: FC = () => {
           isShow={isShowAction}>
           <div className="actions">
             {
-              actions.map(o => <div onClick={() => setCurrentAction(o)} className="action">
+              actions.map(o => <div key={o} onClick={() => setCurrentAction(o)} className="action">
                 <div className={o}></div>
                 <span className='title'>{o}</span>
               </div>)

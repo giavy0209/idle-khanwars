@@ -59,7 +59,7 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
       population += unit.default.population * unit.selected
     })
     let distance = 0
-    if (selectedGrid) {
+    if (selectedGrid && castle.coordinate) {
       distance = Math.sqrt(Math.pow(selectedGrid.x - castle.coordinate.x, 2) + Math.pow(selectedGrid.y - castle.coordinate.y, 2))
     }
     const time = minSpeed * distance * 60

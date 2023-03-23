@@ -35,7 +35,8 @@ const View: FC<IView> = ({ coordinate, grid, selectedGrid, setSelectedGrid }) =>
 
   const ishaveCastle = useCallback((x: number, y: number) => {
     const castle = mapCastles.find(({ coordinate }) => (coordinate.x === x && coordinate.y === y))
-    const isMy = castles.find(({ coordinate }) => (coordinate.x === x && coordinate.y === y))
+    const isMy = castles.find(({ coordinate }) => (coordinate?.x === x && coordinate?.y === y))
+
     return { castle, isMy }
   }, [mapCastles, castles])
 

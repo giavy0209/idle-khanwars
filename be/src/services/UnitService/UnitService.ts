@@ -72,10 +72,6 @@ export default class UnitService extends AbstractService<IUnit, IUnitPullPopulat
     units.forEach(unit => {
       if (slowestUnitSpeed < unit.default.speed) slowestUnitSpeed = unit.default.speed
     })
-    console.log({
-      movingTime: slowestUnitSpeed * distance * 60 * 1000,
-      speed: slowestUnitSpeed,
-    });
 
     return {
       movingTime: slowestUnitSpeed * distance * 60 * 1000,

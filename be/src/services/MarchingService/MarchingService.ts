@@ -5,7 +5,7 @@ import { ChangeUnit } from "eventEmitter"
 import { IMarching, IMarchingPullPopulate } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Marchings } from "models"
-import { isValidObjectId } from "mongoose"
+import { isValidObjectId, Types } from "mongoose"
 import CastleService from "services/CastleService"
 import UnitService from "services/UnitService"
 import socketHandler from "socket"
@@ -130,10 +130,12 @@ export default class MarchingService extends AbstractService<IMarching, IMarchin
     })
 
     let target = { x: 0, y: 0 }
+    let targetUser: Types.ObjectId | null = null;
     switch (action) {
       case MARCHING.ACTION.ATTACK:
       case MARCHING.ACTION.SPY:
         const findTarget = await castleService.findById(to || '', true)
+        targetUser = findTarget.user._id
         target = findTarget.coordinate
         createMarching.to = findTarget._id
         break;
@@ -144,6 +146,7 @@ export default class MarchingService extends AbstractService<IMarching, IMarchin
         const findCastleTarget = await castleService.model.findOne({ coordinate: coordinates })
         if (findCastleTarget) {
           createMarching.to = findCastleTarget._id
+          targetUser = findCastleTarget.user._id
         }
         break;
       default:
@@ -171,7 +174,11 @@ export default class MarchingService extends AbstractService<IMarching, IMarchin
     })
     await createMarching.save()
     await createMarching.populate(this.populate)
-    socketHandler(this.user, EVENT_SOCKET.MARCHING, createMarching, true)
+
+    socketHandler(this.user._id, EVENT_SOCKET.MARCHING, createMarching)
+    if (targetUser) {
+      socketHandler(targetUser, EVENT_SOCKET.MARCHING, createMarching)
+    }
     return createMarching
   }
 }

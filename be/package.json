@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx link-module-alias && nodemon dist/index.js",
-    "dev": "ts-node -r tsconfig-paths/register ./src/index.ts",
+    "dev": "nodemon -r tsconfig-paths/register ./src/index.ts",
     "test": "ts-node -r tsconfig-paths/register test/index.spec.ts",
     "build": "rm -rf dist && tsc",
     "watch-ts": "tsc -watch",
