@@ -1,10 +1,13 @@
 import { useAppSelector } from 'hooks'
 import useCountDown from 'hooks/useCountDown'
 import { IMarching, MARCHING } from 'interfaces'
-import { FC, useMemo, CSSProperties } from 'react'
+import { FC, useMemo, CSSProperties, useState } from 'react'
 import { secondToTime } from 'utils'
 import { selectUser } from 'store/selectors'
 import renderDate from 'utils/renderDate'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfo } from '@fortawesome/free-solid-svg-icons'
+import ScrollBackground from 'components/ScrollBackground'
 const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
   const countDown = useCountDown(marching.status === MARCHING.STATUS.TO_TARGET ? marching.arriveAt : marching.homeAt, false)
   const user = useAppSelector(selectUser)
@@ -29,21 +32,38 @@ const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
   }, [marching, countDown])
   return (
     <>
-      <tr>
-        <td>{renderDate({ date: marching.startAt, wrap: true })}</td>
-        <td>{marching.from.coordinate.x} : {marching.from.coordinate.y}</td>
-        <td>{toCoordinates.x} : {toCoordinates.y}</td>
-        <td>{renderDate({ date: marching.arriveAt, wrap: true })}</td>
-      </tr>
-      <tr className='progress-bar'>
-        <td
+
+      <div className="marching">
+        <div className="open-detail">
+          <FontAwesomeIcon icon={faInfo} />
+        </div>
+        <div className="stats">
+          <div className="stat">
+            <span>Start At:</span>
+            <span>{renderDate({ date: marching.startAt })}</span>
+          </div>
+          <div className="stat">
+            <span>Arrive At:</span>
+            <span>{renderDate({ date: marching.arriveAt })}</span>
+          </div>
+          <div className="stat">
+            <span>From:</span>
+            <span>{marching.from.coordinate.x} : {marching.from.coordinate.y} {marching.from.name}</span>
+          </div>
+
+          <div className="stat">
+            <span>To:</span>
+            <span>{toCoordinates.x} : {toCoordinates.y}{marching.to?.name}</span>
+          </div>
+        </div>
+        <div
           style={{ "--width": percent + '%' } as CSSProperties}
           className={`progress-bar ${marching.status === MARCHING.STATUS.TO_TARGET && marching.from.user?._id === user._id ? 'to-target' : 'go-home'}`}
-          colSpan={4}>
+        >
           <span className="progress"></span>
           <span className="time">{secondToTime(countDown)}</span>
-        </td>
-      </tr>
+        </div>
+      </div>
     </>
   )
 }

@@ -67,7 +67,7 @@ export default class MarchingService extends AbstractService<IMarching, IMarchin
         break
       case MARCHING.ACTION.CARAVAN:
       case MARCHING.ACTION.PATROL:
-        if (!isValidObjectId(to) || (Number.isInteger(coordinates?.x) || Number.isInteger(coordinates?.y))) {
+        if (!isValidObjectId(to) && (!Number.isInteger(coordinates?.x) || !Number.isInteger(coordinates?.y))) {
           throw new AdvancedError({ message: `Invalid target` })
         }
         break;

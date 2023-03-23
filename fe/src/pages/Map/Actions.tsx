@@ -54,17 +54,20 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
   const stat = useMemo(() => {
     let minSpeed = 0
     let population = 0
+    let cargo = 0
     selectedUnit.forEach(unit => {
       if (unit.default.speed > minSpeed && unit.selected > 0) minSpeed = unit.default.speed
       population += unit.default.population * unit.selected
+      cargo += unit.default.cargo * unit.selected
     })
     let distance = 0
     if (selectedGrid && castle.coordinate) {
       distance = Math.sqrt(Math.pow(selectedGrid.x - castle.coordinate.x, 2) + Math.pow(selectedGrid.y - castle.coordinate.y, 2))
     }
     const time = minSpeed * distance * 60
-    return { minSpeed, population, distance, time }
+    return { minSpeed, population, distance, time, cargo }
   }, [selectedUnit, selectedGrid, castle])
+
   const handleAction = useCallback(() => {
     const ishaveUnit = selectedUnit.find(unit => unit.selected > 0)
     if (!ishaveUnit) {
@@ -101,9 +104,21 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
       default:
         break;
     }
-
-
   }, [currentAction, selectedUnit, selectedGrid, dispatch])
+
+  const handleSelectAll = useCallback(() => {
+    selectedUnit.forEach(unit => {
+      unit.selected = unit.total
+    })
+    setSelectedUnit([...selectedUnit])
+  }, [selectedUnit])
+  const handleSelectNone = useCallback(() => {
+    selectedUnit.forEach(unit => {
+      unit.selected = 0
+    })
+    setSelectedUnit([...selectedUnit])
+  }, [selectedUnit])
+
   return (
     <>
       <div className="action-handler">
@@ -111,10 +126,15 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
           <div className="units">
             <div className="marching-stat">
               <div className="stat"><span>Population:</span><span> {stat.population}</span></div>
+              <div className="stat"><span>Cargo:</span><span> {stat.cargo}</span></div>
               <div className="stat"><span>Minspeed:</span><span> {stat.minSpeed}</span></div>
               <div className="stat"><span>Distance:</span><span> {stat.distance.toFixed(2)}</span></div>
               <div className="stat"><span>Time:</span><span> {secondToTime(stat.time)}</span></div>
               <Button onClick={handleAction}>{currentAction}</Button>
+            </div>
+            <div className="select">
+              <span onClick={handleSelectAll}>Select All</span>
+              <span onClick={handleSelectNone}>Select None</span>
             </div>
             {
               selectedUnit.map(o => <div key={o._id} className="unit">

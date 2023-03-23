@@ -21,7 +21,7 @@ export interface IMarching extends Document {
   action: MARCHING.ACTION
   units: {
     unit: Types.ObjectId
-    value: number
+    total: number
   }[]
   cargo: {
     asArray: {
@@ -40,7 +40,7 @@ export interface IMarching extends Document {
 export interface IMarchingPullPopulate {
   units: {
     unit: IUnitFullyPopulate,
-    value: number
+    total: number
   }[]
   from: ICastleFullyPopulate
   to: ICastleFullyPopulate

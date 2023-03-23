@@ -1,6 +1,7 @@
 import { AbstractWorker } from "abstracts";
 import { MODEL, POPULATE_MARCHING, } from "constant";
 import { EVENT_SOCKET, MARCHING } from "constant/enums";
+import { ChangeUnit } from "eventEmitter";
 import { IMarching, IMarchingPullPopulate, IUserFullyPopulate, IWorld } from "interfaces";
 import { MarchingService } from "services";
 import socketHandler from "socket";
@@ -49,6 +50,16 @@ export default class HandleMarchingWorker extends AbstractWorker<IMarching> {
         } else {
           marching.status = MARCHING.STATUS.DONE
           socketHandler(marching.from.user._id, EVENT_SOCKET.MARCHING_DONE, marching._id)
+          const units = marching.units
+          units.forEach(unit => {
+            ChangeUnit(
+              this.world.tenant,
+              {
+                _id: unit.unit._id,
+                value: -unit.total,
+              }
+            )
+          })
         }
         await marching.save()
       }

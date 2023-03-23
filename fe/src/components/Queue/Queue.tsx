@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "hooks";
 import { FC, memo, useState } from "react";
 import { selectEnhance, selectTrainings, selectUpgrading } from "store/selectors";
-import { selectMarching } from "store/selectors/marchingSelector";
+import { selectMarching } from "store/selectors";
 import Enhance from "./Enhance";
 import Marching from "./Marching";
 import Training from "./Training";
@@ -48,23 +48,9 @@ const Queue: FC = memo(() => {
             {
               marchings.length > 0 && <div className="marchings">
                 <div className="title">Marchings</div>
-                <div className="marching">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Start At</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Arrive At</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        marchings.map(o => <Marching key={o._id} marching={o} />)
-                      }
-                    </tbody>
-                  </table>
-                </div >
+                {
+                  marchings.map(o => <Marching key={o._id} marching={o} />)
+                }
               </div>
             }
           </div>

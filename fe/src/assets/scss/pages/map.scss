@@ -62,6 +62,18 @@
           }
         }
       }
+      .select {
+        display: flex;
+        span {
+          cursor: pointer;
+          width: 50%;
+          text-align: center;
+          text-decoration: underline;
+          font-weight: 500;
+          font-size: 18px;
+          padding: 10px;
+        }
+      }
       .unit {
         display: flex;
         align-items: center;

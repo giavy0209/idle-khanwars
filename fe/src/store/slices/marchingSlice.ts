@@ -39,7 +39,8 @@ export const postMarching = createAsyncThunk<IMarching, PostMarching>(
   }
 )
 interface InitialState {
-  marchings: IMarching[]
+  marchings: IMarching[],
+  detail?: IMarching
 }
 
 const initialState: InitialState = {
@@ -66,6 +67,9 @@ const marchingSlice = createSlice({
       marchings.splice(index, 1)
       state.marchings = marchings
     },
+    setMarchingDetail(state, action: PayloadAction<IMarching | undefined>) {
+      state.detail = action.payload
+    }
   },
   extraReducers(builder) {
     builder

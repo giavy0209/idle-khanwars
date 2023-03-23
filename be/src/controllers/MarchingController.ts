@@ -15,6 +15,7 @@ export default class MarchingController extends AbstractController<IMarching, Ma
   }
 
   async post(req: Request, res: Response) {
+
     const service = this.createService(req.user)
     const input = service.validPostInput(req.body)
     const data = await service.post(input)

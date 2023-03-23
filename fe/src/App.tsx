@@ -64,6 +64,7 @@ function App() {
       <Upgrade />
       <Training />
       <Enhance />
+      <Enhance />
       <Routes>
         {
           handleRouter(Routers)
