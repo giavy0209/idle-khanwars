@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { IDefaultBuilding, IDefaultResources, IDefaultUpgrade, IWorld } from "interfaces"
+import { DefaultBuildingDoc, DefaultResourcesDoc, IDefaultUpgrade, IWorld } from "interfaces"
 import { DefaultBuildings, DefaultResources, DefaultUpgrades } from "models"
 import { Model } from 'mongoose'
 const buildings = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'defaultData', 'building.json')) as unknown as string)
@@ -16,10 +16,10 @@ interface IUpgrades {
 const createOrUpdateUpgrade = async (
   model: Model<IDefaultUpgrade>,
   upgrades: IUpgrades[],
-  building: IDefaultBuilding,
+  building: DefaultBuildingDoc,
   world: IWorld,
   isResource: boolean,
-  { gold, iron, wood, food }: { [k: string]: IDefaultResources | null }
+  { gold, iron, wood, food }: { [k: string]: DefaultResourcesDoc | null }
 ) => {
   for (const upgrade of upgrades) {
     const generate = isResource ? Math.round(upgrade.generate / 5 * world.speed) : upgrade.generate

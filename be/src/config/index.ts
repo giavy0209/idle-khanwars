@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import { IUserFullyPopulate } from 'interfaces/IUser';
-import { Connection } from 'mongoose';
+import { Connection, Document, Types } from 'mongoose';
 dotenv.config({ path: '.env.dev' })
 declare global {
   var Config: {
@@ -31,6 +31,8 @@ declare global {
       user: IUserFullyPopulate
     }
   }
+
+  type MongooseDocument<I> = Document<unknown, any, I> & I & { _id: Types.ObjectId; }
 }
 
 global.DB = {}

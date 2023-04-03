@@ -1,5 +1,5 @@
 import { AbstractService } from "abstracts"
-import { ICastle, ICastlePullPopulate } from "interfaces"
+import { ICastlePullPopulate } from "interfaces"
 import { POPULATE_CASTLE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
@@ -10,7 +10,7 @@ import { AdvancedError } from "utils"
 import socketHandler from "socket"
 import { EVENT_SOCKET } from "constant/enums"
 import { Castles } from "models"
-export default class CastleService extends AbstractService<ICastle, ICastlePullPopulate>  {
+export default class CastleService extends AbstractService<Castles, ICastlePullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Castles, user)
     this.populate = POPULATE_CASTLE

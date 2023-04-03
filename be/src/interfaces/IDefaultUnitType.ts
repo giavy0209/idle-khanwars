@@ -1,7 +1,7 @@
-import { Document } from "mongoose";
-
-export interface IDefaultUnitType extends Document {
+export interface IDefaultUnitType {
   name: string
   key: string
   order: number
 }
+
+export type DefaultUnitTypeDoc = MongooseDocument<IDefaultUnitType>

@@ -1,8 +1,10 @@
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import { IDefaultBuilding } from "./IDefaultBuilding";
-import { IDefaultResources } from "./IDefaultResources";
-import { IDefaultUnitType } from "./IDefaultUnitType";
-export interface IDefaultUnits extends Document {
+import { Types } from "mongoose";
+import { DefaultBuildingDoc } from "./IDefaultBuilding";
+import { DefaultResourcesDoc } from "./IDefaultResources";
+import { DefaultUnitTypeDoc } from "./IDefaultUnitType";
+import { MergePopulate } from "./utils";
+import { DefaultUnitTypes } from "models";
+export interface IDefaultUnits {
   name: string
   key: string
   order: number
@@ -44,22 +46,24 @@ export interface IDefaultUnits extends Document {
 }
 
 export interface IDefaultUnitsPullPopulate {
-  type: IDefaultUnitType,
-  building: IDefaultBuilding,
+  type: DefaultUnitTypes,
+  building: DefaultBuildingDoc,
   resources: {
     asArray: {
-      type: IDefaultResources
+      type: DefaultResourcesDoc
       value: number
     }[],
     asObject: IDefaultUnits['resources']['asObject']
   }
   strength: {
     asArray: {
-      type: IDefaultUnitType
+      type: DefaultUnitTypeDoc
       value: number
     }[]
     asObject: IDefaultUnits['strength']['asObject']
   },
 }
 
-export type IDefaultUnitFullyPopulate = UnpackedIntersection<HydratedDocument<IDefaultUnits, {}, {}>, IDefaultUnitsPullPopulate>
+export type IDefaultUnitFullyPopulate = MergePopulate<IDefaultUnits, IDefaultUnitsPullPopulate>
+
+export type DefaultUnitsDoc = MongooseDocument<IDefaultUnits>

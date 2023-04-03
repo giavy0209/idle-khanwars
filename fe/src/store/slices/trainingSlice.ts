@@ -33,16 +33,12 @@ const trainingSlice = createSlice({
   initialState,
   reducers: {
     setTraining(state, action: PayloadAction<ITraining>) {
-      const trainings = [...state.trainings]
-      const index = trainings.findIndex(training => training._id === action.payload._id)
-      trainings.splice(index, 1, action.payload)
-      state.trainings = trainings
+      const index = state.trainings.findIndex(training => training._id === action.payload._id)
+      state.trainings.splice(index, 1, action.payload)
     },
     removeTraining(state, action: PayloadAction<string>) {
-      const trainings = [...state.trainings]
-      const index = trainings.findIndex(training => training._id === action.payload)
-      trainings.splice(index, 1)
-      state.trainings = trainings
+      const index = state.trainings.findIndex(training => training._id === action.payload)
+      state.trainings.splice(index, 1)
     }
   },
   extraReducers(builder) {

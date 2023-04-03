@@ -1,7 +1,8 @@
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import { IUser } from "./IUser";
+import { Types } from "mongoose";
+import { UserDoc } from "./IUser";
+import { MergePopulate } from "./utils";
 
-export interface ICastle extends Document {
+export interface ICastle {
   user: Types.ObjectId
   loyal: number
   population: number
@@ -15,7 +16,9 @@ export interface ICastle extends Document {
 }
 
 export interface ICastlePullPopulate {
-  user: IUser
+  user: UserDoc
 }
 
-export type ICastleFullyPopulate = UnpackedIntersection<HydratedDocument<ICastle, {}, {}>, ICastlePullPopulate>
+export type ICastleFullyPopulate = MergePopulate<ICastle, ICastlePullPopulate>
+
+export type CastleDoc = MongooseDocument<ICastle>

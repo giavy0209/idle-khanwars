@@ -1,7 +1,8 @@
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import { IWorld } from ".";
+import { Types } from "mongoose";
+import { WorldDoc } from ".";
+import { MergePopulate } from "./utils";
 
-export interface IUser extends Document {
+export interface IUser {
   username: string
   password: string
   world: Types.ObjectId
@@ -9,10 +10,13 @@ export interface IUser extends Document {
   isSelectStart: boolean
   lastLogin: Date
   createdAt: Date
+  updatedAt: Date
 }
 
 export interface IUserPullPopulate {
-  world: IWorld
+  world: WorldDoc
 }
 
-export type IUserFullyPopulate = UnpackedIntersection<HydratedDocument<IUser, {}, {}>, IUserPullPopulate>
+export type IUserFullyPopulate = MergePopulate<IUser, IUserPullPopulate>
+
+export type UserDoc = MongooseDocument<IUser>

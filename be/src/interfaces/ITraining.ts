@@ -1,7 +1,7 @@
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
+import { HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IUnitFullyPopulate } from "./IUnit";
 
-export interface ITraining extends Document {
+export interface ITraining {
   castle: Types.ObjectId
   unit: Types.ObjectId
   building: Types.ObjectId

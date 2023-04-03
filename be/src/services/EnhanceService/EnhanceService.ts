@@ -2,7 +2,7 @@ import { AbstractService } from "abstracts"
 import { POPULATE_ENHANCE } from "constant"
 import { BUILDING, ENHANCE_TYPE, EVENT_SOCKET, PROGRESS } from "constant/enums"
 import { Request } from "express"
-import { IBuildingFullyPopulate, IEnhance, IEnhancePullPopulate } from "interfaces"
+import { IBuildingFullyPopulate, IEnhancePullPopulate } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Enhances } from "models"
 import BuildingService from "services/BuildingService"
@@ -12,7 +12,7 @@ import UnitService from "services/UnitService"
 import socketHandler from "socket"
 import { AdvancedError } from "utils"
 import { IPostInput } from "./IEnhanceService"
-export default class EnhanceService extends AbstractService<IEnhance, IEnhancePullPopulate>  {
+export default class EnhanceService extends AbstractService<Enhances, IEnhancePullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Enhances, user)
     this.populate = POPULATE_ENHANCE

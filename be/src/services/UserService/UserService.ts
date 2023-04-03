@@ -2,7 +2,6 @@ import { AbstractService } from "abstracts"
 import { sign } from "jsonwebtoken"
 import { compareSync, hashSync } from "bcrypt"
 import { HTTPSTATUS } from "constant"
-import { IUser } from "interfaces"
 import { IUserFullyPopulate, IUserPullPopulate } from "interfaces/IUser"
 import { AdvancedError } from "utils"
 import { IPostInput } from "./IUserService"
@@ -18,7 +17,7 @@ const populatePath = [
     path: 'world'
   }
 ]
-export default class UserService extends AbstractService<IUser, IUserPullPopulate>  {
+export default class UserService extends AbstractService<Users, IUserPullPopulate>  {
   static populatePath = populatePath
   constructor(user: IUserFullyPopulate) {
     super(Users, user)
@@ -58,13 +57,14 @@ export default class UserService extends AbstractService<IUser, IUserPullPopulat
         message: "Wrong password"
       })
     }
-    const tokenPayload = user.toObject()
-    delete tokenPayload.createdAt
-    delete tokenPayload.updateAt
-    delete tokenPayload.lastLogin
-    delete tokenPayload.password
-    delete tokenPayload.__v
-    delete tokenPayload.world.name
+    const tokenPayload = {
+      _id: user._id,
+      username: user.username,
+      world: user.world,
+      status: user.status,
+      isSelectStart: user.isSelectStart,
+      updatedAt: user.updatedAt
+    }
     const token = sign(tokenPayload, Config.JWT_SECRET)
     return {
       user,

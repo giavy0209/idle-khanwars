@@ -36,18 +36,14 @@ const upgradeSlice = createSlice({
   initialState,
   reducers: {
     setUpgrade(state, action: PayloadAction<IUpgrade>) {
-      const upgrades = [...state.upgrades]
-      upgrades.push(action.payload)
-      state.upgrades = [...upgrades]
+      state.upgrades.push(action.payload)
     },
     setUpgradeCost: (state, action: PayloadAction<IDefaultUpgrade | undefined>) => {
       state.upgradeCost = action.payload
     },
     removeUpgrade(state, action: PayloadAction<string>) {
-      const upgrades = [...state.upgrades]
-      const index = upgrades.findIndex(upgrade => upgrade._id === action.payload)
-      upgrades.splice(index, 1)
-      state.upgrades = upgrades
+      const index = state.upgrades.findIndex(upgrade => upgrade._id === action.payload)
+      state.upgrades.splice(index, 1)
     }
   },
   extraReducers(builder) {

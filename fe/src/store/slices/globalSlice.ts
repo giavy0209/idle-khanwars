@@ -12,7 +12,6 @@ export const globalSlice = createSlice({
   reducers: {
     setState: (state, action: PayloadAction<Partial<IGlobal>>) => {
       state.global = action.payload
-
     }
   }
 })

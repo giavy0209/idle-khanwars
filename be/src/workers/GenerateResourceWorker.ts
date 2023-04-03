@@ -12,7 +12,7 @@ export default class GenerateResourceWorker extends AbstractWorker<any, any> {
     super(world, { sleep: 3000 })
   }
   async startWorker() {
-    this.DefaultStorage = (await new DefaultBuildings(this.world.tenant).getInstance().findOne({ key: BUILDING.STORAGE }))?._id
+    this.DefaultStorage = (await new DefaultBuildings(this.world.tenant).getInstance().findOne({ key: BUILDING.STORAGE }))?._id as Types.ObjectId
     const ResourcesModel = new Resources(this.world.tenant).getInstance()
     const BuildingModel = new Buildings(this.world.tenant).getInstance()
 

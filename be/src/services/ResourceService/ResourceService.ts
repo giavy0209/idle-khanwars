@@ -1,5 +1,5 @@
 import { AbstractService } from "abstracts"
-import { IResource, IResourcePullPopulate } from 'interfaces'
+import { IResourcePullPopulate } from 'interfaces'
 import { HTTPSTATUS, POPULATE_RESOURCE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
@@ -9,7 +9,7 @@ import { ChangeResource } from "eventEmitter"
 import { BuildingService } from "services"
 import { Resources } from "models"
 
-export default class ResourceService extends AbstractService<IResource, IResourcePullPopulate>  {
+export default class ResourceService extends AbstractService<Resources, IResourcePullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Resources, user)
     this.populate = POPULATE_RESOURCE

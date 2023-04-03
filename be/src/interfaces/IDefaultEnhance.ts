@@ -1,8 +1,8 @@
-import { Document, MergeType, Types } from "mongoose";
-import { IDefaultResources } from "./IDefaultResources";
+import { MergeType, Types } from "mongoose";
+import { DefaultResourcesDoc } from "./IDefaultResources";
 import { MergePopulate } from "./utils";
 
-export interface IDefaultEnhance extends Document {
+export interface IDefaultEnhance {
   level: number
   unit: Types.ObjectId
   type: string
@@ -25,7 +25,7 @@ export interface IDefaultEnhance extends Document {
 export interface IDefaultEnhancePullPopulate {
   resources: MergeType<IDefaultEnhance['resources'], {
     asArray: {
-      type: IDefaultResources
+      type: DefaultResourcesDoc
       value: number
     }[]
   }>
@@ -33,3 +33,5 @@ export interface IDefaultEnhancePullPopulate {
 
 
 export type IDefaultEnhanceFullyPopulate = MergePopulate<IDefaultEnhance, IDefaultEnhancePullPopulate>
+
+export type DefaultEnhanceDoc = MongooseDocument<IDefaultEnhance>

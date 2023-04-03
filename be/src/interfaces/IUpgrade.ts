@@ -1,8 +1,8 @@
 import { PROGRESS } from "constant/enums";
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
+import { HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IBuildingFullyPopulate } from "./IBuilding";
 
-export interface IUpgrade extends Document {
+export interface IUpgrade {
   castle: Types.ObjectId
   building: Types.ObjectId
   progress: PROGRESS

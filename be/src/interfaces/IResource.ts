@@ -1,8 +1,8 @@
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
+import { HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IBuildingFullyPopulate } from "./IBuilding";
-import { IDefaultResources } from "./IDefaultResources";
+import { DefaultResourcesDoc } from "./IDefaultResources";
 
-export interface IResource extends Document {
+export interface IResource {
   castle: Types.ObjectId
   default: Types.ObjectId
   building: Types.ObjectId
@@ -11,7 +11,7 @@ export interface IResource extends Document {
 }
 
 export interface IResourcePullPopulate {
-  default: IDefaultResources
+  default: DefaultResourcesDoc
   building: IBuildingFullyPopulate
 }
 

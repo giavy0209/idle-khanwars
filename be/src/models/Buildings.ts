@@ -18,5 +18,4 @@ class Buildings extends AbstractModel<IBuilding> {
     })
   }
 }
-
 export default Buildings

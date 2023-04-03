@@ -1,4 +1,5 @@
 import { ICastle } from "./ICastle"
+import { ResourceData } from "./Utils"
 export namespace MARCHING {
   export enum STATUS {
     TO_TARGET = "TO_TARGET",
@@ -31,16 +32,5 @@ export interface IMarching {
     type: string
     value: number
   }[]
-  cargo: {
-    asArray: {
-      type: string
-      value: number
-    }[]
-    asObject: {
-      gold: number
-      iron: number
-      wood: number
-      food: number
-    }
-  }
+  cargo: ResourceData
 }

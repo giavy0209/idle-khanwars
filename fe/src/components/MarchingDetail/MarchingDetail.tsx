@@ -1,22 +1,27 @@
-import { ScrollBackground } from "components"
+import { Resources, ScrollBackground } from "components"
 import { useAppDispatch, useAppSelector } from "hooks"
-import { FC, useCallback } from "react"
+import { FC, useCallback, memo } from "react"
 import { selectMarchingDetail } from "store/selectors"
 import { marchingAction } from "store/slices"
 
 const MarchingDetail: FC = function () {
   const dispatch = useAppDispatch()
-  const detail = useAppSelector(selectMarchingDetail)
+
+  const marching = useAppSelector(selectMarchingDetail)
+  console.log({ marching });
+
   const handleClose = useCallback(() => {
     dispatch(marchingAction.setMarchingDetail(undefined))
   }, [dispatch])
+
   return (
     <div className="marching-detail">
-      <ScrollBackground isShow={!!detail} onClose={handleClose}>
-        <div className="title"></div>
+      <ScrollBackground isShow={!!marching} onClose={handleClose}>
+        <div className="title">{marching?.action}</div>
+        <Resources resources={marching?.cargo} />
       </ScrollBackground>
     </div>
   )
 }
 
-export default MarchingDetail
+export default memo(MarchingDetail)

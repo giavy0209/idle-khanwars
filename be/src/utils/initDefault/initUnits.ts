@@ -1,12 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import { IDefaultEnhance, IDefaultUnits, IWorld } from "interfaces"
+import { DefaultUnitsDoc, IDefaultEnhance, IWorld } from "interfaces"
 import { DefaultBuildings, DefaultEnhances, DefaultResources, DefaultUnits, DefaultUnitTypes } from "models"
 import { Model } from 'mongoose'
 import { ENHANCE_TYPE } from 'constant/enums'
 const units = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '..', '..', 'defaultData', 'units.json')) as unknown as string)
 
-const createDefaultEnhance = async (model: Model<IDefaultEnhance>, defaultUnit: IDefaultUnits) => {
+const createDefaultEnhance = async (model: Model<IDefaultEnhance>, defaultUnit: DefaultUnitsDoc) => {
   const enhanceType = Object.values(ENHANCE_TYPE)
   for (let index = 0; index <= 10; index++) {
     for (const type of enhanceType) {

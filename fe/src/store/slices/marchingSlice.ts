@@ -52,20 +52,16 @@ const marchingSlice = createSlice({
   initialState,
   reducers: {
     setMarching(state, action: PayloadAction<IMarching>) {
-      const marchings = [...state.marchings]
-      const index = marchings.findIndex(enhance => enhance._id === action.payload._id)
+      const index = state.marchings.findIndex(enhance => enhance._id === action.payload._id)
       if (index !== -1) {
-        marchings.splice(index, 1, action.payload)
+        state.marchings.splice(index, 1, action.payload)
       } else {
-        marchings.push(action.payload)
+        state.marchings.push(action.payload)
       }
-      state.marchings = marchings
     },
     removeMarching(state, action: PayloadAction<string>) {
-      const marchings = [...state.marchings]
-      const index = marchings.findIndex(marching => marching._id === action.payload)
-      marchings.splice(index, 1)
-      state.marchings = marchings
+      const index = state.marchings.findIndex(marching => marching._id === action.payload)
+      state.marchings.splice(index, 1)
     },
     setMarchingDetail(state, action: PayloadAction<IMarching | undefined>) {
       state.detail = action.payload

@@ -31,10 +31,10 @@ const buildingSlice = createSlice({
       state.upgrade = action.payload
     },
     setBuilding(state, action: PayloadAction<IBuilding>) {
-      const buildings = [...state.buildings]
-      const index = buildings.findIndex(o => o._id === action.payload._id)
-      buildings.splice(index, 1, action.payload)
-      state.buildings = [...buildings]
+      const index = state.buildings.findIndex(o => o._id === action.payload._id)
+      if (index !== -1) {
+        state.buildings.splice(index, 1, action.payload)
+      }
     }
   },
   extraReducers(builder) {

@@ -1,10 +1,10 @@
-import { IDefaultResources } from "interfaces"
+import { DefaultResourcesDoc } from "interfaces"
 
 export interface IGetInput {
   castle: string
 }
 
 export interface IisEnoughResourceInput {
-  type: IDefaultResources
+  type: DefaultResourcesDoc
   value: number
 }

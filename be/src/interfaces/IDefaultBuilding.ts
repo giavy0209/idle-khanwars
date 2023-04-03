@@ -1,6 +1,6 @@
-import { Document, Types } from "mongoose";
+import { Types } from "mongoose";
 
-export interface IDefaultBuilding extends Document {
+export interface IDefaultBuilding {
   name: string
   key: string
   description: string
@@ -8,3 +8,5 @@ export interface IDefaultBuilding extends Document {
   path: string
   resource: Types.ObjectId
 }
+
+export type DefaultBuildingDoc = MongooseDocument<IDefaultBuilding>

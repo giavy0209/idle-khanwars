@@ -1,3 +1,5 @@
+import { ResourceData } from "./Utils"
+
 export interface IDefaultUpgrade {
   building: {
     type: string
@@ -6,21 +8,5 @@ export interface IDefaultUpgrade {
   level: number
   generate: number
   time: number
-  resources: {
-    asArray: {
-      type: {
-        name: string
-        key: string
-        path: string
-      }
-      _id: string
-      value: number
-    }[]
-    asObject: {
-      gold: number
-      iron: number
-      wood: number
-      food: number
-    }
-  }
+  resources: ResourceData
 }

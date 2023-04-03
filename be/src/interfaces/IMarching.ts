@@ -1,10 +1,10 @@
 import { MARCHING } from "constant/enums";
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
+import { HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { ICastleFullyPopulate } from "./ICastle";
 import { IDefaultResources } from "./IDefaultResources";
 import { IUnitFullyPopulate } from "./IUnit";
 
-export interface IMarching extends Document {
+export interface IMarching {
   startAt: Date
   arriveAt: Date
   homeAt: Date

@@ -1,21 +1,9 @@
-import { IDefaultResource } from "./IDefaultResource"
+import { ResourceData } from "./Utils"
 
 export interface IDefaultEnhance {
   level: number
   type: string
   value: number
   time: number
-  resources: {
-    asArray: {
-      type: IDefaultResource
-      value: number
-      _id: string
-    }[]
-    asObject: {
-      gold: number
-      iron: number
-      wood: number
-      food: number
-    }
-  }
+  resources: ResourceData
 }

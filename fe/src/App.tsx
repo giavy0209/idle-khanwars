@@ -7,14 +7,14 @@ import { useAppDispatch, useAppSelector } from 'hooks';
 import { initDefault } from 'store';
 import { userAction, globalAction } from 'store/slices';
 import { selectCastle, selectToken, selectUser } from 'store/selectors';
-import { Enhance, Queue, Training, Upgrade } from 'components';
+import { Enhance, MarchingDetail, Queue, Training, Upgrade } from 'components';
 import { ROUTERS } from 'const';
 import useSocketHandlers from 'useSocketHandlers';
 import 'react-toastify/dist/ReactToastify.css';
 import useWindowSize from 'hooks/useWindowSize';
 function App() {
   useSocketHandlers()
-  const size = useWindowSize()
+  useWindowSize()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -64,7 +64,7 @@ function App() {
       <Upgrade />
       <Training />
       <Enhance />
-      <Enhance />
+      <MarchingDetail />
       <Routes>
         {
           handleRouter(Routers)

@@ -1,3 +1,5 @@
+import { ResourceData } from "./Utils"
+
 export interface IDefaultUnit {
   name: string
   key: string
@@ -15,23 +17,7 @@ export interface IDefaultUnit {
   life: number
   range: number
   population: number
-  resources: {
-    asArray: {
-      type: {
-        name: string
-        key: string
-        path: string
-      }
-      _id: string
-      value: number
-    }[]
-    asObject: {
-      gold: number
-      iron: number
-      wood: number
-      food: number
-    }
-  }
+  resources: ResourceData
   strength: {
     asArray: {
       type: {

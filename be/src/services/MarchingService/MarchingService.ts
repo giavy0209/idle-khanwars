@@ -2,7 +2,7 @@ import { AbstractService } from "abstracts"
 import { POPULATE_MARCHING } from "constant"
 import { EVENT_SOCKET, MARCHING } from "constant/enums"
 import { ChangeUnit } from "eventEmitter"
-import { IMarching, IMarchingPullPopulate } from "interfaces"
+import { IMarchingPullPopulate } from "interfaces"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Marchings } from "models"
 import { isValidObjectId, Types } from "mongoose"
@@ -13,7 +13,7 @@ import { AdvancedError } from "utils"
 import { ICalcMarchingStats, IPostInput } from "./IMarchingService"
 
 const validAction = Object.values(MARCHING.ACTION)
-export default class MarchingService extends AbstractService<IMarching, IMarchingPullPopulate>  {
+export default class MarchingService extends AbstractService<Marchings, IMarchingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Marchings, user)
     this.populate = POPULATE_MARCHING

@@ -1,8 +1,9 @@
-import { Document, HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import { ICastle, IDefaultBuilding } from ".";
+import { Types } from "mongoose";
+import { CastleDoc, DefaultBuildingDoc } from ".";
 import { IDefaultUpgradeFullyPopulate } from "./IDefaultUpgrade";
+import { MergePopulate } from "./utils";
 
-export interface IBuilding extends Document {
+export interface IBuilding {
   castle: Types.ObjectId
   default: Types.ObjectId
   upgrade: {
@@ -12,12 +13,13 @@ export interface IBuilding extends Document {
 }
 
 export interface IBuildingPullPopulate {
-  castle: ICastle
-  default: IDefaultBuilding
+  castle: CastleDoc
+  default: DefaultBuildingDoc
   upgrade: {
     current: IDefaultUpgradeFullyPopulate
     next: IDefaultUpgradeFullyPopulate
   }
 }
 
-export type IBuildingFullyPopulate = UnpackedIntersection<HydratedDocument<IBuilding, {}, {}>, IBuildingPullPopulate>
+export type IBuildingFullyPopulate = MergePopulate<IBuilding, IBuildingPullPopulate>
+export type BuildingDoc = MongooseDocument<IBuilding>

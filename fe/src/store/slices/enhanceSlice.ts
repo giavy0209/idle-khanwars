@@ -33,15 +33,11 @@ const enhanceSlice = createSlice({
   initialState,
   reducers: {
     setEnhance(state, action: PayloadAction<IEnhance>) {
-      const enhances = [...state.enhances]
-      enhances.push(action.payload)
-      state.enhances = [...enhances]
+      state.enhances.push(action.payload)
     },
     removeEnhance(state, action: PayloadAction<string>) {
-      const enhances = [...state.enhances]
-      const index = enhances.findIndex(enhance => enhance._id === action.payload)
-      enhances.splice(index, 1)
-      state.enhances = enhances
+      const index = state.enhances.findIndex(enhance => enhance._id === action.payload)
+      state.enhances.splice(index, 1)
     }
   },
   extraReducers(builder) {

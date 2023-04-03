@@ -1,5 +1,4 @@
 import { AbstractService } from "abstracts"
-import { IUnit } from "interfaces"
 import { POPULATE_UNIT } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { Types } from "mongoose"
@@ -10,7 +9,7 @@ import { Units } from "models"
 import { Move } from "./IUnitService"
 import { AdvancedError } from "utils"
 import { ChangeUnit } from 'eventEmitter'
-export default class UnitService extends AbstractService<IUnit, IUnitPullPopulate>  {
+export default class UnitService extends AbstractService<Units, IUnitPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Units, user)
     this.populate = POPULATE_UNIT

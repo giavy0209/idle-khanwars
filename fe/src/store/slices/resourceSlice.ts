@@ -46,26 +46,22 @@ const resourceSlice = createSlice({
   reducers: {
     setResources,
     setResource(state, action: PayloadAction<IResource>) {
-      const resources = [...state.resources]
-      const index = resources.findIndex(o => o._id === action.payload._id)
-      resources.splice(index, 1, {
+      const index = state.resources.findIndex(o => o._id === action.payload._id)
+      state.resources.splice(index, 1, {
         ...action.payload,
         value: Math.floor(action.payload.value)
       })
-      state.resources = [...resources]
       state.resource = {
         ...state.resource,
         [action.payload.default.key]: Math.floor(action.payload.value)
       }
     },
     setResourceBuilding(state, action: PayloadAction<IBuilding>) {
-      const resources = [...state.resources]
-      resources.forEach(resource => {
+      state.resources.forEach(resource => {
         if (resource.building._id === action.payload._id) {
           resource.building = action.payload
         }
       })
-      state.resources = resources
     }
   },
   extraReducers(builder) {

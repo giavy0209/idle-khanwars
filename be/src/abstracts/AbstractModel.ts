@@ -1,6 +1,7 @@
 import { Connection, Model, Schema } from "mongoose"
 
 export default abstract class AbtractModel<I> {
+  Doc: I
   tenantId?: string
   name: string
   schema: Schema

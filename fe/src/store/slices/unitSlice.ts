@@ -47,18 +47,14 @@ const unitSlice = createSlice({
     },
     setUnit(state, action: PayloadAction<IUnit>) {
       const index = state.units.findIndex(o => o._id === action.payload._id)
-      const units = [...state.units]
-      units.splice(index, 1, action.payload)
-      state.units = units
+      state.units.splice(index, 1, action.payload)
     },
     setUnitByBuilding(state, action: PayloadAction<IBuilding>) {
-      const units = [...state.units]
-      units.forEach(unit => {
+      state.units.forEach(unit => {
         if (unit.building._id === action.payload._id) {
           unit.building = action.payload
         }
       })
-      state.units = units
     }
   },
   extraReducers(builder) {

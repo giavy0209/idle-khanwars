@@ -1,7 +1,7 @@
 import { AbstractService } from "abstracts"
 import { POPULATE_TRAINING } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
-import { IDefaultResources, ITraining, ITrainingPullPopulate } from "interfaces"
+import { DefaultResourcesDoc, ITrainingPullPopulate } from "interfaces"
 import { IUnitFullyPopulate } from "interfaces/IUnit"
 import { IPostInput } from "./ITrainingService"
 import { AdvancedError } from "utils"
@@ -12,7 +12,7 @@ import ResourceService from "services/ResourceService"
 import BuildingService from "services/BuildingService"
 import { BUILDING } from "constant/enums"
 import { Trainings } from "models"
-export default class TrainingService extends AbstractService<ITraining, ITrainingPullPopulate>  {
+export default class TrainingService extends AbstractService<Trainings, ITrainingPullPopulate>  {
   constructor(user: IUserFullyPopulate) {
     super(Trainings, user)
     this.populate = POPULATE_TRAINING
@@ -79,7 +79,7 @@ export default class TrainingService extends AbstractService<ITraining, ITrainin
     await this.isEnoughPopulation(findUnit.castle, total * findUnit.default.population)
 
     const resourceNeed: {
-      type: IDefaultResources
+      type: DefaultResourcesDoc
       value: number
     }[] = []
 

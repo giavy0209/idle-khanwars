@@ -1,12 +1,11 @@
 import { AbstractService } from "abstracts"
-import { IUpgrade } from "interfaces"
 import { POPULATE_UPGRADE } from "constant"
 import { IUserFullyPopulate } from "interfaces/IUser"
 import { BuildingService, CastleService, ResourceService } from "services"
 import socketHandler from "socket"
 import { EVENT_SOCKET, PROGRESS } from "constant/enums"
 import { Upgrades } from "models"
-export default class UpgradeService extends AbstractService<IUpgrade>  {
+export default class UpgradeService extends AbstractService<Upgrades>  {
   constructor(user: IUserFullyPopulate) {
     super(Upgrades, user)
     this.populate = POPULATE_UPGRADE

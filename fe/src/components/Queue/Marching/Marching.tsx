@@ -1,14 +1,15 @@
-import { useAppSelector } from 'hooks'
+import { useAppDispatch, useAppSelector } from 'hooks'
 import useCountDown from 'hooks/useCountDown'
 import { IMarching, MARCHING } from 'interfaces'
-import { FC, useMemo, CSSProperties, useState } from 'react'
+import { FC, useMemo, CSSProperties, useCallback } from 'react'
 import { secondToTime } from 'utils'
 import { selectUser } from 'store/selectors'
 import renderDate from 'utils/renderDate'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfo } from '@fortawesome/free-solid-svg-icons'
-import ScrollBackground from 'components/ScrollBackground'
+import { marchingAction } from 'store/slices'
 const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
+  const dispatch = useAppDispatch()
   const countDown = useCountDown(marching.status === MARCHING.STATUS.TO_TARGET ? marching.arriveAt : marching.homeAt, false)
   const user = useAppSelector(selectUser)
   const toCoordinates = useMemo(() => {
@@ -30,11 +31,14 @@ const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
     }
     return (1 - countDown * 1000 / (endTime - startTime)) * 100
   }, [marching, countDown])
+
+  const handleSetMarchingDetail = useCallback(() => {
+    dispatch(marchingAction.setMarchingDetail(marching))
+  }, [marching, dispatch])
   return (
     <>
-
       <div className="marching">
-        <div className="open-detail">
+        <div onClick={handleSetMarchingDetail} className="open-detail">
           <FontAwesomeIcon icon={faInfo} />
         </div>
         <div className="stats">

@@ -1,9 +1,9 @@
 import { ENHANCE_TYPE, PROGRESS } from "constant/enums";
-import { Document, Types } from "mongoose";
+import { Types } from "mongoose";
 import { IUnitFullyPopulate } from "./IUnit";
 import { MergePopulate } from "./utils";
 
-export interface IEnhance extends Document {
+export interface IEnhance {
   castle: Types.ObjectId
   unit: Types.ObjectId
   type: ENHANCE_TYPE

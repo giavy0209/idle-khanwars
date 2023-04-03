@@ -5,7 +5,7 @@ import { IUserFullyPopulate } from "interfaces/IUser";
 import { FilterQuery, isValidObjectId } from "mongoose";
 import { ResponseResult } from "utils";
 
-export default class AbtractController<I, S extends AbstractService<I, any>> {
+export default class AbtractController<I, S extends AbstractService<any>> {
   Service: new (user?: IUserFullyPopulate) => S;
   constructor(Service: new (user?: IUserFullyPopulate) => S) {
     this.Service = Service
