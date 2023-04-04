@@ -8,8 +8,6 @@ const MarchingDetail: FC = function () {
   const dispatch = useAppDispatch()
 
   const marching = useAppSelector(selectMarchingDetail)
-  console.log({ marching });
-
   const handleClose = useCallback(() => {
     dispatch(marchingAction.setMarchingDetail(undefined))
   }, [dispatch])

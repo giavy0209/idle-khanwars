@@ -202,7 +202,10 @@
         display: block;
       }
     }
-
+    canvas {
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
     .horizontal-axis {
       position: absolute;
       top: 0;

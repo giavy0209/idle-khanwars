@@ -5,7 +5,6 @@ import { FC, memo } from 'react'
 const Resources: FC<{ resources?: ResourceData }> = function ({
   resources
 }) {
-  console.log(resources);
   return <>
 
   </>

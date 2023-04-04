@@ -22,7 +22,7 @@ const Map: FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const [grid, setGrid] = useState(10)
+  const [grid, setGrid] = useState(5)
   const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number, castle?: ICastle } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
   const [isShowAction, setIsShowAction] = useState(false)
