@@ -33,7 +33,11 @@ const useSocketHandlers = () => {
     action: [
       unitAction.setUnit
     ],
-    event: EVENT_SOCKET.UNIT
+    event: EVENT_SOCKET.UNIT,
+    callback() {
+      console.log('123');
+
+    },
   })
   useSocketHandler({
     action: [

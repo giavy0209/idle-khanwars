@@ -1,10 +1,9 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IResource } from "interfaces";
 import { ResourceService } from "services";
 import { ResponseResult } from "utils";
 
-export default class ResourceController extends AbstractController<IResource, ResourceService> {
+export default class ResourceController extends AbstractController<ResourceService> {
   constructor() {
     super(ResourceService)
   }

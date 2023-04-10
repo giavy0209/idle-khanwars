@@ -14,20 +14,17 @@ import { MARCHING } from 'interfaces'
 // import Joiride from './Joyride'
 import View from './View'
 
-
-
 const actions = Object.values(MARCHING.ACTION) as MARCHING.ACTION[]
 
 const Map: FC = () => {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectUser)
   const navigate = useNavigate()
-  const [grid, setGrid] = useState(5)
+  const [grid, setGrid] = useState(6)
   const [selectedGrid, setSelectedGrid] = useState<{ x: number, y: number, castle?: ICastle } | null>(null)
   const [coordinate, setCoordinate] = useState({ start: { x: 0, y: 0 }, end: { x: 4, y: 4 } })
   const [isShowAction, setIsShowAction] = useState(false)
   const [currentAction, setCurrentAction] = useState<MARCHING.ACTION | null>(null)
-
   useEffect(() => {
     dispatch(fetchMapCastles(coordinate))
   }, [coordinate, dispatch])
@@ -74,7 +71,7 @@ const Map: FC = () => {
           </div>
         </ScrollBackground>
 
-        <Actions selectedGrid={selectedGrid} currentAction={currentAction} setCurrentAction={setCurrentAction} />
+        <Actions selectedGrid={selectedGrid} currentAction={currentAction} setCurrentAction={setCurrentAction} setIsShowAction={setIsShowAction} />
 
         <div onClick={handleGoToCastle} className="castle"></div>
         {
@@ -89,7 +86,10 @@ const Map: FC = () => {
                 <Button onClick={() => setIsShowAction(!isShowAction)}>Action</Button>
               </>
               :
-              <p>Empty</p>
+              <>
+                <p>Empty</p>
+                <Button onClick={() => setIsShowAction(!isShowAction)}>Action</Button>
+              </>
           }
           {!selectedGrid?.castle && !user.isSelectStart && <Button onClick={handleBuildCastle}>Build castle</Button>}
         </div>
@@ -97,7 +97,6 @@ const Map: FC = () => {
         <View
           coordinate={coordinate}
           grid={grid}
-          selectedGrid={selectedGrid}
           setSelectedGrid={setSelectedGrid}
         />
         <Control

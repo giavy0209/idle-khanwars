@@ -1,10 +1,9 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IUpgrade } from "interfaces";
 import { UpgradeService } from "services";
 import { ResponseResult } from "utils";
 
-export default class UpgradeController extends AbstractController<IUpgrade, UpgradeService> {
+export default class UpgradeController extends AbstractController<UpgradeService> {
   constructor() {
     super(UpgradeService)
   }

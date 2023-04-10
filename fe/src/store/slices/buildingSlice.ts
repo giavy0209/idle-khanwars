@@ -35,6 +35,9 @@ const buildingSlice = createSlice({
       if (index !== -1) {
         state.buildings.splice(index, 1, action.payload)
       }
+      if (state.upgrade?._id === action.payload._id) {
+        state.upgrade = action.payload
+      }
     }
   },
   extraReducers(builder) {

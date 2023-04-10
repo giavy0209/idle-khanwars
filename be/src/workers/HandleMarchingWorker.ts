@@ -27,13 +27,14 @@ export default class HandleMarchingWorker extends AbstractWorker<IMarching> {
       })
         .populate<IMarchingPullPopulate>(POPULATE_MARCHING)
 
+
       for (const marching of marchings) {
         if (marching.status === MARCHING.STATUS.TO_TARGET) {
           marching.status = MARCHING.STATUS.GO_HOME
           const { distance, movingTime, speed } = marchingService.calcMarchingStats({
             from: marching.from.coordinate,
             to: marching.to ? marching.to.coordinate : marching.coordinates,
-            units: marching.units.map(marchingUnit => marchingUnit.unit)
+            units: marching.units.map(marchingUnit => marchingUnit.type)
           })
           const now = Date.now()
           marching.set({
@@ -55,8 +56,8 @@ export default class HandleMarchingWorker extends AbstractWorker<IMarching> {
             ChangeUnit(
               this.world.tenant,
               {
-                _id: unit.unit._id,
-                value: -unit.total,
+                _id: unit.type._id,
+                value: unit.total,
               }
             )
           })

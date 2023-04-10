@@ -1,10 +1,9 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { ICastle } from "interfaces";
 import { CastleService } from "services";
 import { ResponseResult } from "utils";
 
-export default class CastleController extends AbstractController<ICastle, CastleService> {
+export default class CastleController extends AbstractController<CastleService> {
   constructor() {
     super(CastleService)
   }

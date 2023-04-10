@@ -6,14 +6,14 @@ import { AdvancedError } from "utils";
 import PromiseRouter from "express-promise-router";
 import { IUserFullyPopulate } from "interfaces/IUser";
 
-export default abstract class AbstractRouter<C extends AbstractController<any, any>> {
+export default abstract class AbstractRouter<C extends AbstractController<any>> {
   router: Router = PromiseRouter()
   routes: {
     param?: string,
     method: string,
     authorized?: boolean
-    ref?: (req: Request, res: Response , next? : NextFunction) => void,
-    validate?: Schema ,
+    ref?: (req: Request, res: Response, next?: NextFunction) => void,
+    validate?: Schema,
     middlewares?: any[]
   }[] = [
       { method: 'GET' },
@@ -57,13 +57,13 @@ export default abstract class AbstractRouter<C extends AbstractController<any, a
       ags.push(ref.bind(this.controller))
 
       const routePath = `/${this.prefix}/${param}`
-      
+
       this.router[methodName](routePath, ...ags)
     })
   }
   isAuthorized(req: Request, _: Response, next: NextFunction) {
     if (req?.headers?.authorization?.split(' ')[0] !== 'Bearer') {
-      throw new AdvancedError(  { statusCode: 401,message: 'JWT is missing' }  )
+      throw new AdvancedError({ statusCode: 401, message: 'JWT is missing' })
     }
     let token = req.headers.authorization.split(' ')[1]
     const payload = jwt.verify(token, global.Config.JWT_SECRET) as IUserFullyPopulate

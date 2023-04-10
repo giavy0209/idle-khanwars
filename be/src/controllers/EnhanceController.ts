@@ -1,11 +1,10 @@
 import { AbstractController } from "abstracts";
 import { PROGRESS } from "constant/enums";
 import { Request, Response } from "express";
-import { IEnhance } from "interfaces";
 import { EnhanceService } from "services";
 import { ResponseResult } from "utils";
 
-export default class EnhanceController extends AbstractController<IEnhance, EnhanceService> {
+export default class EnhanceController extends AbstractController<EnhanceService> {
   constructor() {
     super(EnhanceService)
   }

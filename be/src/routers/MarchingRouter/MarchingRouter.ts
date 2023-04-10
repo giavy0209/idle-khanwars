@@ -16,8 +16,8 @@ export default class MarchingRouter extends AbstractRouter<MarchingController> {
       },
       {
         param: ':id',
-        method: 'DELETE',
-        ref: this.controller.delete
+        method: 'PATCH',
+        ref: this.controller.patch
       },
     ]
     this.regisRouter()

@@ -5,7 +5,7 @@ import { IUserFullyPopulate } from "interfaces/IUser";
 import { FilterQuery, isValidObjectId } from "mongoose";
 import { ResponseResult } from "utils";
 
-export default class AbtractController<I, S extends AbstractService<any>> {
+export default class AbtractController<S extends AbstractService<any>> {
   Service: new (user?: IUserFullyPopulate) => S;
   constructor(Service: new (user?: IUserFullyPopulate) => S) {
     this.Service = Service
@@ -15,7 +15,7 @@ export default class AbtractController<I, S extends AbstractService<any>> {
   }
   async get(req: Request, res: Response, next: NextFunction) {
     const { id } = req.params
-    const query = req.query as FilterQuery<I>
+    const query = req.query as FilterQuery<any>
     const service = this.createService(req.user)
     const { skip, limit } = req.pagin
 

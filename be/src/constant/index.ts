@@ -131,11 +131,15 @@ export const POPULATE_MARCHING = [
     populate: POPULATE_CASTLE
   },
   {
-    path: 'units.unit',
-    populate: POPULATE_UNIT
+    path: 'units',
+    populate: {
+      path: 'type',
+      populate: POPULATE_UNIT
+    }
   },
   {
-    path: 'cargo.asArray.type',
+    path: 'cagoes',
+    populate: 'type'
   }
 ]
 
@@ -157,6 +161,8 @@ export const MODEL = {
   upgrades: 'upgrades',
   castles: 'castles',
   marchings: 'marchings',
+  marching_cargoes: 'marching_cargoes',
+  marching_units: 'marching_units',
   enhances: 'enhances',
 
   default_buildings: 'default_buildings',

@@ -1,2 +1,18 @@
 .marching-detail {
+  .units {
+    .unit {
+      display: flex;
+      column-gap: 20px;
+      align-items: center;
+      + .unit {
+        margin-top: 10px;
+      }
+      .image {
+        width: 20%;
+      }
+      .info {
+        width: 80%;
+      }
+    }
+  }
 }

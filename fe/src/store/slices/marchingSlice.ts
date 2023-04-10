@@ -27,14 +27,21 @@ type PostMarching = {
   units: {
     _id: string
     selected: number
-    [k: string]: any
   }[]
 }
 
 export const postMarching = createAsyncThunk<IMarching, PostMarching>(
-  'upgrade/postMarching',
+  'marching/postMarching',
   async (marching) => {
     const res = await callAPI.post(`/marchings`, marching, { toastSuccess: true })
+    return res.data
+  }
+)
+
+export const patchMarching = createAsyncThunk<IMarching, string>(
+  'marching/patchMarching',
+  async (id) => {
+    const res = await callAPI.patch(`/marchings/${id}`, { action: 'RETURN' })
     return res.data
   }
 )

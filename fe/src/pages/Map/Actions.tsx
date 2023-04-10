@@ -12,9 +12,10 @@ interface IActions {
   selectedGrid: { x: number, y: number, castle?: ICastle } | null
   currentAction: MARCHING.ACTION | null
   setCurrentAction: Dispatch<MARCHING.ACTION | null>
+  setIsShowAction: Dispatch<boolean>
 }
 
-const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }) => {
+const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction, setIsShowAction }) => {
   const dispatch = useAppDispatch()
   const units = useAppSelector(selectAvailableUnit)
   const castle = useAppSelector(selectCastle)
@@ -73,7 +74,6 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
     if (!ishaveUnit) {
       return toast('You have to select atleast 1 unit')
     }
-
     switch (currentAction) {
       case MARCHING.ACTION.ATTACK:
       case MARCHING.ACTION.SPY:
@@ -83,7 +83,7 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
         dispatch(postMarching({
           action: currentAction,
           to: selectedGrid.castle._id,
-          units: selectedUnit
+          units: selectedUnit.map(o => ({ _id: o._id, selected: o.selected }))
         }))
         break;
       case MARCHING.ACTION.CARAVAN:
@@ -104,7 +104,9 @@ const Actions: FC<IActions> = ({ selectedGrid, currentAction, setCurrentAction }
       default:
         break;
     }
-  }, [currentAction, selectedUnit, selectedGrid, dispatch])
+    setCurrentAction(null)
+    setIsShowAction(false)
+  }, [currentAction, setCurrentAction, setIsShowAction, selectedUnit, selectedGrid, dispatch])
 
   const handleSelectAll = useCallback(() => {
     selectedUnit.forEach(unit => {

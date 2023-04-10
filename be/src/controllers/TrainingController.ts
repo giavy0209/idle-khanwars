@@ -1,9 +1,8 @@
 import { AbstractController } from "abstracts";
-import { ITraining } from "interfaces";
 import { TrainingService } from "services";
 import { Request, Response } from "express";
 import { ResponseResult } from "utils";
-export default class TraningController extends AbstractController<ITraining, TrainingService> {
+export default class TraningController extends AbstractController<TrainingService> {
   constructor() {
     super(TrainingService)
   }

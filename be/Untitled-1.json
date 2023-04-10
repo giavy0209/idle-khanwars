@@ -1,0 +1,55 @@
+{
+  "battle": {
+    "marching": "marching _id",
+    "round": [
+      "Virt round _id"
+    ]
+  },
+  "round": {
+    "battle": "battle _id",
+    "attacker": {
+      "start": [
+        "virtual round unit _id"
+      ],
+      "end": [
+        "virtual round unit _id"
+      ],
+      "dead": [
+        "virtual round unit _id"
+      ]
+    },
+    "defender": {
+      "start": [
+        "virtual round unit _id"
+      ],
+      "end": [
+        "virtual round unit _id"
+      ],
+      "dead": [
+        "virtual round unit _id"
+      ]
+    },
+    "actions": [
+      "virtual action _id"
+    ]
+  },
+  "round_unit": {
+    "type": "unit _id",
+    "total": "number",
+    "round": "round _id"
+  },
+  "action": {
+    "round": "round _id",
+    "attacker": {
+      "castle": "castle _id",
+      "unit": "unit_id",
+      "total": "number",
+      "damage": "number"
+    },
+    "defender": {
+      "castle": "castle _id",
+      "unit": "unit_id",
+      "total": "number___ total dead"
+    }
+  }
+}

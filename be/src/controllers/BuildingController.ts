@@ -1,10 +1,9 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IBuilding } from "interfaces";
 import { BuildingService } from "services";
 import { ResponseResult } from "utils";
 
-export default class BuildingController extends AbstractController<IBuilding, BuildingService> {
+export default class BuildingController extends AbstractController<BuildingService> {
   constructor() {
     super(BuildingService)
   }

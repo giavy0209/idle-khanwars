@@ -10,13 +10,16 @@ import CastleService from "services/CastleService"
 import UnitService from "services/UnitService"
 import socketHandler from "socket"
 import { AdvancedError } from "utils"
-import { ICalcMarchingStats, IPostInput } from "./IMarchingService"
+import { ICalcMarchingStats, IPatchInput, IPostInput } from "./IMarchingService"
+import MarchingUnitService from "./MarchingUnitService/MarchingUnitService"
 
 const validAction = Object.values(MARCHING.ACTION)
 export default class MarchingService extends AbstractService<Marchings, IMarchingPullPopulate>  {
+  MarchingUnitService: MarchingUnitService
   constructor(user: IUserFullyPopulate) {
     super(Marchings, user)
     this.populate = POPULATE_MARCHING
+    this.MarchingUnitService = new MarchingUnitService(this.user, this)
   }
 
   async get() {
@@ -46,7 +49,8 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
     action,
     units,
     coordinates,
-    to
+    to,
+    resources
   }: Partial<IPostInput>) {
     if (!action || !validAction.includes(action)) {
       throw new AdvancedError({ message: `${action} is invalid action` })
@@ -64,8 +68,22 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
         if (!to || !isValidObjectId(to)) {
           throw new AdvancedError({ message: `You cannot ${action} this target` })
         }
+        if (resources) {
+          throw new AdvancedError({ message: `You cannot bring resource when ${action}` })
+        }
         break
       case MARCHING.ACTION.CARAVAN:
+        if (!resources) {
+          throw new AdvancedError({ message: 'Invalid resources' })
+        }
+        resources.forEach(resource => {
+          if (!isValidObjectId(resource.type)) {
+            throw new AdvancedError({ message: 'Invalid resource type' })
+          }
+          if (Number.isNaN(resource.value)) {
+            throw new AdvancedError({ message: 'Invalid value' })
+          }
+        })
       case MARCHING.ACTION.PATROL:
         if (!isValidObjectId(to) && (!Number.isInteger(coordinates?.x) || !Number.isInteger(coordinates?.y))) {
           throw new AdvancedError({ message: `Invalid target` })
@@ -79,7 +97,8 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       action,
       units: selectedUnit,
       coordinates,
-      to
+      to,
+      resources
     }
   }
 
@@ -101,12 +120,11 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       speed
     }
   }
-
   async post({
     action,
     units,
     coordinates,
-    to
+    to,
   }: IPostInput) {
     const castleService = new CastleService(this.user)
     const unitService = new UnitService(this.user)
@@ -126,8 +144,16 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       population,
       action,
       from: fromCastle._id,
-      units: unitWithSelected,
     })
+
+    const marchingUnits = unitWithSelected.map(unit => new this.MarchingUnitService.model({
+      _id: new Types.ObjectId,
+      marching: createMarching._id,
+      total: unit.total,
+      type: unit.type
+    }))
+
+    await this.MarchingUnitService.model.insertMany(marchingUnits)
 
     let target = { x: 0, y: 0 }
     let targetUser: Types.ObjectId | null = null;
@@ -158,6 +184,7 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       units: findUnits
     })
 
+    createMarching.coordinates = target
     createMarching.distance = distance
     createMarching.speed = speed
     createMarching.arriveAt = new Date(Date.now() + movingTime)
@@ -167,7 +194,7 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       ChangeUnit(
         this.user.world.tenant,
         {
-          _id: unit.unit,
+          _id: unit.type,
           value: -unit.total,
         }
       )
@@ -180,5 +207,30 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       socketHandler(targetUser, EVENT_SOCKET.MARCHING, createMarching)
     }
     return createMarching
+  }
+
+  async patch(id: string, { action }: IPatchInput) {
+    const marching = await this.findById(id, true)
+    switch (action) {
+      case 'RETURN':
+        if (marching.status === MARCHING.STATUS.GO_HOME) {
+          throw new AdvancedError({ message: "This marching is going home" })
+        }
+        marching.status = MARCHING.STATUS.GO_HOME
+        const now = Date.now()
+        const diffTime = now - new Date(marching.startAt).getTime()
+        marching.arriveAt = new Date(now)
+        marching.homeAt = new Date(now + diffTime)
+        if (marching.to) {
+          socketHandler(marching.to.user._id, EVENT_SOCKET.MARCHING_DONE, marching)
+        }
+        break;
+
+      default:
+        break;
+    }
+    socketHandler(this.user._id, EVENT_SOCKET.MARCHING, marching)
+
+    await marching.save()
   }
 }

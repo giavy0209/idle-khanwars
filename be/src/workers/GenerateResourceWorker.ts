@@ -44,11 +44,13 @@ export default class GenerateResourceWorker extends AbstractWorker<any, any> {
         if (storage.upgrade.current.generate < resource.value + value) {
           value = storage.upgrade.current.generate - resource.value
         }
-        ChangeResource(this.world.tenant, {
-          _id: resource._id,
-          value,
-          updateAt: now
-        })
+        if (value !== 0) {
+          ChangeResource(this.world.tenant, {
+            _id: resource._id,
+            value,
+            updateAt: now
+          })
+        }
       }
     })
   }

@@ -1,10 +1,9 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IUnit } from "interfaces";
 import { UnitService } from "services";
 import { ResponseResult } from "utils";
 
-export default class UnitController extends AbstractController<IUnit, UnitService> {
+export default class UnitController extends AbstractController<UnitService> {
   constructor() {
     super(UnitService)
   }

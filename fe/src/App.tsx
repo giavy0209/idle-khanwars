@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react'
+import { useEffect } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import Routers from 'router';
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +12,13 @@ import { ROUTERS } from 'const';
 import useSocketHandlers from 'useSocketHandlers';
 import 'react-toastify/dist/ReactToastify.css';
 import useWindowSize from 'hooks/useWindowSize';
+const handleRouter = (routers: typeof Routers) => {
+  return routers.map(o => {
+    return <Route key={o.path} path={o.path} element={<o.element />} >
+      {o.children ? handleRouter(o.children) : null}
+    </Route>
+  })
+}
 function App() {
   useSocketHandlers()
   useWindowSize()
@@ -49,14 +56,6 @@ function App() {
       navigate(ROUTERS.MAP)
     }
   }, [user, token, navigate])
-
-  const handleRouter = useCallback((routers: typeof Routers) => {
-    return routers.map(o => {
-      return <Route key={o.path} path={o.path} element={<o.element />} >
-        {o.children ? handleRouter(o.children) : null}
-      </Route>
-    })
-  }, [])
 
   return (
     <div id="App">

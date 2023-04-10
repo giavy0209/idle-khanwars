@@ -1,4 +1,5 @@
 import { ICastle } from "./ICastle"
+import { IUnit } from "./IUnit"
 import { ResourceData } from "./Utils"
 export namespace MARCHING {
   export enum STATUS {
@@ -24,13 +25,14 @@ export interface IMarching {
   population: number
   from: ICastle
   to?: ICastle
-  coordinate: {
+  coordinates: {
     x: number
     y: number
   }
   units: {
-    type: string
-    value: number
+    type: IUnit
+    total: number
+    _id: string
   }[]
   cargo: ResourceData
 }

@@ -45,7 +45,7 @@ export default class UnitService extends AbstractService<Units, IUnitPullPopulat
   isEnoughUnit(units: IUnitFullyPopulate[], selectedUnits: { _id: string | Types.ObjectId, selected: number }[]) {
     const selectedUnit: {
       total: number,
-      unit: Types.ObjectId
+      type: Types.ObjectId
     }[] = []
 
     for (const unit of units) {
@@ -56,7 +56,7 @@ export default class UnitService extends AbstractService<Units, IUnitPullPopulat
       if (totalSelected.selected > unit.total) {
         throw new AdvancedError({ message: `You don't have enough ${unit.default.name} ${unit.total}(${totalSelected.selected})` })
       }
-      selectedUnit.push({ unit: unit._id, total: totalSelected.selected })
+      selectedUnit.push({ type: unit._id, total: totalSelected.selected })
     }
     return selectedUnit
   }

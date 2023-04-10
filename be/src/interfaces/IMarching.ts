@@ -20,7 +20,7 @@ export interface IMarching {
   status: MARCHING.STATUS
   action: MARCHING.ACTION
   units: {
-    unit: Types.ObjectId
+    type: Types.ObjectId
     total: number
   }[]
   cargo: {
@@ -39,7 +39,7 @@ export interface IMarching {
 
 export interface IMarchingPullPopulate {
   units: {
-    unit: IUnitFullyPopulate,
+    type: IUnitFullyPopulate,
     total: number
   }[]
   from: ICastleFullyPopulate

@@ -1,11 +1,10 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IWorld } from "interfaces";
 import { WorldService } from "services";
 import { ResponseResult } from "utils";
 import initTenant from "utils/initTenant";
 
-export default class WorldController extends AbstractController<IWorld, WorldService> {
+export default class WorldController extends AbstractController<WorldService> {
   constructor() {
     super(WorldService)
   }

@@ -16,7 +16,7 @@ const Marching: FC<{ marching: IMarching }> = ({ marching }) => {
     if (marching.to) {
       return marching.to.coordinate
     }
-    return marching.coordinate
+    return marching.coordinates
   }, [marching])
 
   const percent = useMemo(() => {

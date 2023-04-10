@@ -1,10 +1,9 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IMarching } from "interfaces";
 import { MarchingService } from "services";
 import { ResponseResult } from "utils";
 
-export default class MarchingController extends AbstractController<IMarching, MarchingService> {
+export default class MarchingController extends AbstractController<MarchingService> {
   constructor() {
     super(MarchingService)
   }
@@ -15,13 +14,23 @@ export default class MarchingController extends AbstractController<IMarching, Ma
   }
 
   async post(req: Request, res: Response) {
-
     const service = this.createService(req.user)
     const input = service.validPostInput(req.body)
     const data = await service.post(input)
     res.send(new ResponseResult({
       data,
       message: `Send unit for ${input.action} successfully`
+    }))
+  }
+
+  async patch(req: Request, res: Response) {
+    const { id } = req.params
+    const { action } = req.body
+    const service = this.createService(req.user)
+    const data = await service.patch(id, { action })
+    res.send(new ResponseResult({
+      data,
+      message: `Send command ${action} to marching successfully`
     }))
   }
 }

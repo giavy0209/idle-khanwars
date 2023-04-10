@@ -1,11 +1,10 @@
 import { AbstractController } from "abstracts";
 import { Request, Response } from "express";
-import { IUser } from "interfaces";
 import { IUserFullyPopulate } from "interfaces/IUser";
 import { UserService, WorldService } from "services";
 import { ResponseResult } from "utils";
 
-export default class UserController extends AbstractController<IUser, UserService> {
+export default class UserController extends AbstractController<UserService> {
   constructor() {
     super(UserService)
   }
