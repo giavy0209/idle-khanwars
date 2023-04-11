@@ -2,6 +2,7 @@ import { AbstractModel } from "abstracts";
 import { IUnit } from "interfaces";
 import { Schema } from "mongoose";
 import { MODEL } from "constant";
+import { EnhanceDefination } from "./utils";
 
 class Units extends AbstractModel<IUnit> {
   constructor(tenantId: string) {
@@ -13,16 +14,8 @@ class Units extends AbstractModel<IUnit> {
       total: { type: Number, default: 0 },
       inTower: { type: Number, default: 0 },
       enhance: {
-        current: {
-          hp: { type: Schema.Types.ObjectId, ref: MODEL.default_enhances },
-          cargo: { type: Schema.Types.ObjectId, ref: MODEL.default_enhances },
-          attack: { type: Schema.Types.ObjectId, ref: MODEL.default_enhances },
-        },
-        next: {
-          hp: { type: Schema.Types.ObjectId, ref: MODEL.default_enhances },
-          cargo: { type: Schema.Types.ObjectId, ref: MODEL.default_enhances },
-          attack: { type: Schema.Types.ObjectId, ref: MODEL.default_enhances },
-        }
+        current: EnhanceDefination,
+        next: EnhanceDefination
       }
     }, {
       timestamps: true

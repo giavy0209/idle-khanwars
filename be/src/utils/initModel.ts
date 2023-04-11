@@ -10,6 +10,8 @@ export default function initModel(world: IWorld) {
 
   models.forEach(model => {
     const ModelClass = require(path.join(__dirname, '..', 'models', model)).default as new (tenant: string) => AbstractModel<any>
-    new ModelClass(world.tenant).getInstance()
+    if (ModelClass) {
+      new ModelClass(world.tenant).getInstance()
+    }
   })
 }

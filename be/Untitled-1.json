@@ -49,7 +49,8 @@
     "defender": {
       "castle": "castle _id",
       "unit": "unit_id",
-      "total": "number___ total dead"
+      "total": "number___ total dead",
+      "type": "unit type"
     }
   }
 }

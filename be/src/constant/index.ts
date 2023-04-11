@@ -1,3 +1,4 @@
+import { UNIT } from "./enums"
 
 export const HTTPSTATUS = {
   UNKNOWN: 0,
@@ -125,6 +126,20 @@ export const POPULATE_UPGRADE = [
   }
 ]
 
+export const POPULATE_MARCHING_UNIT = [
+  {
+    path: 'type',
+    populate: POPULATE_UNIT
+  },
+  {
+    path: 'enhance',
+    populate: {
+      path: "hp attack cargo",
+      populate: POPULATE_DEFAULT_ENHANCE
+    }
+  }
+]
+
 export const POPULATE_MARCHING = [
   {
     path: 'from to',
@@ -132,15 +147,8 @@ export const POPULATE_MARCHING = [
   },
   {
     path: 'units',
-    populate: {
-      path: 'type',
-      populate: POPULATE_UNIT
-    }
+    populate: POPULATE_MARCHING_UNIT
   },
-  {
-    path: 'cagoes',
-    populate: 'type'
-  }
 ]
 
 export const POPULATE_ENHANCE = [
@@ -165,6 +173,12 @@ export const MODEL = {
   marching_units: 'marching_units',
   enhances: 'enhances',
 
+  battles: 'battles',
+  battle_rounds: 'battle_rounds',
+  battle_round_units: 'battle_round_units',
+  battle_turns: 'battle_turns',
+  battle_actions: 'battle_actions',
+
   default_buildings: 'default_buildings',
   default_upgrades: 'default_upgrades',
   default_resources: 'default_resources',
@@ -172,3 +186,10 @@ export const MODEL = {
   default_unit_types: 'default_unit_types',
   default_enhances: 'default_enhances',
 }
+
+export const UNIT_ORDER = [
+  UNIT.TYPE.SIEGE,
+  UNIT.TYPE.ARCHERS,
+  UNIT.TYPE.CAVALRY,
+  UNIT.TYPE.INFANTRY
+]

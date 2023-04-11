@@ -51,3 +51,32 @@ export namespace MARCHING {
     CARAVAN = 'CARAVAN',
   }
 }
+export namespace BATTLE {
+  export namespace ROUND {
+    export namespace UNIT {
+      export enum OWNER {
+        ATTACKER_START = "ATTACKER_START",
+        ATTACKER_END = "ATTACKER_END",
+        ATTACKER_DEAD = "ATTACKER_DEAD",
+        DEFENDER_START = "DEFENDER_START",
+        DEFENDER_END = "DEFENDER_END",
+        DEFENDER_DEAD = "DEFENDER_DEAD",
+      }
+    }
+    export namespace TURN {
+      export enum OWNER {
+        ATTACKER = "ATTACKER",
+        DEFENDER = "DEFENDER"
+      }
+    }
+  }
+}
+
+export namespace UNIT {
+  export enum TYPE {
+    INFANTRY = "INFANTRY",
+    ARCHERS = "ARCHERS",
+    CAVALRY = "CAVALRY",
+    SIEGE = "SIEGE"
+  }
+}

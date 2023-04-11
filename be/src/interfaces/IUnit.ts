@@ -1,7 +1,7 @@
 import { HydratedDocument, Types, UnpackedIntersection } from "mongoose";
 import { IBuildingFullyPopulate } from "./IBuilding";
-import { IDefaultEnhanceFullyPopulate } from "./IDefaultEnhance";
 import { IDefaultUnitFullyPopulate } from "./IDefaultUnits";
+import { IEnhanceDefination, IEnhanceDefinationFullyPopulate } from "./utils";
 
 export interface IUnit {
   castle: Types.ObjectId
@@ -10,31 +10,15 @@ export interface IUnit {
   total: number
   inTower: number
   enhance: {
-    current: {
-      hp: Types.ObjectId
-      cargo: Types.ObjectId
-      attack: Types.ObjectId
-    }
-    next: {
-      hp: Types.ObjectId
-      cargo: Types.ObjectId
-      attack: Types.ObjectId
-    }
+    current: IEnhanceDefination
+    next: IEnhanceDefination
   }
 }
 
 export interface IUnitPullPopulate {
   enhance: {
-    current: {
-      hp: IDefaultEnhanceFullyPopulate
-      cargo: IDefaultEnhanceFullyPopulate
-      attack: IDefaultEnhanceFullyPopulate
-    }
-    next: {
-      hp: IDefaultEnhanceFullyPopulate
-      cargo: IDefaultEnhanceFullyPopulate
-      attack: IDefaultEnhanceFullyPopulate
-    }
+    current: IEnhanceDefinationFullyPopulate
+    next: IEnhanceDefinationFullyPopulate
   }
   building: IBuildingFullyPopulate,
   default: IDefaultUnitFullyPopulate

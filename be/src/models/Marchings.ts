@@ -39,11 +39,11 @@ class Marchings extends AbstractModel<IMarching> {
       localField: '_id',
       foreignField: 'marching'
     })
-    this.schema.virtual('cargoes', {
-      ref: MODEL.marching_cargoes,
-      localField: '_id',
-      foreignField: 'marching'
-    })
+    // this.schema.virtual('cargoes', {
+    //   ref: MODEL.marching_cargoes,
+    //   localField: '_id',
+    //   foreignField: 'marching'
+    // })
   }
 }
 

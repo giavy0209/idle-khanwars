@@ -12,10 +12,12 @@ import socketHandler from "socket"
 import { AdvancedError } from "utils"
 import { ICalcMarchingStats, IPatchInput, IPostInput } from "./IMarchingService"
 import MarchingUnitService from "./MarchingUnitService/MarchingUnitService"
+import handleMarching from "./handleMarching"
 
 const validAction = Object.values(MARCHING.ACTION)
 export default class MarchingService extends AbstractService<Marchings, IMarchingPullPopulate>  {
   MarchingUnitService: MarchingUnitService
+  handleMarching = handleMarching
   constructor(user: IUserFullyPopulate) {
     super(Marchings, user)
     this.populate = POPULATE_MARCHING
@@ -150,7 +152,12 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       _id: new Types.ObjectId,
       marching: createMarching._id,
       total: unit.total,
-      type: unit.type
+      type: unit.type._id,
+      enhance: {
+        attack: unit.type.enhance.current.attack._id,
+        hp: unit.type.enhance.current.hp._id,
+        cargo: unit.type.enhance.current.cargo._id,
+      }
     }))
 
     await this.MarchingUnitService.model.insertMany(marchingUnits)
@@ -194,7 +201,7 @@ export default class MarchingService extends AbstractService<Marchings, IMarchin
       ChangeUnit(
         this.user.world.tenant,
         {
-          _id: unit.type,
+          _id: unit.type._id,
           value: -unit.total,
         }
       )
