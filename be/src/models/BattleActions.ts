@@ -12,14 +12,17 @@ class BattleRounds extends AbstractModel<IBattleAction> {
         attacker: {
           castle: { type: Schema.Types.ObjectId, ref: MODEL.castles },
           unit: { type: Schema.Types.ObjectId, ref: MODEL.marching_units },
-          total: { type: Number },
-          damage: { type: Number },
+          totalUnit: { type: Number },
+          totalDamage: { type: Number },
+          remaining: { type: Number },
           type: { type: Schema.Types.ObjectId, ref: MODEL.default_unit_types }
         },
         defender: {
           castle: { type: Schema.Types.ObjectId, ref: MODEL.castles },
           unit: { type: Schema.Types.ObjectId, ref: MODEL.marching_units },
-          total: { type: Number },
+          totalUnit: { type: Number },
+          totalHP: { type: Number },
+          remaining: { type: Number },
           type: { type: Schema.Types.ObjectId, ref: MODEL.default_unit_types }
         }
       },

@@ -3,7 +3,7 @@ import { DefaultBuildingDoc } from "./IDefaultBuilding";
 import { DefaultResourcesDoc } from "./IDefaultResources";
 import { DefaultUnitTypeDoc } from "./IDefaultUnitType";
 import { MergePopulate } from "./utils";
-import { DefaultUnitTypes } from "models";
+import { UNIT } from "constant/enums";
 export interface IDefaultUnits {
   name: string
   key: string
@@ -46,7 +46,7 @@ export interface IDefaultUnits {
 }
 
 export interface IDefaultUnitsPullPopulate {
-  type: DefaultUnitTypes,
+  type: DefaultUnitTypeDoc,
   building: DefaultBuildingDoc,
   resources: {
     asArray: {

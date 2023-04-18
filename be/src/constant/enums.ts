@@ -74,9 +74,9 @@ export namespace BATTLE {
 
 export namespace UNIT {
   export enum TYPE {
-    INFANTRY = "INFANTRY",
-    ARCHERS = "ARCHERS",
-    CAVALRY = "CAVALRY",
-    SIEGE = "SIEGE"
+    INFANTRY = "Infantry",
+    ARCHERS = "Archers",
+    CAVALRY = "Cavalry",
+    SIEGE = "Siege"
   }
 }

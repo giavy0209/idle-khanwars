@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import { MergePopulate } from "./utils";
 import { BATTLE } from "constant/enums";
-import { IMarchingFullyPopulate } from "./IMarching";
+import { MarchingUnitFullyPopulate } from "./IMarchingUnit";
 
 export interface IBattleRoundUnit {
   type: Types.ObjectId
@@ -11,7 +11,7 @@ export interface IBattleRoundUnit {
 }
 
 export interface IBattleRoundUnitPullPopulate {
-  type: IMarchingFullyPopulate
+  type: MarchingUnitFullyPopulate
 }
 
 export type IBattleRoundUnitFullyPopulate = MergePopulate<IBattleRoundUnit, IBattleRoundUnitPullPopulate>

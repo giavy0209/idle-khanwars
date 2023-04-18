@@ -1,4 +1,4 @@
-import { UNIT } from "./enums"
+import { BATTLE, UNIT } from "./enums"
 
 export const HTTPSTATUS = {
   UNKNOWN: 0,
@@ -193,3 +193,5 @@ export const UNIT_ORDER = [
   UNIT.TYPE.CAVALRY,
   UNIT.TYPE.INFANTRY
 ]
+
+export const OWNER_TURN = Object.values(BATTLE.ROUND.TURN.OWNER)

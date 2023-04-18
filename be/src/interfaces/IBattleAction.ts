@@ -9,14 +9,18 @@ export interface IBattleAction {
   attacker: {
     castle: Types.ObjectId
     unit: Types.ObjectId
-    total: number
+    totalUnit: number
+    totalHP: number
+    remaining: number
     damage: number
     type: Types.ObjectId
   }
   defender: {
     castle: Types.ObjectId
     unit: Types.ObjectId
-    total: number
+    totalUnit: number
+    totalHP: number
+    remaining: number
     type: Types.ObjectId
   }
 }

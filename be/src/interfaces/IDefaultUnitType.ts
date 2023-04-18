@@ -1,5 +1,7 @@
+import { UNIT } from "constant/enums"
+
 export interface IDefaultUnitType {
-  name: string
+  name: UNIT.TYPE
   key: string
   order: number
 }

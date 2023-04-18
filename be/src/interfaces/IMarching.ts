@@ -1,9 +1,6 @@
 import { MARCHING } from "constant/enums";
 import { HydratedDocument, Types, UnpackedIntersection } from "mongoose";
-import { ICastleFullyPopulate } from "./ICastle";
-import { IDefaultResources } from "./IDefaultResources";
-import { IUnitFullyPopulate } from "./IUnit";
-import { IEnhanceDefinationFullyPopulate } from "./utils";
+import { MarchingUnitFullyPopulate, IDefaultResources, ICastleFullyPopulate } from ".";
 
 export interface IMarching {
   startAt: Date
@@ -35,11 +32,7 @@ export interface IMarching {
 }
 
 export interface IMarchingPullPopulate {
-  units: {
-    type: IUnitFullyPopulate,
-    total: number
-    enhance: IEnhanceDefinationFullyPopulate
-  }[]
+  units: MarchingUnitFullyPopulate[]
   from: ICastleFullyPopulate
   to: ICastleFullyPopulate
   cargo: {
