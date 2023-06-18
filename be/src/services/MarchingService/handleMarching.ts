@@ -94,6 +94,7 @@ export default async function handleMarching(
               cloneAttacketUnit,
               defenderUnit
             )
+            
             if (action.defender.remaining <= 0) {
               currentDefenseUnit.splice(0, 1)
             }

@@ -1,0 +1,3578 @@
+[
+  {
+    "name": "Gold Mine",
+    "key": "GOLD_MIME",
+    "resource": "gold",
+    "description": "Gold is one of the four primary resources in the game. Like in the real world your leaders will need gold to construct buildings and to train an army. By constructing a higher level of the gold mine, your income of gold per hour will rise",
+    "type": "RESOURCE",
+    "path": "/buildings/gold-mine.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 100,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 30,
+        "iron": 65,
+        "wood": 40,
+        "food": 45,
+        "generate": 150,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 47,
+        "iron": 103,
+        "wood": 63,
+        "food": 71,
+        "generate": 176,
+        "time": 3
+      },
+      {
+        "level": 3,
+        "gold": 60,
+        "iron": 130,
+        "wood": 80,
+        "food": 90,
+        "generate": 206,
+        "time": 4
+      },
+      {
+        "level": 4,
+        "gold": 75,
+        "iron": 163,
+        "wood": 100,
+        "food": 113,
+        "generate": 236,
+        "time": 5
+      },
+      {
+        "level": 5,
+        "gold": 95,
+        "iron": 206,
+        "wood": 127,
+        "food": 142,
+        "generate": 270,
+        "time": 6
+      },
+      {
+        "level": 6,
+        "gold": 120,
+        "iron": 260,
+        "wood": 160,
+        "food": 180,
+        "generate": 311,
+        "time": 120
+      },
+      {
+        "level": 7,
+        "gold": 151,
+        "iron": 327,
+        "wood": 201,
+        "food": 226,
+        "generate": 356,
+        "time": 151
+      },
+      {
+        "level": 8,
+        "gold": 190,
+        "iron": 412,
+        "wood": 254,
+        "food": 285,
+        "generate": 405,
+        "time": 190
+      },
+      {
+        "level": 9,
+        "gold": 240,
+        "iron": 520,
+        "wood": 320,
+        "food": 360,
+        "generate": 461,
+        "time": 240
+      },
+      {
+        "level": 10,
+        "gold": 302,
+        "iron": 655,
+        "wood": 403,
+        "food": 453,
+        "generate": 530,
+        "time": 302
+      },
+      {
+        "level": 11,
+        "gold": 381,
+        "iron": 826,
+        "wood": 508,
+        "food": 571,
+        "generate": 605,
+        "time": 381
+      },
+      {
+        "level": 12,
+        "gold": 480,
+        "iron": 1040,
+        "wood": 640,
+        "food": 720,
+        "generate": 710,
+        "time": 480
+      },
+      {
+        "level": 13,
+        "gold": 605,
+        "iron": 1311,
+        "wood": 807,
+        "food": 907,
+        "generate": 806,
+        "time": 605
+      },
+      {
+        "level": 14,
+        "gold": 762,
+        "iron": 1652,
+        "wood": 1016,
+        "food": 1143,
+        "generate": 935,
+        "time": 763
+      },
+      {
+        "level": 15,
+        "gold": 960,
+        "iron": 2081,
+        "wood": 1281,
+        "food": 1441,
+        "generate": 1055,
+        "time": 961
+      },
+      {
+        "level": 16,
+        "gold": 1210,
+        "iron": 2623,
+        "wood": 1614,
+        "food": 1816,
+        "generate": 1215,
+        "time": 1211
+      },
+      {
+        "level": 17,
+        "gold": 1525,
+        "iron": 3305,
+        "wood": 2034,
+        "food": 2288,
+        "generate": 1425,
+        "time": 1525
+      },
+      {
+        "level": 18,
+        "gold": 1922,
+        "iron": 4164,
+        "wood": 2562,
+        "food": 2883,
+        "generate": 1620,
+        "time": 1922
+      },
+      {
+        "level": 19,
+        "gold": 2421,
+        "iron": 5247,
+        "wood": 3229,
+        "food": 3632,
+        "generate": 1860,
+        "time": 2422
+      },
+      {
+        "level": 20,
+        "gold": 3051,
+        "iron": 6611,
+        "wood": 4068,
+        "food": 4577,
+        "generate": 2141,
+        "time": 3052
+      },
+      {
+        "level": 21,
+        "gold": 3845,
+        "iron": 8330,
+        "wood": 5126,
+        "food": 5767,
+        "generate": 2450,
+        "time": 3845
+      },
+      {
+        "level": 22,
+        "gold": 4844,
+        "iron": 10497,
+        "wood": 6459,
+        "food": 7267,
+        "generate": 2750,
+        "time": 4845
+      },
+      {
+        "level": 23,
+        "gold": 6104,
+        "iron": 13226,
+        "wood": 8139,
+        "food": 9156,
+        "generate": 3251,
+        "time": 6104
+      },
+      {
+        "level": 24,
+        "gold": 7691,
+        "iron": 16665,
+        "wood": 10255,
+        "food": 11537,
+        "generate": 3750,
+        "time": 7691
+      },
+      {
+        "level": 25,
+        "gold": 9691,
+        "iron": 20997,
+        "wood": 12921,
+        "food": 14537,
+        "generate": 4301,
+        "time": 9691
+      },
+      {
+        "level": 26,
+        "gold": 12211,
+        "iron": 26457,
+        "wood": 16281,
+        "food": 18316,
+        "generate": 4935,
+        "time": 12211
+      },
+      {
+        "level": 27,
+        "gold": 15386,
+        "iron": 33336,
+        "wood": 20514,
+        "food": 23079,
+        "generate": 5685,
+        "time": 15386
+      },
+      {
+        "level": 28,
+        "gold": 19386,
+        "iron": 42003,
+        "wood": 25848,
+        "food": 29079,
+        "generate": 6540,
+        "time": 19386
+      },
+      {
+        "level": 29,
+        "gold": 24426,
+        "iron": 52924,
+        "wood": 32569,
+        "food": 36640,
+        "generate": 7500,
+        "time": 24427
+      },
+      {
+        "level": 30,
+        "gold": 30777,
+        "iron": 66685,
+        "wood": 41037,
+        "food": 46166,
+        "generate": 8501,
+        "time": 30778
+      }
+    ]
+  },
+  {
+    "name": "Iron Mine",
+    "key": "IRON_MINE",
+    "resource": "iron",
+    "description": "Iron is a very important resource, imagine building without using iron or an army without iron swords and armour. You gain iron from your iron mine.",
+    "type": "RESOURCE",
+    "path": "/buildings/iron-mine.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 100,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 60,
+        "iron": 35,
+        "wood": 55,
+        "food": 45,
+        "generate": 150,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 95,
+        "iron": 55,
+        "wood": 87,
+        "food": 71,
+        "generate": 176,
+        "time": 3
+      },
+      {
+        "level": 3,
+        "gold": 120,
+        "iron": 70,
+        "wood": 110,
+        "food": 90,
+        "generate": 206,
+        "time": 4
+      },
+      {
+        "level": 4,
+        "gold": 151,
+        "iron": 88,
+        "wood": 138,
+        "food": 113,
+        "generate": 236,
+        "time": 5
+      },
+      {
+        "level": 5,
+        "gold": 190,
+        "iron": 111,
+        "wood": 174,
+        "food": 142,
+        "generate": 270,
+        "time": 6
+      },
+      {
+        "level": 6,
+        "gold": 240,
+        "iron": 140,
+        "wood": 220,
+        "food": 180,
+        "generate": 311,
+        "time": 124
+      },
+      {
+        "level": 7,
+        "gold": 302,
+        "iron": 176,
+        "wood": 277,
+        "food": 226,
+        "generate": 356,
+        "time": 156
+      },
+      {
+        "level": 8,
+        "gold": 381,
+        "iron": 222,
+        "wood": 349,
+        "food": 285,
+        "generate": 405,
+        "time": 197
+      },
+      {
+        "level": 9,
+        "gold": 480,
+        "iron": 280,
+        "wood": 440,
+        "food": 360,
+        "generate": 461,
+        "time": 248
+      },
+      {
+        "level": 10,
+        "gold": 605,
+        "iron": 352,
+        "wood": 554,
+        "food": 453,
+        "generate": 530,
+        "time": 313
+      },
+      {
+        "level": 11,
+        "gold": 762,
+        "iron": 444,
+        "wood": 698,
+        "food": 571,
+        "generate": 605,
+        "time": 394
+      },
+      {
+        "level": 12,
+        "gold": 960,
+        "iron": 560,
+        "wood": 880,
+        "food": 720,
+        "generate": 710,
+        "time": 496
+      },
+      {
+        "level": 13,
+        "gold": 1210,
+        "iron": 706,
+        "wood": 1109,
+        "food": 907,
+        "generate": 806,
+        "time": 625
+      },
+      {
+        "level": 14,
+        "gold": 1525,
+        "iron": 889,
+        "wood": 1398,
+        "food": 1143,
+        "generate": 935,
+        "time": 788
+      },
+      {
+        "level": 15,
+        "gold": 1921,
+        "iron": 1121,
+        "wood": 1761,
+        "food": 1441,
+        "generate": 1055,
+        "time": 993
+      },
+      {
+        "level": 16,
+        "gold": 2421,
+        "iron": 1412,
+        "wood": 2219,
+        "food": 1816,
+        "generate": 1215,
+        "time": 1251
+      },
+      {
+        "level": 17,
+        "gold": 3051,
+        "iron": 1779,
+        "wood": 2796,
+        "food": 2288,
+        "generate": 1425,
+        "time": 1576
+      },
+      {
+        "level": 18,
+        "gold": 3844,
+        "iron": 2242,
+        "wood": 3523,
+        "food": 2883,
+        "generate": 1620,
+        "time": 1986
+      },
+      {
+        "level": 19,
+        "gold": 4843,
+        "iron": 2825,
+        "wood": 4440,
+        "food": 3632,
+        "generate": 1860,
+        "time": 2503
+      },
+      {
+        "level": 20,
+        "gold": 6103,
+        "iron": 3560,
+        "wood": 5594,
+        "food": 4577,
+        "generate": 2141,
+        "time": 3153
+      },
+      {
+        "level": 21,
+        "gold": 7690,
+        "iron": 4485,
+        "wood": 7049,
+        "food": 5767,
+        "generate": 2450,
+        "time": 3973
+      },
+      {
+        "level": 22,
+        "gold": 9689,
+        "iron": 5652,
+        "wood": 8882,
+        "food": 7267,
+        "generate": 2750,
+        "time": 5006
+      },
+      {
+        "level": 23,
+        "gold": 12208,
+        "iron": 7121,
+        "wood": 11191,
+        "food": 9156,
+        "generate": 3251,
+        "time": 6308
+      },
+      {
+        "level": 24,
+        "gold": 15383,
+        "iron": 8973,
+        "wood": 14101,
+        "food": 11537,
+        "generate": 3750,
+        "time": 7948
+      },
+      {
+        "level": 25,
+        "gold": 19382,
+        "iron": 11306,
+        "wood": 17767,
+        "food": 14537,
+        "generate": 4301,
+        "time": 10014
+      },
+      {
+        "level": 26,
+        "gold": 24422,
+        "iron": 14246,
+        "wood": 22387,
+        "food": 18316,
+        "generate": 4935,
+        "time": 12618
+      },
+      {
+        "level": 27,
+        "gold": 30772,
+        "iron": 17950,
+        "wood": 28207,
+        "food": 23079,
+        "generate": 5685,
+        "time": 15899
+      },
+      {
+        "level": 28,
+        "gold": 38772,
+        "iron": 22617,
+        "wood": 35541,
+        "food": 29079,
+        "generate": 6540,
+        "time": 20032
+      },
+      {
+        "level": 29,
+        "gold": 48853,
+        "iron": 28497,
+        "wood": 44782,
+        "food": 36640,
+        "generate": 7500,
+        "time": 25241
+      },
+      {
+        "level": 30,
+        "gold": 61555,
+        "iron": 35907,
+        "wood": 56425,
+        "food": 46166,
+        "generate": 8501,
+        "time": 31804
+      }
+    ]
+  },
+  {
+    "name": "Lumberjacks",
+    "key": "LUMBERJACKS",
+    "resource": "wood",
+    "description": "Just like iron, you will also need wood for your construction works. Make sure you develop the Lumberjacks, so that you can gain more wood per hour.",
+    "type": "RESOURCE",
+    "path": "/buildings/lumberjack.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 100,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 65,
+        "iron": 55,
+        "wood": 35,
+        "food": 40,
+        "generate": 150,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 103,
+        "iron": 87,
+        "wood": 55,
+        "food": 63,
+        "generate": 176,
+        "time": 3
+      },
+      {
+        "level": 3,
+        "gold": 130,
+        "iron": 110,
+        "wood": 70,
+        "food": 80,
+        "generate": 206,
+        "time": 4
+      },
+      {
+        "level": 4,
+        "gold": 163,
+        "iron": 138,
+        "wood": 88,
+        "food": 100,
+        "generate": 236,
+        "time": 5
+      },
+      {
+        "level": 5,
+        "gold": 206,
+        "iron": 174,
+        "wood": 111,
+        "food": 127,
+        "generate": 270,
+        "time": 6
+      },
+      {
+        "level": 6,
+        "gold": 260,
+        "iron": 220,
+        "wood": 140,
+        "food": 160,
+        "generate": 311,
+        "time": 122
+      },
+      {
+        "level": 7,
+        "gold": 327,
+        "iron": 277,
+        "wood": 176,
+        "food": 201,
+        "generate": 356,
+        "time": 154
+      },
+      {
+        "level": 8,
+        "gold": 412,
+        "iron": 349,
+        "wood": 222,
+        "food": 254,
+        "generate": 405,
+        "time": 194
+      },
+      {
+        "level": 9,
+        "gold": 520,
+        "iron": 440,
+        "wood": 280,
+        "food": 320,
+        "generate": 461,
+        "time": 245
+      },
+      {
+        "level": 10,
+        "gold": 655,
+        "iron": 554,
+        "wood": 352,
+        "food": 403,
+        "generate": 530,
+        "time": 309
+      },
+      {
+        "level": 11,
+        "gold": 826,
+        "iron": 698,
+        "wood": 444,
+        "food": 508,
+        "generate": 605,
+        "time": 389
+      },
+      {
+        "level": 12,
+        "gold": 1040,
+        "iron": 880,
+        "wood": 560,
+        "food": 640,
+        "generate": 710,
+        "time": 490
+      },
+      {
+        "level": 13,
+        "gold": 1311,
+        "iron": 1109,
+        "wood": 706,
+        "food": 807,
+        "generate": 806,
+        "time": 617
+      },
+      {
+        "level": 14,
+        "gold": 1652,
+        "iron": 1398,
+        "wood": 889,
+        "food": 1016,
+        "generate": 935,
+        "time": 778
+      },
+      {
+        "level": 15,
+        "gold": 2081,
+        "iron": 1761,
+        "wood": 1121,
+        "food": 1281,
+        "generate": 1055,
+        "time": 980
+      },
+      {
+        "level": 16,
+        "gold": 2623,
+        "iron": 2219,
+        "wood": 1412,
+        "food": 1614,
+        "generate": 1215,
+        "time": 1235
+      },
+      {
+        "level": 17,
+        "gold": 3305,
+        "iron": 2796,
+        "wood": 1779,
+        "food": 2034,
+        "generate": 1425,
+        "time": 1556
+      },
+      {
+        "level": 18,
+        "gold": 4164,
+        "iron": 3523,
+        "wood": 2242,
+        "food": 2562,
+        "generate": 1620,
+        "time": 1961
+      },
+      {
+        "level": 19,
+        "gold": 5247,
+        "iron": 4440,
+        "wood": 2825,
+        "food": 3229,
+        "generate": 1860,
+        "time": 2470
+      },
+      {
+        "level": 20,
+        "gold": 6611,
+        "iron": 5594,
+        "wood": 3560,
+        "food": 4068,
+        "generate": 2141,
+        "time": 3113
+      },
+      {
+        "level": 21,
+        "gold": 8330,
+        "iron": 7049,
+        "wood": 4485,
+        "food": 5126,
+        "generate": 2450,
+        "time": 3922
+      },
+      {
+        "level": 22,
+        "gold": 10497,
+        "iron": 8882,
+        "wood": 5652,
+        "food": 6459,
+        "generate": 2750,
+        "time": 4942
+      },
+      {
+        "level": 23,
+        "gold": 13226,
+        "iron": 11191,
+        "wood": 7121,
+        "food": 8139,
+        "generate": 3251,
+        "time": 6226
+      },
+      {
+        "level": 24,
+        "gold": 16665,
+        "iron": 14101,
+        "wood": 8973,
+        "food": 10255,
+        "generate": 3750,
+        "time": 7845
+      },
+      {
+        "level": 25,
+        "gold": 20997,
+        "iron": 17767,
+        "wood": 11306,
+        "food": 12921,
+        "generate": 4301,
+        "time": 9885
+      },
+      {
+        "level": 26,
+        "gold": 26457,
+        "iron": 22387,
+        "wood": 14246,
+        "food": 16281,
+        "generate": 4935,
+        "time": 12455
+      },
+      {
+        "level": 27,
+        "gold": 33336,
+        "iron": 28207,
+        "wood": 17950,
+        "food": 20514,
+        "generate": 5685,
+        "time": 15694
+      },
+      {
+        "level": 28,
+        "gold": 42003,
+        "iron": 35541,
+        "wood": 22617,
+        "food": 25848,
+        "generate": 6540,
+        "time": 19774
+      },
+      {
+        "level": 29,
+        "gold": 52924,
+        "iron": 44782,
+        "wood": 28497,
+        "food": 32569,
+        "generate": 7500,
+        "time": 24915
+      },
+      {
+        "level": 30,
+        "gold": 100000,
+        "iron": 56425,
+        "wood": 35907,
+        "food": 41037,
+        "generate": 8501,
+        "time": 31393
+      }
+    ]
+  },
+  {
+    "name": "Farms",
+    "key": "FARMS",
+    "resource": "food",
+    "description": "Your Farms will make sure that your population will not starve to death. You will need lots of food if you are going to train a big and powerful army. Construct more Farms so your food income increases.",
+    "type": "RESOURCE",
+    "path": "/buildings/farm.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 100,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 55,
+        "iron": 50,
+        "wood": 35,
+        "food": 70,
+        "generate": 150,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 87,
+        "iron": 79,
+        "wood": 55,
+        "food": 111,
+        "generate": 176,
+        "time": 3
+      },
+      {
+        "level": 3,
+        "gold": 110,
+        "iron": 100,
+        "wood": 70,
+        "food": 140,
+        "generate": 206,
+        "time": 4
+      },
+      {
+        "level": 4,
+        "gold": 138,
+        "iron": 126,
+        "wood": 88,
+        "food": 176,
+        "generate": 236,
+        "time": 5
+      },
+      {
+        "level": 5,
+        "gold": 174,
+        "iron": 158,
+        "wood": 111,
+        "food": 222,
+        "generate": 270,
+        "time": 6
+      },
+      {
+        "level": 6,
+        "gold": 220,
+        "iron": 200,
+        "wood": 140,
+        "food": 280,
+        "generate": 311,
+        "time": 122
+      },
+      {
+        "level": 7,
+        "gold": 277,
+        "iron": 252,
+        "wood": 176,
+        "food": 352,
+        "generate": 356,
+        "time": 154
+      },
+      {
+        "level": 8,
+        "gold": 349,
+        "iron": 317,
+        "wood": 222,
+        "food": 444,
+        "generate": 405,
+        "time": 194
+      },
+      {
+        "level": 9,
+        "gold": 440,
+        "iron": 400,
+        "wood": 280,
+        "food": 560,
+        "generate": 461,
+        "time": 245
+      },
+      {
+        "level": 10,
+        "gold": 554,
+        "iron": 504,
+        "wood": 352,
+        "food": 705,
+        "generate": 530,
+        "time": 309
+      },
+      {
+        "level": 11,
+        "gold": 698,
+        "iron": 635,
+        "wood": 444,
+        "food": 889,
+        "generate": 605,
+        "time": 389
+      },
+      {
+        "level": 12,
+        "gold": 880,
+        "iron": 800,
+        "wood": 560,
+        "food": 1120,
+        "generate": 710,
+        "time": 490
+      },
+      {
+        "level": 13,
+        "gold": 1109,
+        "iron": 1008,
+        "wood": 706,
+        "food": 1412,
+        "generate": 806,
+        "time": 617
+      },
+      {
+        "level": 14,
+        "gold": 1398,
+        "iron": 1271,
+        "wood": 889,
+        "food": 1779,
+        "generate": 935,
+        "time": 778
+      },
+      {
+        "level": 15,
+        "gold": 1761,
+        "iron": 1601,
+        "wood": 1121,
+        "food": 2242,
+        "generate": 1055,
+        "time": 980
+      },
+      {
+        "level": 16,
+        "gold": 2219,
+        "iron": 2017,
+        "wood": 1412,
+        "food": 2825,
+        "generate": 1215,
+        "time": 1235
+      },
+      {
+        "level": 17,
+        "gold": 2796,
+        "iron": 2542,
+        "wood": 1779,
+        "food": 3559,
+        "generate": 1425,
+        "time": 1556
+      },
+      {
+        "level": 18,
+        "gold": 3523,
+        "iron": 3203,
+        "wood": 2242,
+        "food": 4485,
+        "generate": 1620,
+        "time": 1961
+      },
+      {
+        "level": 19,
+        "gold": 4440,
+        "iron": 4036,
+        "wood": 2825,
+        "food": 5651,
+        "generate": 1860,
+        "time": 2470
+      },
+      {
+        "level": 20,
+        "gold": 5594,
+        "iron": 5086,
+        "wood": 3560,
+        "food": 7120,
+        "generate": 2141,
+        "time": 3113
+      },
+      {
+        "level": 21,
+        "gold": 7049,
+        "iron": 6408,
+        "wood": 4485,
+        "food": 8971,
+        "generate": 2450,
+        "time": 3922
+      },
+      {
+        "level": 22,
+        "gold": 8882,
+        "iron": 8074,
+        "wood": 5652,
+        "food": 11304,
+        "generate": 2750,
+        "time": 4942
+      },
+      {
+        "level": 23,
+        "gold": 11191,
+        "iron": 10174,
+        "wood": 7121,
+        "food": 14243,
+        "generate": 3251,
+        "time": 6226
+      },
+      {
+        "level": 24,
+        "gold": 14101,
+        "iron": 12819,
+        "wood": 8973,
+        "food": 17946,
+        "generate": 3750,
+        "time": 7845
+      },
+      {
+        "level": 25,
+        "gold": 17767,
+        "iron": 16152,
+        "wood": 11306,
+        "food": 22613,
+        "generate": 4301,
+        "time": 9885
+      },
+      {
+        "level": 26,
+        "gold": 22387,
+        "iron": 20351,
+        "wood": 14246,
+        "food": 28492,
+        "generate": 4935,
+        "time": 12455
+      },
+      {
+        "level": 27,
+        "gold": 28207,
+        "iron": 25643,
+        "wood": 17950,
+        "food": 35900,
+        "generate": 5685,
+        "time": 15694
+      },
+      {
+        "level": 28,
+        "gold": 35541,
+        "iron": 32310,
+        "wood": 22617,
+        "food": 45234,
+        "generate": 6540,
+        "time": 19774
+      },
+      {
+        "level": 29,
+        "gold": 44782,
+        "iron": 40711,
+        "wood": 28497,
+        "food": 56995,
+        "generate": 7500,
+        "time": 24915
+      },
+      {
+        "level": 30,
+        "gold": 56425,
+        "iron": 51296,
+        "wood": 35907,
+        "food": 71814,
+        "generate": 8501,
+        "time": 31393
+      }
+    ]
+  },
+  {
+    "name": "Barracks",
+    "key": "BARRACKS",
+    "order": 4,
+    "description": "This building allows you to train the basic infantry units. To be able to build Barracks you will need to have all resource gaining buildings at least at level two. Upgrading your barracks will make the training of your units faster.",
+    "type": "BUILDING_ARMY",
+    "path": "/buildings/barrack.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 100,
+        "iron": 40,
+        "wood": 120,
+        "food": 40,
+        "generate": 9.09,
+        "time": 3
+      },
+      {
+        "level": 2,
+        "gold": 158,
+        "iron": 63,
+        "wood": 190,
+        "food": 63,
+        "generate": 16.67,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 250,
+        "iron": 100,
+        "wood": 301,
+        "food": 100,
+        "generate": 23.08,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 395,
+        "iron": 158,
+        "wood": 475,
+        "food": 158,
+        "generate": 28.57,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 624,
+        "iron": 249,
+        "wood": 750,
+        "food": 249,
+        "generate": 33.33,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 986,
+        "iron": 393,
+        "wood": 1185,
+        "food": 394,
+        "generate": 37.5,
+        "time": 240
+      },
+      {
+        "level": 7,
+        "gold": 1558,
+        "iron": 621,
+        "wood": 1873,
+        "food": 622,
+        "generate": 41.18,
+        "time": 324
+      },
+      {
+        "level": 8,
+        "gold": 2025,
+        "iron": 808,
+        "wood": 2435,
+        "food": 809,
+        "generate": 44.44,
+        "time": 437
+      },
+      {
+        "level": 9,
+        "gold": 2553,
+        "iron": 1019,
+        "wood": 3067,
+        "food": 1019,
+        "generate": 47.37,
+        "time": 590
+      },
+      {
+        "level": 10,
+        "gold": 3218,
+        "iron": 1283,
+        "wood": 3867,
+        "food": 1284,
+        "generate": 50,
+        "time": 768
+      },
+      {
+        "level": 11,
+        "gold": 4055,
+        "iron": 1617,
+        "wood": 4871,
+        "food": 1618,
+        "generate": 52.38,
+        "time": 998
+      },
+      {
+        "level": 12,
+        "gold": 5110,
+        "iron": 2039,
+        "wood": 6138,
+        "food": 2040,
+        "generate": 54.55,
+        "time": 1297
+      },
+      {
+        "level": 13,
+        "gold": 6437,
+        "iron": 2568,
+        "wood": 7735,
+        "food": 2570,
+        "generate": 56.52,
+        "time": 1686
+      },
+      {
+        "level": 14,
+        "gold": 8111,
+        "iron": 3236,
+        "wood": 9746,
+        "food": 3239,
+        "generate": 58.33,
+        "time": 2192
+      },
+      {
+        "level": 15,
+        "gold": 10221,
+        "iron": 4077,
+        "wood": 12281,
+        "food": 4081,
+        "generate": 60,
+        "time": 2850
+      },
+      {
+        "level": 16,
+        "gold": 12878,
+        "iron": 5139,
+        "wood": 15473,
+        "food": 5141,
+        "generate": 61.54,
+        "time": 3705
+      },
+      {
+        "level": 17,
+        "gold": 16227,
+        "iron": 6474,
+        "wood": 19496,
+        "food": 6478,
+        "generate": 62.96,
+        "time": 4817
+      },
+      {
+        "level": 18,
+        "gold": 20446,
+        "iron": 8158,
+        "wood": 24565,
+        "food": 8163,
+        "generate": 64.29,
+        "time": 6262
+      },
+      {
+        "level": 19,
+        "gold": 25763,
+        "iron": 10279,
+        "wood": 30953,
+        "food": 10285,
+        "generate": 65.52,
+        "time": 8140
+      },
+      {
+        "level": 20,
+        "gold": 32461,
+        "iron": 12951,
+        "wood": 39001,
+        "food": 12959,
+        "generate": 66.67,
+        "time": 10583
+      }
+    ]
+  },
+  {
+    "name": "Archery Range",
+    "key": "ARCHERY_RANGE",
+    "order": 2,
+    "description": "This building allows you to train archers. Upgrading the building makes training faster and unlocks more powerful units.",
+    "type": "BUILDING_ARMY",
+    "path": "/buildings/archer.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 50,
+        "iron": 70,
+        "wood": 60,
+        "food": 80,
+        "generate": 9.09,
+        "time": 3
+      },
+      {
+        "level": 2,
+        "gold": 79,
+        "iron": 111,
+        "wood": 95,
+        "food": 127,
+        "generate": 16.67,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 125,
+        "iron": 175,
+        "wood": 150,
+        "food": 200,
+        "generate": 23.08,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 197,
+        "iron": 277,
+        "wood": 237,
+        "food": 317,
+        "generate": 28.57,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 311,
+        "iron": 437,
+        "wood": 374,
+        "food": 317,
+        "generate": 33.33,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 492,
+        "iron": 690,
+        "wood": 591,
+        "food": 790,
+        "generate": 37.5,
+        "time": 240
+      },
+      {
+        "level": 7,
+        "gold": 777,
+        "iron": 1091,
+        "wood": 933,
+        "food": 1249,
+        "generate": 41.18,
+        "time": 324
+      },
+      {
+        "level": 8,
+        "gold": 1010,
+        "iron": 1418,
+        "wood": 1213,
+        "food": 1623,
+        "generate": 44.44,
+        "time": 437
+      },
+      {
+        "level": 9,
+        "gold": 1273,
+        "iron": 1787,
+        "wood": 1529,
+        "food": 2045,
+        "generate": 47.37,
+        "time": 590
+      },
+      {
+        "level": 10,
+        "gold": 1604,
+        "iron": 2252,
+        "wood": 1926,
+        "food": 2578,
+        "generate": 50,
+        "time": 768
+      },
+      {
+        "level": 11,
+        "gold": 2021,
+        "iron": 2838,
+        "wood": 2427,
+        "food": 3247,
+        "generate": 52.38,
+        "time": 998
+      },
+      {
+        "level": 12,
+        "gold": 2548,
+        "iron": 3577,
+        "wood": 3060,
+        "food": 4092,
+        "generate": 54.55,
+        "time": 1297
+      },
+      {
+        "level": 13,
+        "gold": 3210,
+        "iron": 4506,
+        "wood": 3855,
+        "food": 5157,
+        "generate": 56.52,
+        "time": 1686
+      },
+      {
+        "level": 14,
+        "gold": 4045,
+        "iron": 5678,
+        "wood": 4858,
+        "food": 6498,
+        "generate": 58.33,
+        "time": 2192
+      },
+      {
+        "level": 15,
+        "gold": 5097,
+        "iron": 7155,
+        "wood": 6121,
+        "food": 8187,
+        "generate": 60,
+        "time": 2850
+      },
+      {
+        "level": 16,
+        "gold": 6423,
+        "iron": 9014,
+        "wood": 7711,
+        "food": 10315,
+        "generate": 61.54,
+        "time": 3705
+      },
+      {
+        "level": 17,
+        "gold": 8093,
+        "iron": 11359,
+        "wood": 9717,
+        "food": 12998,
+        "generate": 62.96,
+        "time": 4817
+      },
+      {
+        "level": 18,
+        "gold": 10197,
+        "iron": 14313,
+        "wood": 12244,
+        "food": 16377,
+        "generate": 64.29,
+        "time": 6262
+      },
+      {
+        "level": 19,
+        "gold": 12848,
+        "iron": 18034,
+        "wood": 15428,
+        "food": 20635,
+        "generate": 65.52,
+        "time": 8140
+      },
+      {
+        "level": 20,
+        "gold": 16189,
+        "iron": 22722,
+        "wood": 19439,
+        "food": 26000,
+        "generate": 66.67,
+        "time": 10583
+      }
+    ]
+  },
+  {
+    "name": "Stables",
+    "key": "STABLES",
+    "order": 3,
+    "description": "The cavalry is the heavy force of the Medieval times. Building Stables will allow you to train light and heavy cavalry, perfect units against infantry and archers. They are fast and are able to carry more stolen goods. Each level of the stables will allow you to train cavalry units faster.",
+    "type": "BUILDING_ARMY",
+    "path": "/buildings/stable.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 300,
+        "iron": 245,
+        "wood": 255,
+        "food": 235,
+        "generate": 9.09,
+        "time": 24
+      },
+      {
+        "level": 2,
+        "gold": 476,
+        "iron": 388,
+        "wood": 404,
+        "food": 373,
+        "generate": 16.67,
+        "time": 48
+      },
+      {
+        "level": 3,
+        "gold": 600,
+        "iron": 490,
+        "wood": 510,
+        "food": 470,
+        "generate": 23.08,
+        "time": 72
+      },
+      {
+        "level": 4,
+        "gold": 756,
+        "iron": 617,
+        "wood": 642,
+        "food": 592,
+        "generate": 28.57,
+        "time": 302
+      },
+      {
+        "level": 5,
+        "gold": 952,
+        "iron": 778,
+        "wood": 809,
+        "food": 746,
+        "generate": 33.33,
+        "time": 381
+      },
+      {
+        "level": 6,
+        "gold": 1200,
+        "iron": 980,
+        "wood": 1020,
+        "food": 940,
+        "generate": 37.5,
+        "time": 480
+      },
+      {
+        "level": 7,
+        "gold": 1512,
+        "iron": 1235,
+        "wood": 1285,
+        "food": 1184,
+        "generate": 41.18,
+        "time": 605
+      },
+      {
+        "level": 8,
+        "gold": 1905,
+        "iron": 1556,
+        "wood": 1619,
+        "food": 1492,
+        "generate": 44.44,
+        "time": 762
+      },
+      {
+        "level": 9,
+        "gold": 2401,
+        "iron": 1961,
+        "wood": 2041,
+        "food": 1881,
+        "generate": 47.37,
+        "time": 960
+      },
+      {
+        "level": 10,
+        "gold": 3025,
+        "iron": 2470,
+        "wood": 2571,
+        "food": 2370,
+        "generate": 50,
+        "time": 1210
+      },
+      {
+        "level": 11,
+        "gold": 3812,
+        "iron": 3113,
+        "wood": 3240,
+        "food": 2986,
+        "generate": 52.38,
+        "time": 1525
+      },
+      {
+        "level": 12,
+        "gold": 4803,
+        "iron": 3922,
+        "wood": 4083,
+        "food": 3762,
+        "generate": 54.55,
+        "time": 1921
+      },
+      {
+        "level": 13,
+        "gold": 6052,
+        "iron": 4942,
+        "wood": 5144,
+        "food": 4741,
+        "generate": 56.52,
+        "time": 2421
+      },
+      {
+        "level": 14,
+        "gold": 7626,
+        "iron": 6228,
+        "wood": 6482,
+        "food": 5973,
+        "generate": 58.33,
+        "time": 3050
+      },
+      {
+        "level": 15,
+        "gold": 9609,
+        "iron": 7847,
+        "wood": 8167,
+        "food": 7527,
+        "generate": 60,
+        "time": 3844
+      },
+      {
+        "level": 16,
+        "gold": 12107,
+        "iron": 9887,
+        "wood": 10291,
+        "food": 9484,
+        "generate": 61.54,
+        "time": 4843
+      },
+      {
+        "level": 17,
+        "gold": 15255,
+        "iron": 12458,
+        "wood": 12966,
+        "food": 11949,
+        "generate": 62.96,
+        "time": 6102
+      },
+      {
+        "level": 18,
+        "gold": 19221,
+        "iron": 15697,
+        "wood": 16338,
+        "food": 15056,
+        "generate": 64.29,
+        "time": 7689
+      },
+      {
+        "level": 19,
+        "gold": 24219,
+        "iron": 19779,
+        "wood": 20586,
+        "food": 18971,
+        "generate": 65.52,
+        "time": 9688
+      },
+      {
+        "level": 20,
+        "gold": 30516,
+        "iron": 24921,
+        "wood": 25938,
+        "food": 23904,
+        "generate": 66.67,
+        "time": 12206
+      }
+    ]
+  },
+  {
+    "name": "Workshop",
+    "key": "WORKSHOP",
+    "order": 1,
+    "description": "Just like the barracks and stables you need to have this building in order to train special types of units. From here you can build siege machines which will help you breach the enemy's castle walls or give you the ability to ruin enemy buildings.",
+    "type": "BUILDING_ARMY",
+    "path": "/buildings/workshop.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 155,
+        "iron": 265,
+        "wood": 305,
+        "food": 235,
+        "generate": 9.09,
+        "time": 180
+      },
+      {
+        "level": 2,
+        "gold": 246,
+        "iron": 420,
+        "wood": 484,
+        "food": 373,
+        "generate": 16.67,
+        "time": 286
+      },
+      {
+        "level": 3,
+        "gold": 310,
+        "iron": 530,
+        "wood": 610,
+        "food": 470,
+        "generate": 23.08,
+        "time": 360
+      },
+      {
+        "level": 4,
+        "gold": 390,
+        "iron": 667,
+        "wood": 768,
+        "food": 592,
+        "generate": 28.57,
+        "time": 454
+      },
+      {
+        "level": 5,
+        "gold": 492,
+        "iron": 841,
+        "wood": 968,
+        "food": 746,
+        "generate": 33.33,
+        "time": 572
+      },
+      {
+        "level": 6,
+        "gold": 620,
+        "iron": 1060,
+        "wood": 1220,
+        "food": 940,
+        "generate": 37.5,
+        "time": 720
+      },
+      {
+        "level": 7,
+        "gold": 781,
+        "iron": 1336,
+        "wood": 1537,
+        "food": 1184,
+        "generate": 41.18,
+        "time": 907
+      },
+      {
+        "level": 8,
+        "gold": 984,
+        "iron": 1683,
+        "wood": 1937,
+        "food": 1492,
+        "generate": 44.44,
+        "time": 1143
+      },
+      {
+        "level": 9,
+        "gold": 1240,
+        "iron": 2121,
+        "wood": 2441,
+        "food": 1881,
+        "generate": 47.37,
+        "time": 1441
+      },
+      {
+        "level": 10,
+        "gold": 1563,
+        "iron": 2672,
+        "wood": 3076,
+        "food": 2370,
+        "generate": 50,
+        "time": 1815
+      },
+      {
+        "level": 11,
+        "gold": 1969,
+        "iron": 3367,
+        "wood": 3875,
+        "food": 2986,
+        "generate": 52.38,
+        "time": 2287
+      },
+      {
+        "level": 12,
+        "gold": 2481,
+        "iron": 4243,
+        "wood": 4883,
+        "food": 3762,
+        "generate": 54.55,
+        "time": 2882
+      },
+      {
+        "level": 13,
+        "gold": 3127,
+        "iron": 5346,
+        "wood": 6153,
+        "food": 4741,
+        "generate": 56.52,
+        "time": 3631
+      },
+      {
+        "level": 14,
+        "gold": 3940,
+        "iron": 6736,
+        "wood": 7753,
+        "food": 5973,
+        "generate": 58.33,
+        "time": 4576
+      },
+      {
+        "level": 15,
+        "gold": 4964,
+        "iron": 8487,
+        "wood": 9769,
+        "food": 7527,
+        "generate": 60,
+        "time": 5765
+      }
+    ]
+  },
+  {
+    "name": "Market",
+    "key": "MARKET",
+    "description": "Business is business, even in the medieval times. By expanding your marketplace you will be able to attract more traders and this will allow you to send bigger amounts of resources on the market or directly to other castles.",
+    "type": "ACCESSABLE_BUILDING",
+    "path": "/buildings/market.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 105,
+        "iron": 95,
+        "wood": 105,
+        "food": 95,
+        "generate": 2000,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 166,
+        "iron": 150,
+        "wood": 166,
+        "food": 150,
+        "generate": 4000,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 210,
+        "iron": 190,
+        "wood": 210,
+        "food": 190,
+        "generate": 6000,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 264,
+        "iron": 239,
+        "wood": 264,
+        "food": 239,
+        "generate": 8000,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 333,
+        "iron": 301,
+        "wood": 333,
+        "food": 301,
+        "generate": 10000,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 420,
+        "iron": 380,
+        "wood": 420,
+        "food": 380,
+        "generate": 12000,
+        "time": 288
+      },
+      {
+        "level": 7,
+        "gold": 529,
+        "iron": 478,
+        "wood": 529,
+        "food": 478,
+        "generate": 14000,
+        "time": 363
+      },
+      {
+        "level": 8,
+        "gold": 667,
+        "iron": 603,
+        "wood": 667,
+        "food": 603,
+        "generate": 16000,
+        "time": 457
+      },
+      {
+        "level": 9,
+        "gold": 840,
+        "iron": 760,
+        "wood": 840,
+        "food": 760,
+        "generate": 18000,
+        "time": 576
+      },
+      {
+        "level": 10,
+        "gold": 1058,
+        "iron": 958,
+        "wood": 1058,
+        "food": 958,
+        "generate": 20000,
+        "time": 726
+      },
+      {
+        "level": 11,
+        "gold": 1334,
+        "iron": 1207,
+        "wood": 1334,
+        "food": 1207,
+        "generate": 22000,
+        "time": 915
+      },
+      {
+        "level": 12,
+        "gold": 1681,
+        "iron": 1521,
+        "wood": 1681,
+        "food": 1521,
+        "generate": 24000,
+        "time": 1153
+      },
+      {
+        "level": 13,
+        "gold": 2118,
+        "iron": 1916,
+        "wood": 2118,
+        "food": 1916,
+        "generate": 26000,
+        "time": 1453
+      },
+      {
+        "level": 14,
+        "gold": 2669,
+        "iron": 2414,
+        "wood": 2669,
+        "food": 2414,
+        "generate": 28000,
+        "time": 1830
+      },
+      {
+        "level": 15,
+        "gold": 3363,
+        "iron": 3042,
+        "wood": 3363,
+        "food": 3042,
+        "generate": 30000,
+        "time": 2306
+      },
+      {
+        "level": 16,
+        "gold": 4237,
+        "iron": 3834,
+        "wood": 4237,
+        "food": 3834,
+        "generate": 32000,
+        "time": 2906
+      },
+      {
+        "level": 17,
+        "gold": 5339,
+        "iron": 4830,
+        "wood": 5339,
+        "food": 4830,
+        "generate": 34000,
+        "time": 3661
+      },
+      {
+        "level": 18,
+        "gold": 6727,
+        "iron": 6086,
+        "wood": 6727,
+        "food": 6086,
+        "generate": 36000,
+        "time": 4613
+      },
+      {
+        "level": 19,
+        "gold": 8476,
+        "iron": 7669,
+        "wood": 8476,
+        "food": 7669,
+        "generate": 38000,
+        "time": 5813
+      },
+      {
+        "level": 20,
+        "gold": 10680,
+        "iron": 9663,
+        "wood": 10680,
+        "food": 9663,
+        "generate": 40000,
+        "time": 7324
+      },
+      {
+        "level": 21,
+        "gold": 13457,
+        "iron": 12176,
+        "wood": 13457,
+        "food": 12176,
+        "generate": 42000,
+        "time": 9228
+      },
+      {
+        "level": 22,
+        "gold": 16956,
+        "iron": 15341,
+        "wood": 16956,
+        "food": 15341,
+        "generate": 44000,
+        "time": 11627
+      },
+      {
+        "level": 23,
+        "gold": 21365,
+        "iron": 19330,
+        "wood": 21365,
+        "food": 19330,
+        "generate": 46000,
+        "time": 14650
+      },
+      {
+        "level": 24,
+        "gold": 26920,
+        "iron": 24356,
+        "wood": 26920,
+        "food": 24356,
+        "generate": 48000,
+        "time": 18460
+      },
+      {
+        "level": 25,
+        "gold": 33919,
+        "iron": 30689,
+        "wood": 33919,
+        "food": 30689,
+        "generate": 50000,
+        "time": 23259
+      }
+    ]
+  },
+  {
+    "name": "Dwellings",
+    "key": "DWELLINGS",
+    "description": "When your Castle's population is on the rise you need more dwellings. By upgrading this building you will increase your population limit, which will allow you to train more army.",
+    "type": "BUILDING",
+    "path": "/buildings/dwellings.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 100,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 35,
+        "iron": 30,
+        "wood": 45,
+        "food": 40,
+        "generate": 460,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 55,
+        "iron": 47,
+        "wood": 71,
+        "food": 63,
+        "generate": 518,
+        "time": 3
+      },
+      {
+        "level": 3,
+        "gold": 70,
+        "iron": 60,
+        "wood": 90,
+        "food": 80,
+        "generate": 611,
+        "time": 4
+      },
+      {
+        "level": 4,
+        "gold": 88,
+        "iron": 75,
+        "wood": 113,
+        "food": 100,
+        "generate": 719,
+        "time": 5
+      },
+      {
+        "level": 5,
+        "gold": 111,
+        "iron": 95,
+        "wood": 142,
+        "food": 127,
+        "generate": 847,
+        "time": 6
+      },
+      {
+        "level": 6,
+        "gold": 140,
+        "iron": 120,
+        "wood": 180,
+        "food": 160,
+        "generate": 998,
+        "time": 96
+      },
+      {
+        "level": 7,
+        "gold": 176,
+        "iron": 151,
+        "wood": 226,
+        "food": 201,
+        "generate": 1176,
+        "time": 121
+      },
+      {
+        "level": 8,
+        "gold": 222,
+        "iron": 190,
+        "wood": 285,
+        "food": 254,
+        "generate": 1385,
+        "time": 152
+      },
+      {
+        "level": 9,
+        "gold": 280,
+        "iron": 240,
+        "wood": 360,
+        "food": 320,
+        "generate": 1632,
+        "time": 192
+      },
+      {
+        "level": 10,
+        "gold": 352,
+        "iron": 302,
+        "wood": 453,
+        "food": 403,
+        "generate": 1922,
+        "time": 242
+      },
+      {
+        "level": 11,
+        "gold": 444,
+        "iron": 381,
+        "wood": 571,
+        "food": 508,
+        "generate": 2264,
+        "time": 305
+      },
+      {
+        "level": 12,
+        "gold": 560,
+        "iron": 480,
+        "wood": 720,
+        "food": 640,
+        "generate": 2667,
+        "time": 384
+      },
+      {
+        "level": 13,
+        "gold": 706,
+        "iron": 605,
+        "wood": 907,
+        "food": 807,
+        "generate": 3142,
+        "time": 484
+      },
+      {
+        "level": 14,
+        "gold": 889,
+        "iron": 762,
+        "wood": 1143,
+        "food": 1016,
+        "generate": 3701,
+        "time": 610
+      },
+      {
+        "level": 15,
+        "gold": 1121,
+        "iron": 960,
+        "wood": 1441,
+        "food": 1281,
+        "generate": 4360,
+        "time": 769
+      },
+      {
+        "level": 16,
+        "gold": 1412,
+        "iron": 1210,
+        "wood": 1816,
+        "food": 1614,
+        "generate": 5136,
+        "time": 968
+      },
+      {
+        "level": 17,
+        "gold": 1779,
+        "iron": 1525,
+        "wood": 2288,
+        "food": 2034,
+        "generate": 6050,
+        "time": 1220
+      },
+      {
+        "level": 18,
+        "gold": 2242,
+        "iron": 1922,
+        "wood": 2883,
+        "food": 2562,
+        "generate": 7127,
+        "time": 1538
+      },
+      {
+        "level": 19,
+        "gold": 2825,
+        "iron": 2421,
+        "wood": 3632,
+        "food": 3229,
+        "generate": 8396,
+        "time": 1937
+      },
+      {
+        "level": 20,
+        "gold": 3560,
+        "iron": 3051,
+        "wood": 4577,
+        "food": 4068,
+        "generate": 9890,
+        "time": 2441
+      },
+      {
+        "level": 21,
+        "gold": 4485,
+        "iron": 3845,
+        "wood": 5767,
+        "food": 5126,
+        "generate": 11651,
+        "time": 3076
+      },
+      {
+        "level": 22,
+        "gold": 5652,
+        "iron": 4844,
+        "wood": 7267,
+        "food": 6459,
+        "generate": 13725,
+        "time": 3876
+      },
+      {
+        "level": 23,
+        "gold": 7121,
+        "iron": 6104,
+        "wood": 9156,
+        "food": 8139,
+        "generate": 16168,
+        "time": 4883
+      },
+      {
+        "level": 24,
+        "gold": 8973,
+        "iron": 7691,
+        "wood": 11537,
+        "food": 10255,
+        "generate": 19046,
+        "time": 6153
+      },
+      {
+        "level": 25,
+        "gold": 11306,
+        "iron": 9691,
+        "wood": 14537,
+        "food": 12921,
+        "generate": 22436,
+        "time": 7753
+      },
+      {
+        "level": 26,
+        "gold": 14246,
+        "iron": 12211,
+        "wood": 18316,
+        "food": 16281,
+        "generate": 26429,
+        "time": 9769
+      },
+      {
+        "level": 27,
+        "gold": 17950,
+        "iron": 15386,
+        "wood": 23079,
+        "food": 20514,
+        "generate": 31134,
+        "time": 12309
+      },
+      {
+        "level": 28,
+        "gold": 22617,
+        "iron": 19386,
+        "wood": 29079,
+        "food": 25848,
+        "generate": 36675,
+        "time": 15509
+      },
+      {
+        "level": 29,
+        "gold": 28497,
+        "iron": 24426,
+        "wood": 36640,
+        "food": 32569,
+        "generate": 43204,
+        "time": 19541
+      },
+      {
+        "level": 30,
+        "gold": 35907,
+        "iron": 30777,
+        "wood": 46166,
+        "food": 41037,
+        "generate": 50894,
+        "time": 24622
+      }
+    ]
+  },
+  {
+    "name": "Shelter",
+    "key": "SHELTER",
+    "description": "Every ruler suffers from an attack, and hence the loss of resources. These attacks usually take place when your army isn’t in your castle to protect your resource. The problem is you can’t always carry your resource with you to protect it. That’s why Shelters are so important.",
+    "type": "BUILDING",
+    "path": "/buildings/shelter.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 45,
+        "iron": 55,
+        "wood": 45,
+        "food": 40,
+        "generate": 300,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 63,
+        "iron": 77,
+        "wood": 63,
+        "food": 56,
+        "generate": 600,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 82,
+        "iron": 100,
+        "wood": 82,
+        "food": 73,
+        "generate": 900,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 106,
+        "iron": 130,
+        "wood": 106,
+        "food": 95,
+        "generate": 1200,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 138,
+        "iron": 169,
+        "wood": 138,
+        "food": 123,
+        "generate": 1500,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 180,
+        "iron": 220,
+        "wood": 180,
+        "food": 160,
+        "generate": 1800,
+        "time": 480
+      },
+      {
+        "level": 7,
+        "gold": 234,
+        "iron": 286,
+        "wood": 234,
+        "food": 208,
+        "generate": 2100,
+        "time": 600
+      },
+      {
+        "level": 8,
+        "gold": 304,
+        "iron": 372,
+        "wood": 304,
+        "food": 270,
+        "generate": 2400,
+        "time": 720
+      },
+      {
+        "level": 9,
+        "gold": 395,
+        "iron": 483,
+        "wood": 395,
+        "food": 351,
+        "generate": 2700,
+        "time": 900
+      },
+      {
+        "level": 10,
+        "gold": 514,
+        "iron": 628,
+        "wood": 514,
+        "food": 457,
+        "generate": 3000,
+        "time": 1080
+      },
+      {
+        "level": 11,
+        "gold": 668,
+        "iron": 817,
+        "wood": 668,
+        "food": 594,
+        "generate": 3600,
+        "time": 1260
+      },
+      {
+        "level": 12,
+        "gold": 869,
+        "iron": 1062,
+        "wood": 869,
+        "food": 772,
+        "generate": 4200,
+        "time": 1440
+      },
+      {
+        "level": 13,
+        "gold": 1129,
+        "iron": 1380,
+        "wood": 1129,
+        "food": 1004,
+        "generate": 4800,
+        "time": 1620
+      },
+      {
+        "level": 14,
+        "gold": 1468,
+        "iron": 1794,
+        "wood": 1468,
+        "food": 1305,
+        "generate": 5400,
+        "time": 1800
+      },
+      {
+        "level": 15,
+        "gold": 1908,
+        "iron": 2332,
+        "wood": 1908,
+        "food": 1696,
+        "generate": 6000,
+        "time": 2040
+      },
+      {
+        "level": 16,
+        "gold": 2481,
+        "iron": 3032,
+        "wood": 2481,
+        "food": 2205,
+        "generate": 6600,
+        "time": 2280
+      },
+      {
+        "level": 17,
+        "gold": 3225,
+        "iron": 3941,
+        "wood": 3225,
+        "food": 2866,
+        "generate": 7200,
+        "time": 2520
+      },
+      {
+        "level": 18,
+        "gold": 4192,
+        "iron": 5124,
+        "wood": 4192,
+        "food": 3726,
+        "generate": 7800,
+        "time": 2760
+      },
+      {
+        "level": 19,
+        "gold": 5031,
+        "iron": 6661,
+        "wood": 5450,
+        "food": 4844,
+        "generate": 8400,
+        "time": 3000
+      },
+      {
+        "level": 20,
+        "gold": 6037,
+        "iron": 7993,
+        "wood": 6540,
+        "food": 5813,
+        "generate": 9000,
+        "time": 3240
+      }
+    ]
+  },
+  {
+    "name": "Tower",
+    "key": "TOWER",
+    "description": "War never changes... By expanding your tower you will be able to increase the number of troops that will remain hidden and will not defend your castle from enemy attacks. Particularly useful when trying to prepare an ambush.",
+    "type": "ACCESSABLE_BUILDING",
+    "path": "/buildings/tower.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 30,
+        "iron": 40,
+        "wood": 35,
+        "food": 28,
+        "generate": 50,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 53,
+        "iron": 70,
+        "wood": 61,
+        "food": 49,
+        "generate": 150,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 89,
+        "iron": 119,
+        "wood": 104,
+        "food": 83,
+        "generate": 300,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 147,
+        "iron": 196,
+        "wood": 172,
+        "food": 137,
+        "generate": 500,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 236,
+        "iron": 314,
+        "wood": 275,
+        "food": 220,
+        "generate": 700,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 365,
+        "iron": 487,
+        "wood": 426,
+        "food": 341,
+        "generate": 950,
+        "time": 528
+      },
+      {
+        "level": 7,
+        "gold": 548,
+        "iron": 730,
+        "wood": 639,
+        "food": 511,
+        "generate": 1200,
+        "time": 648
+      },
+      {
+        "level": 8,
+        "gold": 822,
+        "iron": 1096,
+        "wood": 959,
+        "food": 767,
+        "generate": 1450,
+        "time": 780
+      },
+      {
+        "level": 9,
+        "gold": 1233,
+        "iron": 1643,
+        "wood": 1438,
+        "food": 1150,
+        "generate": 1700,
+        "time": 900
+      },
+      {
+        "level": 10,
+        "gold": 1849,
+        "iron": 2465,
+        "wood": 2157,
+        "food": 1726,
+        "generate": 2000,
+        "time": 1080
+      },
+      {
+        "level": 11,
+        "gold": 2588,
+        "iron": 3451,
+        "wood": 3020,
+        "food": 2416,
+        "generate": 2300,
+        "time": 1260
+      },
+      {
+        "level": 12,
+        "gold": 3365,
+        "iron": 4487,
+        "wood": 3926,
+        "food": 3141,
+        "generate": 2600,
+        "time": 1440
+      },
+      {
+        "level": 13,
+        "gold": 4038,
+        "iron": 5384,
+        "wood": 4711,
+        "food": 3769,
+        "generate": 2900,
+        "time": 1680
+      },
+      {
+        "level": 14,
+        "gold": 4442,
+        "iron": 5922,
+        "wood": 5182,
+        "food": 4146,
+        "generate": 3200,
+        "time": 1920
+      },
+      {
+        "level": 15,
+        "gold": 4886,
+        "iron": 6515,
+        "wood": 5700,
+        "food": 4560,
+        "generate": 3500,
+        "time": 2160
+      },
+      {
+        "level": 16,
+        "gold": 5375,
+        "iron": 7166,
+        "wood": 6270,
+        "food": 5016,
+        "generate": 3800,
+        "time": 2400
+      },
+      {
+        "level": 17,
+        "gold": 5912,
+        "iron": 7883,
+        "wood": 6897,
+        "food": 5518,
+        "generate": 4100,
+        "time": 2640
+      },
+      {
+        "level": 18,
+        "gold": 6503,
+        "iron": 8671,
+        "wood": 7587,
+        "food": 6070,
+        "generate": 4400,
+        "time": 2880
+      },
+      {
+        "level": 19,
+        "gold": 7153,
+        "iron": 9538,
+        "wood": 8346,
+        "food": 6677,
+        "generate": 4700,
+        "time": 3240
+      },
+      {
+        "level": 20,
+        "gold": 7869,
+        "iron": 10492,
+        "wood": 9180,
+        "food": 7344,
+        "generate": 5000,
+        "time": 3600
+      }
+    ]
+  },
+  {
+    "name": "Blacksmith",
+    "key": "BLACKSMITH",
+    "order": 3,
+    "description": "Now you can have stronger armours, sharper blades etc. The blacksmith can upgrade different unit types, which will raise the attack and defense of the unit. Each level of the blacksmith will shorten the period needed for upgrade.",
+    "type": "ACCESSABLE_BUILDING",
+    "path": "/buildings/blacksmith.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 230,
+        "iron": 245,
+        "wood": 225,
+        "food": 185,
+        "generate": 2,
+        "time": 3
+      },
+      {
+        "level": 2,
+        "gold": 365,
+        "iron": 388,
+        "wood": 357,
+        "food": 293,
+        "generate": 3,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 460,
+        "iron": 490,
+        "wood": 450,
+        "food": 370,
+        "generate": 5,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 579,
+        "iron": 617,
+        "wood": 567,
+        "food": 466,
+        "generate": 6,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 730,
+        "iron": 778,
+        "wood": 714,
+        "food": 587,
+        "generate": 8,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 920,
+        "iron": 980,
+        "wood": 900,
+        "food": 740,
+        "generate": 9,
+        "time": 960
+      },
+      {
+        "level": 7,
+        "gold": 1159,
+        "iron": 1235,
+        "wood": 1134,
+        "food": 932,
+        "generate": 11,
+        "time": 1210
+      },
+      {
+        "level": 8,
+        "gold": 1461,
+        "iron": 1556,
+        "wood": 1429,
+        "food": 1175,
+        "generate": 12,
+        "time": 1525
+      },
+      {
+        "level": 9,
+        "gold": 1841,
+        "iron": 1961,
+        "wood": 1801,
+        "food": 1480,
+        "generate": 14,
+        "time": 1921
+      },
+      {
+        "level": 10,
+        "gold": 2319,
+        "iron": 2470,
+        "wood": 2269,
+        "food": 1865,
+        "generate": 15,
+        "time": 2420
+      },
+      {
+        "level": 11,
+        "gold": 2922,
+        "iron": 3113,
+        "wood": 2859,
+        "food": 2350,
+        "generate": 17,
+        "time": 3050
+      },
+      {
+        "level": 12,
+        "gold": 3682,
+        "iron": 3922,
+        "wood": 3602,
+        "food": 2962,
+        "generate": 18,
+        "time": 3843
+      },
+      {
+        "level": 13,
+        "gold": 4640,
+        "iron": 4942,
+        "wood": 4539,
+        "food": 3732,
+        "generate": 100,
+        "time": 4842
+      },
+      {
+        "level": 14,
+        "gold": 5846,
+        "iron": 6228,
+        "wood": 5719,
+        "food": 4702,
+        "generate": 21,
+        "time": 6101
+      },
+      {
+        "level": 15,
+        "gold": 7366,
+        "iron": 7847,
+        "wood": 7206,
+        "food": 5925,
+        "generate": 23,
+        "time": 7687
+      },
+      {
+        "level": 16,
+        "gold": 9282,
+        "iron": 9887,
+        "wood": 9080,
+        "food": 7466,
+        "generate": 24,
+        "time": 9686
+      },
+      {
+        "level": 17,
+        "gold": 11695,
+        "iron": 12458,
+        "wood": 11441,
+        "food": 9407,
+        "generate": 26,
+        "time": 12204
+      },
+      {
+        "level": 18,
+        "gold": 14736,
+        "iron": 15697,
+        "wood": 14416,
+        "food": 11853,
+        "generate": 27,
+        "time": 15377
+      },
+      {
+        "level": 19,
+        "gold": 18568,
+        "iron": 19779,
+        "wood": 18164,
+        "food": 14935,
+        "generate": 29,
+        "time": 19375
+      },
+      {
+        "level": 20,
+        "gold": 23395,
+        "iron": 24921,
+        "wood": 22887,
+        "food": 18818,
+        "generate": 30,
+        "time": 24413
+      }
+    ]
+  },
+  {
+    "name": "Infirmary",
+    "key": "INFIRMARY",
+    "order": 3,
+    "description": "Soldiers die in battles - a well-known fact by every ruler. Of course, when the dead aren’t from your army you don’t care - but when they are your soldiers, that’s where it gets worrying. Training the units is not in any way cheap, so a big battle with lots of losses can be fatal to you economically. Not all the fallen in battle are dead – in fact, quite a large number of them are injured and healing them is a great money-saver.\nIn the infirmary doctors and curers try their best to heal every injured that they can.\nUpgrading the infirmary means a larger building with more rooms and more doctors, therefore more healed soldiers.",
+    "type": "ACCESSABLE_BUILDING",
+    "path": "/buildings/infirmary.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 305,
+        "iron": 245,
+        "wood": 225,
+        "food": 315,
+        "generate": 100,
+        "time": 24
+      },
+      {
+        "level": 2,
+        "gold": 484,
+        "iron": 388,
+        "wood": 357,
+        "food": 500,
+        "generate": 200,
+        "time": 48
+      },
+      {
+        "level": 3,
+        "gold": 610,
+        "iron": 490,
+        "wood": 450,
+        "food": 630,
+        "generate": 400,
+        "time": 72
+      },
+      {
+        "level": 4,
+        "gold": 768,
+        "iron": 617,
+        "wood": 567,
+        "food": 793,
+        "generate": 650,
+        "time": 756
+      },
+      {
+        "level": 5,
+        "gold": 968,
+        "iron": 778,
+        "wood": 714,
+        "food": 1000,
+        "generate": 900,
+        "time": 953
+      },
+      {
+        "level": 6,
+        "gold": 1220,
+        "iron": 980,
+        "wood": 900,
+        "food": 1260,
+        "generate": 1200,
+        "time": 1200
+      },
+      {
+        "level": 7,
+        "gold": 1537,
+        "iron": 1235,
+        "wood": 1134,
+        "food": 1588,
+        "generate": 1500,
+        "time": 1512
+      },
+      {
+        "level": 8,
+        "gold": 1937,
+        "iron": 1556,
+        "wood": 1429,
+        "food": 2001,
+        "generate": 2000,
+        "time": 1906
+      },
+      {
+        "level": 9,
+        "gold": 2441,
+        "iron": 1961,
+        "wood": 1801,
+        "food": 2521,
+        "generate": 2500,
+        "time": 2401
+      },
+      {
+        "level": 10,
+        "gold": 3076,
+        "iron": 2470,
+        "wood": 2269,
+        "food": 3176,
+        "generate": 3500,
+        "time": 3026
+      },
+      {
+        "level": 11,
+        "gold": 3876,
+        "iron": 3112,
+        "wood": 2859,
+        "food": 4002,
+        "generate": 4500,
+        "time": 3812
+      },
+      {
+        "level": 12,
+        "gold": 4883,
+        "iron": 3921,
+        "wood": 3602,
+        "food": 5042,
+        "generate": 5500,
+        "time": 4803
+      },
+      {
+        "level": 13,
+        "gold": 6153,
+        "iron": 4941,
+        "wood": 4539,
+        "food": 6353,
+        "generate": 7000,
+        "time": 6052
+      },
+      {
+        "level": 14,
+        "gold": 7753,
+        "iron": 6226,
+        "wood": 5719,
+        "food": 8005,
+        "generate": 8500,
+        "time": 7626
+      },
+      {
+        "level": 15,
+        "gold": 9769,
+        "iron": 7844,
+        "wood": 7206,
+        "food": 10086,
+        "generate": 10000,
+        "time": 9609
+      },
+      {
+        "level": 16,
+        "gold": 12309,
+        "iron": 9884,
+        "wood": 9079,
+        "food": 12709,
+        "generate": 12000,
+        "time": 12107
+      },
+      {
+        "level": 17,
+        "gold": 15509,
+        "iron": 12453,
+        "wood": 11440,
+        "food": 16013,
+        "generate": 14000,
+        "time": 15255
+      },
+      {
+        "level": 18,
+        "gold": 19541,
+        "iron": 15691,
+        "wood": 14414,
+        "food": 20176,
+        "generate": 16000,
+        "time": 19221
+      },
+      {
+        "level": 19,
+        "gold": 24622,
+        "iron": 19771,
+        "wood": 18162,
+        "food": 25422,
+        "generate": 18000,
+        "time": 24218
+      },
+      {
+        "level": 20,
+        "gold": 31024,
+        "iron": 24912,
+        "wood": 22884,
+        "food": 32032,
+        "generate": 20000,
+        "time": 30515
+      }
+    ]
+  },
+  {
+    "name": "Storage",
+    "key": "STORAGE",
+    "order": 3,
+    "description": "With every upper level you will have more room for the resources in your castle. Your maximal capacity in the beginning is 100 of every resource and with the development of Storage you will increase that maximum.",
+    "type": "BUILDING",
+    "path": "/buildings/storage.webp",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 500,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 47,
+        "iron": 62,
+        "wood": 45,
+        "food": 25,
+        "generate": 1000,
+        "time": 2
+      },
+      {
+        "level": 2,
+        "gold": 74,
+        "iron": 98,
+        "wood": 71,
+        "food": 39,
+        "generate": 1235,
+        "time": 4
+      },
+      {
+        "level": 3,
+        "gold": 94,
+        "iron": 124,
+        "wood": 90,
+        "food": 50,
+        "generate": 1516,
+        "time": 6
+      },
+      {
+        "level": 4,
+        "gold": 118,
+        "iron": 156,
+        "wood": 113,
+        "food": 63,
+        "generate": 1890,
+        "time": 8
+      },
+      {
+        "level": 5,
+        "gold": 149,
+        "iron": 196,
+        "wood": 142,
+        "food": 79,
+        "generate": 2293,
+        "time": 10
+      },
+      {
+        "level": 6,
+        "gold": 188,
+        "iron": 248,
+        "wood": 180,
+        "food": 100,
+        "generate": 2816,
+        "time": 355
+      },
+      {
+        "level": 7,
+        "gold": 236,
+        "iron": 312,
+        "wood": 226,
+        "food": 126,
+        "generate": 3462,
+        "time": 448
+      },
+      {
+        "level": 8,
+        "gold": 298,
+        "iron": 393,
+        "wood": 285,
+        "food": 158,
+        "generate": 4259,
+        "time": 564
+      },
+      {
+        "level": 9,
+        "gold": 376,
+        "iron": 496,
+        "wood": 360,
+        "food": 200,
+        "generate": 5239,
+        "time": 711
+      },
+      {
+        "level": 10,
+        "gold": 474,
+        "iron": 625,
+        "wood": 453,
+        "food": 252,
+        "generate": 6445,
+        "time": 896
+      },
+      {
+        "level": 11,
+        "gold": 597,
+        "iron": 787,
+        "wood": 571,
+        "food": 317,
+        "generate": 7925,
+        "time": 1128
+      },
+      {
+        "level": 12,
+        "gold": 752,
+        "iron": 992,
+        "wood": 720,
+        "food": 400,
+        "generate": 9750,
+        "time": 1422
+      },
+      {
+        "level": 13,
+        "gold": 948,
+        "iron": 1250,
+        "wood": 907,
+        "food": 504,
+        "generate": 11990,
+        "time": 1791
+      },
+      {
+        "level": 14,
+        "gold": 1194,
+        "iron": 1576,
+        "wood": 1143,
+        "food": 635,
+        "generate": 14750,
+        "time": 2257
+      },
+      {
+        "level": 15,
+        "gold": 1505,
+        "iron": 1985,
+        "wood": 1441,
+        "food": 800,
+        "generate": 18150,
+        "time": 2844
+      },
+      {
+        "level": 16,
+        "gold": 1896,
+        "iron": 2502,
+        "wood": 1816,
+        "food": 1008,
+        "generate": 22315,
+        "time": 3584
+      },
+      {
+        "level": 17,
+        "gold": 2389,
+        "iron": 3152,
+        "wood": 2288,
+        "food": 1271,
+        "generate": 28000,
+        "time": 4515
+      },
+      {
+        "level": 18,
+        "gold": 3011,
+        "iron": 3972,
+        "wood": 2883,
+        "food": 1601,
+        "generate": 33799,
+        "time": 5690
+      },
+      {
+        "level": 19,
+        "gold": 3794,
+        "iron": 5005,
+        "wood": 3632,
+        "food": 2018,
+        "generate": 41535,
+        "time": 7169
+      },
+      {
+        "level": 20,
+        "gold": 4780,
+        "iron": 6306,
+        "wood": 4577,
+        "food": 2543,
+        "generate": 51045,
+        "time": 9033
+      },
+      {
+        "level": 21,
+        "gold": 6023,
+        "iron": 7946,
+        "wood": 5767,
+        "food": 3204,
+        "generate": 62821,
+        "time": 11381
+      },
+      {
+        "level": 22,
+        "gold": 7590,
+        "iron": 10012,
+        "wood": 7267,
+        "food": 4037,
+        "generate": 77289,
+        "time": 14340
+      },
+      {
+        "level": 23,
+        "gold": 9563,
+        "iron": 12615,
+        "wood": 9156,
+        "food": 5087,
+        "generate": 95042,
+        "time": 18069
+      },
+      {
+        "level": 24,
+        "gold": 12050,
+        "iron": 15895,
+        "wood": 11537,
+        "food": 6409,
+        "generate": 116900,
+        "time": 22767
+      },
+      {
+        "level": 25,
+        "gold": 15183,
+        "iron": 20028,
+        "wood": 14537,
+        "food": 8076,
+        "generate": 143788,
+        "time": 28686
+      },
+      {
+        "level": 26,
+        "gold": 19130,
+        "iron": 25236,
+        "wood": 18316,
+        "food": 10175,
+        "generate": 176869,
+        "time": 36145
+      },
+      {
+        "level": 27,
+        "gold": 24104,
+        "iron": 31797,
+        "wood": 23079,
+        "food": 12821,
+        "generate": 217539,
+        "time": 45542
+      },
+      {
+        "level": 28,
+        "gold": 30371,
+        "iron": 40065,
+        "wood": 29079,
+        "food": 16155,
+        "generate": 267590,
+        "time": 57384
+      },
+      {
+        "level": 29,
+        "gold": 38268,
+        "iron": 50482,
+        "wood": 36640,
+        "food": 20355,
+        "generate": 323113,
+        "time": 72303
+      },
+      {
+        "level": 30,
+        "gold": 48218,
+        "iron": 63607,
+        "wood": 46166,
+        "food": 25648,
+        "generate": 400000,
+        "time": 91102
+      }
+    ]
+  },
+  {
+    "name": "Order",
+    "key": "ORDER",
+    "order": 4,
+    "type": "BUILDING_ARMY",
+    "path": "/buildings/order.webp",
+    "description": "This is where the Noblemen are trained. When a Nobleman is included in attack campaign, and if the attack is successful, they can win the loyalty of some of the defeated player's subjects. If the castle belongs to an inactive player and the Nobleman brings the total loyalty beneath zero, the entire castle becomes your possession. The Order can also recruit the special units of each nation, which can be very helpful if used correctly. That makes the Order one of the most important buildings in the castle.",
+    "upgrade": [
+      {
+        "level": 0,
+        "gold": 0,
+        "iron": 0,
+        "wood": 0,
+        "food": 0,
+        "generate": 0,
+        "time": 0
+      },
+      {
+        "level": 1,
+        "gold": 55000,
+        "iron": 26400,
+        "wood": 38500,
+        "food": 55000,
+        "generate": 5,
+        "time": 8640
+      },
+      {
+        "level": 2,
+        "gold": 88000,
+        "iron": 44000,
+        "wood": 60500,
+        "food": 88000,
+        "generate": 7,
+        "time": 13680
+      },
+      {
+        "level": 3,
+        "gold": 220000,
+        "iron": 110000,
+        "wood": 99000,
+        "food": 165000,
+        "generate": 9,
+        "time": 19440
+      },
+      {
+        "level": 4,
+        "gold": 400000,
+        "iron": 270000,
+        "wood": 210000,
+        "food": 340000,
+        "generate": 11,
+        "time": 25920
+      }
+    ]
+  }
+]
