@@ -3,24 +3,23 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator'
-import { Model } from 'mongoose'
-import { User } from '../user.schema'
+import { UserModel } from '../user.schema'
 
 @ValidatorConstraint({ name: 'IsExistUserValidator', async: true })
 @Injectable()
 export class IsExistUserValidator implements ValidatorConstraintInterface {
   constructor(
-    @Inject(forwardRef(() => Model<User>))
-    private readonly userModel: Model<User>
+    @Inject(forwardRef(() => UserModel))
+    private readonly user: UserModel
   ) {}
   async validate(ids: StringOrObjectId | StringOrObjectId[]) {
     if (Array.isArray(ids)) {
-      const total = await this.userModel
+      const total = await this.user.model
         .countDocuments({ _id: { $in: ids } })
         .lean()
       if (total !== ids.length) return false
     } else {
-      const user = await this.userModel.exists({ _id: ids }).lean()
+      const user = await this.user.model.exists({ _id: ids }).lean()
       if (!user) return false
     }
     return true

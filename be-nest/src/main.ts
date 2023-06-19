@@ -1,14 +1,12 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
-import { useContainer } from 'class-validator'
 import 'config'
 import { AppModule } from './modules/app.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
   app.useGlobalPipes(new ValidationPipe())
-  useContainer(app.select(AppModule), { fallbackOnErrors: true })
   const config = new DocumentBuilder()
     .setBasePath(global.Config.CONTEXT)
     .setTitle('NestJS Skeleton example')

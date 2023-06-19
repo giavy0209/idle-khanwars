@@ -6,12 +6,12 @@ import { AbstractModel } from 'abstracts/AbstractModel'
 import { IsMongoId, IsString } from 'class-validator'
 import { COLLECTION } from 'enums'
 import { Request } from 'express'
-import { Connection, Document, HydratedDocument, Schema, Types } from 'mongoose'
+import { Connection, HydratedDocument, Schema, Types } from 'mongoose'
 
 @NestSchema({
   timestamps: true,
 })
-export class User extends Document {
+export class User  {
   @ApiProperty({ example: 'user1' })
   @IsString({ message: 'Username is not valid' })
   @Prop({ type: String, unique: true })

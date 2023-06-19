@@ -8,8 +8,6 @@ import { Connection } from 'mongoose'
 export class WorldTenantMiddware implements NestMiddleware {
   constructor(@InjectConnection() private readonly connection : Connection) {}
   async use(req: Request, _: Response, next: NextFunction) {
-    console.log(2);
-    
     const { world } = req.body
     if (!world) throw new BadRequestException()
     
@@ -17,7 +15,7 @@ export class WorldTenantMiddware implements NestMiddleware {
     const Worlds = db.model(COLLECTION.worlds, WorldSchema)
     const findWorld = await Worlds.findById(world)
     if(!findWorld) {
-      throw new BadRequestException('World not found')
+      throw new BadRequestException(['World not found'])
     }    
     req.tenantId = findWorld.tenant
     next()

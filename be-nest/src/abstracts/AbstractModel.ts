@@ -1,6 +1,7 @@
-import { Connection, Document, Model, Schema } from 'mongoose'
+import { Connection, Model, Schema } from 'mongoose'
+import { getDbName } from 'utils'
 
-export abstract class AbstractModel<D extends Document> {
+export abstract class AbstractModel<D > {
   Doc: D
   tenant?: string
   name: string
@@ -15,10 +16,10 @@ export abstract class AbstractModel<D extends Document> {
       tenant,
     }: { name: string; schema: Schema<D>; tenant?: string }
   ) {
-    this.connection = connection
     this.name = name
-    this.tenant = tenant
+    this.tenant = tenant?.trim()
     this.schema = schema
+    this.connection = connection.useDb(getDbName(this.tenant))
     this.model = this.getModel()
   }
 
@@ -30,10 +31,9 @@ export abstract class AbstractModel<D extends Document> {
   }
 
   getModel() {
-    const collectionName = this.getCollectionName()
-    let modelObject = this.connection.models[collectionName]
+    let modelObject = this.connection.models[this.name]
     if (!modelObject) {
-      modelObject = this.connection.model<D>(collectionName, this.schema)
+      modelObject = this.connection.model<D>(this.name, this.schema)
     }
     return modelObject
   }

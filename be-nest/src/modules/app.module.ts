@@ -1,6 +1,6 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { APP_GUARD } from '@nestjs/core'
-import { InjectConnection, MongooseModule } from '@nestjs/mongoose'
+import { MongooseModule } from '@nestjs/mongoose'
 import { ROUTER } from 'enums'
 import {
   AuthGuard,
@@ -10,15 +10,12 @@ import {
 } from 'middlewares'
 import { TenantMiddleware } from 'middlewares/tenant.middleware'
 import { WorldTenantMiddware } from 'middlewares/worldTenant.middleware copy'
-import { Connection } from 'mongoose'
 import { UserModule } from './users'
 import { WorldsModule } from './worlds/worlds.module'
 
 @Module({
   imports: [
-    MongooseModule.forRoot(global.Config.MONGODB_URI, {
-      connectionName: global.Config.MONGODB_NAME,
-    }),
+    MongooseModule.forRoot(global.Config.MONGODB_URI),
     UserModule,
     WorldsModule,
   ],
@@ -30,7 +27,6 @@ import { WorldsModule } from './worlds/worlds.module'
   ],
 })
 export class AppModule {
-  @InjectConnection(global.Config.MONGODB_NAME) _: Connection
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JWTValidationMiddware)
