@@ -1,39 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { WorldsService } from './worlds.service';
-import { CreateWorldDto } from './dto/create-world.dto';
-import { UpdateWorldDto } from './dto/update-world.dto';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { Public } from 'decorators'
+import { Public, QueryOptions } from 'decorators'
 import { ROUTER } from 'enums'
+import { FilterQuery } from 'mongoose'
+import { CreateWorldDto } from './dto/createWorld.dto'
+import { queryWorldDto } from './dto/queryWorld.dto'
+import { World } from './worlds.schema'
+import { WorldsService } from './worlds.service'
 
 @Controller(ROUTER.worlds)
 @ApiTags('Worlds')
 @Public()
 export class WorldsController {
-  constructor(private readonly worldsService: WorldsService) {}
+  constructor(private readonly service: WorldsService) { }
 
   @Post()
   create(@Body() createWorldDto: CreateWorldDto) {
-    return this.worldsService.create(createWorldDto);
+    return this.service.create(createWorldDto)
   }
 
   @Get()
-  findAll() {
-    return this.worldsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.worldsService.findOne({_id : id});
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorldDto: UpdateWorldDto) {
-    return this.worldsService.update(+id, updateWorldDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.worldsService.remove(+id);
+  findAll(
+    @Query() { search }: queryWorldDto,
+    @QueryOptions() { skip, limit, sort }: QueryParams
+  ) {
+    const query : FilterQuery<World> = {}
+    if(search) {
+      query.$text = {$search : search}
+    }
+    return this.service.find({
+      query,
+      skip,
+      limit,
+      sort
+    })
   }
 }

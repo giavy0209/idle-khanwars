@@ -1,20 +1,10 @@
-import { Module } from '@nestjs/common';
-import { WorldsService } from './worlds.service';
-import { WorldsController } from './worlds.controller';
-import { World, WorldSchema } from './worlds.schema'
-import { COLLECTION } from 'enums'
-import { MongooseModule } from '@nestjs/mongoose'
+import { Module } from '@nestjs/common'
+import { WorldsController } from './worlds.controller'
+import { WorldModel } from './worlds.schema'
+import { WorldsService } from './worlds.service'
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      {
-        name : COLLECTION.worlds,
-        schema : WorldSchema
-      }
-    ]),
-  ],
   controllers: [WorldsController],
-  providers: [WorldsService, World]
+  providers: [WorldsService, WorldModel]
 })
 export class WorldsModule {}

@@ -10,6 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe())
   useContainer(app.select(AppModule), { fallbackOnErrors: true })
   const config = new DocumentBuilder()
+    .setBasePath(global.Config.CONTEXT)
     .setTitle('NestJS Skeleton example')
     .setDescription('The NestJS Skeleton API description')
     .setVersion('1.0')
@@ -17,7 +18,7 @@ async function bootstrap() {
     .addSecurityRequirements('JWT-auth')
     .build()
   const appDocument = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('api/api-docs', app, appDocument)
+  SwaggerModule.setup(`${global.Config.CONTEXT}/api-docs`, app, appDocument)
 
   await app.listen(global.Config.PORT)
 }

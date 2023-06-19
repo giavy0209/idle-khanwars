@@ -66,6 +66,7 @@ declare global {
   }
 }
 global.Config = {
+  CONTEXT:process.env.CONTEXT || '',
   PORT: process.env.PORT || '',
   NODE_ENV: process.env.NODE_ENV || '',
 

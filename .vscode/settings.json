@@ -1,0 +1,17 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.addMissingImports" : true,
+        "source.fixAll.eslint": true,
+        "source.organizeImports": true
+    },
+    "[javascript]": {
+        "editor.autoIndent": "keep"
+    },
+    "[yaml]": {
+        "editor.autoIndent": "advanced"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.referencesCodeLens.enabled": true,
+    "prettier.semi": false,
+}
