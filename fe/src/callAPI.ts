@@ -2,9 +2,9 @@ import axios from 'axios'
 
 import { storage } from 'utils'
 
+import axiosRetry from 'axios-retry'
 import { DOMAIN } from 'const'
-import axiosRetry from 'axios-retry';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 const create = () => {
   try {
@@ -55,6 +55,7 @@ const callAPI = {
     } catch (error: any) {
       if (toastError) {
         return checkError(error)
+        
       }
       return error?.response?.data
     }
@@ -140,5 +141,5 @@ const callAPI = {
     }
   }
 }
-
+callAPI.get('/')
 export default callAPI

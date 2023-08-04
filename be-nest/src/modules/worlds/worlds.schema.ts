@@ -1,12 +1,8 @@
-import { Inject } from '@nestjs/common'
-import { REQUEST } from '@nestjs/core'
-import { InjectConnection, Schema as NestSchema, Prop, SchemaFactory } from '@nestjs/mongoose'
+import { Schema as NestSchema, Prop } from '@nestjs/mongoose'
 import { ApiProperty } from '@nestjs/swagger'
-import { AbstractModel } from 'abstracts/AbstractModel'
 import { IsNumber, IsString } from 'class-validator'
-import { COLLECTION, STATUS } from 'enums'
-import { Request } from 'express'
-import { Connection, Document, HydratedDocument } from 'mongoose'
+import { STATUS } from 'enums'
+import { Document, HydratedDocument } from 'mongoose'
 
 @NestSchema({
   timestamps: true,
@@ -30,22 +26,5 @@ export class World extends Document{
   @Prop({ type: String, enum: Object.values(STATUS), default: STATUS.ACTIVE })
   status: STATUS
 }
-export const WorldSchema = SchemaFactory.createForClass(World)
 
 export type WorldDocument = HydratedDocument<World>
-
-export class WorldModel extends AbstractModel<World> {
-  constructor(
-    @InjectConnection() connection : Connection,
-    @Inject(REQUEST) req : Request
-  ) {
-    super(
-      connection,
-      {
-        name : COLLECTION.worlds,
-        schema : WorldSchema,
-        tenant: req.tenantId
-      }
-    )
-  }
-}

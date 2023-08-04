@@ -1,8 +1,8 @@
 import { BadRequestException, NestMiddleware } from '@nestjs/common'
-import { InjectConnection } from '@nestjs/mongoose'
+import { InjectConnection, SchemaFactory } from '@nestjs/mongoose'
 import { COLLECTION } from 'enums'
 import { NextFunction, Request } from 'express'
-import { WorldSchema } from 'modules/worlds/worlds.schema'
+import { World } from 'modules/worlds'
 import { Connection } from 'mongoose'
 
 export class WorldTenantMiddware implements NestMiddleware {
@@ -12,7 +12,9 @@ export class WorldTenantMiddware implements NestMiddleware {
     if (!world) throw new BadRequestException()
     
     const db = this.connection.useDb(global.Config.MONGODB_NAME)
-    const Worlds = db.model(COLLECTION.worlds, WorldSchema)
+
+    const worldSchema = SchemaFactory.createForClass(World)
+    const Worlds = db.model(COLLECTION.worlds,worldSchema)
     const findWorld = await Worlds.findById(world)
     if(!findWorld) {
       throw new BadRequestException(['World not found'])

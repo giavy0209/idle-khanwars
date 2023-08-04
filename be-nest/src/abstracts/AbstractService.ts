@@ -1,5 +1,7 @@
-import { BadRequestException, NotFoundException } from '@nestjs/common'
+import { BadRequestException } from '@nestjs/common'
+import { SchemaFactory } from '@nestjs/mongoose'
 import {
+  Connection,
   FilterQuery,
   HydratedDocument,
   MergeType,
@@ -8,12 +10,22 @@ import {
   PopulateOptions,
   ProjectionType,
   QueryOptions,
+  Schema,
   Types,
   UnpackedIntersection,
   UpdateQuery,
   isValidObjectId,
 } from 'mongoose'
-import { AbstractModel } from './AbstractModel'
+import { getDbName } from 'utils'
+type Group = {
+  asObject: {
+    [k: string]: number
+  }
+  asArray: {
+    status: string
+    total: number
+  }[]
+}
 type OptionalQueryOption = {
   skip?: number
   limit?: number
@@ -25,25 +37,65 @@ type OptionalQueryOption = {
     label: string
     value: string
   }[]
-  populate?: string[] | PopulateOptions | PopulateOptions[] | false
+  populate?: PopulateOptions[] | false
   projection?: ProjectionType<any>
 }
-export abstract class AbstractService<
-  M extends AbstractModel<any>,
-  PullPopulate = Record<string, never>
-> {
-  populate: PopulateOptions | PopulateOptions[] | string[] = []
-  model: Model<M['Doc']>
+interface AbstractServiceOptions<D, PullPopulate> {
+  hooks?: (service: AbstractService<D, PullPopulate>) => void
+  user?: JWTPayload
+  staticHook?: (service: AbstractService<D, PullPopulate>) => void
+  shortLookup?: GeneratePipeline<AbstractService<D>['Doc']>
+  populate?: PopulateOptions[]
+}
+export abstract class AbstractService<D, PullPopulate = {}> {
+  Doc: D & { _id: Types.ObjectId }
   tenant?: string
-  ModelClass: M
-  constructor(ModelClass: M, tenant?: string) {
-    this.ModelClass = ModelClass
-    this.model = ModelClass.model
-    this.tenant = tenant
-  }
+  name: string
+  schema: Schema<D>
+  model: Model<D>
+  connection: Connection
+  user: JWTPayload
+  populate: PopulateOptions[] = []
+  lookup: PipelineStage[] = []
+  shortLookup: GeneratePipeline<AbstractService<D>['Doc']> = []
+  
+  constructor(
+    connection: Connection,
+    decoratorSchema: new () => D,
+    name: string,
+    tenant = '',
+    {
+      user,
+      hooks,
+      staticHook,
+      shortLookup,
+      populate,
+    }: AbstractServiceOptions<D, PullPopulate> = {}
+  ) {
+    this.schema = SchemaFactory.createForClass(decoratorSchema)
+    this.tenant = tenant || ''
+    this.name = name
+    if(user) {
+      this.user = user
+    }
 
-  getCollectionName(name: string) {
-    return `${this.tenant ? this.tenant + '_' : ''}${name}`
+    this.connection = connection.useDb(getDbName(this.tenant))
+    if (staticHook) {
+      staticHook(this)
+    }
+
+    if (hooks) {
+      hooks(this)
+    }
+
+    this.model = this.getModel()
+    if (shortLookup) {
+      this.shortLookup = shortLookup
+      this.lookup = this.generateLookup(this.shortLookup)
+    }
+    if (populate) {
+      this.populate = populate
+    }
   }
   generateLookup(pipelines: GeneratePipeline, prefix = '') {
     const mappedPipeline: Exclude<
@@ -90,60 +142,57 @@ export abstract class AbstractService<
     })
     return mappedPipeline
   }
-
+  getCollectionName(name?: string) {
+    if (name) {
+      return `${this.tenant ? this.tenant + '_' : ''}${name}`
+    }
+    return `${this.tenant ? this.tenant + '_' : ''}${this.name}`
+  }
+  getModel() {
+    const collectionName = this.getCollectionName()
+    let modelObject = this.connection.models[collectionName]
+    if (!modelObject) {
+      modelObject = this.connection.model<D>(collectionName, this.schema)
+    }
+    return modelObject
+  }
   find(
-    input: { query: FilterQuery<M['Doc']>; idsOnly: true } & OptionalQueryOption
+    input: { query?: FilterQuery<D>; idsOnly: true } & OptionalQueryOption
   ): Promise<Types.ObjectId[]>
 
   find(
     input: {
-      query: FilterQuery<M['Doc']>
+      query?: FilterQuery<D>
       count: false
       populate: false
     } & OptionalQueryOption
-  ): Promise<
-    HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>[]
-  >
+  ): Promise<HydratedDocument<D, {}, {}>[]>
   find(
     input: {
-      query: FilterQuery<M['Doc']>
+      query?: FilterQuery<D>
       populate: false
     } & OptionalQueryOption
   ): Promise<{
-    data: HydratedDocument<
-      M['Doc'],
-      Record<string, never>,
-      Record<string, never>
-    >[]
+    data: HydratedDocument<D, {}, {}>[]
     total: number
     next: Pagination
     pre: Pagination
   }>
 
   find<P = PullPopulate>(
-    input: { query: FilterQuery<M['Doc']>; count: false } & OptionalQueryOption
-  ): Promise<
-    (Omit<
-      HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>,
-      keyof P
-    > &
-      P)[]
-  >
+    input: { query?: FilterQuery<D>; count: false } & OptionalQueryOption
+  ): Promise<(Omit<HydratedDocument<D, {}, {}>, keyof P> & P)[]>
 
   find<P = PullPopulate>(
-    input: { query: FilterQuery<M['Doc']> } & OptionalQueryOption
+    input: { query?: FilterQuery<D> } & OptionalQueryOption
   ): Promise<{
-    data: (Omit<
-      HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>,
-      keyof P
-    > &
-      P)[]
+    data: (Omit<HydratedDocument<D, {}, {}>, keyof P> & P)[]
     total: number
     next: Pagination
     pre: Pagination
   }>
   async find<P = PullPopulate>({
-    query,
+    query = {},
     skip,
     limit,
     sort,
@@ -152,7 +201,7 @@ export abstract class AbstractService<
     populate,
     idsOnly,
     projection,
-  }: MergeType<{ query: FilterQuery<M['Doc']> }, OptionalQueryOption>) {
+  }: MergeType<{ query?: FilterQuery<D> }, OptionalQueryOption>) {
     const options: QueryOptions = {}
     if (skip) {
       options.skip = skip
@@ -175,20 +224,8 @@ export abstract class AbstractService<
 
     let promiseFind: Promise<
       (
-        | HydratedDocument<
-            M['Doc'],
-            Record<string, never>,
-            Record<string, never>
-          >
-        | (Omit<
-            HydratedDocument<
-              M['Doc'],
-              Record<string, never>,
-              Record<string, never>
-            >,
-            keyof P
-          > &
-            P)
+        | HydratedDocument<D, {}, {}>
+        | (Omit<HydratedDocument<D, {}, {}>, keyof P> & P)
       )[]
     > = this.model
       .find(query, projection, options)
@@ -204,20 +241,8 @@ export abstract class AbstractService<
     const promises: [
       Promise<
         (
-          | HydratedDocument<
-              M['Doc'],
-              Record<string, never>,
-              Record<string, never>
-            >
-          | (Omit<
-              HydratedDocument<
-                M['Doc'],
-                Record<string, never>,
-                Record<string, never>
-              >,
-              keyof P
-            > &
-              P)
+          | HydratedDocument<D, {}, {}>
+          | (Omit<HydratedDocument<D, {}, {}>, keyof P> & P)
         )[]
       >,
       Promise<number>
@@ -255,22 +280,38 @@ export abstract class AbstractService<
     options: { isThrow: true; populate: (PopulateOptions | string)[] }
   ): Promise<
     UnpackedIntersection<
-      HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>,
+      HydratedDocument<D, {}, {}>,
       P extends never ? PullPopulate : P
     >
   >
   findById<P = never>(
-    id: string | Types.ObjectId
+    id: string | Types.ObjectId,
+    options: { populate: (PopulateOptions | string)[] }
   ): Promise<UnpackedIntersection<
-    HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>,
+    HydratedDocument<D, {}, {}>,
     P extends never ? PullPopulate : P
   > | null>
+  findById<P = PullPopulate>(
+    id: string | Types.ObjectId
+  ): Promise<UnpackedIntersection<
+    HydratedDocument<D, {}, {}>,
+    P extends never ? PullPopulate : P
+  > | null>
+  findById<P = PullPopulate>(
+    id: string | Types.ObjectId,
+    options: { isThrow: true }
+  ): Promise<
+    UnpackedIntersection<
+      HydratedDocument<D, {}, {}>,
+      P extends never ? PullPopulate : P
+    >
+  >
   async findById<P>(
     id: string | Types.ObjectId,
     options?: {
       isThrow?: boolean
       message?: string
-      populate: (PopulateOptions | string)[]
+      populate?: (PopulateOptions | string)[]
     }
   ) {
     const { isThrow, message, populate } = options || {}
@@ -280,73 +321,173 @@ export abstract class AbstractService<
       .exec()
     if (isThrow === true) {
       if (!data) {
-        throw new NotFoundException(this.model.name, message || 'Not found')
+        throw new BadRequestException(message || `${this.name} not found`)
       }
     }
     return data
   }
 
   findOne<P = never>(
-    query: FilterQuery<M['Doc']>,
-    options: { isThrow: true }
+    query: FilterQuery<D>,
+    options: { isThrow: true; populate: (PopulateOptions | string)[] }
   ): Promise<
     UnpackedIntersection<
-      HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>,
+      HydratedDocument<D, {}, {}>,
       P extends never ? PullPopulate : P
     >
   >
   findOne<P = never>(
-    query: FilterQuery<M['Doc']>
+    query: FilterQuery<D>,
+    options: { populate: (PopulateOptions | string)[] }
   ): Promise<UnpackedIntersection<
-    HydratedDocument<M['Doc'], Record<string, never>, Record<string, never>>,
+    HydratedDocument<D, {}, {}>,
     P extends never ? PullPopulate : P
   > | null>
-  async findOne(
-    query: FilterQuery<M['Doc']>,
-    options?: { isThrow?: boolean; message?: string }
+  findOne<P = PullPopulate>(
+    query: FilterQuery<D>
+  ): Promise<UnpackedIntersection<
+    HydratedDocument<D, {}, {}>,
+    P extends never ? PullPopulate : P
+  > | null>
+  findOne<P = PullPopulate>(
+    query: FilterQuery<D>,
+    options: { isThrow: true }
+  ): Promise<
+    UnpackedIntersection<
+      HydratedDocument<D, {}, {}>,
+      P extends never ? PullPopulate : P
+    >
+  >
+  async findOne<P>(
+    query: FilterQuery<D>,
+    options?: {
+      isThrow?: boolean
+      message?: string
+      populate?: (PopulateOptions | string)[]
+    }
   ) {
-    const { isThrow, message } = options || {}
+    const { isThrow, message, populate } = options || {}
     const data = await this.model
       .findOne(query)
-      .populate<PullPopulate>(this.populate)
+      .populate<P extends never ? PullPopulate : P>(populate || this.populate)
       .exec()
     if (isThrow === true) {
-      if (!data) new NotFoundException(this.model.name, message || 'Not found')
+      if (!data) {
+        throw new BadRequestException(message || `${this.name} not found`)
+      }
     }
     return data
   }
   async exists(
-    query: FilterQuery<M['Doc']>,
-    options: { throwCase?: 'IF_EXISTS' | 'IF_NOT_EXISTS'; message?: string }
+    query: FilterQuery<D>,
+    options?: { throwCase?: 'IF_EXISTS' | 'IF_NOT_EXISTS'; message?: string }
   ) {
-    const { throwCase } = options || {}
+    const { throwCase, message } = options || {}
     const isExists = await this.model.exists(query)
     switch (throwCase) {
       case 'IF_EXISTS':
         if (isExists) {
-          throw new BadRequestException(this.model.name, 'Not found')
+          throw new BadRequestException(message || `${this.name} already exist`)
         }
         break
       case 'IF_NOT_EXISTS':
         if (!isExists) {
-          throw new BadRequestException(this.model.name, 'Not found')
+          throw new BadRequestException(message || `${this.name} not found`)
         }
         break
-      default:
-        return !!isExists
     }
+    return !!isExists
+  }
+
+  async existsAll(
+    ids: StringOrObjectId[],
+    options?: {
+      throwCase?:
+      | 'IF_ONE_EXISTS'
+      | 'IF_ONE_NOT_EXISTS'
+      | 'IF_ALL_EXISTS'
+      | 'IF_ALL_NOT_EXISTS'
+      message?: string
+    }
+  ) {
+    const hashTypes: { [k: string]: 1 } = {}
+    ids.forEach((o) => {
+      hashTypes[o.toString()] = 1
+    })
+    ids = Object.keys(hashTypes)
+    const { throwCase, message } = options || {}
+    const totalDocs = await this.model.countDocuments({ _id: { $in: ids } })
+    const isExistsOne = totalDocs > 0
+    const isExistsAll = totalDocs === ids.length
+    switch (throwCase) {
+      case 'IF_ONE_EXISTS':
+        if (isExistsOne) {
+          throw new BadRequestException(
+            message || `One of ${this.name} already exist`
+          )
+        }
+        break
+      case 'IF_ONE_NOT_EXISTS':
+        if (!isExistsAll) {
+          throw new BadRequestException(
+            message || `One of ${this.name} not found`
+          )
+        }
+        break
+      case 'IF_ALL_EXISTS':
+        if (isExistsAll) {
+          throw new BadRequestException(
+            message || `All ${this.name} already exist`
+          )
+        }
+        break
+      case 'IF_ALL_NOT_EXISTS':
+        if (!isExistsOne) {
+          throw new BadRequestException(message || `All ${this.name} not found`)
+        }
+        break
+    }
+    return {
+      isExistsOne,
+      isExistsAll,
+    }
+  }
+
+  async groupBy(pipeline: PipelineStage[], keys: string[]) {
+    const rawData = await this.model.aggregate(pipeline)
+    const data: Group = {
+      asObject: {},
+      asArray: [],
+    }
+    rawData.forEach(({ _id, total }) => {
+      data.asObject[_id] = total
+      data.asArray.push({
+        status: _id,
+        total,
+      })
+    })
+    keys.forEach((status) => {
+      if (!data.asObject[status]) {
+        data.asObject[status] = 0
+        data.asArray.push({
+          status,
+          total: 0,
+        })
+      }
+    })
+    return data
   }
 
   isValidObjectId(id: string) {
     if (!isValidObjectId(id)) {
-      throw new BadRequestException('invaid', 'invalid objectid')
+      throw new BadRequestException('Invalid ObjectId')
     }
     return new Types.ObjectId(id)
   }
 
   public async findByIdAndUpdate(
     id: string | Types.ObjectId,
-    input: UpdateQuery<M['Doc']>,
+    input: UpdateQuery<D>,
     { isThrow, message }: { isThrow?: boolean; message?: string } = {}
   ) {
     const data = await this.model
@@ -354,21 +495,21 @@ export abstract class AbstractService<
       .populate<PullPopulate>(this.populate)
     if (!data) {
       if (isThrow) {
-        throw new NotFoundException(this.model.name, message || 'Not found')
+        throw new BadRequestException(message || `${this.name} not found`)
       }
     }
     return data
   }
 
   public async findOneAndUpdate(
-    query: FilterQuery<M['Doc']>,
-    input: UpdateQuery<M['Doc']>,
+    query: FilterQuery<D>,
+    input: UpdateQuery<D>,
     { isThrow, message }: { isThrow?: boolean; message?: string } = {}
   ) {
     const data = await this.model.findOneAndUpdate(query, input, { new: true })
     if (!data) {
       if (isThrow) {
-        throw new NotFoundException(this.model.name, message || 'Not found')
+        throw new BadRequestException(message || `${this.name} not found`)
       }
     }
     return data
@@ -381,29 +522,32 @@ export abstract class AbstractService<
     const data = await this.model.findByIdAndDelete(id)
     if (!data) {
       if (isThrow) {
-        throw new NotFoundException(this.model.name, message || 'Not found')
+        throw new BadRequestException(message || `${this.name} not found`)
       }
     }
     return data
   }
 
   public async findOneAndDelete(
-    query: FilterQuery<M['Doc']>,
+    query: FilterQuery<D>,
     { isThrow, message }: { isThrow?: boolean; message?: string } = {}
   ) {
     const data = await this.model.findOneAndDelete(query)
     if (!data) {
       if (isThrow) {
-        throw new NotFoundException(this.model.name, message || 'Not found')
+        throw new BadRequestException(message || `${this.name} not found`)
       }
     }
     return data
   }
 
   async findByPipeline(
-    pipeline: PipelineStage[],
-    { skip, limit, sort }: QueryParams
+    { skip, limit, sort }: QueryParams,
+    lookup: GeneratePipeline<D> = [],
+    ...pipelines: PipelineStage[][]
   ) {
+    let pipeline: PipelineStage[] = this.generateLookup(lookup)
+    pipeline = pipeline.concat(pipelines.flat(1))
     if (!Number.isInteger(skip)) {
       skip = 0
     }

@@ -1,7 +1,10 @@
-import { DOMAIN } from 'const'
-import storage from 'utils/storage'
 import io from 'socket.io-client'
-const socket = io(DOMAIN)
+import storage from 'utils/storage'
+const socket = io('https://localhros.phamgiavy.com/ws', {
+  path : '/ws',
+  transports : ['websocket']
+})
+
 
 export const reconnect = () => {
   socket.disconnect()
@@ -18,5 +21,14 @@ socket.on('connect', () => {
 })
 socket.on('disconnect', (reason) => {
   console.log('Disconnect', reason);
+})
+
+// setInterval(() => {
+//   socket.emit('test')
+// }, 1000)
+
+socket.on('test', data => {
+  console.log({data});
+  
 })
 export default socket

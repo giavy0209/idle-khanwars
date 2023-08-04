@@ -1,1 +1,2 @@
-export * from './getDbName'
+export * from './get-db-name'
+
