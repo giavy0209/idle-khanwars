@@ -53,7 +53,7 @@ export class DefaultResourceService {
       });
       const objectData = {
         ...resource,
-        path: path.join(world.assets, resource.path),
+        path: resource.path,
       };
       if (defaultResource) {
         defaultResource = await defaultResourceMethod.findByIdAndUpdate(

@@ -47,7 +47,7 @@ export class DefaultBuildingService {
         key: building.key,
         description: building.description,
         type: building.type,
-        path: path.join(world.assets, 'buildings', building.path),
+        path: path.join('buildings', building.path),
         resource: resource?._id,
         generate: building.generate,
         unit: building.unit,

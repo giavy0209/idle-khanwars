@@ -83,7 +83,7 @@ export class DefaultUnitService {
         life: unit.life,
         range: unit.range,
         population: unit.population,
-        path: path.join(world.assets, 'units', unit.path),
+        path: path.join('units', unit.path),
         resources: [
           { type: gold?._id, value: unit.resource.gold },
           { type: iron?._id, value: unit.resource.iron },
