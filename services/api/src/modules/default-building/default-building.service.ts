@@ -1,5 +1,3 @@
-/** @format */
-
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { InjectMethodFactory, MethodFactory } from '@vypham0209/nestjs-common';
 import { DefaultResource } from 'modules/default-resource/default-resource.schema';
