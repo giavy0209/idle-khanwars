@@ -64,7 +64,9 @@ export class DefaultUnitService {
     const cavalry = unitTypes.find((type) => type.key === 'cavalry');
     const siege = unitTypes.find((type) => type.key === 'siege');
     const wall = unitTypes.find((type) => type.key === 'wall');
-    const unitPromises = DEFAULT_UNIT.map(async (unit, index) => {
+
+    let index = 0;
+    const unitPromises = DEFAULT_UNIT.map(async (unit) => {
       const building = await defaultBuildingMethod.findOne({
         name: unit.building,
       });
@@ -110,6 +112,8 @@ export class DefaultUnitService {
       }
 
       await this.defaultEnhanceService.init(world, defaultUnit);
+      console.log(`finish init ${index + 1}/${DEFAULT_UNIT.length} unit`);
+      index++;
       return defaultUnit;
     });
 

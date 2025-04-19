@@ -62,7 +62,6 @@ export class DefaultUpgradeService {
           { type: food?._id, value: upgrade.food },
         ],
       };
-
       if (findUpgrade) {
         findUpgrade = await defaultUpgradeMethod.findByIdAndUpdate(
           findUpgrade._id,

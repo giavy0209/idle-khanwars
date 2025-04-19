@@ -34,7 +34,7 @@ export class DefaultEnhanceService {
             level: index,
             type,
             value: index * 10,
-            time: defaultUnit.time * 10 * index,
+            time: defaultUnit.time * 10 * index / world.speed,
             resources: defaultUnit.resources.map((o) => ({
               type: o.type._id,
               value: o.value * 10 * index,

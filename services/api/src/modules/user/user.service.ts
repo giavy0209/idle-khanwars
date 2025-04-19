@@ -26,12 +26,21 @@ export class UserService {
   @Inject(TOKEN.USER) user: JWTPayload;
   @Inject() readonly jwtService: JwtService;
 
-  async get() {
+  async getMe() {
     const user = await this.userMethod.findById(this.user._id, {
       isThrow: true,
       populate: USER_POPULATE,
     });
-    return user;
+    const world = await this.worldMethod.findOne(
+      { tenant: this.user.tenant },
+      {
+        isThrow: true,
+      },
+    );
+    return {
+      ...user.toObject(),
+      world,
+    };
   }
 
   async signup({
