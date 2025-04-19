@@ -55,7 +55,8 @@ export class DefaultUnitService {
     const cavalry = await defaultUnitTypeMethod.findOne({ key: 'cavalry' });
     const siege = await defaultUnitTypeMethod.findOne({ key: 'siege' });
     const wall = await defaultUnitTypeMethod.findOne({ key: 'wall' });
-    for (const unit of DEFAULT_UNIT) {
+    for (const [index, unit] of DEFAULT_UNIT.entries()) {
+      console.log(`start init ${index + 1}/${DEFAULT_UNIT.length} unit`);
       const building = await defaultBuildingMethod.findOne({
         name: unit.building,
       });
@@ -74,7 +75,7 @@ export class DefaultUnitService {
         life: unit.life,
         range: unit.range,
         population: unit.population,
-        path: path.join(world.tenant, 'units', unit.path),
+        path: path.join(world.assets, 'units', unit.path),
         resources: [
           { type: gold?._id, value: unit.resource.gold },
           { type: iron?._id, value: unit.resource.iron },
@@ -101,6 +102,7 @@ export class DefaultUnitService {
       }
       this.units[world.tenant].push(defaultUnit);
       await this.defaultEnhanceService.init(world, defaultUnit);
+      console.log(`finish init ${index + 1}/${DEFAULT_UNIT.length} unit`);
     }
   }
 }

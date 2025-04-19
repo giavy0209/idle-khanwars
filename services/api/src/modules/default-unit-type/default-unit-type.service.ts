@@ -39,7 +39,8 @@ export class DefaultUnitTypeService {
     const defaultUnitTypeMethod = this.defaultUnitTypeMethodFactory(
       world.tenant,
     );
-    for (const unitType of UNIT_TYPE) {
+    for (const [index, unitType] of UNIT_TYPE.entries()) {
+      console.log(`start init ${index + 1}/${UNIT_TYPE.length} unit type`);
       const isExist = await defaultUnitTypeMethod.findOne({
         key: unitType.key,
       });
@@ -48,6 +49,7 @@ export class DefaultUnitTypeService {
       } else {
         await defaultUnitTypeMethod.model.create(unitType);
       }
+      console.log(`finish init ${index + 1}/${UNIT_TYPE.length} unit type`);
     }
   }
 }

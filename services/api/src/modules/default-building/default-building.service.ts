@@ -35,7 +35,8 @@ export class DefaultBuildingService {
     const iron = await defaultResourceMethod.findOne({ key: 'iron' });
     const wood = await defaultResourceMethod.findOne({ key: 'wood' });
     const food = await defaultResourceMethod.findOne({ key: 'food' });
-    for (const building of BUILDING) {
+    for (const [index, building] of BUILDING.entries()) {
+      console.log(`start init ${index + 1}/${BUILDING.length} building`);
       let findBuilding = await defaultBuildingMethod.findOne({
         name: building.name,
       });
@@ -47,7 +48,7 @@ export class DefaultBuildingService {
         key: building.key,
         description: building.description,
         type: building.type,
-        path: path.join(world.tenant, 'buildings', building.path),
+        path: path.join(world.assets, 'buildings', building.path),
         resource: resource?._id,
         generate: building.generate,
         unit: building.unit,
@@ -70,6 +71,7 @@ export class DefaultBuildingService {
         !!resource,
         { gold, iron, wood, food },
       );
+      console.log(`finish init ${index + 1}/${BUILDING.length} building`);
     }
   }
 }

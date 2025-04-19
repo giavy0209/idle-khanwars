@@ -9,6 +9,11 @@ import {
 } from '@vypham0209/nestjs-common';
 import { IsNotEmpty, IsPositive, IsString } from 'class-validator';
 
+enum Assets {
+  KHANWARS = 'khanwars',
+  ORDER_OF_ANGEL = 'order-of-angel',
+}
+
 @NestSchema({ softDelete: true })
 export class World extends AbstractSchema {
   static collectionName = 'worlds';
@@ -25,6 +30,12 @@ export class World extends AbstractSchema {
   @IsNotEmpty()
   @Prop({ type: String })
   tenant: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  @Prop({ type: String, enum: Assets })
+  assets: Assets;
 
   @ApiProperty()
   @IsPositive()

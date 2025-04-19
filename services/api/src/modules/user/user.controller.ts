@@ -24,6 +24,8 @@ export class UserController {
   @Public()
   @Post('signup')
   async signup(@Body() body: SignupDto) {
+    console.log(123);
+    
     const data = await this.userService.signup(body);
 
     return {

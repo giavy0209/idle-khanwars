@@ -47,13 +47,14 @@ export class DefaultResourceService {
     if (!this.resources[world.tenant]) {
       this.resources[world.tenant] = [];
     }
-    for (const resource of resources) {
+    for (const [index, resource] of resources.entries()) {
+      console.log(`start init ${index + 1}/${resources.length} resource`);
       let defaultResource = await defaultResourceMethod.findOne({
         key: resource.key,
       });
       const objectData = {
         ...resource,
-        path: path.join(world.tenant, resource.path),
+        path: path.join(world.assets, resource.path),
       };
       if (defaultResource) {
         defaultResource = await defaultResourceMethod.findByIdAndUpdate(
@@ -65,6 +66,7 @@ export class DefaultResourceService {
         defaultResource = await defaultResourceMethod.model.create(objectData);
       }
       this.resources[world.tenant].push(defaultResource);
+      console.log(`finish init ${index + 1}/${resources.length} resource`);
     }
   }
 }
