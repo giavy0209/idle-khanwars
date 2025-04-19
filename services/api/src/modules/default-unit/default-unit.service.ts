@@ -45,18 +45,26 @@ export class DefaultUnitService {
     const defaultResourceMethod = this.defaultResourceMethodFactory(
       world.tenant,
     );
-    const gold = await defaultResourceMethod.findOne({ key: 'gold' });
-    const iron = await defaultResourceMethod.findOne({ key: 'iron' });
-    const wood = await defaultResourceMethod.findOne({ key: 'wood' });
-    const food = await defaultResourceMethod.findOne({ key: 'food' });
+    const [resources, unitTypes] = await Promise.all([
+      defaultResourceMethod.model.find({
+        key: { $in: ['gold', 'iron', 'wood', 'food'] },
+      }),
+      defaultUnitTypeMethod.model.find({
+        key: { $in: ['infantry', 'archers', 'cavalry', 'siege', 'wall'] },
+      }),
+    ]);
 
-    const infantry = await defaultUnitTypeMethod.findOne({ key: 'infantry' });
-    const archers = await defaultUnitTypeMethod.findOne({ key: 'archers' });
-    const cavalry = await defaultUnitTypeMethod.findOne({ key: 'cavalry' });
-    const siege = await defaultUnitTypeMethod.findOne({ key: 'siege' });
-    const wall = await defaultUnitTypeMethod.findOne({ key: 'wall' });
-    for (const [index, unit] of DEFAULT_UNIT.entries()) {
-      console.log(`start init ${index + 1}/${DEFAULT_UNIT.length} unit`);
+    const gold = resources.find((resource) => resource.key === 'gold');
+    const iron = resources.find((resource) => resource.key === 'iron');
+    const wood = resources.find((resource) => resource.key === 'wood');
+    const food = resources.find((resource) => resource.key === 'food');
+
+    const infantry = unitTypes.find((type) => type.key === 'infantry');
+    const archers = unitTypes.find((type) => type.key === 'archers');
+    const cavalry = unitTypes.find((type) => type.key === 'cavalry');
+    const siege = unitTypes.find((type) => type.key === 'siege');
+    const wall = unitTypes.find((type) => type.key === 'wall');
+    const unitPromises = DEFAULT_UNIT.map(async (unit, index) => {
       const building = await defaultBuildingMethod.findOne({
         name: unit.building,
       });
@@ -100,9 +108,12 @@ export class DefaultUnitService {
       } else {
         defaultUnit = await defaultUnitMethod.model.create(objectData);
       }
-      this.units[world.tenant].push(defaultUnit);
+
       await this.defaultEnhanceService.init(world, defaultUnit);
-      console.log(`finish init ${index + 1}/${DEFAULT_UNIT.length} unit`);
-    }
+      return defaultUnit;
+    });
+
+    const defaultUnits = await Promise.all(unitPromises);
+    this.units[world.tenant].push(...defaultUnits);
   }
 }

@@ -39,17 +39,17 @@ export class DefaultUnitTypeService {
     const defaultUnitTypeMethod = this.defaultUnitTypeMethodFactory(
       world.tenant,
     );
-    for (const [index, unitType] of UNIT_TYPE.entries()) {
-      console.log(`start init ${index + 1}/${UNIT_TYPE.length} unit type`);
+    const unitTypePromises = UNIT_TYPE.map(async (unitType) => {
       const isExist = await defaultUnitTypeMethod.findOne({
         key: unitType.key,
       });
       if (isExist) {
-        await defaultUnitTypeMethod.findByIdAndUpdate(isExist._id, unitType);
+        return defaultUnitTypeMethod.findByIdAndUpdate(isExist._id, unitType);
       } else {
-        await defaultUnitTypeMethod.model.create(unitType);
+        return defaultUnitTypeMethod.model.create(unitType);
       }
-      console.log(`finish init ${index + 1}/${UNIT_TYPE.length} unit type`);
-    }
+    });
+
+    await Promise.all(unitTypePromises);
   }
 }

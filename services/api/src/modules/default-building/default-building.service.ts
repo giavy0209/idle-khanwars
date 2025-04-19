@@ -35,8 +35,7 @@ export class DefaultBuildingService {
     const iron = await defaultResourceMethod.findOne({ key: 'iron' });
     const wood = await defaultResourceMethod.findOne({ key: 'wood' });
     const food = await defaultResourceMethod.findOne({ key: 'food' });
-    for (const [index, building] of BUILDING.entries()) {
-      console.log(`start init ${index + 1}/${BUILDING.length} building`);
+    const buildingPromises = BUILDING.map(async (building) => {
       let findBuilding = await defaultBuildingMethod.findOne({
         name: building.name,
       });
@@ -63,7 +62,7 @@ export class DefaultBuildingService {
       } else {
         findBuilding = await defaultBuildingMethod.model.create(objectData);
       }
-      this.buildings[world.tenant].push(findBuilding);
+
       this.defaultUpgradeService.init(
         world,
         building.upgrade,
@@ -71,7 +70,10 @@ export class DefaultBuildingService {
         !!resource,
         { gold, iron, wood, food },
       );
-      console.log(`finish init ${index + 1}/${BUILDING.length} building`);
-    }
+      return findBuilding;
+    });
+
+    const defaultBuildings = await Promise.all(buildingPromises);
+    this.buildings[world.tenant].push(...defaultBuildings);
   }
 }

@@ -19,35 +19,42 @@ export class DefaultEnhanceService {
       this.enhances[world.tenant] = [];
     }
     const defaultEnhanceMethod = this.defaultEnhanceMethodFactory(world.tenant);
+    const enhancePromises: (() => Promise<DefaultEnhance>)[] = [];
+
     for (let index = 0; index <= 10; index++) {
       for (const type of DEFAULT_ENHANCE.TYPES) {
-        let findEnhance = await defaultEnhanceMethod.findOne({
-          unit: defaultUnit._id,
-          level: index,
-          type,
+        enhancePromises.push(async () => {
+          let findEnhance = await defaultEnhanceMethod.findOne({
+            unit: defaultUnit._id,
+            level: index,
+            type,
+          });
+          const objectData = {
+            unit: defaultUnit._id,
+            level: index,
+            type,
+            value: index * 10,
+            time: defaultUnit.time * 10 * index,
+            resources: defaultUnit.resources.map((o) => ({
+              type: o.type._id,
+              value: o.value * 10 * index,
+            })),
+          };
+          if (findEnhance) {
+            findEnhance = await defaultEnhanceMethod.findByIdAndUpdate(
+              findEnhance._id,
+              objectData,
+              { isThrow: true },
+            );
+          } else {
+            findEnhance = await defaultEnhanceMethod.model.create(objectData);
+          }
+          return findEnhance;
         });
-        const objectData = {
-          unit: defaultUnit._id,
-          level: index,
-          type,
-          value: index * 10,
-          time: defaultUnit.time * 10 * index,
-          resources: defaultUnit.resources.map((o) => ({
-            type: o.type._id,
-            value: o.value * 10 * index,
-          })),
-        };
-        if (findEnhance) {
-          findEnhance = await defaultEnhanceMethod.findByIdAndUpdate(
-            findEnhance._id,
-            objectData,
-            { isThrow: true },
-          );
-        } else {
-          findEnhance = await defaultEnhanceMethod.model.create(objectData);
-        }
-        this.enhances[world.tenant].push(findEnhance);
       }
     }
+
+    const enhanceResults = await Promise.all(enhancePromises.map((fn) => fn()));
+    this.enhances[world.tenant].push(...enhanceResults);
   }
 }
