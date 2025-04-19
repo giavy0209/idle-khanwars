@@ -13,8 +13,8 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('')
-  async get() {
-    const data = await this.userService.get();
+  async getMe() {
+    const data = await this.userService.getMe();
     return {
       data,
       message: 'Get user successfully',
@@ -24,6 +24,8 @@ export class UserController {
   @Public()
   @Post('signup')
   async signup(@Body() body: SignupDto) {
+    console.log(123);
+
     const data = await this.userService.signup(body);
 
     return {

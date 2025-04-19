@@ -15,28 +15,28 @@ export class WorldInitService {
   @Inject() defaultUnitTypeService: DefaultUnitTypeService;
   @Inject() defaultUnitService: DefaultUnitService;
   async init(world: World) {
-    console.log('Start init resource ', world.name);
+    console.time(`init resource ${world.name}`);
     await this.defaultResourceService.init(world);
-    console.log('End init resource ', world.name);
+    console.timeEnd(`init resource ${world.name}`);
 
-    console.log('Start init building ', world.name);
+    console.time(`init building ${world.name}`);
     await this.defaultBuildingService.init(world);
-    console.log('End init building ', world.name);
+    console.timeEnd(`init building ${world.name}`);
 
-    console.log('Start init unit type ', world.name);
+    console.time(`init unit type ${world.name}`);
     await this.defaultUnitTypeService.init(world);
-    console.log('End init unit type ', world.name);
+    console.timeEnd(`init unit type ${world.name}`);
 
-    console.log('Start init unit ', world.name);
+    console.time(`init unit ${world.name}`);
     await this.defaultUnitService.init(world);
-    console.log('End init unit ', world.name);
+    console.timeEnd(`init unit ${world.name}`);
 
-    console.log('Start init training ', world.name);
+    console.time(`init training ${world.name}`);
     await this.trainingHandlerService.init(world);
-    console.log('End init training ', world.name);
+    console.timeEnd(`init training ${world.name}`);
 
-    console.log('Start init upgrade ', world.name);
+    console.time(`init upgrade ${world.name}`);
     await this.upgradeHandlerService.init(world);
-    console.log('End init upgrade ', world.name);
+    console.timeEnd(`init upgrade ${world.name}`);
   }
 }

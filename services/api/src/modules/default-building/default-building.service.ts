@@ -1,5 +1,3 @@
-/** @format */
-
 import { Inject, Injectable, Scope } from '@nestjs/common';
 import { InjectMethodFactory, MethodFactory } from '@vypham0209/nestjs-common';
 import { DefaultResource } from 'modules/default-resource/default-resource.schema';
@@ -35,7 +33,9 @@ export class DefaultBuildingService {
     const iron = await defaultResourceMethod.findOne({ key: 'iron' });
     const wood = await defaultResourceMethod.findOne({ key: 'wood' });
     const food = await defaultResourceMethod.findOne({ key: 'food' });
-    for (const building of BUILDING) {
+
+    let index = 0;
+    const buildingPromises = BUILDING.map(async (building) => {
       let findBuilding = await defaultBuildingMethod.findOne({
         name: building.name,
       });
@@ -47,7 +47,7 @@ export class DefaultBuildingService {
         key: building.key,
         description: building.description,
         type: building.type,
-        path: path.join(world.tenant, 'buildings', building.path),
+        path: path.join('buildings', building.path),
         resource: resource?._id,
         generate: building.generate,
         unit: building.unit,
@@ -62,14 +62,20 @@ export class DefaultBuildingService {
       } else {
         findBuilding = await defaultBuildingMethod.model.create(objectData);
       }
-      this.buildings[world.tenant].push(findBuilding);
-      this.defaultUpgradeService.init(
+
+      await this.defaultUpgradeService.init(
         world,
         building.upgrade,
         findBuilding,
         !!resource,
         { gold, iron, wood, food },
       );
-    }
+      console.log(`finish init ${index + 1}/${BUILDING.length} building`);
+      index++;
+      return findBuilding;
+    });
+
+    const defaultBuildings = await Promise.all(buildingPromises);
+    this.buildings[world.tenant].push(...defaultBuildings);
   }
 }

@@ -41,7 +41,7 @@ export class DefaultUpgradeService {
       this.upgrades[world.tenant] = [];
     }
     const defaultUpgradeMethod = this.defaultUpgradeMethodFactory(world.tenant);
-    for (const upgrade of upgrades) {
+    const upgradePromises = upgrades.map(async (upgrade) => {
       //Due to I get the value from the x5 world, so I need to divide by 5
       const generate = isResource
         ? Math.round((upgrade.generate / 5) * world.speed)
@@ -62,7 +62,6 @@ export class DefaultUpgradeService {
           { type: food?._id, value: upgrade.food },
         ],
       };
-
       if (findUpgrade) {
         findUpgrade = await defaultUpgradeMethod.findByIdAndUpdate(
           findUpgrade._id,
@@ -72,7 +71,10 @@ export class DefaultUpgradeService {
       } else {
         findUpgrade = await defaultUpgradeMethod.model.create(objectData);
       }
-      this.upgrades[world.tenant].push(findUpgrade);
-    }
+      return findUpgrade;
+    });
+
+    const defaultUpgrades = await Promise.all(upgradePromises);
+    this.upgrades[world.tenant].push(...defaultUpgrades);
   }
 }

@@ -17,6 +17,8 @@ export class DefaultEnhance extends AbstractSchema {
   level: number;
   @Prop({ type: Schema.Types.ObjectId, ref: COLLECTION.default_units })
   unit: Types.ObjectId;
+
+  //Percent of value increased
   @Prop({ type: Number })
   value: number;
   @Prop({ type: Number })

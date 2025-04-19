@@ -39,15 +39,29 @@ export class DefaultUnitTypeService {
     const defaultUnitTypeMethod = this.defaultUnitTypeMethodFactory(
       world.tenant,
     );
-    for (const unitType of UNIT_TYPE) {
-      const isExist = await defaultUnitTypeMethod.findOne({
-        key: unitType.key,
-      });
-      if (isExist) {
-        await defaultUnitTypeMethod.findByIdAndUpdate(isExist._id, unitType);
+    // Get all existing unit types
+    const existingUnitTypes = await defaultUnitTypeMethod.model.find({
+      key: { $in: UNIT_TYPE.map((unitType) => unitType.key) },
+    });
+
+    const unitTypePromises = UNIT_TYPE.map(async (unitType) => {
+      const existingUnitType = existingUnitTypes.find(
+        (existing) => existing.key === unitType.key,
+      );
+
+      if (existingUnitType) {
+        // Update existing unit type
+        return defaultUnitTypeMethod.findByIdAndUpdate(
+          existingUnitType._id,
+          unitType,
+          { isThrow: true },
+        );
       } else {
-        await defaultUnitTypeMethod.model.create(unitType);
+        // Create new unit type
+        return defaultUnitTypeMethod.model.create(unitType);
       }
-    }
+    });
+
+    await Promise.all(unitTypePromises);
   }
 }

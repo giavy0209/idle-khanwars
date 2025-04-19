@@ -1,5 +1,6 @@
 export interface IWorld {
-  _id: string
-  name: string
-  speed: string
+  _id: string;
+  name: string;
+  speed: string;
+  assets: string;
 }
