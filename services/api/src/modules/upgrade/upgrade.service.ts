@@ -22,37 +22,39 @@ export class UpgradeService {
   @InjectMethod(Upgrade.collectionName) upgradeMethod: Method<Upgrade>;
   @InjectMethod(Building.collectionName) buildingMethod: Method<Building>;
   async post(building: DataId) {
-    const findBuilding =
-      await this.buildingMethod.findById<BuildingUpgradePullPopulate>(
-        new Types.ObjectId(building),
-        { isThrow: true, populate: BUILDING_UPGRADE_POPULATE },
+    await this.buildingMethod.createQueue(async () => {
+      const findBuilding =
+        await this.buildingMethod.findById<BuildingUpgradePullPopulate>(
+          new Types.ObjectId(building),
+          { isThrow: true, populate: BUILDING_UPGRADE_POPULATE },
+        );
+      await this.upgradeMethod.exists(
+        { castle: findBuilding.castle },
+        { throwCase: 'IF_EXISTS', message: 'There are an building upgrading' },
       );
-    await this.upgradeMethod.exists(
-      { castle: findBuilding.castle },
-      { throwCase: 'IF_EXISTS' },
-    );
-    if (!findBuilding.upgrade.next) {
-      throw new BadRequestException('Building max level');
-    }
-    const resources = await this.resourceService.isEnoughResource(
-      findBuilding.upgrade.next.resources,
-      findBuilding.castle,
-    );
-    await this.resourceService.spendResources(
-      findBuilding.castle,
-      resources,
-      -1,
-    );
-    const time = findBuilding.upgrade.next.time * 1000;
-    const endAt = new Date(Date.now() + time);
-    const upgrade = await this.upgradeMethod.model.create({
-      building,
-      castle: findBuilding.castle,
-      endAt,
-    });
-    this.socketGateway.emitUpgrade(upgrade.castle, upgrade);
+      if (!findBuilding.upgrade.next) {
+        throw new BadRequestException('Building max level');
+      }
+      const resources = await this.resourceService.isEnoughResource(
+        findBuilding.upgrade.next.resources,
+        findBuilding.castle,
+      );
+      await this.resourceService.spendResources(
+        findBuilding.castle,
+        resources,
+        -1,
+      );
+      const time = findBuilding.upgrade.next.time * 1000;
+      const endAt = new Date(Date.now() + time);
+      const upgrade = await this.upgradeMethod.model.create({
+        building,
+        castle: findBuilding.castle,
+        endAt,
+      });
+      this.socketGateway.emitUpgrade(upgrade.castle, upgrade);
 
-    this.upgradeHandlerService.handler(this.tenant, upgrade);
+      this.upgradeHandlerService.handler(this.tenant, upgrade);
+    });
   }
 
   async delete(id: DataId) {
