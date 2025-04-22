@@ -73,9 +73,13 @@ export class UserService {
       new Types.ObjectId(world),
       { isThrow: true },
     );
+
     const method = this.userMethodFactory(findWorld.tenant);
 
-    const user = await method.findOne({ username }, { isThrow: true });
+    const user = await method.findOne(
+      { username },
+      { isThrow: true, message: `User ${username} not found` },
+    );
     const isValid = compareSync(password, user.password);
     if (!isValid) throw new BadRequestException('Incorrect password');
 

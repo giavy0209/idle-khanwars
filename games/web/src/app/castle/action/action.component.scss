@@ -22,6 +22,9 @@
       text-align: center;
       cursor: pointer;
       border-radius: 5px;
+      @media only screen and (max-width: 600px) {
+        width: 100%;
+      }
       .icon {
         margin: 0 auto;
         background-image: url("../../../assets/images/icon/menu.webp");

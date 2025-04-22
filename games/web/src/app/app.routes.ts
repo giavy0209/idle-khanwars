@@ -1,21 +1,20 @@
-import { Routes } from '@angular/router'
-import { ArmyComponent } from './castle/army/army.component'
-import { UnitComponent } from './castle/army/unit/unit.component'
-import { BuildingListComponent } from './castle/building-list/building-list.component'
-import { BuildingComponent } from './castle/building-list/building/building.component'
-import { CastleComponent } from './castle/castle.component'
-import { ClanComponent } from './clan/clan.component'
-import { HomeComponent } from './home/home.component'
-import { MapComponent } from './map/map.component'
+import { Routes } from '@angular/router';
+import { ArmyComponent } from './castle/army/army.component';
+import { UnitComponent } from './castle/army/unit/unit.component';
+import { BuildingListComponent } from './castle/building-list/building-list.component';
+import { BuildingComponent } from './castle/building-list/building/building.component';
+import { ClanComponent } from './clan/clan.component';
+import { HomeComponent } from './home/home.component';
+import { MapComponent } from './map/map.component';
 
 export const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
   {
     path: 'castle',
-    component: CastleComponent,
+    component: BuildingListComponent,
   },
   {
     path: 'clan',
@@ -27,18 +26,18 @@ export const routes: Routes = [
   },
   {
     path: 'castle/army',
-    component: ArmyComponent
+    component: ArmyComponent,
   },
   {
     path: 'castle/army/:building',
-    component: UnitComponent
+    component: UnitComponent,
   },
   {
     path: 'castle/building',
-    component: BuildingListComponent
+    component: BuildingListComponent,
   },
   {
     path: 'castle/building/:building',
-    component: BuildingComponent
+    component: BuildingComponent,
   },
-]
+];

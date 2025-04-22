@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --bg-input: rgb(192, 201, 155);
 
@@ -36,10 +38,6 @@ a,
 span {
   text-decoration: none;
   display: inline-block;
-}
-
-img {
-  width: 100%;
 }
 
 a {
@@ -97,6 +95,6 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: rgba($color: #000000, $alpha: 0.4);
+    background-color: rgba($color: #000000, $alpha: 0.8);
   }
 }

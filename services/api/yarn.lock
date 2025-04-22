@@ -1461,10 +1461,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.3.0.tgz#d06bbb384ebcf6c505fde1c3d0ed4ddffe0aaff8"
   integrity sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==
 
-"@vypham0209/nestjs-common@^3.0.12":
-  version "3.0.12"
-  resolved "https://registry.yarnpkg.com/@vypham0209/nestjs-common/-/nestjs-common-3.0.12.tgz#6021945dda21f6ccb46bdf0b8ecae021c29e9cad"
-  integrity sha512-nQ2xQG5H8G/QNgqXQKTTiW5GUyNamoCg0ySor44MOmwzPlHbLdyla9JmY7pS2mlXBAAKo4lo9MolxssR0+MDwQ==
+"@vypham0209/nestjs-common@^3.0.13":
+  version "3.0.13"
+  resolved "https://registry.yarnpkg.com/@vypham0209/nestjs-common/-/nestjs-common-3.0.13.tgz#491161ac4f722689099f9acfaa9213be8e60514c"
+  integrity sha512-VFNYoXByC2G/CHj5uccYc59CkAfh+aDjPPbn249ycjYOQn+rwJ8JYdA9n6WTc5d2VVemahjOQa/hrCGr4zMK2A==
   dependencies:
     "@nestjs/common" "^11.0.1"
     "@nestjs/core" "^11.0.1"
