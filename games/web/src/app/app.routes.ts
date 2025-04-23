@@ -3,6 +3,7 @@ import { ArmyComponent } from './castle/army/army.component';
 import { UnitComponent } from './castle/army/unit/unit.component';
 import { BuildingListComponent } from './castle/building-list/building-list.component';
 import { BuildingComponent } from './castle/building-list/building/building.component';
+import { CastleComponent } from './castle/castle.component';
 import { ClanComponent } from './clan/clan.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
@@ -14,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'castle',
-    component: BuildingListComponent,
+    component: CastleComponent,
   },
   {
     path: 'clan',

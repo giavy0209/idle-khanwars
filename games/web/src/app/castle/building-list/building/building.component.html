@@ -1,30 +1,44 @@
-<div class="buildings">
-  <div [class]="'upgrades' + (isShowUpgrading ? ' show' : '')">
-    <div class="toggle" (click)="toggleTraining()">
-      <div class="total">{{ (upgrades$ | async)?.length }}</div>
-    </div>
-    <div class="title">Upgrading</div>
-    <div class="upgrade" *ngFor="let upgrade of upgrades$ | async">
-      <div class="item">
-        <div (click)="cancel(upgrade._id)" class="cancel"></div>
-        <div class="img">
-          <img [src]="upgrade.building.default.path | imageUrl" alt="" />
-        </div>
-        <div class="info">
-          <div class="name">{{ upgrade.building.default.name }}</div>
-
-          <div class="detail">
-            <span>Time:</span>
-            <span> {{ upgrade.end | secondsToTime }} </span>
-          </div>
-        </div>
-      </div>
+<div
+  *ngIf="currentBuilding"
+  class="absolute cursor-pointer group select-none"
+  [style]="style"
+  (click)="buildingService.selectBuilding(currentBuilding._id)"
+>
+  <div class="overflow-hidden" [ngClass]="{ 'opacity-50': !isBuilded }">
+    <div class="w-[200%]">
+      <img
+        class="w-full group-hover:translate-x-[-50%] select-none"
+        [src]="imageUrl"
+        alt=""
+      />
     </div>
   </div>
+  <div
+    class="absolute w-[200px] z-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white p-2 rounded shadow-md text-sm"
+  >
+    <p>{{ currentBuilding.default.name }}</p>
+    <hr class="border-t border-white my-1" />
+    <div class="flex flex-wrap">
+      <div
+        class="w-1/2"
+        *ngFor="let resource of currentBuilding.upgrade.next.resources"
+      >
+        <img
+          [src]="resource.type.path | imageUrl"
+          alt="{{ resource.type.name }}"
+          class="inline-block h-4 w-4 mr-1"
+        />
+        <span>{{ resource.value }}</span>
+      </div>
+    </div>
+    <hr class="border-t border-white my-1" />
+    <p
+      [ngClass]="{
+        'text-green-500': isCanUpgrade,
+        'text-red-500': !isCanUpgrade
+      }"
+    >
+      {{ isCanUpgrade ? "Can upgrade" : "Cannot upgrade" }}
+    </p>
+  </div>
 </div>
-<app-item-list
-  [data]="buildings$ | async"
-  title="Building"
-  (clickedItemEvent)="buildingService.selectBuilding($event)"
->
-</app-item-list>

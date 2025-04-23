@@ -1,105 +1,27 @@
 <div class="relative">
+  <div
+    class="absolute top-[5%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px] cursor-pointer z-10"
+    (click)="backToCastle()"
+  >
+    <div
+      class="w-full h-[2px] absolute rotate-45 bg-white"
+      style="transform-origin: center"
+    ></div>
+    <div
+      class="w-full h-[2px] absolute -rotate-45 bg-white"
+      style="transform-origin: center"
+    ></div>
+  </div>
   <div class="">
     <img class="w-full" src="http://localhost:3000/api/overview.jpg" alt="" />
   </div>
-
-  <!-- Gold Mine -->
-  <div class="absolute w-[9%] top-[28%] left-[25%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/gold-mine/gold-mine-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Iron Mine  -->
-  <div class="absolute w-[9%] top-[25%] left-[34%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/iron-mine/iron-mine-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Lumberjack -->
-  <div class="absolute w-[9%] top-[27%] left-[53%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/lumberjack/lumberjack-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Farm -->
-  <div class="absolute w-[9%] top-[23%] left-[62%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/farm/farm-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Barracks and Archery Range -->
-  <div class="absolute w-[8%] top-[21%] left-[44%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/barrack/barrack-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <div class="absolute w-[8%] top-[31.4%] left-[47.3%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/archer/archer-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Infirmary   -->
-  <div class="absolute w-[8%] top-[36%] left-[25%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/infirmary/infirmary-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Dwellings -->
-  <div class="absolute w-[7%] top-[45%] left-[23%] overflow-hidden">
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/dwellings/dwellings-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
-
-  <!-- Wall -->
-  <div
-    class="absolute bottom-[18%] left-[21%] w-[60%] overflow-hidden opacity-50"
-  >
-    <div class="w-[200%]">
-      <img
-        class="w-full translate-x-[-50%]"
-        src="http://localhost:3000/api/wall/wall-1.webp"
-        alt=""
-      />
-    </div>
-  </div>
+  <ng-container *ngFor="let building of buildings">
+    <app-building
+      [width]="building.width"
+      [top]="building.top"
+      [left]="building.left"
+      [path]="building.path"
+      [key]="building.key"
+    />
+  </ng-container>
 </div>

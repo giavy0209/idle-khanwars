@@ -3,7 +3,7 @@ export namespace DEFAULT_BUILDING {
     RESOURCE = 'RESOURCE',
     BUILDING_ARMY = 'BUILDING_ARMY',
     ACCESSIBLE_BUILDING = 'ACCESSIBLE_BUILDING',
-    BUILDING = 'BUILDING'
+    BUILDING = 'BUILDING',
   }
   export enum KEY {
     GOLD_MIME = 'GOLD_MIME',
@@ -22,14 +22,15 @@ export namespace DEFAULT_BUILDING {
     INFIRMARY = 'INFIRMARY',
     STORAGE = 'STORAGE',
     ORDER = 'ORDER',
+    WALL = 'WALL',
   }
 }
 export interface IDefaultBuilding {
-  name: string
-  key: DEFAULT_BUILDING.KEY
-  description: string
-  type: DEFAULT_BUILDING.TYPE
-  path: string
-  generate: string
-  unit: string
+  name: string;
+  key: DEFAULT_BUILDING.KEY;
+  description: string;
+  type: DEFAULT_BUILDING.TYPE;
+  path: string;
+  generate: string;
+  unit: string;
 }
