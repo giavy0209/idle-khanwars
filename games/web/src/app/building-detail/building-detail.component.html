@@ -4,33 +4,37 @@
 >
   <div
     *ngIf="buildingService.selectedBuilding$ | async as selectedBuilding"
-    class="building-detail"
+    class="flex flex-col space-y-2"
   >
-    <div class="name">{{ selectedBuilding.default.name }}</div>
-    <div class="description">{{ selectedBuilding.default.description }}</div>
+    <div class="text-2xl text-center text-[var(--text-color-hover)]">
+      {{ selectedBuilding.default.name }}
+    </div>
+    <div class="text-center">{{ selectedBuilding.default.description }}</div>
 
-    <div class="title">Cost</div>
+    <div class="text-center mt-4">Cost</div>
     <app-resource-cost
       [resourcesCost]="selectedBuilding.upgrade.next.resources"
       (changeMax)="onChangeMax($event)"
     />
 
-    <div class="title">Upgrade</div>
-    <div class="info">
-      <span>Time: </span>
-      <span>{{ selectedBuilding.upgrade.next.time | secondsToTime }}</span>
+    <div class="text-center mt-4">Upgrade</div>
+    <div class="flex items-center p-2 bg-[var(--bg-light)] rounded">
+      <span class="w-1/2">Time: </span>
+      <span class="w-1/2 text-center">{{
+        selectedBuilding.upgrade.next.time | secondsToTime
+      }}</span>
     </div>
-    <div class="info">
-      <span>{{ selectedBuilding.default.generate }}: </span>
-      <span
+    <div class="flex items-center p-2 bg-[var(--bg-odd)] rounded">
+      <span class="w-1/2">{{ selectedBuilding.default.generate }}: </span>
+      <span class="w-1/2 text-center"
         >{{ selectedBuilding.upgrade.current.generate }} ➡️
         {{ selectedBuilding.upgrade.next.generate }}
         {{ selectedBuilding.default.unit }}</span
       >
     </div>
-    <div class="info">
-      <span>Level: </span>
-      <span
+    <div class="flex items-center p-2 bg-[var(--bg-light)] rounded">
+      <span class="w-1/2">Level: </span>
+      <span class="w-1/2 text-center"
         >{{ selectedBuilding.upgrade.current.level }} ➡️
         {{ selectedBuilding.upgrade.next.level }}</span
       >

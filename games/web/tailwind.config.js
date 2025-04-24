@@ -5,7 +5,15 @@ module.exports = {
     './src/**/*.{html,ts}', // Đảm bảo bao gồm cả file .html và .ts của Angular
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        'light': 'var(--bg-light)',
+        'odd': 'var(--bg-odd)'
+      },
+      textColor: {
+        'hover': 'var(--text-color-hover)'
+      }
+    },
   },
   plugins: [],
 }

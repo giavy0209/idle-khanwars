@@ -1,13 +1,17 @@
-<app-unit-detail></app-unit-detail>
-<app-building-detail></app-building-detail>
-<app-alert></app-alert>
-
-<div id="app">
-  <router-outlet
-    *ngIf="
-      (userService.user && castleService.currentCastle) ||
-      !storageService.getToken() ||
-      !userService.user?.isPlaceCastle
-    "
-  ></router-outlet>
+<div
+  id="app"
+  class="w-screen h-screen overflow-y-scroll [&::-webkit-scrollbar]:hidden bg-[url('http://localhost:3000/api/khanwars/background/background.jpg')] relative bg-no-cover bg-center relative before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:z-10 before:bg-[rgba(0,0,0,0.4)]"
+>
+  <div class="w-full h-full relative z-20">
+    <app-unit-detail></app-unit-detail>
+    <app-building-detail></app-building-detail>
+    <app-alert></app-alert>
+    <router-outlet
+      *ngIf="
+        (userService.user && castleService.currentCastle) ||
+        !storageService.getToken() ||
+        !userService.user?.isPlaceCastle
+      "
+    ></router-outlet>
+  </div>
 </div>

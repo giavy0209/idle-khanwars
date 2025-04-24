@@ -1,17 +1,35 @@
-<div class="resources">
+<div class="flex flex-col justify-around flex-wrap">
   <div
-    class="resource"
-    *ngFor="let resource of resourceService.resources$.value"
+    class="w-full"
+    *ngFor="let resource of resourceService.resources$.value; let i = index"
+    [ngClass]="{ 'mt-4': i > 0 }"
   >
-    <div class="info">
-      <div class="img">
+    <div class="flex w-full">
+      <div class="w-[30px]">
         <img [src]="resource.default.path | imageUrl" alt="" />
       </div>
-      <div class="current">
-        {{ resource.value }}/{{ buildingStorage?.upgrade?.current?.generate }}
-      </div>
-      <div class="generate">
-        {{ resource.building.upgrade.current.generate }}/h
+      <div class="relative w-[calc(100%-30px)]">
+        <div class="relative w-full h-full bg-[#844607] rounded-full mb-1">
+          <div
+            class="absolute top-0 left-0 h-full bg-[#c38b22] rounded-full"
+            [style.width.%]="
+              Math.min(
+                (resource.value /
+                  (buildingStorage?.upgrade?.current?.generate || 1)) *
+                  100,
+                100
+              )
+            "
+          ></div>
+        </div>
+        <p class="absolute z-10 top-1/2 left-[10px] transform -translate-y-1/2">
+          {{ resource.value }}/{{ buildingStorage?.upgrade?.current?.generate }}
+        </p>
+        <p
+          class="absolute z-10 top-1/2 right-[10px] transform -translate-y-1/2"
+        >
+          {{ resource.building.upgrade.current.generate }}/h
+        </p>
       </div>
     </div>
   </div>

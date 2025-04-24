@@ -9,7 +9,7 @@
   --bg-dark: rgba(34, 34, 34, 0.8);
   --bg-light: rgba(209, 209, 209, 0.2);
   --bg-hl: rgba(240, 253, 122, 0.5);
-  --text-color: #ccc;
+  --text-color: #f8ddc3;
   --text-color-hover: rgb(240, 253, 122);
   --text-color-dark: rgb(43, 43, 43);
 
@@ -29,60 +29,8 @@ html {
   }
 }
 
-a,
-span {
-  text-decoration: none;
-  display: inline-block;
-}
-
-img {
-  max-width: unset !important;
-}
-
-a {
-  color: var(--text-color);
-  transition: all 0.3s ease;
-  &:hover {
-    color: var(--text-color-hover);
-  }
-}
-.title {
-  text-align: center;
-  font-size: 1.5rem;
-}
-input,
-select,
-textarea {
-  padding: 5px;
-  border-radius: 5px;
-  background-color: var(--bg-input);
-  width: 100%;
-  font-size: 1rem;
-  + input,
-  + select,
-  + textarea {
-    margin-top: 5px;
-  }
-  + .error {
-    color: rgb(232, 98, 98);
-    background-color: rgba($color: #000000, $alpha: 0.6);
-  }
-}
-
-button {
-  border: none;
-  font-size: 2rem;
-}
-
 body {
-  width: 100vw;
-  height: 100vh;
-  background-image: url("http://localhost:3000/api/khanwars/background/background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
   font-family: Arial, Helvetica, sans-serif;
-  position: relative;
   color: var(--text-color);
   font-size: 1rem;
   position: relative;
