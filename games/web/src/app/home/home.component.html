@@ -1,34 +1,82 @@
-<div class="main">
-  <form [formGroup]="homeService.form">
-    <input
-      type="text"
-      placeholder="User name"
-      [formControl]="homeService.form.controls.username"
-    />
-    <div class="error" *ngIf="homeService.form.controls.username.errors">
-      {{ "User name is required" }}
+<div
+  class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-2.5 max-w-[380px] w-full"
+>
+  <form [formGroup]="homeService.form" class="space-y-6">
+    <h1
+      class="text-2xl font-normal text-center text-gray-100 tracking-wide mb-2"
+    >
+      Welcome to
+    </h1>
+    <h2 class="text-3xl font-light text-center text-white tracking-wider mb-6">
+      Idle Khan Wars
+    </h2>
+
+    <div class="space-y-1.5">
+      <input
+        type="text"
+        placeholder="Username"
+        [formControl]="homeService.form.controls.username"
+        class="w-full px-4 py-2.5 border-b border-gray-400 focus:border-gray-200 outline-none bg-transparent placeholder-gray-400 text-gray-100 transition-colors"
+      />
+      <div
+        class="text-red-300 text-xs font-light"
+        *ngIf="homeService.form.controls.username.errors"
+      >
+        {{ "User name is required" }}
+      </div>
     </div>
 
-    <input
-      type="password"
-      placeholder="Password"
-      [formControl]="homeService.form.controls.password"
-    />
-    <div class="error" *ngIf="homeService.form.controls.password.errors">
-      {{ "Password is required, min length 6, max length 12" }}
-    </div>
-    <select formControlName="world">
-      <option
-        *ngFor="let world of worldService.worlds$.value"
-        [value]="world._id"
+    <div class="space-y-1.5">
+      <input
+        type="password"
+        placeholder="Password"
+        [formControl]="homeService.form.controls.password"
+        class="w-full px-4 py-2.5 border-b border-gray-400 focus:border-gray-200 outline-none bg-transparent placeholder-gray-400 text-gray-100 transition-colors"
+      />
+      <div
+        class="text-red-300 text-xs font-light"
+        *ngIf="homeService.form.controls.password.errors"
       >
-        {{ world.name }}
-      </option>
-    </select>
-    <div class="error" *ngIf="homeService.form.controls.world.errors">
-      {{ "Please select the world" }}
+        {{ "Password is required, min length 6, max length 12" }}
+      </div>
     </div>
-    <app-button (click)="homeService.signIn()">Sign In</app-button>
-    <app-button (click)="homeService.signUp()">Sign Up</app-button>
+
+    <div class="space-y-1.5">
+      <select
+        formControlName="world"
+        class="w-full px-4 py-2.5 border-b border-gray-400 focus:border-gray-200 outline-none bg-transparent text-gray-100 appearance-none cursor-pointer"
+      >
+        <option value="" disabled selected class="text-gray-400">
+          Select world
+        </option>
+        <option
+          *ngFor="let world of worldService.worlds$.value"
+          [value]="world._id"
+        >
+          {{ world.name }}
+        </option>
+      </select>
+      <div
+        class="text-red-300 text-xs font-light"
+        *ngIf="homeService.form.controls.world.errors"
+      >
+        {{ "Please select the world" }}
+      </div>
+    </div>
+
+    <div class="flex space-x-4 pt-4">
+      <app-button
+        (click)="homeService.signIn()"
+        class="flex-1 py-2.5 text-gray-100 hover:text-white font-light tracking-wide transition-colors"
+      >
+        Sign In
+      </app-button>
+      <app-button
+        (click)="homeService.signUp()"
+        class="flex-1 py-2.5 text-gray-100 hover:text-white font-light tracking-wide transition-colors"
+      >
+        Sign Up
+      </app-button>
+    </div>
   </form>
 </div>
